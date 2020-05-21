@@ -1,5 +1,5 @@
 # Introduction 
-TODO: Give a short introduction of your project. Let this section explain the objectives or the motivation behind this project. 
+Angular => NodeJS Web App with TypeScript and instaled via: ng new app --directory ./ --minimal=true
 
 # Getting Started
 TODO: Guide users through getting your code up and running on their own system. In this section you can talk about:
@@ -18,3 +18,9 @@ If you want to learn more about creating good readme files then refer the follow
 - [ASP.NET Core](https://github.com/aspnet/Home)
 - [Visual Studio Code](https://github.com/Microsoft/vscode)
 - [Chakra Core](https://github.com/Microsoft/ChakraCore)
+
+# FAQ
+
+1)
+*Error* node_modules/typescript/lib/lib.d.ts): path is not relative
+*Solution* https://github.com/angular/angular/issues/36777 - solves when I run _ng update_ and then _npm install_ again.
