@@ -2,7 +2,6 @@
 - Angular => NodeJS Web App with TypeScript
 - Initial setup by this command: ng new app --directory ./ --minimal=true
 - It is for learning purposes mainly
-- It should be an application for creating db structures, generating code and maintain users, roles, etc.
 
 # Getting Started
 I am using several tools to develop this application
