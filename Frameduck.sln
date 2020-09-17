@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.29609.76
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Frameduck.WebApi", "Frameduck.WebApi\Frameduck.WebApi.csproj", "{402BB8F5-4D47-4FDF-8B5A-8124D6AAF469}"
 EndProject
-Project("{9344BDBB-3E7F-41FC-A0DD-8665D75EE146}") = "Frameduck.Client", "Frameduck.Client\Frameduck.Client.mdproj", "{A2604357-385B-4A49-967A-C92700A8E730}"
+Project("{9344BDBB-3E7F-41FC-A0DD-8665D75EE146}") = "Frameduck.Client", "Frameduck.Client\Frameduck.Client.csproj", "{A2604357-385B-4A49-967A-C92700A8E730}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
