@@ -15,7 +15,7 @@ I am using several tools to develop this application
 It is TypeScript web application so it runs using NodeJS server. 
 
 1) Open terminam/command line in the root folder of the application
-2) Run "ng serve" to start AngularJS server
+2) Run "ng serve --open" to start AngularJS server
 3) It will recompile after every change. You don't even need to refresh web page
 4) You will need to instal DB using script TODO:
 
