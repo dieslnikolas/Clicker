@@ -3,6 +3,7 @@
   <PropertyGroup>
     <ItemType>GenericProject</ItemType>
     <ProjectGuid>{A2604357-385B-4A49-967A-C92700A8E730}</ProjectGuid>
+    <OutputType>Exe</OutputType>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Default|AnyCPU' ">
     <OutputPath>.\</OutputPath>
@@ -15,7 +16,6 @@
     <None Include="src\polyfills.ts" />
     <None Include="src\app\app-routing.module.ts" />
     <None Include="src\app\app.module.ts" />
-    <None Include="src\app\app.component.ts" />
     <None Include="src\environments\environment.prod.ts" />
     <None Include="src\environments\environment.ts" />
     <None Include="src\assets\.gitkeep" />
@@ -25,5 +25,14 @@
     <None Include="package.json" />
     <None Include="package-lock.json" />
     <None Include="angular.json" />
+    <None Include="src\utils\db.ts" />
+    <None Include="src\app\homepage\index.component.html" />
+    <None Include="src\app\homepage\index.component.ts" />
+    <None Include="src\utils\log.ts" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="src\utils\" />
+    <Folder Include="src\utils\dbGenerator\" />
+    <Folder Include="src\app\homepage\" />
   </ItemGroup>
 </Project>
