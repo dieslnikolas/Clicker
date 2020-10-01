@@ -28,7 +28,6 @@ export class Db {
      * @param isAutoAddLogin  if ID_Login is automaticaly added (TRUE is default)
      */
     constructor(statement: string, dbStatementType: DbStatementType = DbStatementType.PROCEDURE, isAutoAddLogin: boolean = true) {
-
         // setup connection
         this.connection = new Sequelize('FrameduckDevel', 'Frameduck', 'JKj1BBQWAkjYLdXT4zry', {})
     }
