@@ -1,5 +1,5 @@
 import { Sequelize } from 'sequelize';
-import { DbStatementType } from './statement-type.enum';
+import { StatementType } from './statement-type.enum';
 
 /**
  * Class allow to make mssql statement requests
@@ -9,7 +9,7 @@ export class Db {
     /**
      * Connection with DB
      */
-    private connection: Sequelize;
+    private connection: any;
 
     /**
      * An SQL statement
@@ -27,9 +27,9 @@ export class Db {
      * @param dbStatementType eg. procedure or raw sql (PROCEDURE is default)
      * @param isAutoAddLogin  if ID_Login is automaticaly added (TRUE is default)
      */
-    constructor(statement: string, dbStatementType: DbStatementType = DbStatementType.PROCEDURE, isAutoAddLogin: boolean = true) {
+    constructor(statement: string, dbStatementType: StatementType = StatementType.PROCEDURE, isAutoAddLogin: boolean = true) {
         // setup connection
-        this.connection = new Sequelize('FrameduckDevel', 'Frameduck', 'JKj1BBQWAkjYLdXT4zry', {})
+        // this.connection = new Sequelize('FrameduckDevel', 'Frameduck', 'JKj1BBQWAkjYLdXT4zry', {})
     }
 
     /**

@@ -1,9 +1,10 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core'; 
+import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 
-// pages component
-import { UserLoginComponent } from './user/user-login/user-login.component';
+// pages
+import { UserLoginComponent } from './user/login/user-login/user-login.component';
+
 
 @NgModule({
   declarations: [

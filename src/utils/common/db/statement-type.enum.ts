@@ -1,6 +1,7 @@
-export enum DbStatementType {
-
-    SQL, // simple sql
-    PROCEDURE // proceudre
-
+/**
+ * Type of SQL statement
+ */
+export enum StatementType {
+    SQL, // raw SQL statement
+    PROCEDURE // procedure
 }
