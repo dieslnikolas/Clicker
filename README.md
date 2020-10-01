@@ -1,38 +1,27 @@
-# Introduction 
-- Angular => NodeJS Web App with TypeScript
-- Initial setup by this command: ng new app --directory ./ --minimal=true
-- It is for learning purposes mainly
+# App
 
-# Getting Started
-I am using several tools to develop this application
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 10.1.1.
 
-1) Visual Studio 2019 Community
-2) MS SQL Management Studio 
-3) Visual Studio Code
-4) SourceTree (git client)
+## Development server
 
-# Build
-It is TypeScript web application so it runs using NodeJS server. 
+Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
-1) Open terminam/command line in the root folder of the application
-2) Run "ng serve --open" to start AngularJS server
-3) It will recompile after every change. You don't even need to refresh web page
-4) You will need to instal DB using script TODO:
+## Code scaffolding
 
-# FAQ
-## Errors
-1) TypeScript error - path is not relative
-*Error* node_modules/typescript/lib/lib.d.ts): path is not relative
-*Solution* https://github.com/angular/angular/issues/36777 - solves when I run _ng update_ and then _npm install_ again.
+Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
 
-2) SourceTree client - cloning repository 
-*Error* cannot authenticate user 
-*Solution* https://jira.atlassian.com/browse/SRCTREEWIN-10800?workflowName=SourceTree+Bug+Workflow&stepId=8&_ga=2.244634374.221694306.1590573042-1954354477.1590573042 
-           
-# Contribute
-TODO: Explain how other users and developers can contribute to make your code better. 
+## Build
 
-If you want to learn more about creating good readme files then refer the following [guidelines](https://docs.microsoft.com/en-us/azure/devops/repos/git/create-a-readme?view=azure-devops). You can also seek inspiration from the below readme files:
-- [ASP.NET Core](https://github.com/aspnet/Home)
-- [Visual Studio Code](https://github.com/Microsoft/vscode)
-- [Chakra Core](https://github.com/Microsoft/ChakraCore)
+Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+
+## Running unit tests
+
+Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+
+## Running end-to-end tests
+
+Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+
+## Further help
+
+To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
