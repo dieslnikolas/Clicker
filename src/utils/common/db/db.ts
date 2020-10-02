@@ -1,4 +1,5 @@
 import { Sequelize } from 'sequelize';
+import { Log } from '../log';
 import { StatementType } from './statement-type.enum';
 
 /**
@@ -17,25 +18,37 @@ export class Db {
     private statement: string; 
 
     /**
+     * SQL statement type
+     */
+    private statementType: StatementType;
+
+    /**
      * If ID_Login is sent automaticaly
      */
     private isAutoAddLogin: boolean;
 
+
     /**
      * Main DB handler constructor
      * @param statement an SQL statement
-     * @param dbStatementType eg. procedure or raw sql (PROCEDURE is default)
+     * @param statementType eg. procedure or raw sql (PROCEDURE is default)
      * @param isAutoAddLogin  if ID_Login is automaticaly added (TRUE is default)
      */
-    constructor(statement: string, dbStatementType: StatementType = StatementType.PROCEDURE, isAutoAddLogin: boolean = true) {
-        // setup connection
-        // this.connection = new Sequelize('FrameduckDevel', 'Frameduck', 'JKj1BBQWAkjYLdXT4zry', {})
+    constructor(statement: string, statementType: StatementType = StatementType.PROCEDURE, isAutoAddLogin: boolean = true) {
+
+        // set variables
+        this.statement = statement;
+        this.statementType = statementType;
+        this.isAutoAddLogin = isAutoAddLogin;
+
+        // try to connect
+        // this.connection = new Sequelize('FrameduckDevel', 'Frameduck', 'JKj1BBQWAkjYLdXT4zry');
     }
 
     /**
      * Execute statement
      */
-    public exec() {
+    public Exec() {
         this.logStatement();
 
         // TODO: call statement
@@ -47,7 +60,12 @@ export class Db {
      * Log statement
      */
     private logStatement() {
-        throw new Error('Method not implemented.');
+        
+        if (this.statementType == StatementType.PROCEDURE) {
+            // TODO: prepare input and output
+        }
+        
+        Log.write(this.statement);
     }
 
     /**

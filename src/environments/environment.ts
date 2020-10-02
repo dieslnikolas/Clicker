@@ -3,7 +3,8 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false, // if it is running on production
+  pathLog: 'app_data/log.txt' // path to application log, with filename
 };
 
 /*

@@ -5,14 +5,13 @@ import { AppRoutingModule } from './app-routing.module';
 // pages
 import { UserLoginComponent } from './user/login/user-login/user-login.component';
 
-
 @NgModule({
   declarations: [
     UserLoginComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
   ],
   providers: [],
   bootstrap: [UserLoginComponent]
