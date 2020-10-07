@@ -1,6 +1,6 @@
 # Introduction 
 - Angular application, with NodeJS backend and packed via ElectronJS
-- Initial setup by this command: ng new app --directory ./ --minimal=true
+- Initial setup by this command: ng new client --directory ./ --minimal=true
 
 # Getting Started
 
