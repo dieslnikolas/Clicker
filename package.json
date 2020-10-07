@@ -1,7 +1,7 @@
 {
   "name": "frameduck",
   "version": "0.0.0",
-  "main": "server/dist/main.js",
+  "main": "dist/server/main.js",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
