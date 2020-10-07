@@ -17,7 +17,7 @@ function createWindow() {
 
   win.loadURL(
     url.format({
-      pathname: path.join(__dirname, '/../Frameduck/index.html'),
+      pathname: path.join(__dirname, '/../client/index.html'),
       protocol: 'file:',
       slashes: true,
     })
