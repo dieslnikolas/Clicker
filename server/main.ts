@@ -28,4 +28,8 @@ function createWindow() {
   win.on('closed', () => {
     win = null
   })
+
+  // DB TEST
+  
+
 }
