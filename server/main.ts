@@ -1,3 +1,4 @@
+import { WSAETIMEDOUT } from 'constants'
 import { app, BrowserWindow } from 'electron'
 import * as path from 'path'
 import * as url from 'url'
@@ -28,8 +29,4 @@ function createWindow() {
   win.on('closed', () => {
     win = null
   })
-
-  // DB TEST
-  
-
 }

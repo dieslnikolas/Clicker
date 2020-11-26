@@ -52,9 +52,12 @@
               "client/assets"
             ],
             "styles": [
+              "node_modules/bootstrap/scss/bootstrap.scss",
               "client/styles.scss"
             ],
-            "scripts": []
+            "scripts": [
+              "/Users/nikolasdiesl/Projects/NodeJS and Electron/node_modules/bootstrap/js/src/index.js"
+            ]
           },
           "configurations": {
             "production": {

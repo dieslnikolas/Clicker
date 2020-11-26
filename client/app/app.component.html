@@ -1,9 +1,26 @@
 <!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center" class="content">
-    <h1>{{ title }}</h1>
-    <span style="display: block">Zadej jméno a heslo, výstup se vygenreuje vedle exáče do složky "output"!</span>
+<div class="container">
 
-    <input type="email" placeholder="Zadej email" name="email" />
-    <br />
-    <input type="password" placeholder="Zadej heslo" name="email" />
+    <div class="row">
+
+        <div class="col-md-12">
+            <h1>{{ title }}</h1>
+            <span style="display: block">Zadej jméno a heslo, výstup se vygenreuje vedle exáče do složky
+                "output"!</span>
+        </div>
+        <div class="col-md-12">
+            <input type="email" placeholder="Zadej email" name="email" class="form-fontrol" />
+        </div>
+        <div class="col-md-12">
+            <input type="password" placeholder="Zadej heslo" name="password" class="form-fontrol" />
+        </div>
+        <div class="col-md-12">
+            <button (click)="DownloadActivities()">Stáhnout</button>
+        </div>
+        <div class="col-md-12">
+            <textarea>
+                {{ errorLog }}
+            </textarea>
+        </div>
+    </div>
 </div>
