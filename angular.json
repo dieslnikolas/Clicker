@@ -52,11 +52,7 @@
               "client/assets"
             ],
             "styles": [
-              "node_modules/bootstrap/scss/bootstrap.scss",
               "client/styles.scss"
-            ],
-            "scripts": [
-              "/Users/nikolasdiesl/Projects/Clicker - Linux server tool/node_modules/bootstrap/js/src/index.js"
             ]
           },
           "configurations": {
