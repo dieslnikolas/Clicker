@@ -52,7 +52,6 @@
               "client/assets"
             ],
             "styles": [
-              "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "client/styles.scss"
             ]
           },
