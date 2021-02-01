@@ -1,6 +1,6 @@
 {
-  "name": "frameduck",
-  "version": "0.0.5",
+  "name": "Clicker - Linux server tool",
+  "version": "1.0",
   "main": "dist/server/main.js",
   "scripts": {
     "ng": "ng",
