@@ -45,14 +45,14 @@
             "index": "client/index.html",
             "main": "client/main.ts",
             "polyfills": "client/polyfills.ts",
-            "tsConfig": "tsconfig.app.json",
+            "tsConfig": "client/tsconfig.json",
             "aot": true,
             "assets": [
               "client/favicon.ico",
               "client/assets"
             ],
             "styles": [
-              "client/styles.scss"
+              "client/assets/styles.scss"
             ]
           },
           "configurations": {

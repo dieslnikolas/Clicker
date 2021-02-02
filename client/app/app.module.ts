@@ -1,32 +1,20 @@
 // Angular 
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { AppComponent } from './app.component';
+import { AppRoot } from './components/shared/app-root.component';
 
 // Electron 
 import { NgxElectronModule } from 'ngx-electron'
 
-// Boostrap
-import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
-import { TooltipModule } from 'ngx-bootstrap/tooltip';
-import { ModalModule } from 'ngx-bootstrap/modal';
-
 @NgModule({
   declarations: [
-    AppComponent
+    AppRoot
   ],
   imports: [
     BrowserModule,
-
-    // Electron
     NgxElectronModule,
-
-    // Boostrap
-    BsDropdownModule.forRoot(),
-    TooltipModule.forRoot(),
-    ModalModule.forRoot()
   ],
   providers: [],
-  bootstrap: [AppComponent, BsDropdownModule, TooltipModule, ModalModule]
+  bootstrap: [AppRoot]
 })
 export class AppModule { }
