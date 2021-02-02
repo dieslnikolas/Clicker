@@ -12,6 +12,9 @@ import { ProgressbarModule } from 'ngx-bootstrap/progressbar'
 import { ModalModule } from 'ngx-bootstrap/modal'
 import { TooltipModule } from 'ngx-bootstrap/tooltip'
 
+// Fontawesome
+import { NgxFontAwesomeModule } from 'ngx-font-awesome';
+
 // Components
 import { AppRoot } from './components/shared/app-root.component';
 
@@ -31,7 +34,10 @@ import { AppRoot } from './components/shared/app-root.component';
     AlertModule.forRoot(),
     ProgressbarModule.forRoot(),
     ModalModule.forRoot(),
-    TooltipModule.forRoot()
+    TooltipModule.forRoot(),
+
+    // Fontawesome
+    NgxFontAwesomeModule
   ],
   providers: [],
   bootstrap: [AppRoot]
