@@ -1,6 +1,7 @@
 import { app, BrowserWindow } from 'electron'
 import * as path from 'path'
 import * as url from 'url'
+import * as electronreload from 'electron-reload'
 
 /**
  * Electron aplication main class
@@ -14,6 +15,12 @@ export class Application {
    * Init our electron application
    */
   public Init(): void {
+
+    // Auto reload for both renderer and main process
+    electronreload(__dirname, {
+      // Note that the path to electron may vary according to the main file
+      electron: require(`${__dirname.replace(`/dist/server`, ``)}/node_modules/electron`)
+    });    
 
     // when electron is ready, then we can create window
     app.on('ready', this.CreateWindow)
