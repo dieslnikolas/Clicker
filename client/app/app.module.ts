@@ -1,10 +1,12 @@
 // Angular 
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { AppRoot } from './components/shared/app-root.component';
 
 // Electron 
-import { NgxElectronModule } from 'ngx-electron'
+import { NgxElectronModule } from 'ngx-electron';
+
+// Components
+import { AppRoot } from './components/shared/app-root.component';
 
 @NgModule({
   declarations: [

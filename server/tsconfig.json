@@ -1,50 +1,10 @@
 {
+  "extends": "../tsconfig.json",
   "compileOnSave": false,
   "compilerOptions": {
-    "baseUrl": "./",
     "outDir": "../dist/server",
-    "sourceMap": true,
-    "declaration": false,
-    "downlevelIteration": true,
-    "experimentalDecorators": true,
-    "moduleResolution": "node",
-    "importHelpers": true,
-    "target": "es5",
-    "typeRoots": ["node_modules/@types"],
+    "target": "ES5",
     "module": "commonjs",
-    "lib": [
-      "es2018",
-      "dom"
-    ]
+    "typeRoots": ["node_modules/@types"]
   }
 }
-
-
-// /* To learn more about this file see: https://angular.io/config/tsconfig. */
-// {
-//   // "extends": "./tsconfig.json",
-//   "compilerOptions": {
-//     "baseUrl": "./",
-//     "outDir": "./dist/server",
-//     "sourceMap": true,
-//     "declaration": false,
-//     "downlevelIteration": true,
-//     "experimentalDecorators": true,
-//     "moduleResolution": "node",
-//     "importHelpers": true,
-//     "target": "es5",
-//     "typeRoots": ["node_modules/@types"],
-//     "module": "commonjs",
-//     "lib": [
-//       "es2018",
-//       "dom"
-//     ]
-//   },
-//   "files": [
-//     "server/main.ts",
-//     "server/preload.js"
-//   ],
-//   "include": [
-//     "server/**/*.d.ts"
-//   ]
-// }
