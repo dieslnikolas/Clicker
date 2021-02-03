@@ -17,10 +17,10 @@ export class Application {
   public Init(): void {
 
     // Auto reload for both renderer and main process
-    electronreload(__dirname, {
-      // Note that the path to electron may vary according to the main file
-      electron: require(`${__dirname.replace(`/dist/server`, ``)}/node_modules/electron`)
-    });    
+    // electronreload(__dirname, {
+    //   // Note that the path to electron may vary according to the main file
+    //   electron: require(`${__dirname.replace(`/dist/server`, ``)}/node_modules/electron`)
+    // });    
 
     // when electron is ready, then we can create window
     app.on('ready', this.CreateWindow)
