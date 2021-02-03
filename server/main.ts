@@ -1,7 +1,7 @@
 import { app, BrowserWindow } from 'electron'
 import * as path from 'path'
 import * as url from 'url'
-import * as electronreload from 'electron-reload'
+import * as electronReload from 'electron-reload'
 
 /**
  * Electron aplication main class
@@ -17,10 +17,7 @@ export class Application {
   public Init(): void {
 
     // Auto reload for both renderer and main process
-    // electronreload(__dirname, {
-    //   // Note that the path to electron may vary according to the main file
-    //   electron: require(`${__dirname.replace(`/dist/server`, ``)}/node_modules/electron`)
-    // });    
+    this.EnableHotReload();
 
     // when electron is ready, then we can create window
     app.on('ready', this.CreateWindow)
@@ -32,6 +29,21 @@ export class Application {
         this.CreateWindow()
       }
     })
+  }
+
+  /**
+   * Hot-reload for both client and server (angualr and electron)
+   */
+  private EnableHotReload() : void {
+    
+    // root path 
+    var pathClientSource =  __dirname.replace('\\dist\\server', '');
+    
+    electronReload(pathClientSource, {
+      // Note that the path to electron may vary according to the main file
+      electron: require(pathClientSource + '/node_modules/electron')
+    });    
+
   }
 
   /**
