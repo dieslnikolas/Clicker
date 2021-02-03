@@ -8,9 +8,9 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "electron-after": "wait-on http://localhost:4200 && tsc --p server && electron .",
-    "electron": "concurrently -k \"ng serve\" \"npm run electron-after\"",
-    "release-windows": "ng build --base-href ./  && tsc --p server && electron ."
+    "electron": "concurrently -k \"ng serve\" \"wait-on http://localhost:4200 && tsc --p server && electron .\"",
+    "release-windows": "ng build --base-href ./  && tsc --p server && electron .",
+    "release-macos": "ng build --base-href ./  && tsc --p server && electron ."
   },
   "private": true,
   "dependencies": {

@@ -1,10 +1,39 @@
-<h1>IT works!</h1>
+<div class="content">
+    <div class="row">
+        <div class="offset-md-3 col-md-6 mt-5">
 
-<button class="btn btn-primary">Klačístko</button>
+            <h1 class="h3 mb-3 font-weight-normal">Log in</h1>
 
-Tohle je ikona: <i class="fa fa-cart"></i>
+            <div class="form-group">
+                <label for="inputServer" class="sr-only">Server</label>
+                <input type="text" id="inputServer" class="form-control" placeholder="Server" [(value)]="model.server" required autofocus>
+            </div>
 
-<h3>Tak co 2je?</h3>
+            <div class="form-group">
+                <label for="inputUser" class="sr-only">User</label>
+                <input type="text" id="inputUser" class="form-control" placeholder="User" [(value)]="model.email" required>
+            </div>
 
-do psí píči
+            <div class="form-group">
+                <label for="inputPassword" class="sr-only">Password</label>
+                <input type="password" id="inputPassword" class="form-control" placeholder="Password" [(value)]="model.password" required>
+            </div>
 
+            <div class="form-group">
+                <div class="checkbox mb-3">
+                    <label>
+                        <input type="checkbox" value="remember-me" [(value)]="model.isRemember"> Remember me
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <button class="btn btn-lg btn-primary btn-block" type="submit" (click)="LogIn()">Connect</button>
+            </div>
+        
+            <span>Your credentials arre {{ model | json }}</span>
+
+            <p class="mt-5 mb-3 text-muted">dieslnikolas.cz &copy; {{ model.currentYear }} </p>
+        </div>
+    </div>
+</div>
