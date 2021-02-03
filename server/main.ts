@@ -1,7 +1,7 @@
 import { app, BrowserWindow } from 'electron'
 import * as path from 'path'
 import * as url from 'url'
-import * as electronReload from 'electron-reload'
+import * as electronReloader from 'electron-reloader'
 
 /**
  * Electron aplication main class
@@ -34,15 +34,10 @@ export class Application {
   /**
    * Hot-reload for both client and server (angualr and electron)
    */
-  private EnableHotReload() : void {
-    
-    // root path 
-    var pathClientSource =  __dirname.replace('\\dist\\server', '');
-    
-    electronReload(pathClientSource, {
-      // Note that the path to electron may vary according to the main file
-      electron: require(pathClientSource + '/node_modules/electron')
-    });    
+  private EnableHotReload(): void {
+
+    // The try/catch is needed so it doesn't throw Cannot find module 'electron-reloader' in production.
+    try { electronReloader(module); } catch { };
 
   }
 
@@ -55,16 +50,20 @@ export class Application {
     this.win = new BrowserWindow({ width: 800, height: 600 })
 
     // loads page and make wraper around it
-    this.win.loadURL(
-      url.format({
-        pathname: path.join(__dirname, '/../client/index.html'),
-        protocol: 'file:',
-        slashes: true,
-      })
-    )
+    // this.win.loadURL(
+    //   url.format({
+    //     pathname: path.join(__dirname, '/../client/index.html'),
+    //     protocol: 'file:',
+    //     slashes: true,
+    //   })
+    // )
+    this.win.loadURL('http://localhost:4200');
 
     // if environment is devel, then it will enable dev tools 
-    this.win.webContents.openDevTools();
+    this.win.webContents.openDevTools({
+      'mode': 'bottom',
+      'activate': false
+    });
 
     // event on window closing
     this.win.on('closed', () => {
