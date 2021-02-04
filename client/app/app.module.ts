@@ -1,6 +1,8 @@
 // Angular 
-import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule } from '@angular/forms';
+import { AppRoutingModule } from './app-routing.module';
 
 // Electron 
 import { NgxElectronModule } from 'ngx-electron';
@@ -16,15 +18,19 @@ import { TooltipModule } from 'ngx-bootstrap/tooltip'
 import { NgxFontAwesomeModule } from 'ngx-font-awesome';
 
 // Components
-import { AppRoot } from './components/shared/app-root.component';
+import { LayoutLoginComponent } from './components/shared/layout-login/layout-login.component';
+import { LoginComponent } from './components/user/login/login.component';
 
 @NgModule({
   declarations: [
-    AppRoot
+    LayoutLoginComponent,
+    LoginComponent,
   ],
   imports: [
     // Angular
     BrowserModule,
+    FormsModule,
+    // AppRoutingModule,
 
     // Electron
     NgxElectronModule,
@@ -40,6 +46,6 @@ import { AppRoot } from './components/shared/app-root.component';
     NgxFontAwesomeModule
   ],
   providers: [],
-  bootstrap: [AppRoot]
+  bootstrap: [LayoutLoginComponent]
 })
 export class AppModule { }
