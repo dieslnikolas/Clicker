@@ -25,7 +25,7 @@ export class LoginComponent {
   public LogIn(): void {
     this.loginService.login(this.model.server, this.model.user, this.model.password);
 
-    console.log(this.loginService.currentUser);
+    console.log(this.loginService.currentUserValue);
   }
 
 }

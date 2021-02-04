@@ -6,17 +6,19 @@ import { LoginService } from '../services/user/login.service';
 export class AuthGuard implements CanActivate {
     
     
-    constructor(private router: Router, private authenticationService: LoginService
-    ) { }
+    constructor(private router: Router, private authenticationService: LoginService) { }
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+        
         const currentUser = this.authenticationService.currentUserValue;
+        
+        // Is logged in
         if (currentUser) {
             // logged in so return true
             return true;
         }
 
-        // not logged in so redirect to login page with the return url
+        // is not is bullshitter
         this.router.navigate(['/login'], { queryParams: { returnUrl: state.url } });
         return false;
     }
