@@ -53,7 +53,21 @@ export class Application {
     this.win = new BrowserWindow({ width: 800, height: 600 })
 
     // inject web application
-    this.InjectWebApp();
+    // **production 
+    if (this.isProduction) {
+      this.win.loadURL(
+        url.format({
+          pathname: path.join(__dirname, '/../client/index.html'),
+          protocol: 'file:',
+          slashes: true,
+        })
+      )
+    }
+
+    // **devel
+    else {
+      this.win.loadURL('http://localhost:4200');
+    }
 
     // if environment is devel, then it will enable dev tools 
     this.win.webContents.openDevTools({
@@ -65,30 +79,6 @@ export class Application {
     this.win.on('closed', () => {
       this.win = null
     })
-  }
-
-  /**
-   * Injects web application based on production or development machine
-   * Devel runs on localhost but production from html/js files
-   */
-  private InjectWebApp(): void {
-
-    // production 
-    if (this.isProduction) {
-      this.win.loadURL(
-        url.format({
-          pathname: path.join(__dirname, '/../client/index.html'),
-          protocol: 'file:',
-          slashes: true,
-        })
-      )
-    }
-
-    // devel
-    else {
-      this.win.loadURL('http://localhost:4200');
-    }
-
   }
 }
 
