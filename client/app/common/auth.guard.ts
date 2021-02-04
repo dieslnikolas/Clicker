@@ -1,15 +1,23 @@
 import { Injectable } from '@angular/core';
 import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
-import { LoginService } from '../services/user/login.service';
+import { UserLoginService } from '../services/user/user-login.service';
 
+/**
+ * Check authorize parameter
+ */
 @Injectable({ providedIn: 'root' })
 export class AuthGuard implements CanActivate {
     
-    
-    constructor(private router: Router, private authenticationService: LoginService) { }
+    constructor(private router: Router, private authenticationService: UserLoginService) { }
 
+    /**
+     * Tries to define if user is logged
+     * @param route current url
+     * @param state requested url
+     */
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
         
+        // loads info about current user
         const currentUser = this.authenticationService.currentUserValue;
         
         // Is logged in

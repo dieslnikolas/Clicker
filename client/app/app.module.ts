@@ -20,17 +20,21 @@ import { NgxFontAwesomeModule } from 'ngx-font-awesome';
 // Components
 import { LayoutLoginComponent } from './components/shared/layout-login/layout-login.component';
 import { LoginComponent } from './components/user/login/login.component';
+import { TerminalComponent } from './components/shared/terminal/terminal.component';
+import { LayoutMainComponent } from './components/shared/layout-main/layout-main.component';
 
 @NgModule({
   declarations: [
     LayoutLoginComponent,
     LoginComponent,
+    TerminalComponent,
+    LayoutMainComponent,
   ],
   imports: [
     // Angular
     BrowserModule,
     FormsModule,
-    // AppRoutingModule,
+    AppRoutingModule,
 
     // Electron
     NgxElectronModule,
