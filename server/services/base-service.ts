@@ -1,5 +1,6 @@
 import { ipcMain } from 'electron'
 import * as path from 'path'
+import { IService } from 'electron/common'
 
 export class BaseService {
 
