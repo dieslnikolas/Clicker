@@ -23,6 +23,7 @@ import { LoginComponent } from './components/user/login/login.component';
 import { TerminalComponent } from './components/shared/terminal/terminal.component';
 import { LayoutMainComponent } from './components/shared/layout-main/layout-main.component';
 import { DashboardComponent } from './components/user/dashboard/dashboard.component';
+import { MenuComponent } from './components/shared/menu/menu.component';
 
 @NgModule({
     declarations: [
@@ -31,6 +32,7 @@ import { DashboardComponent } from './components/user/dashboard/dashboard.compon
         LoginComponent,
         TerminalComponent,
         DashboardComponent,
+        MenuComponent,
     ],
     imports: [
         // Angular
@@ -50,7 +52,7 @@ import { DashboardComponent } from './components/user/dashboard/dashboard.compon
 
         // Fontawesome
         NgxFontAwesomeModule
-    ],
+        ],
     providers: [],
     bootstrap: [LayoutLoginComponent]
 })

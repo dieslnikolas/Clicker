@@ -1,7 +1,6 @@
 import { app, BrowserWindow } from 'electron'
 import * as path from 'path'
 import * as url from 'url'
-import * as electronReloader from 'electron-reloader'
 
 /**
  * Electron aplication main class
@@ -19,9 +18,6 @@ export class Application {
      */
     public Init(): void {
 
-        // Auto reload for both renderer and main process
-        this.EnableHotReload();
-
         // when electron is ready, then we can create window
         app.on('ready', this.CreateWindow)
 
@@ -35,20 +31,14 @@ export class Application {
     }
 
     /**
-     * Hot-reload for both client and server (angualr and electron)
-     */
-    private EnableHotReload(): void {
-        // The try/catch is needed so it doesn't throw Cannot find module 'electron-reloader' in production.
-        try { electronReloader(module); } catch { };
-    }
-
-    /**
      * Finaly creates a window wrapper around application
      */
     private CreateWindow(): void {
 
         // creates small window
-        this.win = new BrowserWindow({ width: 800, height: 600 })
+        this.win = new BrowserWindow({ width: 1200, height: 900, webPreferences: {
+            nodeIntegration: true,
+        } })
 
         // inject web application
         // **production 

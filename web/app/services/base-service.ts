@@ -1,15 +1,19 @@
-// import { ipcMain } from 'electron'
-// import * as path from 'path'
+import { Injectable } from '@angular/core';
+import { ElectronService } from 'ngx-electron'
 
-// export class BaseService {
+// node native modules
+import { NodeSSH } from 'node-ssh'
 
-//     private action: string;
+@Injectable()
+export class BaseService {
 
-//     private get IpcPath {
-//         return path.join(this.constructor.name, this.action);
-//     }
+    public connector: NodeSSH;
 
-//     constructor(action: string) {
-//         this.action = action;
-//     }
-// }
+    constructor(_electronService: ElectronService) {
+
+        // workaround to get node native modules into the angular
+        if (_electronService.isElectronApp) {
+         
+        }
+    }
+}
