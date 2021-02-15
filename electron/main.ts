@@ -55,7 +55,7 @@ export class Application {
         if (this.isProduction) {
             this.win.loadURL(
                 url.format({
-                    pathname: path.join(__dirname, '/../client/index.html'),
+                    pathname: path.join(__dirname, '/../index.html'),
                     protocol: 'file:',
                     slashes: true,
                 })
@@ -63,6 +63,7 @@ export class Application {
         }
 
         // **devel
+        // because i realy like ng serve :)
         else {
             this.win.loadURL('http://localhost:4200');
         }
@@ -81,5 +82,4 @@ export class Application {
 }
 
 // Starts application
-var clicker = new Application();
-clicker.Init();
+(new Application()).Init();

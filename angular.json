@@ -35,33 +35,33 @@
         }
       },
       "root": "",
-      "sourceRoot": "client",
+      "sourceRoot": "web",
       "prefix": "app",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
             "outputPath": "dist/client",
-            "index": "client/index.html",
-            "main": "client/main.ts",
-            "polyfills": "client/polyfills.ts",
-            "tsConfig": "client/tsconfig.json",
+            "index": "web/index.html",
+            "main": "web/main.ts",
+            "polyfills": "web/polyfills.ts",
+            "tsConfig": "web/tsconfig.json",
             "aot": true,
             "assets": [
-              "client/assets"
+              "web/assets"
             ],
             "styles": [
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "node_modules/font-awesome/css/font-awesome.css",
-              "client/assets/styles.scss"
+              "web/assets/styles.scss"
             ]
           },
           "configurations": {
             "production": {
               "fileReplacements": [
                 {
-                  "replace": "client/environments/environment.ts",
-                  "with": "client/environments/environment.prod.ts"
+                  "replace": "web/environments/environment.ts",
+                  "with": "web/environments/environment.prod.ts"
                 }
               ],
               "optimization": true,

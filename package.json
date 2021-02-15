@@ -2,15 +2,17 @@
   "name": "clicker",
   "version": "",
   "main": "dist/server/main.js",
-  "scripts": {
-    "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build",
-    "test": "ng test",
-    "lint": "ng lint",
-    "electron": "concurrently -k \"ng serve\" \"wait-on http://localhost:4200 && tsc --p server && electron .\"",
-    "release-windows": "ng build --base-href ./  && tsc --p server && electron .",
-    "release-macos": "ng build --base-href ./  && tsc --p server && electron ."
+  "scripts": {  
+    "angular-run": "ng serve",
+    "angular-build": "ng build --base-href ./",
+
+    "electron-run": "electron .",
+    "electron-build": "tsc --p electron",
+    
+    "electron": "concurrently -k \"npm run angular-run\" \"wait-on http://localhost:4200 && npm run electron-build && npm run electron-run\"",
+    
+    "release-windows": "npm run angular-build && npm run electron-build && npm run electron-run",
+    "release-macos": "npm run angular-build && npm run electron-build && npm run electron-run"
   },
   "private": true,
   "dependencies": {
@@ -23,6 +25,7 @@
     "@angular/platform-browser-dynamic": "~11.1.1",
     "@angular/router": "~11.1.1",
     "bootstrap": "^4.6.0",
+    "electron-log": "^4.3.1",
     "font-awesome": "^4.7.0",
     "jquery": "^3.5.1",
     "ngx-bootstrap": "^6.2.0",
