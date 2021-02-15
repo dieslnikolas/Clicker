@@ -2,15 +2,12 @@
   "name": "clicker",
   "version": "",
   "main": "dist/server/main.js",
-  "scripts": {  
+  "scripts": {
     "angular-run": "ng serve",
     "angular-build": "ng build --base-href ./",
-
     "electron-run": "electron .",
     "electron-build": "tsc --p electron",
-    
     "electron": "concurrently -k \"npm run angular-run\" \"wait-on http://localhost:4200 && npm run electron-build && npm run electron-run\"",
-    
     "release-windows": "npm run angular-build && npm run electron-build && npm run electron-run",
     "release-macos": "npm run angular-build && npm run electron-build && npm run electron-run"
   },
@@ -34,6 +31,7 @@
     "popper": "^1.0.1",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
+    "xterm": "^4.10.0",
     "zone.js": "~0.10.2"
   },
   "devDependencies": {

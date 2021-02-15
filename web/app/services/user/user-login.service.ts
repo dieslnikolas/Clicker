@@ -13,6 +13,9 @@ export class UserLoginService {
     // name of the localStorage item
     private _loggedUser: string = '_loggedUser';
 
+    // current user
+    public currentUserValue: any;
+
     constructor() {
         this.userSubject = new BehaviorSubject(JSON.parse(localStorage.getItem(this._loggedUser)));
     }

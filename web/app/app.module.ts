@@ -22,34 +22,37 @@ import { LayoutLoginComponent } from './components/shared/layout-login/layout-lo
 import { LoginComponent } from './components/user/login/login.component';
 import { TerminalComponent } from './components/shared/terminal/terminal.component';
 import { LayoutMainComponent } from './components/shared/layout-main/layout-main.component';
+import { DashboardComponent } from './components/user/dashboard/dashboard.component';
 
 @NgModule({
-  declarations: [
-    LayoutLoginComponent,
-    LoginComponent,
-    TerminalComponent,
-    LayoutMainComponent,
-  ],
-  imports: [
-    // Angular
-    BrowserModule,
-    FormsModule,
-    AppRoutingModule,
+    declarations: [
+        LayoutLoginComponent,
+        LayoutMainComponent,
+        LoginComponent,
+        TerminalComponent,
+        DashboardComponent,
+    ],
+    imports: [
+        // Angular
+        BrowserModule,
+        FormsModule,
+        AppRoutingModule,
 
-    // Electron
-    NgxElectronModule,
+        // Electron
+        NgxElectronModule,
 
-    // Boostrap
-    ButtonsModule.forRoot(),
-    AlertModule.forRoot(),
-    ProgressbarModule.forRoot(),
-    ModalModule.forRoot(),
-    TooltipModule.forRoot(),
+        // Boostrap
+        ButtonsModule.forRoot(),
+        AlertModule.forRoot(),
+        ProgressbarModule.forRoot(),
+        ModalModule.forRoot(),
+        TooltipModule.forRoot(),
 
-    // Fontawesome
-    NgxFontAwesomeModule
-  ],
-  providers: [],
-  bootstrap: [LayoutLoginComponent]
+        // Fontawesome
+        NgxFontAwesomeModule
+    ],
+    providers: [],
+    bootstrap: [LayoutLoginComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

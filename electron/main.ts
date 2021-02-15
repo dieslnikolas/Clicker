@@ -70,7 +70,7 @@ export class Application {
 
         // if environment is devel, then it will enable dev tools 
         this.win.webContents.openDevTools({
-            'mode': 'bottom',
+            'mode': 'right',
             'activate': false
         });
 
