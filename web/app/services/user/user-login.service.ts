@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
+import { NodeSSH } from 'node-ssh';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { BaseService } from "./../base-service";
 
 /**
  * Service for logging and logout user
  */
 @Injectable({ providedIn: 'root' })
-export class UserLoginService {
+export class UserLoginService extends BaseService {
 
     // current logged users
     private userSubject: BehaviorSubject<UserLoginOutput>;
@@ -16,15 +18,12 @@ export class UserLoginService {
     // current user
     public currentUserValue: any;
 
-    constructor() {
-        this.userSubject = new BehaviorSubject(JSON.parse(localStorage.getItem(this._loggedUser)));
-    }
-
     /**
      * Getter for actual user
      */
     public get User(): UserLoginOutput {
-        return this.userSubject.value; 
+        this.userSubject = new BehaviorSubject(JSON.parse(localStorage.getItem(this._loggedUser)));
+        return this.userSubject.value;
     }
 
     /**
@@ -32,6 +31,9 @@ export class UserLoginService {
      * @param input input class for login method
      */
     public Login(input: UserLoginInput): void {
+
+        this.connector.('ls -l', null).then((result) => { console.log(result) });
+
         localStorage.setItem(this._loggedUser, JSON.stringify(input));
         this.userSubject = new BehaviorSubject(input);
     }
@@ -59,5 +61,5 @@ export class UserLoginInput {
  * Output class for UserLogin method
  */
 export class UserLoginOutput extends UserLoginInput {
-    
+
 }
