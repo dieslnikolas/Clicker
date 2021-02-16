@@ -32,7 +32,7 @@ export class UserLoginService extends BaseService {
      */
     public Login(input: UserLoginInput): void {
 
-        this.connector.('ls -l', null).then((result) => { console.log(result) });
+        this.connector.exec('ls -l', null).then((result) => { console.log(result) });
 
         localStorage.setItem(this._loggedUser, JSON.stringify(input));
         this.userSubject = new BehaviorSubject(input);

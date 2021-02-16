@@ -13,7 +13,8 @@ export class BaseService {
 
         // workaround to get node native modules into the angular
         if (_electronService.isElectronApp) {
-         
+            this.connector = new _electronService.remote.require('node-ssh').NodeSSH();
+            console.log(this.connector);
         }
     }
 }

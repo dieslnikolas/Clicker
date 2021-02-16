@@ -38,6 +38,8 @@ export class Application {
         // creates small window
         this.win = new BrowserWindow({ width: 1200, height: 900, webPreferences: {
             nodeIntegration: true,
+            nodeIntegrationInWorker: true,
+            enableRemoteModule: true
         } })
 
         // inject web application
