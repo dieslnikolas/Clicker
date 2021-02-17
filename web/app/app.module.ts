@@ -24,6 +24,8 @@ import { TerminalComponent } from './components/shared/terminal/terminal.compone
 import { LayoutMainComponent } from './components/shared/layout-main/layout-main.component';
 import { DashboardComponent } from './components/user/dashboard/dashboard.component';
 import { MenuComponent } from './components/shared/menu/menu.component';
+import { SSH } from './common/ssh';
+import { Log } from './common/log';
 
 @NgModule({
     declarations: [
@@ -53,7 +55,10 @@ import { MenuComponent } from './components/shared/menu/menu.component';
         // Fontawesome
         NgxFontAwesomeModule
         ],
-    providers: [],
+    providers: [
+        SSH,
+        Log
+    ],
     bootstrap: [LayoutLoginComponent]
 })
 export class AppModule {

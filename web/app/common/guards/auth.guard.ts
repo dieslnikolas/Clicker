@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
-import { UserLoginService } from '../services/user/user-login.service';
+import { UserLoginService } from '../../services/user/user-login.service';
 
 /**
  * Check authorize parameter

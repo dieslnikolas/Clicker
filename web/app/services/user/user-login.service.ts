@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
-import { NodeSSH } from 'node-ssh';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { BaseService } from "./../base-service";
+import { BehaviorSubject } from 'rxjs';
+import { BaseService } from "../base.service";
 
 /**
  * Service for logging and logout user
@@ -32,7 +31,9 @@ export class UserLoginService extends BaseService {
      */
     public Login(input: UserLoginInput): void {
 
-        this.connector.exec('ls -l', null).then((result) => { console.log(result) });
+        this._ssh.exec('ls -l').then((response) => { 
+            this._log.Write(JSON.stringify(response));
+        })
 
         localStorage.setItem(this._loggedUser, JSON.stringify(input));
         this.userSubject = new BehaviorSubject(input);
