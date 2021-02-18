@@ -32,7 +32,7 @@ export class UserLoginService extends BaseService {
     public Login(input: UserLoginInput): void {
 
         this._ssh.exec('ls -l').then((response) => { 
-            this._log.Write(JSON.stringify(response));
+            this._log.Write(response);
         })
 
         localStorage.setItem(this._loggedUser, JSON.stringify(input));

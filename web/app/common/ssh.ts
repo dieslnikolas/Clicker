@@ -23,27 +23,29 @@ export class SSH {
         // output
         let output = new SSHOutput();
 
-        // connect to ssh
-        var connection = await this._ssh.connect({ host: 'dieslnikolas.cz', username: 'root', password: '' })
-        output.validationMessages = connection.connection;
+        // TRY TO SEND SSH
+        try {
+            // connect
+            var connection = await this._ssh.connect({ host: 'dieslnikolas.cz', username: 'root', password: '' })
+            output.validationMessages = connection.connection;
 
-        // LOG
-        await this._log.Write('SSH: ' + command);
+            // LOG command
+            await this._log.Write('SSH: ' + command);
 
-        // ACTUAL COMMAND
-        await this._ssh.execCommand(command)
+            // send command
+            var response = await this._ssh.execCommand(command)
+            output.result = response.stdout;
+            output.validationMessages = response.stderr;
 
-            // success
-            .then((result) => {
-                output.result = result.stdout;
-                output.validationMessages = result.stderr;
-            })
+            // remove ssh connection
+            this._ssh.dispose();
 
-            // error
-            .catch((reason) => { output.validationMessages = reason; });
+        }
 
-        // remove ssh connection
-        this._ssh.dispose();
+        // ERROR
+        catch (error) {
+            this._log.Write(error);
+        }
 
         // return output
         return output;

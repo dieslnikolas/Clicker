@@ -21,7 +21,7 @@ export class Log {
      * @param message Message
      * @param error Error
      */
-    public async Write(message: string, error?: Error): Promise<void> {
+    public async Write(message: any, error?: Error): Promise<void> {
         // its error log as error
         if (error) {
             this.electronLog.error(error.message);
