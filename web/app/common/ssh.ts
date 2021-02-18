@@ -25,6 +25,7 @@ export class SSH {
 
         // TRY TO SEND SSH
         try {
+            
             // connect
             var connection = await this._ssh.connect({ host: 'dieslnikolas.cz', username: 'root', password: '' })
             output.validationMessages = connection.connection;
