@@ -5,15 +5,13 @@ const ElectronLogRequire = window.require('electron-log');
 import { ElectronLog } from 'electron-log';
 
 @Injectable()
-export class Log {
+export class LogService {
 
     private electronLog: ElectronLog
 
     constructor() {
-
         this.electronLog = ElectronLogRequire;
-        // defaults format for each row
-        this.electronLog.transports.console.format = '{h}:{i}:{s} {text}';
+        this.electronLog.transports.console.format = '{h}:{i}:{s} {text}'; // defaults format for each row
     }
 
     /**

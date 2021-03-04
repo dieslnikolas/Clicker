@@ -1,23 +1,26 @@
 import { Injectable } from '@angular/core';
 
-// Node-ssh
+// NODE NATIVE MODULES
 const NodeSSHRequire = window.require('node-ssh').NodeSSH;
 import { NodeSSH } from 'node-ssh';
 
-import { Log } from './log';
+// STANDARD IMPORTS
+import { LogService } from './log.service';
 
 @Injectable()
-export class SSH {
+export class SSHService {
 
     private _ssh: NodeSSH;
-    private _log: Log;
 
-    constructor(log: Log) {
-        // NodeJS Libraries
+    constructor(private _log: LogService) {
+        // NODE NATIVE MODULES Libraries
         this._ssh = new NodeSSHRequire();
-        this._log = new Log();
     }
 
+    /**
+     * Call a ssh command but valid login is expected. Checkout logged-user.service.ts
+     * @param command actual command
+     */
     public async exec(command: string): Promise<SSHOutput> {
 
         // output

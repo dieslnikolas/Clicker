@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { UserLoginInput, UserLoginService } from '../../../services/user/user-login.service'
+import { User } from 'web/app/providers/logged-user.service';
+import { UserLoginService } from '../../../services/user/user-login.service'
 
 @Component({
     selector: 'app-user-login',
@@ -8,19 +9,26 @@ import { UserLoginInput, UserLoginService } from '../../../services/user/user-lo
 })
 export class LoginComponent implements OnInit {
 
-    model: UserLoginInput;
+    model: User;
 
     constructor(private _userLoginService: UserLoginService) { }
 
     ngOnInit(): void {
-        this.model = new UserLoginInput();
+        this.model = new User();
     }
 
     /**
      * Tries to loggin user
      */
     public LogIn(): void {
-        this._userLoginService.Login(this.model);
+        this._userLoginService.Login(this.model).then(result =>{
+            if (result.IsSuccess) {
+                console.log('You are in');
+            }
+            else {
+                this.model.ValidationMessages = result.ValidationMessages;
+            }
+        });
     }
 
 }

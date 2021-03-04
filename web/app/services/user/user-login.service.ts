@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
 import { BaseService } from "../base.service";
+import { LoggedUserService, User } from "../../providers/logged-user.service";
 
 /**
  * Service for logging and logout user
@@ -8,59 +8,22 @@ import { BaseService } from "../base.service";
 @Injectable({ providedIn: 'root' })
 export class UserLoginService extends BaseService {
 
-    // current logged users
-    private userSubject: BehaviorSubject<UserLoginOutput>;
-
-    // name of the localStorage item
-    private _loggedUser: string = '_loggedUser';
-
-    // current user
-    public currentUserValue: any;
-
-    /**
-     * Getter for actual user
-     */
-    public get User(): UserLoginOutput {
-        this.userSubject = new BehaviorSubject(JSON.parse(localStorage.getItem(this._loggedUser)));
-        return this.userSubject.value;
+    constructor(private _loggedUserService: LoggedUserService) {
+        super();
     }
 
     /**
      * Login (connect to ssh)
      * @param input input class for login method
      */
-    public Login(input: UserLoginInput): void {
-
-        this._ssh.exec('ls -l').then((response) => { 
-            this._log.Write(response);
-        })
-
-        localStorage.setItem(this._loggedUser, JSON.stringify(input));
-        this.userSubject = new BehaviorSubject(input);
+    public async Login(input: User): Promise<User> {
+        return this._loggedUserService.login(input.Server, input.User, input.Password);
     }
 
     /**
      * Logout (disconnect from SSH)
      */
-    public Logout(): void {
-        localStorage.removeItem(this._loggedUser);
-        this.userSubject.next(null);
+    public async Logout(): Promise<void> {
+        this._loggedUserService.logout();
     }
-}
-
-/**
- * Input class for UserLogin method
- */
-export class UserLoginInput {
-    User: string;
-    Server: string;
-    Password: string;
-    IsRemember: boolean = true;
-}
-
-/**
- * Output class for UserLogin method
- */
-export class UserLoginOutput extends UserLoginInput {
-
 }

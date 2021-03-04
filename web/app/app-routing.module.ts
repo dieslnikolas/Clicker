@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 // auth guard
-import { AuthGuard } from './common/guards/auth.guard'
+import { AuthGuard } from './guards/auth.guard'
 
 // Layouts
 import { LayoutLoginComponent } from './components/shared/layout-login/layout-login.component';
