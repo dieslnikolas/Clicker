@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
+import { ElectronService } from 'ngx-electron';
 import { BehaviorSubject } from 'rxjs';
 import { LogService } from './log.service';
-import * as Keytar from "keytar";
 
 @Injectable()
 export class LoggedUserService {
@@ -10,7 +10,7 @@ export class LoggedUserService {
     private userSubject: BehaviorSubject<User>;
     private localStorageName: string = "_loggedUser";
 
-    constructor(private _log: LogService) {
+    constructor(private _electronService: ElectronService) {
     }
 
     /**
@@ -30,6 +30,7 @@ export class LoggedUserService {
     public async logout(): Promise<void> {
 
         let loggedUser = this.user;
+
         // logout user
         loggedUser.IsLogged = false;
         loggedUser.Password = null;
@@ -45,15 +46,16 @@ export class LoggedUserService {
      */
     public async login(server: string, username: string, password: string, isRemember: boolean): Promise<void> {
 
-        let user = new User();
+        let user = new User(this._electronService);
+
         user.Server = server;
         user.Username = username;
         user.IsRemember = isRemember;
+        user.IsLogged = true;
 
         localStorage.setItem(this.localStorageName, JSON.stringify(user));
         this.userSubject = new BehaviorSubject(user);
-
-        Keytar.setPassword("Clicker", username, password);
+        // this._electronService.ipcRenderer.sendSync('keyter-set', [username, password]);
     }
 }
 
@@ -74,14 +76,14 @@ export class User {
         return this.ValidationMessages == null || this.ValidationMessages == '';
     }
     
-    constructor() { }
+    constructor(private _electronService: ElectronService) { }
     
     /**
      * 
      * @returns Tries to read credentials from system keychain
      */
     async GetPasswordFromKeyChain(): Promise<string> {
-        return await Keytar.getPassword("Clicker", this.Username);
+        return this._electronService.ipcRenderer.sendSync('keyter-get', [this.Username]);
     }
 
 }

@@ -1,4 +1,5 @@
-import { app, BrowserWindow } from 'electron'
+import { app, BrowserWindow, ipcMain } from 'electron'
+import * as Keytar from 'keytar'
 import * as path from 'path'
 import * as url from 'url'
 
@@ -69,7 +70,20 @@ export class Application {
         // event on window closing
         this.win.on('closed', () => {
             this.win = null
-        })
+        });
+
+        // keytar get
+        ipcMain.on('keytar-get', (event, arg) => {
+            console.log(arg) // prints "ping"
+            event.returnValue = Keytar.getPassword("Clicker", arg);
+        });
+
+        // keytar set
+        ipcMain.on('keytar-set', (event, arg) => {
+            console.log(arg) // prints "ping"
+            Keytar.setPassword("Clicker", arg[0], arg[1]);
+        });
+
     }
 }
 

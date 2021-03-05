@@ -44,8 +44,8 @@ export class UserLoginService extends BaseService {
     /**
      * 
      */
-    tryLogin() {
-       // TODO 
+    tryLogin(): User {
+       return this._loggedUserService.user ?? new User(null);
     }
 
     /**
@@ -53,10 +53,6 @@ export class UserLoginService extends BaseService {
      */
     public async logout(): Promise<void> {
         this._loggedUserService.logout();
-    }
-
-    public get user(): User{
-        return this._loggedUserService.user ?? new User();
     }
 }
 
@@ -69,7 +65,6 @@ export class UserLoginServiceInput {
 
 export class UserLoginServiceOutput {
     ValidationMessages: string;
-
     get IsSuccess(): boolean {
         return this.ValidationMessages == null;
     }

@@ -50,7 +50,6 @@ export class SSHService {
 
             // remove ssh connection
             this._ssh.dispose();
-
         }
 
         // ERROR
@@ -78,7 +77,7 @@ export class SSHOutput {
     public validationMessages: string;
     
     get IsSuccess(): boolean {
-        return this.validationMessages == null;
+        return this.validationMessages == null || this.validationMessages == '';
     }
     
     constructor() { }
