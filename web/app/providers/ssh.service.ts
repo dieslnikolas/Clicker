@@ -1,18 +1,18 @@
 import { Injectable } from '@angular/core';
+import { LogService } from './log.service';
 
 // NODE NATIVE MODULES
 const NodeSSHRequire = window.require('node-ssh').NodeSSH;
 import { NodeSSH } from 'node-ssh';
+import { LoggedUserService } from './logged-user.service';
 
-// STANDARD IMPORTS
-import { LogService } from './log.service';
 
 @Injectable()
 export class SSHService {
 
     private _ssh: NodeSSH;
 
-    constructor(private _log: LogService) {
+    constructor(private _log: LogService, private _loggedUserService: LoggedUserService) {
         // NODE NATIVE MODULES Libraries
         this._ssh = new NodeSSHRequire();
     }
@@ -21,7 +21,7 @@ export class SSHService {
      * Call a ssh command but valid login is expected. Checkout logged-user.service.ts
      * @param command actual command
      */
-    public async exec(command: string): Promise<SSHOutput> {
+    public async exec(command: string, credentials?: UserCredentials): Promise<SSHOutput> {
 
         // output
         let output = new SSHOutput();
@@ -29,8 +29,15 @@ export class SSHService {
         // TRY TO SEND SSH
         try {
             
+            // try to prepare credentials
+            if (credentials == null) {
+                credentials.Server = this._loggedUserService.user.Server;
+                credentials.Username = this._loggedUserService.user.Username;
+                credentials.Password = await this._loggedUserService.user.GetPasswordFromKeyChain();
+            }
+
             // connect
-            var connection = await this._ssh.connect({ host: 'dieslnikolas.cz', username: 'root', password: '' })
+            var connection = await this._ssh.connect({ host: credentials.Server, username: credentials.Username, password: credentials.Password })
             output.validationMessages = connection.connection;
 
             // LOG command
@@ -56,14 +63,23 @@ export class SSHService {
     }
 }
 
+export class UserCredentials
+{
+    Password: string;
+    Server: string;
+    Username: string;
+
+    constructor() { }
+}
+
 export class SSHOutput {
 
     public result: string;
     public validationMessages: string;
-
-    constructor() { }
-
+    
     get IsSuccess(): boolean {
         return this.validationMessages == null;
     }
+    
+    constructor() { }
 }
