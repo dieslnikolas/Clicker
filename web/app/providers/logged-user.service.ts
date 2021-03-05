@@ -11,7 +11,6 @@ import { LogService } from './log.service';
 export class LoggedUserService {
 
     private _ssh: NodeSSH;
-
     // current logged users
     private userSubject: BehaviorSubject<User>;
     // name of the localStorage item
@@ -25,7 +24,7 @@ export class LoggedUserService {
      /**
      * Getter for actual user
      */
-    public get User(): User {
+    public get user(): User {
         this.userSubject = new BehaviorSubject(JSON.parse(localStorage.getItem(this.localStorageName)));
         return this.userSubject.value;
     }
@@ -38,8 +37,13 @@ export class LoggedUserService {
      * @param password password
      */
     public async logout(): Promise<void> {
-        this.userSubject = null;
-        localStorage.setItem(this.localStorageName, null);
+
+        let loggedUser = this.user;
+        // logout user
+        loggedUser.IsLogged = false;
+        loggedUser.Password = null;
+
+        localStorage.setItem(this.localStorageName, JSON.stringify(loggedUser));
     }
 
     /**
@@ -48,7 +52,7 @@ export class LoggedUserService {
      * @param user username
      * @param password password
      */
-    public async login(server: string, username: string, password: string): Promise<User> {
+    public async login(input: User): Promise<User> {
 
         // output
         let output: User = new User();
@@ -57,13 +61,19 @@ export class LoggedUserService {
         try {
 
             // connect
-            var connection = await this._ssh.connect({ host: server, username: username, password: password })
+            var connection = await this._ssh.connect({ host: input.Server, username: input.Username, password: input.Password })
             output.ValidationMessages = connection.connection;
 
             // send command
             var response = await this._ssh.execCommand('whoami')
-            output.Username = server;
+            output.Server = input.Server;
             output.Username = response.stdout;
+
+            // password is saved only when is remember enabled
+            if (input.IsRemember) {
+               // TODO SAVE PASSWORD KEYTAR
+            }
+            output.IsLogged = true;
             output.ValidationMessages = response.stderr;
 
             localStorage.setItem(this.localStorageName, JSON.stringify(output));
@@ -89,11 +99,13 @@ export class LoggedUserService {
  * Input class for UserLogin method
  */
 export class User {
+    
     Server: string;
     Username: string;
-    User: string;
     Password: string;
-    IsRemember: boolean = true;
+    IsRemember: boolean = false;
+    IsLogged: boolean = false;
+    
     ValidationMessages: string;
 
     constructor() { }

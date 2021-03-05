@@ -15,14 +15,14 @@ export class LoginComponent implements OnInit {
     constructor(private _userLoginService: UserLoginService, private _router: Router) { }
 
     ngOnInit(): void {
-        this.model = this._userLoginService.User ?? new User();
+        this.model = this._userLoginService.user;
     }
 
     /**
      * Tries to loggin user
      */
     public LogIn(): void {
-        this._userLoginService.Login(this.model).then(result =>{
+        this._userLoginService.login(this.model).then(result =>{
             if (result.IsSuccess) {
                 this._router.navigate(['/dashboard']);
             }

@@ -16,18 +16,18 @@ export class UserLoginService extends BaseService {
      * Login (connect to ssh)
      * @param input input class for login method
      */
-    public async Login(input: User): Promise<User> {
-        return this._loggedUserService.login(input.Server, input.User, input.Password);
+    public async login(input: User): Promise<User> {
+        return this._loggedUserService.login(input);
     }
 
     /**
      * Logout (disconnect from SSH)
      */
-    public async Logout(): Promise<void> {
+    public async logout(): Promise<void> {
         this._loggedUserService.logout();
     }
 
-    public get User(): User{
-        return this._loggedUserService.User;
+    public get user(): User{
+        return this._loggedUserService.user ?? new User();
     }
 }

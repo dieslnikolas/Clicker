@@ -62,8 +62,8 @@ export class Application {
 
         // if environment is devel, then it will enable dev tools 
         this.win.webContents.openDevTools({
-            'mode': 'right',
-            'activate': false
+            'activate': false,
+            'mode': 'bottom'
         });
 
         // event on window closing

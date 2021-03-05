@@ -19,14 +19,15 @@ import { NgxFontAwesomeModule } from 'ngx-font-awesome';
 
 // Components
 import { LayoutLoginComponent } from './components/shared/layout-login/layout-login.component';
+import { LayoutMainComponent } from './components/shared/layout-main/layout-main.component';
 import { LoginComponent } from './components/user/login/login.component';
 import { TerminalComponent } from './components/shared/terminal/terminal.component';
-import { LayoutMainComponent } from './components/shared/layout-main/layout-main.component';
 import { DashboardComponent } from './components/user/dashboard/dashboard.component';
 import { MenuComponent } from './components/shared/menu/menu.component';
 import { SSHService } from './providers/ssh.service';
 import { LogService } from './providers/log.service';
 import { LoggedUserService } from './providers/logged-user.service';
+import { AppComponent } from './app.component';
 
 @NgModule({
     declarations: [
@@ -36,6 +37,7 @@ import { LoggedUserService } from './providers/logged-user.service';
         TerminalComponent,
         DashboardComponent,
         MenuComponent,
+        AppComponent
     ],
     imports: [
         // Angular
@@ -61,7 +63,7 @@ import { LoggedUserService } from './providers/logged-user.service';
         LogService,
         LoggedUserService
     ],
-    bootstrap: [LayoutLoginComponent]
+    bootstrap: [AppComponent]
 })
 export class AppModule {
 }
