@@ -99,6 +99,6 @@ export class User {
     constructor() { }
 
     get IsSuccess(): boolean {
-        return this.ValidationMessages == null;
+        return this.ValidationMessages == null || this.ValidationMessages == '';
     }
 }

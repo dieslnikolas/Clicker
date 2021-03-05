@@ -26,4 +26,8 @@ export class UserLoginService extends BaseService {
     public async Logout(): Promise<void> {
         this._loggedUserService.logout();
     }
+
+    public get User(): User{
+        return this._loggedUserService.User;
+    }
 }

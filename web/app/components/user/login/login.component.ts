@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from 'web/app/providers/logged-user.service';
 import { UserLoginService } from '../../../services/user/user-login.service'
+import { Router } from '@angular/router'
 
 @Component({
     selector: 'app-user-login',
@@ -11,10 +12,10 @@ export class LoginComponent implements OnInit {
 
     model: User;
 
-    constructor(private _userLoginService: UserLoginService) { }
+    constructor(private _userLoginService: UserLoginService, private _router: Router) { }
 
     ngOnInit(): void {
-        this.model = new User();
+        this.model = this._userLoginService.User ?? new User();
     }
 
     /**
@@ -23,7 +24,7 @@ export class LoginComponent implements OnInit {
     public LogIn(): void {
         this._userLoginService.Login(this.model).then(result =>{
             if (result.IsSuccess) {
-                console.log('You are in');
+                this._router.navigate(['/dashboard']);
             }
             else {
                 this.model.ValidationMessages = result.ValidationMessages;
