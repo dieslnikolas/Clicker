@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BaseService } from "../base.service";
-import { LoggedUserService, User } from "../../providers/logged-user.service";
+import { AuthenticationService, User } from "../../providers/autehentication.service";
 import { SSHService, UserCredentials } from "../../providers/ssh.service";
 
 /**
@@ -9,7 +9,7 @@ import { SSHService, UserCredentials } from "../../providers/ssh.service";
 @Injectable({ providedIn: 'root' })
 export class UserLoginService extends BaseService {
 
-    constructor(private _sshService: SSHService, private _loggedUserService: LoggedUserService) {
+    constructor(private _sshService: SSHService, private _authenticationService: AuthenticationService) {
         super();
     }
 
@@ -30,7 +30,7 @@ export class UserLoginService extends BaseService {
         await this._sshService.exec('whoami', credentials).then(output => {
             // it works, lets login user
             if (output.IsSuccess) {
-                this._loggedUserService.login(input.Server, input.Username, input.Password, input.IsRemember);
+                this._authenticationService.login(input.Server, input.Username, input.Password, input.IsRemember);
             }
             // return validations
             else {
@@ -42,17 +42,19 @@ export class UserLoginService extends BaseService {
     }
 
     /**
-     * 
+     * Try if there is IsRemember set and secret
+     * Basicali, check if there is at least posibility for login
      */
-    tryLogin(): User {
-       return this._loggedUserService.user ?? new User(null);
+    public async checkPersistentLogin(): Promise<boolean> {
+        let result = await this._authenticationService.getSecret();
+        return result != null && this._authenticationService.user.IsRemember;
     }
 
     /**
      * Logout (disconnect from SSH)
      */
     public async logout(): Promise<void> {
-        this._loggedUserService.logout();
+        this._authenticationService.logout();
     }
 }
 
@@ -66,6 +68,6 @@ export class UserLoginServiceInput {
 export class UserLoginServiceOutput {
     ValidationMessages: string;
     get IsSuccess(): boolean {
-        return this.ValidationMessages == null;
+        return this.ValidationMessages == null || this.ValidationMessages == '';
     }
 }

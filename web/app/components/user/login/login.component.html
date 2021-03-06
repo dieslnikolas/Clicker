@@ -1,6 +1,11 @@
 <div class="content">
     <div class="row">
-        <div class="offset-md-3 col-md-6 mt-5">
+
+        <div class="offset-md-3 col-md-6 mt-5" *ngIf="model == null">
+            <i class="fa fa-arrow fa-spin"></i>
+        </div>
+
+        <div class="offset-md-3 col-md-6 mt-5" *ngIf="model">
 
             <div class="alert alert-danger" role="alert" *ngIf="model.ValidationMessages">
                 {{ model.ValidationMessages }}

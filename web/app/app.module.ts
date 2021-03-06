@@ -26,8 +26,9 @@ import { DashboardComponent } from './components/user/dashboard/dashboard.compon
 import { MenuComponent } from './components/shared/menu/menu.component';
 import { SSHService } from './providers/ssh.service';
 import { LogService } from './providers/log.service';
-import { LoggedUserService } from './providers/logged-user.service';
+import { AuthenticationService } from './providers/autehentication.service';
 import { AppComponent } from './app.component';
+import { MainPanelComponent } from './components/shared/main-panel/main-panel.component';
 
 @NgModule({
     declarations: [
@@ -37,7 +38,8 @@ import { AppComponent } from './app.component';
         TerminalComponent,
         DashboardComponent,
         MenuComponent,
-        AppComponent
+        AppComponent,
+        MainPanelComponent
     ],
     imports: [
         // Angular
@@ -61,7 +63,7 @@ import { AppComponent } from './app.component';
     providers: [
         SSHService,
         LogService,
-        LoggedUserService
+        AuthenticationService
     ],
     bootstrap: [AppComponent]
 })

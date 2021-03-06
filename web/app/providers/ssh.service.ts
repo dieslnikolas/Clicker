@@ -4,7 +4,8 @@ import { LogService } from './log.service';
 // NODE NATIVE MODULES
 const NodeSSHRequire = window.require('node-ssh').NodeSSH;
 import { NodeSSH } from 'node-ssh';
-import { LoggedUserService } from './logged-user.service';
+import { AuthenticationService } from './autehentication.service';
+import { ElectronService } from 'ngx-electron';
 
 
 @Injectable()
@@ -12,7 +13,7 @@ export class SSHService {
 
     private _ssh: NodeSSH;
 
-    constructor(private _log: LogService, private _loggedUserService: LoggedUserService) {
+    constructor(private _log: LogService, private _loggedUserService: AuthenticationService, private _electronService: ElectronService) {
         // NODE NATIVE MODULES Libraries
         this._ssh = new NodeSSHRequire();
     }
@@ -33,7 +34,7 @@ export class SSHService {
             if (credentials == null) {
                 credentials.Server = this._loggedUserService.user.Server;
                 credentials.Username = this._loggedUserService.user.Username;
-                credentials.Password = await this._loggedUserService.user.GetPasswordFromKeyChain();
+                credentials.Password = await this._loggedUserService.getSecret();
             }
 
             // connect
@@ -54,6 +55,7 @@ export class SSHService {
 
         // ERROR
         catch (error) {
+            output.validationMessages = error.message;
             this._log.Write(error);
         }
 
