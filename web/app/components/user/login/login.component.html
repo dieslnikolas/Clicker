@@ -1,16 +1,81 @@
-<div class="content">
-    <div class="row">
+<mat-toolbar color="primary" class="expanded-toolbar">
+    <span>
+      <button mat-button routerLink="/"></button>
+      <button mat-button routerLink="/"><mat-icon>home</mat-icon></button>
+    </span>
+  <div fxLayout="row" fxShow="false" fxShow.gt-sm>
+    <button mat-button routerLink="/login" >
+      <mat-icon>power_settings_new</mat-icon>
+      Login
+    </button>
+    <button mat-button routerLink="/game">
+      <mat-icon>gamepad</mat-icon>
+      Play
+    </button>
+  </div>
+  <button mat-button  fxHide="false" fxHide.gt-sm>
+    <mat-icon>menu</mat-icon>
+  </button>
+</mat-toolbar>
+<mat-menu x-position="before" #menu="matMenu">
+  <button mat-menu-item routerLink="/">
+    <mat-icon>home</mat-icon>
+    Home
+  </button>
+  <button mat-menu-item routerLink="/game">
+    <mat-icon>gamepad</mat-icon>
+    Play
+  </button>
+  <button mat-menu-item routerLink="/login" >
+    <mat-icon>power_settings_new</mat-icon>
+    Login
+  </button>
+  <button mat-menu-item >
+    <mat-icon>exit_to_app</mat-icon>
+    Logout
+  </button>
+</mat-menu>
+<router-outlet></router-outlet>
 
+<div class="example-container">
+
+    <mat-progress-spinner class="example-margin"color="primary" mode="indeterminate" *ngIf="model == null">
+    </mat-progress-spinner>
+
+    <form class="example-form" *ngIf="model != null">
+
+        <div class="alert alert-danger" role="alert" *ngIf="model.ValidationMessages">
+            {{ model.ValidationMessages }}
+        </div>
+
+        <mat-form-field class="example-full-width">
+          <mat-label>Server name:</mat-label>
+          <input matInput placeholder="IP or address" [(ngModel)]="model.Server" [ngModelOptions]="{standalone: true}">
+        </mat-form-field>
+        <br />
+
+        <mat-form-field class="example-full-width">
+            <mat-label>Name of the user:</mat-label>
+            <input matInput placeholder="Username" [(ngModel)]="model.Username" [ngModelOptions]="{standalone: true}">
+          </mat-form-field>
+
+<br />
+
+          <mat-form-field class="example-full-width">
+            <mat-label>Your secret password</mat-label>
+            <input matInput placeholder="Password" [(ngModel)]="model.Password" [ngModelOptions]="{standalone: true}">
+          </mat-form-field>
+
+      </form>
+</div>
+<!-- 
         <div class="offset-md-3 col-md-6 mt-5" *ngIf="model == null">
             <i class="fa fa-arrow fa-spin"></i>
         </div>
 
         <div class="offset-md-3 col-md-6 mt-5" *ngIf="model">
 
-            <div class="alert alert-danger" role="alert" *ngIf="model.ValidationMessages">
-                {{ model.ValidationMessages }}
-              </div>
-
+            
             <h1 class="h3 mb-3 font-weight-normal">Log in</h1>
 
             <div class="form-group">
@@ -43,4 +108,4 @@
             <p class="mt-5 mb-3 text-muted">dieslnikolas.cz &copy; </p>
         </div>
     </div>
-</div>
+</div> -->

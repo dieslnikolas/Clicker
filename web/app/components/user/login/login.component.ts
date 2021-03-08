@@ -18,7 +18,7 @@ export class LoginComponent implements OnInit {
 
         // try if autologin is enabled
         this._userLoginService.checkPersistentLogin().then(result => {
-            
+
             // Automatic login possible
             if (result) {
 

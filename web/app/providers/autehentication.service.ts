@@ -67,6 +67,9 @@ export class AuthenticationService {
      * @returns user's secret
      */
     public async getSecret() {
+        if (!this.user) {
+            return null;
+        }
         return await Keytar.getPassword(this.applicationName, this.user.Username);
     }
 }
@@ -87,7 +90,7 @@ export class User {
     get IsSuccess(): boolean {
         return this.ValidationMessages == null || this.ValidationMessages == '';
     }
-    
+
     constructor() { }
 
 }

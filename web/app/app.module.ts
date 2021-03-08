@@ -7,15 +7,15 @@ import { AppRoutingModule } from './app-routing.module';
 // Electron 
 import { NgxElectronModule } from 'ngx-electron';
 
-// Boostrap
-import { ButtonsModule } from 'ngx-bootstrap/buttons'
-import { AlertModule } from 'ngx-bootstrap/alert'
-import { ProgressbarModule } from 'ngx-bootstrap/progressbar'
-import { ModalModule } from 'ngx-bootstrap/modal'
-import { TooltipModule } from 'ngx-bootstrap/tooltip'
-
-// Fontawesome
-import { NgxFontAwesomeModule } from 'ngx-font-awesome';
+// Material
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatFormFieldModule } from '@angular/material/form-field'
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatIconModule } from "@angular/material/icon";
+import { MatInputModule } from '@angular/material/input';
+import { MatGridListModule } from '@angular/material/grid-list';
+import {MatToolbarModule} from '@angular/material/toolbar';
+import {MatMenuModule} from '@angular/material/menu';
 
 // Components
 import { LayoutLoginComponent } from './components/shared/layout-login/layout-login.component';
@@ -47,19 +47,25 @@ import { MainPanelComponent } from './components/shared/main-panel/main-panel.co
         FormsModule,
         AppRoutingModule,
 
+        // App Modules
+        // ProvidersModule
+        // PagesModule
+        // ServicesModule
+        // ComponentsModule
+
         // Electron
         NgxElectronModule,
 
-        // Boostrap
-        ButtonsModule.forRoot(),
-        AlertModule.forRoot(),
-        ProgressbarModule.forRoot(),
-        ModalModule.forRoot(),
-        TooltipModule.forRoot(),
-
-        // Fontawesome
-        NgxFontAwesomeModule
-        ],
+        // Material
+        BrowserAnimationsModule,
+        MatFormFieldModule,
+        MatProgressSpinnerModule,
+        MatIconModule,
+        MatInputModule,
+        MatGridListModule,
+        MatToolbarModule,
+        MatMenuModule
+    ],
     providers: [
         SSHService,
         LogService,
