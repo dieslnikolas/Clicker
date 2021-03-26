@@ -3,9 +3,9 @@ import { Router } from '@angular/router';
 import { UserLoginService } from 'web/app/services/user/user-login.service';
 
 @Component({
-  selector: 'app-shared-main-panel',
-  templateUrl: './main-panel.component.html',
-  styleUrls: ['./main-panel.component.scss']
+  selector: 'app-navbar',
+  templateUrl: './navbar.component.html',
+  styleUrls: ['./navbar.component.scss']
 })
 export class MainPanelComponent implements OnInit {
 

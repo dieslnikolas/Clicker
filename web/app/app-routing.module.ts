@@ -6,12 +6,12 @@ import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './guards/auth.guard'
 
 // Layouts
-import { LayoutLoginComponent } from './components/shared/layout-login/layout-login.component';
-import { LayoutMainComponent } from './components/shared/layout-main/layout-main.component';
+import { LayoutLoginComponent } from './components/layouts/layout-login/layout-login.component';
+import { LayoutMainComponent } from './components/layouts/layout-main/layout-main.component';
 
 // Pages
-import { DashboardComponent } from './components/user/dashboard/dashboard.component';
-import { LoginComponent } from './components/user/login/login.component'
+import { DashboardComponent } from './pages/user/dashboard/dashboard.component';
+import { LoginComponent } from './pages/user/login/login.component'
 
 
 // LayoutLogin - public layout

@@ -1,5 +1,5 @@
 // Angular 
-import { NgModule } from '@angular/core';
+import { Injector, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
@@ -14,21 +14,32 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatIconModule } from "@angular/material/icon";
 import { MatInputModule } from '@angular/material/input';
 import { MatGridListModule } from '@angular/material/grid-list';
-import {MatToolbarModule} from '@angular/material/toolbar';
-import {MatMenuModule} from '@angular/material/menu';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatCardModule } from '@angular/material/card';
+import { MatButtonModule } from '@angular/material/button';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+
+// Flex layout
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 // Components
-import { LayoutLoginComponent } from './components/shared/layout-login/layout-login.component';
-import { LayoutMainComponent } from './components/shared/layout-main/layout-main.component';
-import { LoginComponent } from './components/user/login/login.component';
-import { TerminalComponent } from './components/shared/terminal/terminal.component';
-import { DashboardComponent } from './components/user/dashboard/dashboard.component';
-import { MenuComponent } from './components/shared/menu/menu.component';
+import { LayoutLoginComponent } from './components/layouts/layout-login/layout-login.component';
+import { LayoutMainComponent } from './components/layouts/layout-main/layout-main.component';
+import { LoginComponent } from './pages/user/login/login.component';
+import { TerminalComponent } from './components/terminal/terminal.component';
+import { DashboardComponent } from './pages/user/dashboard/dashboard.component';
+import { MenuComponent } from './components/menu/menu.component';
+import { MainPanelComponent } from './components/navbar/navbar.component';
+import { AppComponent } from './app.component';
+
+// Services
 import { SSHService } from './providers/ssh.service';
 import { LogService } from './providers/log.service';
 import { AuthenticationService } from './providers/autehentication.service';
-import { AppComponent } from './app.component';
-import { MainPanelComponent } from './components/shared/main-panel/main-panel.component';
+import { BasePageInjector } from './pages/base-page.component';
 
 @NgModule({
     declarations: [
@@ -64,7 +75,15 @@ import { MainPanelComponent } from './components/shared/main-panel/main-panel.co
         MatInputModule,
         MatGridListModule,
         MatToolbarModule,
-        MatMenuModule
+        MatMenuModule,
+        MatCardModule,
+        MatButtonModule,
+        MatSlideToggleModule,
+        MatCheckboxModule,
+        MatSnackBarModule,
+
+        // Flexlayout
+        FlexLayoutModule
     ],
     providers: [
         SSHService,
@@ -74,4 +93,11 @@ import { MainPanelComponent } from './components/shared/main-panel/main-panel.co
     bootstrap: [AppComponent]
 })
 export class AppModule {
+
+    constructor(injector: Injector) {
+        // injector for all pages
+        BasePageInjector.setInjector(injector);
+        // injector for all services
+        // BaseServiceInjector.setInjector(moduleref.injector);
+    }
 }

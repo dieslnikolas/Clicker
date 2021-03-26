@@ -32,13 +32,13 @@ export class SSHService {
             
             // try to prepare credentials
             if (credentials == null) {
-                credentials.Server = this._loggedUserService.user.Server;
-                credentials.Username = this._loggedUserService.user.Username;
-                credentials.Password = await this._loggedUserService.getSecret();
+                credentials.server = this._loggedUserService.user.server;
+                credentials.username = this._loggedUserService.user.username;
+                credentials.password = await this._loggedUserService.getSecret();
             }
 
             // connect
-            var connection = await this._ssh.connect({ host: credentials.Server, username: credentials.Username, password: credentials.Password })
+            var connection = await this._ssh.connect({ host: credentials.server, username: credentials.username, password: credentials.password })
             output.validationMessages = connection.connection;
 
             // LOG command
@@ -66,19 +66,22 @@ export class SSHService {
 
 export class UserCredentials
 {
-    Password: string;
-    Server: string;
-    Username: string;
+    password: string;
+    server: string;
+    username: string;
 
     constructor() { }
 }
 
+/**
+ * Output class for ssh calls
+ */
 export class SSHOutput {
 
-    public result: string;
-    public validationMessages: string;
+    result: string;
+    validationMessages: string;
     
-    get IsSuccess(): boolean {
+    get isSuccess(): boolean {
         return this.validationMessages == null || this.validationMessages == '';
     }
     

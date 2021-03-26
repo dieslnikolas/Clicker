@@ -1,0 +1,35 @@
+<!-- Progress spiner -->
+<mat-spinner *ngIf="model == null"></mat-spinner>
+
+<!-- Form -->
+<mat-card *ngIf="model != null">
+
+    <!-- Header -->
+    <mat-card-header>
+        <mat-card-title>Clicker</mat-card-title>
+    </mat-card-header>
+
+    <!-- Form -->
+    <mat-card-content>
+
+        <mat-form-field>
+            <mat-label>Server</mat-label>
+            <input matInput placeholder="IP or address" [(ngModel)]="model.server">
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>User</mat-label>
+            <input matInput placeholder="Username" [(ngModel)]="model.username">
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Password</mat-label>
+            <input matInput placeholder="Password" type="password" [(ngModel)]="model.password">
+        </mat-form-field>
+        <mat-checkbox [(ngModel)]="model.isRemember">Keep logged in</mat-checkbox>
+
+    </mat-card-content>
+
+    <!-- Buttons -->
+    <mat-card-actions>
+        <button mat-raised-button color="primary" (click)="onLogin()">Log in</button>
+    </mat-card-actions>
+</mat-card>

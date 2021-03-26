@@ -32,14 +32,15 @@ export class AuthenticationService {
      * @param password password
      */
     public async logout(): Promise<void> {
-        let Authentication = this.user;
+        let authentication = this.user;
 
         // logout user
-        Authentication.IsLogged = false;
-        Authentication.Password = null;
+        authentication.isLogged = false;
+        authentication.isRemember = false;
+        authentication.password = null;
 
-        localStorage.setItem(this.localStorageName, JSON.stringify(Authentication));
-        Keytar.deletePassword(this.applicationName, Authentication.Username);
+        localStorage.setItem(this.localStorageName, JSON.stringify(authentication));
+        Keytar.deletePassword(this.applicationName, authentication.username);
     }
 
     /**
@@ -52,25 +53,28 @@ export class AuthenticationService {
 
         let user = new User();
 
-        user.Server = server;
-        user.Username = username;
-        user.IsRemember = isRemember;
-        user.IsLogged = true;
+        user.server = server;
+        user.username = username;
+        user.isRemember = isRemember;
+        user.isLogged = true;
 
-        localStorage.setItem(this.localStorageName, JSON.stringify(user));
         this.userSubject = new BehaviorSubject(user);
-        Keytar.setPassword(this.applicationName, user.Username, password);
+        localStorage.setItem(this.localStorageName, JSON.stringify(user));
+
+        if (user.isRemember) {
+            Keytar.setPassword(this.applicationName, user.username, password);
+        }
     }
 
     /**
      * Try to get user secret from keytar
      * @returns user's secret
      */
-    public async getSecret() {
+    public async getSecret(): Promise<string> {
         if (!this.user) {
             return null;
         }
-        return await Keytar.getPassword(this.applicationName, this.user.Username);
+        return await Keytar.getPassword(this.applicationName, this.user.username);
     }
 }
 
@@ -80,16 +84,11 @@ export class AuthenticationService {
  */
 export class User {
 
-    Server: string;
-    Username: string;
-    Password: string;
-    IsLogged: boolean = false;
-    IsRemember: boolean = false;
-    ValidationMessages: string;
-
-    get IsSuccess(): boolean {
-        return this.ValidationMessages == null || this.ValidationMessages == '';
-    }
+    server: string;
+    username: string;
+    password: string;
+    isLogged: boolean = false;
+    isRemember: boolean = false;
 
     constructor() { }
 
