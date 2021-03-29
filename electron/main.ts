@@ -15,7 +15,10 @@ export class Application {
         // 1) READ SETTINGS
         (new Settings()).init();
 
-        // 2) CREATE WINDOW
+        // 2) PREPARE IPC's
+        // TODO: IPC registration
+
+        // 3) CREATE WINDOW
         // when electron is ready, then we can create window
         app.on('ready', () => (new Shell()).createShell())
 
