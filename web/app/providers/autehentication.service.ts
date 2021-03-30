@@ -74,7 +74,7 @@ export class AuthenticationService {
         if (!this.user) {
             return null;
         }
-        return await Keytar.getPassword(this.applicationName, this.user.username);
+        await Keytar.getPassword(this.applicationName, this.user.username);
     }
 }
 

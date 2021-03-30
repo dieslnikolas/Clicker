@@ -3,6 +3,7 @@ import { BaseService } from "../base.service";
 import { AuthenticationService, User } from "../../providers/autehentication.service";
 import { SSHService, UserCredentials } from "../../providers/ssh.service";
 import { Model } from "../../common/model";
+import { debug } from 'electron-log';
 
 /**
  * Service for logging and logout user
@@ -28,17 +29,12 @@ export class UserLoginService extends BaseService {
         credentials.username = input.username;
 
         // try to connect to the server
-        await this._sshService.exec('whoami', credentials).then(sshResult => {
-            
-            // it works, lets login user
-            if (sshResult.isSuccess) {
-                this._authenticationService.login(input.server, input.username, input.password, input.isRemember);
-            }
-
-            // save result
-            output.validationMessages = sshResult.validationMessages;
-
-        });
+        var result = await this._sshService.exec('whoami', credentials);
+        // it works, lets login user
+        if (result.isSuccess) {
+            this._authenticationService.login(input.server, input.username, input.password, input.isRemember);
+        }
+        output.validationMessages = result.validationMessages;
 
         return output;
     }
@@ -55,7 +51,6 @@ export class UserLoginService extends BaseService {
 
         // Automatic login possible - password is saved
         if (secret) {
-
             // try login
             let input = new UserLoginServiceInput();
 
@@ -64,7 +59,13 @@ export class UserLoginService extends BaseService {
             input.server = user.server;
             input.username = user.username;
 
-            await this.login(input).then(result => output = result);
+            var result = await this.login(input);
+            output = result;
+        }
+        else {
+            // preventive logout, removes keytar, flags etc.
+            this._authenticationService.logout();
+            user = await this._authenticationService.user;
         }
 
         // return at least something

@@ -1,14 +1,12 @@
 export class Settings {
     
     /** Iw its running in the production */
-    isProduction: boolean;
+    static isProduction: boolean;
 
-    constructor(){}
-    
     /**
      * Reads config file
      */
-    init() {
+    static init() {
         this.isProduction = false;
     }
 }

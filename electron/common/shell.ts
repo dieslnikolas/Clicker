@@ -1,8 +1,8 @@
 import { app, BrowserWindow } from 'electron'
 import * as url from 'url'
 import * as path from 'path'
-import { CreateTray } from "electron/common/tray";
-import { Settings } from "electron/tools/settings";
+import { Settings } from '../tools/settings';
+import { TrayManager } from './tray';
 
 /**
  * Finaly creates a window wrapper around application
@@ -10,18 +10,12 @@ import { Settings } from "electron/tools/settings";
 export class Shell {
 
     /** Browser wimdows wrapper */
-    win: BrowserWindow;
-    settings: Settings;
-
-    constructor() {
-        this.settings = new Settings();
-        this.settings.init();
-     }
+    static win: BrowserWindow;
 
     /**
      * Creates shell for web apliaction
      */
-    createShell() {
+    static createShell() {
 
         // if there is no window, it will recreate (MACOS FIX - where MINIMALIZE DONT EXISTS!)
         if (this.win != null) return;
@@ -37,7 +31,7 @@ export class Shell {
 
         // inject web application
         // **production 
-        if (this.settings.isProduction) {
+        if (Settings.isProduction) {
             this.win.loadURL(
                 url.format({
                     pathname: path.join(__dirname, '/../index.html'),
@@ -69,7 +63,7 @@ export class Shell {
         this.win.on('minimize', function (event) {
             event.preventDefault();
             this.hide();
-            tray = CreateTray(this);
+            tray = TrayManager.create(this);
         });
 
         this.win.on('restore', function () {
