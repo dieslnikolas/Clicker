@@ -10,12 +10,12 @@ import { TrayManager } from './tray';
 export class Shell {
 
     /** Browser wimdows wrapper */
-    static win: BrowserWindow;
+    private static win: BrowserWindow;
 
     /**
      * Creates shell for web apliaction
      */
-    static createShell() {
+    private static createShell() {
 
         // if there is no window, it will recreate (MACOS FIX - where MINIMALIZE DONT EXISTS!)
         if (this.win != null) return;
@@ -70,5 +70,17 @@ export class Shell {
             this.show();
             tray.destroy();
         });
+    }
+
+    /**
+     * Init electron shell
+     */
+    static init() {
+         // when electron is ready, then we can create window
+         app.on('ready', () => Shell.createShell());
+
+         // this is mac-only special function, because on MacOS app can have killed all windows but still running
+         // this will ensure that new window is spawned when there is none left
+         app.on('activate', () => Shell.createShell());
     }
 }

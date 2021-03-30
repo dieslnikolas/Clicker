@@ -3,7 +3,6 @@ import * as path from 'path'
 
 export class TrayManager {
 
-
     /**
      *  Creates and handle Tray icon and behaviour
      */
