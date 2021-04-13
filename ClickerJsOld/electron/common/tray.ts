@@ -8,7 +8,8 @@ export class TrayManager {
      */
     static create(window: BrowserWindow) {
  
-        let appIcon = new Tray(path.join(__dirname, './../../client/assets/logo.png'));
+        console.log(__dirname);
+        let appIcon = new Tray(path.join(__dirname, './../../../client/assets/logo.png'));
         const contextMenu = Menu.buildFromTemplate([
             {
                 label: 'Show', click: function () {

@@ -71,10 +71,12 @@ export class AuthenticationService {
      * @returns user's secret
      */
     public async getSecret(): Promise<string> {
-        if (!this.user) {
+
+        let user = this.user;
+        if (!user || !user.username) {
             return null;
         }
-        await Keytar.getPassword(this.applicationName, this.user.username);
+        return await Keytar.getPassword(this.applicationName, this.user.username);
     }
 }
 
