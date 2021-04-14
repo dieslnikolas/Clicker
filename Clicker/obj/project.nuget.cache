@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "KpF68/KnxhnFkidiXQ/HNic7gaaDO2Na+amTDbCIk58WCeQM9VEExliBagoPYCUMymiwDMX9K43qlU16XO9vxw==",
+  "dgSpecHash": "Yc2FFZkWpK7WZTRIBRBZNwyp2YDZdJSBnywXeqldulebKKEVqejACewdu7PFWsioHJiMxfql9i+/GdNy9PrZSA==",
   "success": true,
-  "projectFilePath": "D:\\Developing\\Applications\\Moje\\ClickerCore\\Clicker\\Clicker\\Clicker.csproj",
+  "projectFilePath": "D:\\Developing\\Applications\\Moje\\Clicker\\Clicker\\Clicker.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\diesl\\.nuget\\packages\\electronnet.api\\11.5.1\\electronnet.api.11.5.1.nupkg.sha512",
     "C:\\Users\\diesl\\.nuget\\packages\\engineioclientdotnet\\1.0.5\\engineioclientdotnet.1.0.5.nupkg.sha512",

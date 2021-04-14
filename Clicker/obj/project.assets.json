@@ -5485,11 +5485,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Developing\\Applications\\Moje\\ClickerCore\\Clicker\\Clicker\\Clicker.csproj",
+      "projectUniqueName": "D:\\Developing\\Applications\\Moje\\Clicker\\Clicker\\Clicker.csproj",
       "projectName": "Clicker",
-      "projectPath": "D:\\Developing\\Applications\\Moje\\ClickerCore\\Clicker\\Clicker\\Clicker.csproj",
+      "projectPath": "D:\\Developing\\Applications\\Moje\\Clicker\\Clicker\\Clicker.csproj",
       "packagesPath": "C:\\Users\\diesl\\.nuget\\packages\\",
-      "outputPath": "D:\\Developing\\Applications\\Moje\\ClickerCore\\Clicker\\Clicker\\obj\\",
+      "outputPath": "D:\\Developing\\Applications\\Moje\\Clicker\\Clicker\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\DevExpress 20.2\\Components\\Offline Packages"
