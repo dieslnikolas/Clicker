@@ -1,3 +1,5 @@
+using ElectronNET.API;
+using ElectronNET.API.Entities;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -70,6 +72,48 @@ namespace Clicker
                     spa.UseAngularCliServer(npmScript: "start");
                 }
             });
+
+            System.Threading.Tasks.Task.Run(async () => await ElectronBootstrap());
+        }
+
+        public async System.Threading.Tasks.Task ElectronBootstrap()
+        {
+            BrowserWindowOptions options = new BrowserWindowOptions
+            {
+                Show = false
+            };
+            BrowserWindow mainWindow = await Electron.WindowManager.CreateWindowAsync();
+            mainWindow.OnReadyToShow += () =>
+            {
+                mainWindow.Show();
+            };
+            mainWindow.SetTitle("Clicker");
+
+            MenuItem[] menu = new MenuItem[]
+            {
+                new MenuItem
+                {
+                    Label = "File",
+                    Submenu=new MenuItem[]
+                    {
+                        new MenuItem
+                        {
+                            Label ="Exit",
+                            Click =()=>{Electron.App.Exit();}
+                        }
+                    }
+                },
+                new MenuItem
+                {
+                    Label = "Info",
+                    Click = async ()=>
+                    {
+                        await Electron.Dialog.ShowMessageBoxAsync("Welcome to App");
+                    }
+                }
+            };
+
+            Electron.Menu.SetApplicationMenu(menu);
         }
     }
 }
