@@ -17,7 +17,6 @@
     <!-- Don't publish the SPA source files, but do show them in the project files list -->
     <Content Remove="$(SpaRoot)**" />
     <None Remove="$(SpaRoot)**" />
-    <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
   </ItemGroup>
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">
     <!-- Ensure Node.js is installed -->
@@ -37,7 +36,7 @@
     <ItemGroup>
       <DistFiles Include="$(SpaRoot)dist\**; $(SpaRoot)dist-server\**" />
       <DistFiles Include="$(SpaRoot)node_modules\**" Condition="'$(BuildServerSideRenderer)' == 'true'" />
-      <ResolvedFileToPublish Include="@(DistFiles->'%(FullPath)')" Exclude="@(ResolvedFileToPublish)">
+      <ResolvedFileToPublish Include="@(DistFiles-&gt;'%(FullPath)')" Exclude="@(ResolvedFileToPublish)">
         <RelativePath>%(DistFiles.Identity)</RelativePath>
         <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
         <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
@@ -48,5 +47,56 @@
     <Content Update="electron.manifest.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClientApp\README.md" />
+    <None Include="ClientApp\angular.json" />
+    <None Include="ClientApp\package-lock.json" />
+    <None Include="ClientApp\package.json" />
+    <None Include="ClientApp\tsconfig.json" />
+    <None Include="ClientApp\src\index.html" />
+    <None Include="ClientApp\src\main.ts" />
+    <None Include="ClientApp\src\tsconfig.json" />
+    <None Include="ClientApp\src\polyfills.ts" />
+    <None Include="ClientApp\src\app\app.component.html" />
+    <None Include="ClientApp\src\app\app-routing.module.ts" />
+    <None Include="ClientApp\src\app\app.component.scss" />
+    <None Include="ClientApp\src\app\app.module.ts" />
+    <None Include="ClientApp\src\app\app.component.ts" />
+    <None Include="ClientApp\src\app\providers\autehentication.service.ts" />
+    <None Include="ClientApp\src\app\providers\ssh.service.ts" />
+    <None Include="ClientApp\src\app\providers\log.service.ts" />
+    <None Include="ClientApp\src\app\common\model.ts" />
+    <None Include="ClientApp\src\app\pages\base-page.component.ts" />
+    <None Include="ClientApp\src\app\pages\user\dashboard\dashboard.component.html" />
+    <None Include="ClientApp\src\app\pages\user\dashboard\dashboard.component.scss" />
+    <None Include="ClientApp\src\app\pages\user\dashboard\dashboard.component.ts" />
+    <None Include="ClientApp\src\app\pages\user\login\login.component.ts" />
+    <None Include="ClientApp\src\app\pages\user\login\login.component.scss" />
+    <None Include="ClientApp\src\app\pages\user\login\login.component.html" />
+    <None Include="ClientApp\src\app\services\base.service.ts" />
+    <None Include="ClientApp\src\app\services\user\user-login.service.ts" />
+    <None Include="ClientApp\src\app\guards\auth.guard.ts" />
+    <None Include="ClientApp\src\app\components\navbar\navbar.component.ts" />
+    <None Include="ClientApp\src\app\components\navbar\navbar.component.html" />
+    <None Include="ClientApp\src\app\components\navbar\navbar.component.scss" />
+    <None Include="ClientApp\src\app\components\terminal\terminal.component.ts" />
+    <None Include="ClientApp\src\app\components\terminal\terminal.component.scss" />
+    <None Include="ClientApp\src\app\components\terminal\terminal.component.html" />
+    <None Include="ClientApp\src\app\components\menu\menu.component.ts" />
+    <None Include="ClientApp\src\app\components\menu\menu.component.html" />
+    <None Include="ClientApp\src\app\components\menu\menu.component.scss" />
+    <None Include="ClientApp\src\app\components\layouts\layout-login\layout-login.component.scss" />
+    <None Include="ClientApp\src\app\components\layouts\layout-login\layout-login.component.ts" />
+    <None Include="ClientApp\src\app\components\layouts\layout-login\layout-login.component.html" />
+    <None Include="ClientApp\src\app\components\layouts\layout-main\layout-main.component.ts" />
+    <None Include="ClientApp\src\app\components\layouts\layout-main\layout-main.component.scss" />
+    <None Include="ClientApp\src\app\components\layouts\layout-main\layout-main.component.html" />
+    <None Include="ClientApp\src\environments\environment.prod.ts" />
+    <None Include="ClientApp\src\environments\environment.ts" />
+    <None Include="ClientApp\src\assets\favicon.ico" />
+    <None Include="ClientApp\src\assets\styles.scss" />
+    <None Include="ClientApp\src\assets\material-override.scss" />
+    <None Include="ClientApp\src\assets\logo.png" />
   </ItemGroup>
 </Project>

@@ -1,27 +1,26 @@
-# Clicker
+# Introduction 
+- Angular application, with NodeJS backend and packed via ElectronJS
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.0.0.
+# Getting Started
+- Fork this repository
+- Instal Node.JS and NPM to your PC
+- Run "npm install" to install missing node_modules
+- To run as desktop app in chromium window run "npm run electron"
+- To run as web app run "ng serve -o" (-o opens new tab right away)
+- For other possible configurations check "package.json" in project root foolder
 
-## Development server
+# Build
+1) Open terminal/command line in the root folder of the application
+2) Run "npm run electron" to start run application on development machine
+3) It will recompile after every change (file save). You don't even need to refresh web page
+4) For me VSCode with expansion "Debugger for Chrome" worked best - You can attach VSCode to Chrome procces and debug app directly
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
-## Code scaffolding
+# FAQ
+1) **An unhandled exception occurred: Cannot find module '@angular-devkit/build-angular/package.json'.**  
+**How to fix this?**:  
+run "npm install"
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
-
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+2) **blah blah.**  
+**How to fix this?**:  
+bla blah
