@@ -3,14 +3,9 @@
   "version": "",
   "main": "dist/server/main.js",
   "scripts": {
-    "start": "ng serve",
-    "angular-run": "ng serve",
-    "angular-build": "ng build --base-href ./",
-    "electron-run": "electron .",
-    "electron-build": "tsc --p electron",
-    "electron": "concurrently -k \"npm run angular-run\" \"wait-on http://localhost:4200 && npm run electron-build && npm run electron-run\"",
-    "release-windows": "npm run angular-build && npm run electron-build && npm run electron-run",
-    "release-macos": "npm run angular-build && npm run electron-build && npm run electron-run"
+    "ng": "ng",
+    "start": "echo Starting... && ng serve --verbose",
+    "build": "ng build"
   },
   "private": true,
   "dependencies": {

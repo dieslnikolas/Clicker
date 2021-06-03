@@ -1,5 +1,5 @@
-using ElectronNET.API;
-using ElectronNET.API.Entities;
+using Clicker.Helpers;
+using Clicker.Services.Users;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System.Threading.Tasks;
 
 namespace Clicker
 {
@@ -33,7 +34,7 @@ namespace Clicker
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            if (env.IsDevelopment())
+            if(env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
@@ -66,54 +67,16 @@ namespace Clicker
                 // see https://go.microsoft.com/fwlink/?linkid=864501
 
                 spa.Options.SourcePath = "ClientApp";
-
+                //Configure the timeout to 5 minutes to avoid "The Angular CLI process did not start listening for requests within the timeout period of 50 seconds." issue
+                spa.Options.StartupTimeout = new System.TimeSpan(0, 5, 0);
                 if (env.IsDevelopment())
                 {
-                    spa.UseAngularCliServer(npmScript: "start");
+                    //spa.UseAngularCliServer(npmScript: "start");
+                    spa.UseProxyToSpaDevelopmentServer("http://localhost:4200");
                 }
+
             });
-
-            System.Threading.Tasks.Task.Run(async () => await ElectronBootstrap());
         }
 
-        public async System.Threading.Tasks.Task ElectronBootstrap()
-        {
-            BrowserWindowOptions options = new BrowserWindowOptions
-            {
-                Show = false
-            };
-            BrowserWindow mainWindow = await Electron.WindowManager.CreateWindowAsync();
-            mainWindow.OnReadyToShow += () =>
-            {
-                mainWindow.Show();
-            };
-            mainWindow.SetTitle("Clicker");
-
-            MenuItem[] menu = new MenuItem[]
-            {
-                new MenuItem
-                {
-                    Label = "File",
-                    Submenu=new MenuItem[]
-                    {
-                        new MenuItem
-                        {
-                            Label ="Exit",
-                            Click =()=>{Electron.App.Exit();}
-                        }
-                    }
-                },
-                new MenuItem
-                {
-                    Label = "Info",
-                    Click = async ()=>
-                    {
-                        await Electron.Dialog.ShowMessageBoxAsync("Welcome to App");
-                    }
-                }
-            };
-
-            Electron.Menu.SetApplicationMenu(menu);
-        }
     }
 }
