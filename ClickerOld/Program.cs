@@ -1,10 +1,12 @@
-using System;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using ServiceStack;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Clicker
 {
@@ -16,10 +18,11 @@ namespace Clicker
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
-            Host.CreateDefaultBuilder(args)
-                .ConfigureWebHostDefaults(builder =>
-                {
-                    builder.UseModularStartup<Startup>();
-                });
+              Host.CreateDefaultBuilder(args)
+                  .ConfigureWebHostDefaults(webBuilder =>
+                  {
+                      webBuilder.UseStartup<Startup>();
+                  });
+
     }
 }
