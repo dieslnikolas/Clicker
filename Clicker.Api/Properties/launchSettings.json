@@ -15,7 +15,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "Clicker.Web": {
+    "Clicker.Api": {
       "commandName": "Project",
       "launchBrowser": true,
       "applicationUrl": "https://localhost:19851;http://localhost:62359",

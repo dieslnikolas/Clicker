@@ -2,11 +2,16 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31321.278
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Clicker.Utils", "Clicker.Utils\Clicker.Utils.csproj", "{D707904D-AF9D-47BA-951B-50A33C8451CF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Clicker.Utils", "Clicker.Utils\Clicker.Utils.csproj", "{D707904D-AF9D-47BA-951B-50A33C8451CF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Clicker.Web", "Clicker.Web\Clicker.Web.csproj", "{D1A89455-1F82-47FB-BF04-CC9EFE6945D1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Clicker.Api", "Clicker.Api\Clicker.Api.csproj", "{D1A89455-1F82-47FB-BF04-CC9EFE6945D1}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Clicker", "Clicker\Clicker.shproj", "{1D2A5425-65FF-4EE8-B3B7-57BEB27986C9}"
 EndProject
 Global
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		Clicker\Clicker.projitems*{1d2a5425-65ff-4ee8-b3b7-57beb27986c9}*SharedItemsImports = 13
+	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
