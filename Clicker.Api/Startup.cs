@@ -27,7 +27,7 @@ namespace Clicker.Api
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
             {
-                configuration.RootPath = "../Client/dist";
+                configuration.RootPath = "../Clicker/dist";
             });
         }
 
@@ -75,7 +75,7 @@ namespace Clicker.Api
                 // To learn more about options for serving an Angular SPA from ASP.NET Core,
                 // see https://go.microsoft.com/fwlink/?linkid=864501
 
-                spa.Options.SourcePath = "../Client";
+                spa.Options.SourcePath = "../Clicker";
 
                 if (env.IsDevelopment())
                 {
