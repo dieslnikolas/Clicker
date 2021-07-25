@@ -1,4 +1,4 @@
-import { Directive } from '@angular/core';
+7import { Directive } from '@angular/core';
 
 @Directive({
   selector: 'webview'
