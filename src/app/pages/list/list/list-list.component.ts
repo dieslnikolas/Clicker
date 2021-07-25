@@ -2,18 +2,18 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  selector: 'app-list-list',
+  templateUrl: './list-list.component.html',
+  styleUrls: ['./list-list.component.scss']
 })
-export class LoginComponent implements OnInit {
+export class ListListComponent implements OnInit {
   title = 'Tic Tac Toe';
   isAuthenticated = false;
 
   constructor(private router: Router) { }
 
   ngOnInit(): void {
-    console.log('LoginComponent INIT');
+    console.log('ListListComponent INIT');
   }
 
   async logout(): Promise<void> {

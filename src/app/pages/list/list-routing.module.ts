@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
-import { DetailComponent } from './detail.component';
+import { ListListComponent } from './list/list-list.component';
 
 const routes: Routes = [
   {
-    path: 'detail',
-    component: DetailComponent
+    path: 'list/list',
+    component: ListListComponent
   }
 ];
 
@@ -15,4 +15,4 @@ const routes: Routes = [
   imports: [CommonModule, RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class DetailRoutingModule {}
+export class ListRoutingModule {}

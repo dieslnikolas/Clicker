@@ -1,8 +1,9 @@
 {
-  "name": "angular-electron",
-  "version": "10.1.0",
-  "description": "Angular 12 with Electron (Typescript + SASS + Hot Reload)",
-  "homepage": "https://github.com/maximegris/angular-electron",
+  "name": "clicker",
+  "productName": "Clicker",
+  "version": "1.0.0",
+  "description": "Application which can run scripts via UI",
+  "homepage": "https://dev.azure.com/dieslnikolas/Clicker",
   "author": {
     "name": "Nikolas Diesl",
     "email": "dieslnikolas@gmail.com"
@@ -29,7 +30,7 @@
     "build": "npm run electron:serve-tsc && ng build --base-href ./",
     "build:dev": "npm run build -- -c dev",
     "build:prod": "npm run build -- -c production",
-    "ng:serve": "ng serve -c web -o",
+    "ng:serve": "ng serve -c web",
     "electron:serve-tsc": "tsc -p tsconfig.serve.json",
     "electron:serve": "wait-on tcp:4200 && npm run electron:serve-tsc && npx electron . --serve",
     "electron:local": "npm run build:prod && npx electron .",

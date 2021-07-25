@@ -2,13 +2,16 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { PageNotFoundComponent } from './shared/components';
 
-import { LoginRoutingModule } from './login/login-routing.module';
-import { DetailRoutingModule } from './detail/detail-routing.module';
+// Sub-Routes
+import { ListRoutingModule } from './pages/list/list-routing.module';
+import { AboutRoutingModule } from './pages/about/about-routing.module';
+import { SettingsRoutingModule } from './pages/settings/settings-routing.module';
 
+// Default route
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'login',
+    redirectTo: 'list/list',
     pathMatch: 'full'
   },
   {
@@ -20,8 +23,9 @@ const routes: Routes = [
 @NgModule({
   imports: [
     RouterModule.forRoot(routes, { relativeLinkResolution: 'legacy' }),
-    LoginRoutingModule,
-    DetailRoutingModule
+    ListRoutingModule,
+    AboutRoutingModule,
+    SettingsRoutingModule
   ],
   exports: [RouterModule]
 })
