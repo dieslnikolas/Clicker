@@ -13,7 +13,7 @@
   "extraResources": [
     {
       "from": "../dist",
-      "to": "../app",
+      "to": "app",
       "filter": [
         "**/*"
       ]

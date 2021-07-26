@@ -6,12 +6,16 @@ import * as url from 'url';
 // Initialize remote module
 require('@electron/remote/main').initialize();
 
+// Browser window is global to not create another instances
 let win: BrowserWindow = null;
+
+// Arguments
 const args = process.argv.slice(1),
   serve = args.some(val => val === '--serve');
 
 function createWindow(): BrowserWindow {
 
+  // Screen
   const electronScreen = screen;
   const size = electronScreen.getPrimaryDisplay().workAreaSize;
 
@@ -25,26 +29,35 @@ function createWindow(): BrowserWindow {
       nodeIntegration: true,
       allowRunningInsecureContent: (serve) ? true : false,
       contextIsolation: false,  // false if you want to run e2e test with Spectron
-      enableRemoteModule : true // true if you want to run e2e test with Spectron or use remote module in renderer context (ie. Angular)
+      enableRemoteModule: true // true if you want to run e2e test with Spectron or use remote module in renderer context (ie. Angular)
     },
   });
 
-
+  // Hosted via ng serve
   if (serve) {
     win.webContents.openDevTools();
+
+    // auto reloads shell when changes in electron are made
     require('electron-reload')(__dirname, {
+      // need to re-require electron
       electron: require(path.join(__dirname, '/../node_modules/electron'))
     });
+
+    // url with hosted app
     win.loadURL('http://localhost:4200');
-  } else {
+  } 
+  
+  // Packed inside electron shell 
+  else {
     // Path when running electron executable
     let pathIndex = './index.html';
 
+    // Path when running electron in local folder
     if (fs.existsSync(path.join(__dirname, '../../dist/index.html'))) {
-       // Path when running electron in local folder
       pathIndex = '../../dist/index.html';
     }
 
+    // open file
     win.loadURL(url.format({
       pathname: path.join(__dirname, pathIndex),
       protocol: 'file:',
@@ -60,6 +73,7 @@ function createWindow(): BrowserWindow {
     win = null;
   });
 
+  // returns window
   return win;
 }
 
@@ -79,6 +93,7 @@ try {
     }
   });
 
+  // Activated window
   app.on('activate', () => {
     // On OS X it's common to re-create a window in the app when the
     // dock icon is clicked and there are no other windows open.
@@ -90,4 +105,5 @@ try {
 } catch (e) {
   // Catch Error
   // throw e;
+  // TODO: Global errors handle
 }
