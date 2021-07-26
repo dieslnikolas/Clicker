@@ -1,0 +1,15 @@
+.collapsable-term {
+    position: fixed;
+    width: 100%;
+    min-height: 200px;
+    bottom: 0px;
+    display: none;
+}
+
+button.xterm-collapse {
+    position: fixed;
+    float: right;
+    right: 24px;
+    bottom:25px;
+    z-index: 9999;
+}

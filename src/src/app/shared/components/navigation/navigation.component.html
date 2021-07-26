@@ -1,5 +1,12 @@
-<mat-tab-group mat-align-tabs="center">
-  <mat-tab label="First">Content 1</mat-tab>
-  <mat-tab label="Second">Content 2</mat-tab>
-  <mat-tab label="Third">Content 3</mat-tab>
-</mat-tab-group>
+<!-- // COMMANDS -->
+<div fxLayout="column">
+  <nav mat-tab-nav-bar mat-color="primary">
+    <a mat-tab-link>Tables</a>
+    <a mat-tab-link>Procedures</a>
+    <a mat-tab-link>Views</a>
+    <a mat-tab-link>Functions</a>
+    <a mat-tab-link class="new-item-command" matTooltip="Create new item command" #tooltip="matTooltip">
+      <mat-icon>add</mat-icon>New data
+    </a>
+  </nav>
+</div>
