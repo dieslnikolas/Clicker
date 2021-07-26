@@ -1,0 +1,11 @@
+
+/* new item command */
+.new-item-command {
+    color: black;
+}
+
+/* Focused menu navigation */
+.cdk-focused {
+    color:#673ab7;
+    font-weight: bolder;
+}
