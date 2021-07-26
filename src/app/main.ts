@@ -50,7 +50,8 @@ function createWindow(): BrowserWindow {
   // Packed inside electron shell 
   else {
     // Path when running electron executable
-    let pathIndex = './index.html';
+    // let pathIndex = './index.html';
+    let pathIndex = '';
 
     // Path when running electron in local folder
     if (fs.existsSync(path.join(__dirname, '../../dist/index.html'))) {
