@@ -1,1 +1,0 @@
-﻿Start-Process -FilePath "PowerShell_ISE" -NoNewWindow
