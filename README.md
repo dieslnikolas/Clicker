@@ -1,7 +1,7 @@
 # Clicker
 
 ## Template
-- [maximegris angular + electron template](/doc/readme/angular-template.md)
+- [Maximegris - angular + electron template](/doc/readme/angular-template.md)
 
 ## Powergene
 - [Original project](/doc/readme/powergene.md)
