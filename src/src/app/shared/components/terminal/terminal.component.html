@@ -1,7 +1,21 @@
-<div class="collapsable-term">
-    <ng-terminal #term></ng-terminal>
-</div>
+<mat-accordion>
 
-<button class="xterm-collapse" mat-raised-button color="primary" aria-label="Example icon button with a delete icon" (click)="collapseTerm()">
-    Open terminal
-</button>
+    <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+
+        <!-- Header -->
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                Terminal
+            </mat-panel-title>
+            <mat-panel-description>
+                Terminal is {{panelOpenState ? 'opened' : 'closed'}}
+            </mat-panel-description>
+        </mat-expansion-panel-header>
+
+        <!-- Terminal -->
+        <div class="collapsable-term">
+            <ng-terminal #term></ng-terminal>
+        </div>
+
+    </mat-expansion-panel>
+</mat-accordion>
