@@ -9,7 +9,7 @@ import { NgTerminal } from 'ng-terminal';
 export class TerminalComponent implements OnInit, AfterViewInit {
   @ViewChild('term', { static: true }) xTermJS: NgTerminal;
   
-  isCollapsed: boolean = false;
+  panelOpenState: boolean = false;
 
   constructor() { }
 
@@ -43,10 +43,5 @@ export class TerminalComponent implements OnInit, AfterViewInit {
   write(message: string) {
     this.xTermJS.write(message);
     this.xTermJS.write('\r\n$ ')
-  }
-
-  collapseTerm() {
-    this.isCollapsed = !this.isCollapsed;
-    console.log('Collapsed', this.isCollapsed);
   }
 }

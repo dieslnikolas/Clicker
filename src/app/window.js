@@ -66,8 +66,7 @@ var WindowBuilder = /** @class */ (function () {
         // Packed inside electron shell 
         else {
             // Path when running electron executable
-            // let pathIndex = './index.html';
-            var pathIndex = '';
+            var pathIndex = './index.html';
             // Path when running electron in local folder
             if (fs.existsSync(path.join(__dirname, '../../dist/index.html'))) {
                 pathIndex = '../../dist/index.html';
