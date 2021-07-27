@@ -44,7 +44,7 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatDialogModule } from '@angular/material/dialog';
-
+import {MatExpansionModule} from '@angular/material/expansion';
 
 @NgModule({
   declarations: [
@@ -91,6 +91,7 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatSnackBarModule,
     MatTooltipModule,
     MatDialogModule,
+    MatExpansionModule,
 
     NgTerminalModule
   ],
@@ -124,7 +125,8 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatSnackBarModule,
     MatTooltipModule,
     MatDialogModule,
-
+    MatExpansionModule, 
+    
     // Components
     TerminalComponent,
     ContextMenuComponent,

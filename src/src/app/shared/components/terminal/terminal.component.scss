@@ -1,15 +1,19 @@
 .collapsable-term {
-    position: fixed;
+    padding-top: 30px;
     width: 100%;
     min-height: 200px;
     bottom: 0px;
-    display: none;
 }
 
-button.xterm-collapse {
-    position: fixed;
-    float: right;
-    right: 24px;
-    bottom:25px;
-    z-index: 9999;
-}
+.mat-expansion-panel {
+    display: flex !important;
+    flex-direction: column;
+    position: absolute;
+    bottom: 0px;
+    width: 99%;
+    box-shadow: 1px 1px 10px 0px #aaa;
+    margin: 8px;
+  }
+  .mat-expansion-panel-header {
+    order: 2;
+  }
