@@ -7,9 +7,9 @@
 
   <mat-form-field appearance="fill">
     <mat-label>Type</mat-label>
-    <mat-select>
-      <mat-option *ngFor="let commandType of commandTypes" [value]="data.commandType">
-        {{commandType.viewValue}}
+    <mat-select [(ngModel)]="data.scriptType">
+      <mat-option *ngFor="let scriptType of scriptTypes" [value]="scriptType">
+        {{scriptType}}
       </mat-option>
     </mat-select>
   </mat-form-field>
