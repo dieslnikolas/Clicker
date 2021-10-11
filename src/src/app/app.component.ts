@@ -16,8 +16,7 @@ export class AppComponent {
 
   @ViewChild(TerminalComponent) terminal : TerminalComponent;
   
-  constructor(private electronService: ElectronService, private translate: TranslateService, 
-    public dialog: MatDialog, private _snackBar: MatSnackBar) {
+  constructor(private electronService: ElectronService, private translate: TranslateService, private _snackBar: MatSnackBar) {
 
     this.translate.setDefaultLang('en');
     console.log('APP_CONFIG', APP_CONFIG);
@@ -30,17 +29,6 @@ export class AppComponent {
     } else {
       console.log('Run in browser');
     }
-  }
-
-  openDialog() {
-    const dialogRef = this.dialog.open(CommandDialogComponent, {
-      data: {}
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-        console.log('The dialog was closed');
-        console.log(result);
-    });
   }
 
   openSnackBar(message: string) {

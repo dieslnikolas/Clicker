@@ -1,14 +1,14 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { ScriptGenerator } from '../../../core/script-generator/script-generator';
+import { ScriptType } from '../../../core/script-generator/script-type';
 
+/**
+ * Output model for dialog
+ */
 export interface DialogData {
   name: string,
-  commandType: string
-}
-
-interface CommandType {
-  value: string;
-  viewValue: string;
+  scriptType: ScriptType
 }
 
 @Component({
@@ -19,20 +19,16 @@ interface CommandType {
 export class CommandDialogComponent implements OnInit {
 
   public name: string;
+  public scriptTypes: ScriptType[] 
 
-  commandTypes: CommandType[] = [
-    {value: 'ps1', viewValue: 'Powershell'},
-    {value: 'py', viewValue: 'Python'},
-    {value: 'other', viewValue: 'Other'}
-  ];
-
-  constructor(public dialogRef: MatDialogRef<CommandDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: DialogData) {}
+  constructor(public scriptGenerator: ScriptGenerator, public dialogRef: MatDialogRef<CommandDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: DialogData) {}
 
   onNoClick(): void {
     this.dialogRef.close();
   }
 
   ngOnInit(): void {
-    console.log('CommandDialogComponent INIT');
+    this.scriptTypes = ScriptType.toArray();
+    this.data.scriptType = this.scriptGenerator.defaultType();
   }
 }
