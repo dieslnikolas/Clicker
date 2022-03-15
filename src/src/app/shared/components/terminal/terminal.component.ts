@@ -14,7 +14,6 @@ export class TerminalComponent implements OnInit, AfterViewInit {
   constructor() { }
 
   ngOnInit(): void {
-    console.log('TerminalComponent INIT');
   }
 
   ngAfterViewInit(){

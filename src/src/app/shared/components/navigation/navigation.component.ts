@@ -13,7 +13,6 @@ export class NavigationComponent {
   constructor() {}
 
   ngOnInit(): void {
-    console.log('NavigationComponent INIT');
   }
 
 }

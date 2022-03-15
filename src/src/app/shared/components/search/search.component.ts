@@ -13,6 +13,5 @@ export class SearchComponent {
   constructor() {}
 
   ngOnInit(): void {
-    console.log('SearchComponent INIT');
   }
 }

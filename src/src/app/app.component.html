@@ -1,6 +1,14 @@
-<mat-card class="content">
+<!-- Loading  -->
+<div class="my-overlay" *ngIf="showOverlay">
+    <div fxLayout="column" fxLayoutAlign="stretch">
+        <mat-spinner></mat-spinner>
+        <span class="spinner-message">{{ loadingMessage }}</span>
+    </div>
+</div>
+
+<mat-card class="content" *ngIf="showOverlay == false">
     <!-- Global commands -->
-    <shared-global-commands></shared-global-commands>
+    <shared-global-commands [data]="globalComands"></shared-global-commands>
 
     <!-- TEST BUTTONS -->
     <button mat-button (click)="openSnackBar('Testuji, tedy jsem')">Test snack</button>
@@ -8,7 +16,7 @@
     <button mat-button (click)="testTerminal('TESTUJI TERMINAL')">Test term</button>
 </mat-card>
 
-<mat-card class="content">
+<mat-card class="content" *ngIf="showOverlay == false">
 
     <div fxLayout="column" fxLayoutAlign="stretch">
         <!-- Navigation -->
@@ -33,7 +41,7 @@
 </mat-card>
 
 <!-- Footer -->
-<mat-card class="content">
+<mat-card class="content" *ngIf="showOverlay == false">
     <div fxLayout="row" class="content footer" fxLayoutAlign="stretch">
         <div fxFlex="50%">
             Author: Nikolas Diesl (<a href="dieslnikolas@gmail.com">dieslnikolas@gmail.com</a>,
@@ -46,4 +54,4 @@
 </mat-card>
 
 <!-- Terminal -->
-<shared-terminal></shared-terminal>
+<shared-terminal *ngIf="showOverlay == false"></shared-terminal>

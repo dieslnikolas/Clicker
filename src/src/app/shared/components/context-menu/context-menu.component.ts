@@ -9,6 +9,5 @@ export class ContextMenuComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {
-    console.log('ContextMenuComponent INIT');
   }
 }
