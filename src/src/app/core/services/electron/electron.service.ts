@@ -6,17 +6,19 @@ import { ipcRenderer, webFrame } from 'electron';
 import * as remote from '@electron/remote';
 import * as childProcess from 'child_process';
 import * as fs from 'fs';
+import * as path from 'path';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ElectronService {
-  
+
   ipcRenderer: typeof ipcRenderer;
   webFrame: typeof webFrame;
   remote: typeof remote;
   childProcess: typeof childProcess;
   fs: typeof fs;
+  path: typeof path;
 
   get isElectron(): boolean {
     return !!(window && window.process && window.process.type);
@@ -31,11 +33,22 @@ export class ElectronService {
 
       this.childProcess = window.require('child_process');
       this.fs = window.require('fs');
+      this.path = window.require('path');
 
       // If you want to use a NodeJS 3rd party deps in Renderer process (like @electron/remote),
       // it must be declared in dependencies of both package.json (in root and app folders)
       // If you want to use remote object in renderer process, please set enableRemoteModule to true in main.ts
       this.remote = window.require('@electron/remote');
+
+      // if (this.isElectron) {
+      //   console.log(process.env);
+      //   console.log('Run in electron');
+      //   console.log('Electron ipcRenderer', this.ipcRenderer);
+      //   console.log('NodeJS childProcess', this.childProcess);
+      // } else {
+      //   console.log('Run in browser');
+      // }
+  
     }
   }
 }

@@ -3,6 +3,7 @@ import { ScriptScope } from "./script-scope";
 import { ScriptType } from "./script-type";
 import { ElectronService } from "../services";
 import { Settings } from "../common/settings";
+import { APP_CONFIG } from "../../../environments/environment";
 
 /**
  * Genetares scripts based by some folder structure
@@ -32,7 +33,7 @@ export class ScriptGenerator {
      * @returns Default project script type
      */
     public defaultType() : ScriptType {
-        return ScriptType[this.settings.defaultScriptType] as ScriptType;
+        return ScriptType[APP_CONFIG.defaultScriptType] as ScriptType;
     }
 
     /**

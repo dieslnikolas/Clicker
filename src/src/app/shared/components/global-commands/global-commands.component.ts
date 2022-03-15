@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ScriptGenerator } from '../../../core/script-generator/script-generator';
 import { ScriptScope } from '../../../core/script-generator/script-scope';
@@ -9,12 +9,21 @@ import { CommandDialogComponent } from '../command-dialog/command-dialog.compone
   templateUrl: './global-commands.component.html',
   styleUrls: ['./global-commands.component.css']
 })
-export class GlobalCommandsComponent {
+export class GlobalCommandsComponent implements OnChanges {
 
-  constructor(private dialog: MatDialog, private scriptGenerator: ScriptGenerator) {}
+  @Input()
+  public data: any
+
+  constructor(private dialog: MatDialog, private scriptGenerator: ScriptGenerator) { }
 
   ngOnInit(): void {
-    console.log('GlobalCommandsComponent INIT');
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    let data = changes[`data`];
+    if (data) {
+      console.log(data.currentValue);
+    }
   }
 
   generateGlobalScript() {
