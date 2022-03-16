@@ -8,9 +8,9 @@ import { TranslateModule } from '@ngx-translate/core';
 import { PageNotFoundComponent, TerminalComponent } from './components/';
 import { ContextMenuComponent } from './components/context-menu/context-menu.component';
 import { SearchComponent } from './components/search/search.component';
-import { GlobalCommandsComponent } from './components/global-commands/global-commands.component';
-import { NavigationComponent } from './components/navigation/navigation.component';
+import { ScriptsCommandsComponent } from './components/scripts/scripts.component';
 import { CommandDialogComponent } from './components/command-dialog/command-dialog.component';
+import { ModuleComponent } from './components/modules/module.component';
 
 // Directives
 import { WebviewDirective } from './directives/';
@@ -54,8 +54,8 @@ import {MatExpansionModule} from '@angular/material/expansion';
     TerminalComponent,
     ContextMenuComponent,
     SearchComponent,
-    GlobalCommandsComponent,
-    NavigationComponent,
+    ScriptsCommandsComponent,
+    ModuleComponent,
     CommandDialogComponent,
  
     // Directives
@@ -130,8 +130,8 @@ import {MatExpansionModule} from '@angular/material/expansion';
     // Components
     TerminalComponent,
     ContextMenuComponent,
-    GlobalCommandsComponent,
-    NavigationComponent,
+    ScriptsCommandsComponent,
+    ModuleComponent,
     SearchComponent,
     CommandDialogComponent
   ],

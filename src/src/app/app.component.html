@@ -8,7 +8,7 @@
 
 <mat-card class="content" *ngIf="showOverlay == false">
     <!-- Global commands -->
-    <shared-global-commands [data]="globalComands"></shared-global-commands>
+    <shared-scripts [data]="globalComands"></shared-scripts>
 
     <!-- TEST BUTTONS -->
     <button mat-button (click)="openSnackBar('Testuji, tedy jsem')">Test snack</button>
@@ -19,9 +19,9 @@
 <mat-card class="content" *ngIf="showOverlay == false">
 
     <div fxLayout="column" fxLayoutAlign="stretch">
-        <!-- Navigation -->
+        <!-- Modeuls -->
         <div fxFlex="100%">
-            <shared-navigation></shared-navigation>
+            <shared-module></shared-module>
         </div>
     </div>
 
