@@ -16,7 +16,7 @@ export class AppComponent {
   public loadingMessage = `Loading...`;
 
   // data 
-  public globalComands: string;
+  public globalComands: [];
 
   @ViewChild(TerminalComponent) terminal: TerminalComponent;
 

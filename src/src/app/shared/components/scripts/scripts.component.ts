@@ -5,11 +5,11 @@ import { ScriptScope } from '../../../core/script-generator/script-scope';
 import { CommandDialogComponent } from '../command-dialog/command-dialog.component';
 
 @Component({
-  selector: 'shared-global-commands',
-  templateUrl: './global-commands.component.html',
-  styleUrls: ['./global-commands.component.css']
+  selector: 'shared-scripts',
+  templateUrl: './scripts.component.html',
+  styleUrls: ['./scripts.component.css']
 })
-export class GlobalCommandsComponent implements OnChanges {
+export class ScriptsCommandsComponent implements OnChanges {
 
   @Input()
   public data: any

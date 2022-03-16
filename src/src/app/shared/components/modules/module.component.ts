@@ -4,11 +4,11 @@ import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 
 @Component({
-  selector: 'shared-navigation',
-  templateUrl: './navigation.component.html',
-  styleUrls: ['./navigation.component.css']
+  selector: 'shared-module',
+  templateUrl: './module.component.html',
+  styleUrls: ['./module.component.css']
 })
-export class NavigationComponent {
+export class ModuleComponent {
 
   constructor() {}
 
