@@ -1,5 +1,5 @@
 import { app, BrowserWindow } from 'electron';
-import { MenuBarBuilder } from './menubar';
+import { MenuBarBuilder } from './shell/menubar';
 import { WindowBuilder } from './window';
 import { Logger } from './logger';
 
