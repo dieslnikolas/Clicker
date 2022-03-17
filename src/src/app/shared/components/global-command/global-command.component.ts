@@ -5,11 +5,11 @@ import { ScriptScope } from '../../../core/script-generator/script-scope';
 import { CommandDialogComponent } from '../command-dialog/command-dialog.component';
 
 @Component({
-  selector: 'shared-scripts',
-  templateUrl: './scripts.component.html',
-  styleUrls: ['./scripts.component.css']
+  selector: 'shared-global-command',
+  templateUrl: './global-command.component.html',
+  styleUrls: ['./global-command.component.css']
 })
-export class ScriptsCommandsComponent implements OnChanges {
+export class GlobalCommandComponent implements OnChanges {
 
   @Input()
   public data: any
@@ -22,7 +22,7 @@ export class ScriptsCommandsComponent implements OnChanges {
   ngOnChanges(changes: SimpleChanges) {
     let data = changes[`data`];
     if (data) {
-      console.log(data.currentValue);
+      console.log('GlobalCommandComponent got data');
     }
   }
 
@@ -34,6 +34,10 @@ export class ScriptsCommandsComponent implements OnChanges {
     dialogRef.afterClosed().subscribe(result => {
       this.scriptGenerator.generate(result.name, ScriptScope.Global, result.scriptType)
     });
+  }
+
+  RunCommand(data: any) {
+    console.log(data);
   }
 }
 

@@ -1,0 +1,18 @@
+<!-- // COMMANDS -->
+<div class="global-command">
+
+    <!-- Commands -->
+    <div class="global-command-group" *ngFor="let commandGroup of data | keyvalue">
+        {{commandGroup.key}}
+
+        <button mat-stroked-button color="primary" *ngFor="let command of commandGroup.value | keyvalue"  (click)="RunCommand(command.value)">
+            {{command.key}}
+        </button>
+    </div>
+
+    <!-- ADD buton -->
+    <button mat-stroked-button color="basic" (click)="generateGlobalScript()"
+        aria-label="Example icon button with a menu icon" matTooltip="Create new global command" #tooltip="matTooltip">
+        <mat-icon>add</mat-icon> New command
+    </button>
+</div>

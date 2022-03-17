@@ -16,7 +16,8 @@ export class AppComponent {
   public loadingMessage = `Loading...`;
 
   // data 
-  public globalComands: [];
+  public globalComands: any;
+  public modules: any;
 
   @ViewChild(TerminalComponent) terminal: TerminalComponent;
 
@@ -25,6 +26,7 @@ export class AppComponent {
     this.translate.setDefaultLang('en');
     this.settings.loadSettings().then(() => {
       this.globalComands = this.settings.commands;
+      this.modules = this.settings.modules;
 
       this.showOverlay = false;
     });

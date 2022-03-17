@@ -8,18 +8,21 @@ import { TranslateModule } from '@ngx-translate/core';
 import { PageNotFoundComponent, TerminalComponent } from './components/';
 import { ContextMenuComponent } from './components/context-menu/context-menu.component';
 import { SearchComponent } from './components/search/search.component';
-import { ScriptsCommandsComponent } from './components/scripts/scripts.component';
+import { GlobalCommandComponent } from './components/global-command/global-command.component';
 import { CommandDialogComponent } from './components/command-dialog/command-dialog.component';
-import { ModuleComponent } from './components/modules/module.component';
+import { ModuleComponent } from './components/module/module.component';
 
 // Directives
 import { WebviewDirective } from './directives/';
+
+// Pipes
+import { BoolToYesNoPipe } from './pipes/bool-to-yes-no.pipe';
 
 // FlexLayout
 import { FlexLayoutModule } from '@angular/flex-layout';
 
 // Terminal
-import { NgTerminalComponent, NgTerminalModule } from 'ng-terminal';
+import { NgTerminalModule } from 'ng-terminal';
 
 // Material
 import { MatSidenavModule } from '@angular/material/sidenav';
@@ -54,12 +57,15 @@ import {MatExpansionModule} from '@angular/material/expansion';
     TerminalComponent,
     ContextMenuComponent,
     SearchComponent,
-    ScriptsCommandsComponent,
+    GlobalCommandComponent,
     ModuleComponent,
     CommandDialogComponent,
  
     // Directives
-    WebviewDirective
+    WebviewDirective,
+
+    // Pipies
+    BoolToYesNoPipe
   ],
   imports: [
     CommonModule, 
@@ -130,10 +136,13 @@ import {MatExpansionModule} from '@angular/material/expansion';
     // Components
     TerminalComponent,
     ContextMenuComponent,
-    ScriptsCommandsComponent,
+    GlobalCommandComponent,
     ModuleComponent,
     SearchComponent,
-    CommandDialogComponent
+    CommandDialogComponent,
+
+    // Pipes
+    BoolToYesNoPipe
   ],
   providers: [
     
