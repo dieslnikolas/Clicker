@@ -7,6 +7,9 @@ import { Logger } from './logger';
 // Initialize remote module
 require('@electron/remote/main').initialize();
 
+// disable warnings
+process.env['ELECTRON_DISABLE_SECURITY_WARNINGS'] = 'true';
+
 // Browser window is global to not create another instances
 let win: BrowserWindow = null;
 

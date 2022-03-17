@@ -7,15 +7,15 @@ import { MatListModule } from '@angular/material/list';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 
-import { ScriptsCommandsComponent  } from './scripts.component';
+import { GlobalCommandComponent  } from './global-command.component';
 
-describe('ScriptsCommandsComponent', () => {
-  let component: ScriptsCommandsComponent;
-  let fixture: ComponentFixture<ScriptsCommandsComponent>;
+describe('GlobalCommandComponent', () => {
+  let component: GlobalCommandComponent;
+  let fixture: ComponentFixture<GlobalCommandComponent>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ScriptsCommandsComponent],
+      declarations: [GlobalCommandComponent],
       imports: [
         NoopAnimationsModule,
         LayoutModule,
@@ -29,7 +29,7 @@ describe('ScriptsCommandsComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ScriptsCommandsComponent);
+    fixture = TestBed.createComponent(GlobalCommandComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
