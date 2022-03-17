@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ElectronService } from './services';
 import { ScriptGenerator } from './script-generator/script-generator';
+import { Settings } from './common/settings';
 
 @NgModule({
   declarations: [],
@@ -10,7 +11,13 @@ import { ScriptGenerator } from './script-generator/script-generator';
   ],
   exports: [
     ElectronService,
-    ScriptGenerator
+    ScriptGenerator,
+    Settings
+  ],
+  providers:[
+    ElectronService,
+    ScriptGenerator,
+    Settings
   ]
 })
 export class CoreModule { }
