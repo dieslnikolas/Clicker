@@ -43,14 +43,14 @@
   },
   "dependencies": {
     "@angular/animations": "13.3.0",
-    "@angular/cdk": "12.1.2",
+    "@angular/cdk": "13.3.0",
     "@angular/common": "13.3.0",
     "@angular/compiler": "13.3.0",
     "@angular/core": "13.3.0",
-    "@angular/flex-layout": "12.0.0-beta.34",
+    "@angular/flex-layout": "13.0.0-beta.38",
     "@angular/forms": "13.3.0",
     "@angular/language-service": "13.3.0",
-    "@angular/material": "12.1.2",
+    "@angular/material": "13.3.0",
     "@angular/platform-browser": "13.3.0",
     "@angular/platform-browser-dynamic": "13.3.0",
     "@angular/router": "13.3.0",
@@ -61,7 +61,7 @@
     "zone.js": "~0.11.4"
   },
   "devDependencies": {
-    "@angular-builders/custom-webpack": "12.1.0",
+    "@angular-builders/custom-webpack": "13.1.0",
     "@angular-devkit/build-angular": "13.3.0",
     "@angular-eslint/builder": "13.1.0",
     "@angular-eslint/eslint-plugin": "13.1.0",
@@ -101,7 +101,7 @@
     "spectron": "15.0.0",
     "ts-node": "10.1.0",
     "typescript": "~4.6.2",
-    "wait-on": "5.0.1",
+    "wait-on": "6.0.1",
     "webdriver-manager": "12.1.8"
   },
   "engines": {
