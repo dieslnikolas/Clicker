@@ -35,11 +35,13 @@ export class Settings {
         "Items": [],
 
         // Scripts
-        "Scripts": { 
+        "Scripts": {
+            // global commands 
             "InitializeScript": [],
             "FileOperations": [],
             "SettingOperations": [],
             "Commands": [],
+            // modules
             "Modules": {
                 "Tables": [],
                 "Views": [],
