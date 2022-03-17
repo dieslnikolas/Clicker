@@ -47,7 +47,7 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatDialogModule } from '@angular/material/dialog';
-import {MatExpansionModule} from '@angular/material/expansion';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 @NgModule({
   declarations: [
@@ -98,6 +98,7 @@ import {MatExpansionModule} from '@angular/material/expansion';
     MatTooltipModule,
     MatDialogModule,
     MatExpansionModule,
+    MatTabsModule,
 
     NgTerminalModule
   ],
@@ -132,6 +133,7 @@ import {MatExpansionModule} from '@angular/material/expansion';
     MatTooltipModule,
     MatDialogModule,
     MatExpansionModule, 
+    MatTabsModule,
     
     // Components
     TerminalComponent,

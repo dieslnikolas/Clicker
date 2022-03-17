@@ -1,9 +1,9 @@
 <!-- // COMMANDS -->
 <div fxLayout="column">
-  <nav mat-tab-nav-bar mat-color="primary">
-    <a mat-tab-link *ngFor="let module of data | keyvalue">{{module.key}}</a>
-    <a mat-tab-link class="new-item-command" matTooltip="Create new item command" #tooltip="matTooltip">
+  <mat-tab mat-color="primary">
+    <mat-tab-link *ngFor="let module of data | keyvalue">{{module.key}}</mat-tab-link>
+    <mat-tab-link class="new-item-command" matTooltip="Create new item command" #tooltip="matTooltip">
       <mat-icon>add</mat-icon>New data
-    </a>
-  </nav>
+    </mat-tab-link>
+  </mat-tab>
 </div>
