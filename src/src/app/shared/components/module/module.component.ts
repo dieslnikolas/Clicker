@@ -29,20 +29,16 @@ export class ModuleComponent {
   }
 
   onSelectedTabChange(event: MatTabChangeEvent) {
-
-    // new module
-    if (event.index == this.settings.modulesCount) {
-      const dialogRef = this.dialog.open(CommandDialogComponent, {
-        data: {}
-      });
-
-      dialogRef.afterClosed().subscribe(result => {
-        this.scriptGenerator.generate(result.name, ScriptScope.Global, result.scriptType)
-      });
-    }
-    // change data
-    else {
       this.settings.selectedModule = event.tab.textLabel;
-    }
+  }
+
+  createNewModule() {
+    const dialogRef = this.dialog.open(CommandDialogComponent, {
+      data: {}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.scriptGenerator.generate(result.name, ScriptScope.Global, result.scriptType)
+    });
   }
 }
