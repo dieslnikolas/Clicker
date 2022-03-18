@@ -1,19 +1,24 @@
 <!-- // COMMANDS -->
-<div class="global-command">
+<div class="global-command" fxLayout="row-reverse" fxLayoutAlign="end start" fxLayoutGap="5px">
 
     <!-- Commands -->
-    <div class="global-command-group" *ngFor="let commandGroup of data | keyvalue" fxLayout="row">
-        <div fxLayout="row">{{commandGroup.key}}</div>
-        <button fxLayout="column" mat-raised-button color="accent" backgroundColor="accent"
-            *ngFor="let command of commandGroup.value | keyvalue" (click)="RunCommand(command.value)">
-            {{command.key}}
-        </button>
+    <div class="global-command-group flex-container" *ngFor="let commandGroup of data | keyvalue" 
+        fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="2px" >
 
-        <!-- ADD buton -->
-        <button fxLayout="column" mat-button color="accent" backgroundColor="accent" (click)="generateGlobalScript()"
-            *ngIf="commandGroup.key == 'Commands'" aria-label="Example icon button with a menu icon"
-            matTooltip="Create new global command" #tooltip="matTooltip">
-            <mat-icon>add</mat-icon> New command
-        </button>
+        <div fxLayout="column" fxLayoutAlign="start start" fxLayoutGap="2px" class="global-command-group-column">
+            <span class="title" fxLayout="row" fxLayoutAlign="center center">{{commandGroup.key}}</span>
+            <button fxLayout="row" fxFill fxLayoutAlign="center center" mat-raised-button color="accent" backgroundColor="accent"
+                *ngFor="let command of commandGroup.value | keyvalue" (click)="RunCommand(command.value)">
+                {{command.key}}
+            </button>
+
+            <!-- ADD buton -->
+            <button mat-button color="accent" backgroundColor="accent" (click)="generateGlobalScript()"
+                *ngIf="commandGroup.key == 'Commands'" aria-label="Example icon button with a menu icon"
+                matTooltip="Create new global command" #tooltip="matTooltip">
+                <mat-icon>add</mat-icon> New command
+            </button>
+        </div>
+
     </div>
 </div>
