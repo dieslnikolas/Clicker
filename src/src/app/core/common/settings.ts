@@ -1,20 +1,31 @@
 import { Injectable } from "@angular/core";
 import { ElectronService } from "../services";
+import { Subject } from 'rxjs';
 
 @Injectable({
     providedIn: 'root'
 })
 export class Settings {
-    
-    
-    private __appPath : string;
-    public get appPath() : string {
+
+    moduleChanged: Subject<string> = new Subject<string>();
+
+    private __appPath: string;
+    public get appPath(): string {
         if (this.__appPath == null)
             this.__appPath = this.electronService.remote.app.getAppPath();
 
         return this.__appPath;
     }
-    
+
+    private _selectedModule: string;
+    public get selectedModule(): string {
+        return this._selectedModule;
+    }
+    public set selectedModule(v: string) {
+        this._selectedModule = v;
+        this.moduleChanged.next(this._selectedModule);
+    }
+
     private settings: {
 
         // Settings
@@ -55,7 +66,7 @@ export class Settings {
                 "Procedures": {},
                 "Functions": {},
             }
-         },
+        },
     };
 
     /**
@@ -63,9 +74,9 @@ export class Settings {
      */
     get commands() {
         // deleting modules
-        let commands = {...this.settings.Scripts};
-        delete commands.Modules; // Item right-click events
-        delete commands.InitializeScript; // PREDEFINED SCRIPT FOR INIT APP
+        let commands = { ...this.settings.Scripts };
+        // delete commands.Modules; // Item right-click events
+        // delete commands.InitializeScript; // PREDEFINED SCRIPT FOR INIT APP
 
         return commands;
     }
@@ -77,32 +88,37 @@ export class Settings {
         return this.settings.Scripts.Modules;
     }
 
-     /**
-     * Returns all commands for module
-     */
-      get modulesCommand() {
-        let commands = {...this.settings.Scripts.Modules };
-        delete commands.Tables["ImportTables"]; // PREDEFINED SCRIPT FOR IMPORINT DATA
-
-        return commands.Tables;
+    get modulesCount() {
+        return Object.keys(this.modules).length;
     }
 
-    get dataCollumns() {
+    /**
+    * Returns all commands for module
+    */
+    get moduleCommands() {
+        let commands = { ...this.settings.Scripts.Modules };
+        // PREDEFINED SCRIPT FOR IMPORTING DATA
+        // delete commands[this.selectedModule]["Import" + this.selectedModule]; 
+        return commands[this.selectedModule];
+    }
+
+    get moduleImport() {
+        let commands = { ...this.settings.Scripts.Modules };
+        console.log(commands);
+        // PREDEFINED SCRIPT FOR IMPORT DATA
+        return commands[this.selectedModule]["Import" + this.selectedModule]; 
+    }
+
+    get moduleColumns() {
         return ['DisplayName', 'Schema', 'Name'];
     }
 
     /**
      * Returns all data
      */
-     get data() {
-
-        let selectedModule = 0; // "Tables";
-
-        // modules
-        let modules = Object.entries({ ... this.modules }).map(item => item[0]);
-        
+    get moduleData() {
         // data for module
-        let data = Object.entries(this.settings[modules[selectedModule]]).map(item => item[1]);
+        let data = Object.entries(this.settings[this.selectedModule]).map(item => item[1]);
         return data;
     }
 
