@@ -3,10 +3,10 @@
   <mat-tab-group mat-align-tabs="start" color="accent" backgroundColor="accent" animationDuration="0ms" 
       (selectedTabChange)="onSelectedTabChange($event)">
     <mat-tab *ngFor="let module of data | keyvalue" label="{{module.key}}"></mat-tab>
-    <mat-tab class="new-item-command" color="primary"  matTooltip="Create new item command" #tooltip="matTooltip">
-      <ng-template mat-tab-label>
-        <mat-icon>add</mat-icon>new module
-      </ng-template>
-    </mat-tab>
   </mat-tab-group>
+  <div class="add-module-button-container" >
+    <button (click)="createNewModule()" mat-flat-button color="basic" aria-label="Example icon button with a menu icon" matTooltip="Create new module" #tooltip="matTooltip">
+      <mat-icon>add</mat-icon> new module
+    </button>
+  </div>
 </div>
