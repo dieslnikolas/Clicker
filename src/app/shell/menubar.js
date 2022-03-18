@@ -35,14 +35,10 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
-    if (pack || arguments.length === 2) for (var i = 0, l = from.length, ar; i < l; i++) {
-        if (ar || !(i in from)) {
-            if (!ar) ar = Array.prototype.slice.call(from, 0, i);
-            ar[i] = from[i];
-        }
-    }
-    return to.concat(ar || Array.prototype.slice.call(from));
+var __spreadArray = (this && this.__spreadArray) || function (to, from) {
+    for (var i = 0, il = from.length, j = to.length; i < il; i++, j++)
+        to[j] = from[i];
+    return to;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.MenuBarBuilder = void 0;
@@ -60,8 +56,6 @@ var MenuBarBuilder = /** @class */ (function () {
         var menu = electron_1.Menu.buildFromTemplate(MenuBarBuilder.template);
         electron_1.Menu.setApplicationMenu(menu);
     };
-    var _a;
-    _a = MenuBarBuilder;
     /** If it is running on MacOS */
     MenuBarBuilder.isMac = process.platform === 'darwin';
     /** Menu template */
@@ -78,7 +72,7 @@ var MenuBarBuilder = /** @class */ (function () {
                 { type: 'separator' },
                 { role: 'quit' }
             ]
-        }] : []), true), [
+        }] : [])), [
         // FILE MENU
         {
             label: 'File',
@@ -112,7 +106,7 @@ var MenuBarBuilder = /** @class */ (function () {
                 { role: 'delete' },
                 { type: 'separator' },
                 { role: 'selectAll' }
-            ]), true)
+            ]))
         },
         // VIEW
         {
@@ -142,7 +136,7 @@ var MenuBarBuilder = /** @class */ (function () {
                 { role: 'window' }
             ] : [
                 { role: 'close' }
-            ]), true)
+            ]))
         },
         {
             role: 'help',
@@ -151,13 +145,13 @@ var MenuBarBuilder = /** @class */ (function () {
                     label: 'Learn More',
                     click: function () { return __awaiter(void 0, void 0, void 0, function () {
                         var shell;
-                        return __generator(_a, function (_b) {
-                            switch (_b.label) {
+                        return __generator(this, function (_a) {
+                            switch (_a.label) {
                                 case 0:
                                     shell = require('electron').shell;
                                     return [4 /*yield*/, shell.openExternal('https://electronjs.org')];
                                 case 1:
-                                    _b.sent();
+                                    _a.sent();
                                     return [2 /*return*/];
                             }
                         });
@@ -165,7 +159,7 @@ var MenuBarBuilder = /** @class */ (function () {
                 }
             ]
         }
-    ], false);
+    ]);
     return MenuBarBuilder;
 }());
 exports.MenuBarBuilder = MenuBarBuilder;
