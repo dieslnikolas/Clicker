@@ -1,8 +1,8 @@
-import {AfterViewInit, Component, ViewChild} from '@angular/core';
+import { AfterViewInit, Component, Input, ViewChild } from '@angular/core';
 import { MatMenuTrigger } from '@angular/material/menu';
-import {MatPaginator} from '@angular/material/paginator';
-import {MatSort} from '@angular/material/sort';
-import {MatTableDataSource} from '@angular/material/table';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 import { Settings } from '../../../core/common/settings';
 
 /**
@@ -13,10 +13,13 @@ import { Settings } from '../../../core/common/settings';
   styleUrls: ['list-list.component.scss'],
   templateUrl: 'list-list.component.html',
 })
-export class ListListComponent implements AfterViewInit {
+export class ListListComponent {
+
+  contextMenuPosition = { x: '0px', y: '0px' };
   dataSource: MatTableDataSource<any>;
   displayedColumns: string[];
   commands: any;
+  dataLoaded: boolean = false;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -24,18 +27,23 @@ export class ListListComponent implements AfterViewInit {
   contextMenu: MatMenuTrigger;
 
   constructor(private settings: Settings) {
-    this.commands = this.settings.modulesCommand;
-    this.displayedColumns = this.settings.dataCollumns;
-    // Assign the data to the data source for the table to render
-    this.dataSource = new MatTableDataSource(this.settings.data);
+    this.settings.moduleChanged.subscribe(() => {
+      
+      // Assign the data to the data source for the table to render
+      this.commands = this.settings.moduleCommands;
+      this.displayedColumns = this.settings.moduleColumns;
+
+      // datasource
+      let data = this.settings.moduleData;
+      this.dataSource = new MatTableDataSource(data);
+      this.dataLoaded = data != null && data.length > 0;
+
+      // filter pagination
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+    });
   }
 
-  ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
-  }
-
-  contextMenuPosition = { x: '0px', y: '0px' };
 
   /**
    * 
@@ -53,6 +61,10 @@ export class ListListComponent implements AfterViewInit {
 
   onContextMenuAction(item: any, action: string) {
     console.log(action, item);
+  }
+
+  importData() {
+    console.log(this.settings.moduleImport)
   }
 
   applyFilter(event: Event) {

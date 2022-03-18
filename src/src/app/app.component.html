@@ -1,4 +1,5 @@
 <!-- Loading  -->
+
 <div class="my-overlay" *ngIf="showOverlay">
     <div fxLayout="column" fxLayoutAlign="stretch">
         <mat-spinner></mat-spinner>
@@ -6,17 +7,17 @@
     </div>
 </div>
 
-<mat-card class="content" *ngIf="showOverlay == false">
+<div fxLayout="column" fxLayoutGap="10px">
+
     <!-- Global commands -->
-    <shared-global-command [data]="globalComands"></shared-global-command>
+    <div fxLayout="column" fxLayoutAlign="stretch">
+        <shared-global-command [data]="globalComands"></shared-global-command>
 
-    <!-- TEST BUTTONS -->
-    <button mat-button (click)="openSnackBar('Testuji, tedy jsem')">Test snack</button>
-    <button mat-button (click)="openDialog()">Test dialog</button>
-    <button mat-button (click)="testTerminal('TESTUJI TERMINAL')">Test term</button>
-</mat-card>
-
-<mat-card class="content" *ngIf="showOverlay == false">
+        <!-- TEST BUTTONS -->
+        <!-- <button mat-button (click)="openSnackBar('Testuji, tedy jsem')">Test snack</button>
+        <button mat-button (click)="openDialog()">Test dialog</button>
+        <button mat-button (click)="testTerminal('TESTUJI TERMINAL')">Test term</button> -->
+    </div>
 
     <div fxLayout="column" fxLayoutAlign="stretch">
         <!-- Modules -->
@@ -32,16 +33,15 @@
         </div>
     </div>
 
+
     <!-- Content -->
     <div fxLayout="column" fxLayoutAlign="stretch">
         <div fxFlex="100%">
             <router-outlet></router-outlet>
         </div>
     </div>
-</mat-card>
 
-<!-- Footer -->
-<mat-card class="content" *ngIf="showOverlay == false">
+    <!-- Footer -->
     <div fxLayout="row" class="content footer" fxLayoutAlign="stretch">
         <div fxFlex="50%">
             Author: Nikolas Diesl (<a href="dieslnikolas@gmail.com">dieslnikolas@gmail.com</a>,
@@ -51,7 +51,9 @@
             Version: 1.0
         </div>
     </div>
-</mat-card>
 
-<!-- Terminal -->
-<shared-terminal *ngIf="showOverlay == false"></shared-terminal>
+    <!-- Terminal -->
+    <!-- <div fxLayout="column" fxLayoutAlign="stretch">
+        <shared-terminal *ngIf="showOverlay == false"></shared-terminal>
+    </div> -->
+</div>
