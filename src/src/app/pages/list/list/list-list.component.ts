@@ -65,7 +65,7 @@ export class ListListComponent {
     }
 
     importData() {
-        console.log(this.projectService.moduleImport)
+        this.scriptRunnerService.Run("Import", this.projectService.moduleImport);
     }
 
     applyFilter(event: Event) {
