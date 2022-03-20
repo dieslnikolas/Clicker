@@ -5,15 +5,16 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 
 // Components
-import { PageNotFoundComponent, TerminalComponent } from './components/';
+
+import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
+import { TerminalComponent } from './components/terminal/terminal.component';
 import { ContextMenuComponent } from './components/context-menu/context-menu.component';
 import { SearchComponent } from './components/search/search.component';
 import { GlobalCommandComponent } from './components/global-command/global-command.component';
-import { CommandDialogComponent } from './components/command-dialog/command-dialog.component';
 import { ModuleComponent } from './components/module/module.component';
 
 // Directives
-import { WebviewDirective } from './directives/';
+import { WebviewDirective } from './directives/webview/webview.directive';
 
 // Pipes
 import { BoolToYesNoPipe } from './pipes/bool-to-yes-no.pipe';
@@ -48,6 +49,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { DialogComponent } from './components/dialog/dialog.component';
 
 @NgModule({
   declarations: [
@@ -59,7 +61,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
     SearchComponent,
     GlobalCommandComponent,
     ModuleComponent,
-    CommandDialogComponent,
+    DialogComponent,
  
     // Directives
     WebviewDirective,
@@ -141,7 +143,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
     GlobalCommandComponent,
     ModuleComponent,
     SearchComponent,
-    CommandDialogComponent,
+    DialogComponent,
 
     // Pipes
     BoolToYesNoPipe

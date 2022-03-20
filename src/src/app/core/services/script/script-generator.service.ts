@@ -1,9 +1,10 @@
 import { Injectable } from "@angular/core";
-import { ScriptScope } from "./script-scope";
-import { ScriptType } from "./script-type";
-import { ElectronService } from "../services";
-import { Settings } from "../common/settings";
-import { APP_CONFIG } from "../../../environments/environment";
+import { ScriptScope } from "../../common/scripts/script-scope";
+import { ScriptType } from "../../common/scripts/script-type";
+import { ScriptTypeHelper } from "../../common/scripts/script-type-helper";
+import { ProjectService } from "../project/project.service";
+import { APP_CONFIG } from "../../../../environments/environment";
+import { ElectronService } from "../electron/electron.service";
 
 /**
  * Genetares scripts based by some folder structure
@@ -11,9 +12,9 @@ import { APP_CONFIG } from "../../../environments/environment";
 @Injectable({
     providedIn: 'root'
 })
-export class ScriptGenerator {
+export class ScriptGeneratorService {
 
-    constructor(private electron: ElectronService, private settings: Settings) { }
+    constructor(private electron: ElectronService, private projectService: ProjectService, private scriptTypeHelper: ScriptTypeHelper) { }
 
     /**
      * Genetates physicaly script on the disk
@@ -32,8 +33,12 @@ export class ScriptGenerator {
      * Gets default script type
      * @returns Default project script type
      */
-    public defaultType() : ScriptType {
+    public get defaultType() : ScriptType {
         return ScriptType[APP_CONFIG.defaultScriptType] as ScriptType;
+    }
+
+    public get scriptTypes(): ScriptType[] {
+        return this.scriptTypeHelper.scriptTypes;
     }
 
     /**

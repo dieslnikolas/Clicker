@@ -1,9 +1,9 @@
 <!-- // COMMANDS -->
 <div fxLayout="column">
 
-  <mat-form-field appearance="standard" class="search">
-    <mat-label>Filter</mat-label>
-    <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia" #input>
+  <mat-form-field appearance="fill" color="accent" backgroundColor="accent">
+    <mat-label color="accent" >Filter</mat-label>
+    <input matInput placeholder="Enter value" (keyup)="applyFilter($event)" #input>
   </mat-form-field>
 
   <!-- DATA -->

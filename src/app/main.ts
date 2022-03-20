@@ -42,7 +42,7 @@ try {
       WindowBuilder.createWindow();
 
       // Creates menubar
-      MenuBarBuilder.createMenu();
+      // MenuBarBuilder.createMenu();
 
     }
   });
