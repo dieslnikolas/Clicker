@@ -8,6 +8,7 @@ import { ElectronService } from "../electron/electron.service";
 import { Command } from "../../common/scripts/command"
 import { ProjectService } from "../project/project.service";
 import { BashRunner } from "../../common/scripts/runners/bash-runner";
+import { ChildProcessWithoutNullStreams } from "node:child_process";
 
 @Injectable({
     providedIn: 'root'
@@ -19,7 +20,7 @@ export class ScriptRunnerService implements IScriptRunner {
         private pythonRunner: PythonRunner,
         private bashRunner: BashRunner) {}
 
-    Run(action: string, item: Command) {
+    Run(action: string, item: Command): ChildProcessWithoutNullStreams {
 
         // tune path to file (relative from project folder)
         item.Path = this.electronService.path.resolve(this.projectService.appPath, item.Path);
@@ -28,16 +29,25 @@ export class ScriptRunnerService implements IScriptRunner {
             throw new Error("File doesn't exists: " + item.Path);
 
         let runner = this.getCurrentRunner(item.Path);
-        runner.Run(action, item);
-        
-    }
-    
-    RunCommand(command: string, item: Command, scriptType: ScriptType) {
-        if (command == null)
-            throw new Error("No command obtained:");
+        let task = runner.Run(action, item);
 
-        let runner = this.getCurrentRunner(this.scriptTypeHelper.toString(scriptType));
-        runner.Run(command, item);
+        task.stdout.on("data", data => {
+            console.log(`stdout: ${data}`);
+        });
+        
+        task.stderr.on("data", data => {
+            console.log(`stderr: ${data}`);
+        });
+        
+        task.on('error', (error) => {
+            console.log(`error: ${error.message}`);
+        });
+        
+        task.on("close", code => {
+            console.log(`child process exited with code ${code}`);
+        });
+
+        return task;
     }
 
     private getCurrentRunner(scriptPath: string): IScriptRunner {

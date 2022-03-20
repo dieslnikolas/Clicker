@@ -23,10 +23,6 @@ export class ElectronService {
   fs: typeof fs;
   path: typeof path;
 
-  // SCRIPT RUNNERS
-  powershell;
-  bash;
-
   get isElectron(): boolean {
     return !!(window && window.process && window.process.type);
   }
@@ -45,11 +41,6 @@ export class ElectronService {
       this.childProcess = window.require('child_process');
       this.fs = window.require('fs');
       this.path = window.require('path');
-
-      // script runners
-      this.powershell = window.require('node-powershell');
-      this.bash = window.require('node-bash');
-      
 
       // If you want to use a NodeJS 3rd party deps in Renderer process (like @electron/remote),
       // it must be declared in dependencies of both package.json (in root and app folders)

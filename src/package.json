@@ -56,9 +56,6 @@
     "@angular/router": "13.3.0",
     "@electron/remote": "1.2.0",
     "ng-terminal": "3.1.0",
-    "node-bash": "5.0.1",
-    "node-powershell": "5.0.1",
-    "pythonia": "0.2.16",
     "rxjs": "~6.6.0",
     "tslib": "^2.1.0",
     "zone.js": "~0.11.4"
