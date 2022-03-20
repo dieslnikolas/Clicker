@@ -1,0 +1,1 @@
+﻿Start-Process -FilePath "wt" -NoNewWindow -WorkingDirectory "Scripts/Core/Commands/Build"

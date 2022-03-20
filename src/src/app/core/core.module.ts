@@ -1,8 +1,9 @@
-import { NgModule } from '@angular/core';
+import {  NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ElectronService } from './services';
-import { ScriptGenerator } from './script-generator/script-generator';
-import { Settings } from './common/settings';
+import { ScriptRunnerService } from './services/script/script-runner.service';
+import { ScriptGeneratorService } from './services/script/script-generator.service';
+import { ProjectService } from './services/project/project.service';
+import { ElectronService } from './services/electron/electron.service';
 
 @NgModule({
   declarations: [],
@@ -11,13 +12,12 @@ import { Settings } from './common/settings';
   ],
   exports: [
     ElectronService,
-    ScriptGenerator,
-    Settings
+    ScriptGeneratorService,
+    ScriptRunnerService,
+    ProjectService
   ],
-  providers:[
-    ElectronService,
-    ScriptGenerator,
-    Settings
-  ]
+  providers: []
 })
-export class CoreModule { }
+
+export class CoreModule { 
+}

@@ -1,29 +1,26 @@
-<!-- // COMMANDS -->
-    <div class="global-command" fxLayout="row-reverse" fxLayoutAlign="end center" fxLayoutGap="5px" style="width:100%;">
+<!-- Commands -->
+<div class="global-command-group flex-container" *ngFor="let commandGroup of data | keyvalue" fxLayout="column"
+    fxLayoutGap="3px">
 
-        <!-- Commands -->
-        <div class="global-command-group flex-container" *ngFor="let commandGroup of data | keyvalue" fxLayout="column" fxLayoutGap="5px">
+    <!-- Commands -->
+    <div fxFlex fxLayoutGap="3px">
 
-            <!-- Commands -->
-            <div fxLayout="row" fxFlex fxLayoutAlign="center center">
-                <button fxLayout="column" mat-stroked-button color="accent"
-                    backgroundColor="accent" *ngFor="let command of commandGroup.value | keyvalue"
-                    (click)="RunCommand(command.value)">
-                    {{command.key}}
-                </button>
+        <!-- Buttons -->
+        <button mat-button class="menu" *ngFor="let command of commandGroup.value | keyvalue"
+            (click)="RunCommand(command.value)">
+            {{command.value.DisplayName}}
+        </button>
 
-                <!-- ADD buton -->
-                <button fxLayout="column" mat-stroked-button color="warn" backgroundColor="basic" (click)="generateGlobalScript()"
-                    *ngIf="commandGroup.key == 'Commands'" aria-label="Example icon button with a menu icon"
-                    matTooltip="Create new global command" #tooltip="matTooltip">
-                    <mat-icon>add</mat-icon> New command
-                </button>
-
-            </div>
-
-            <!-- Title -->
-            <div class="title" fxLayout="row" fxFill fxLayoutAlign="center center">
-                <div style="align-content: center;">{{ commandGroup.key}}</div>
-            </div>
-        </div>
+        <!-- ADD buton -->
+        <button mat-flat-button color="accent" (click)="generateGlobalScript()" *ngIf="commandGroup.key == 'Commands'"
+            aria-label="Example icon button with a menu icon" matTooltip="Create new global command"
+            #tooltip="matTooltip">
+            <mat-icon>add</mat-icon> Add command
+        </button>
     </div>
+
+    <!-- Title -->
+    <div class="title" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px">
+        <div style="align-content: center;">{{ commandGroup.key}}</div>
+    </div>
+</div>

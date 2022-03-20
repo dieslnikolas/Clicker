@@ -1,48 +1,44 @@
-<!-- Loading  -->
-
-<div class="my-overlay" *ngIf="showOverlay">
+<!-- CURRENTLY LOADING  -->
+<div class="my-overlay" *ngIf="isLoading">
     <div fxLayout="column" fxLayoutAlign="stretch">
         <mat-spinner></mat-spinner>
         <span class="spinner-message">{{ loadingMessage }}</span>
     </div>
 </div>
 
-<div fxLayout="column" fxLayoutGap="10px">
+<!-- LOAD OR CREATE -->
+<div *ngIf="!isloading && !isProjectLoaded" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="5px">
+    <button mat-raised-button color="accent" (click)="loadProject()">
+        <mat-icon>folder</mat-icon>Load project
+    </button>
+    <button mat-raised-button color="accent" (click)="createProject()">
+        <mat-icon>create_new_folder</mat-icon>New project
+    </button>
+</div>
+
+<!-- LOADED -->
+<div fxLayout="column" fxLayoutAlign="start stretch" *ngIf="!isloading && isProjectLoaded" fxLayoutGap="3px">
 
     <!-- Global commands -->
-    <div fxLayout="column" fxLayoutAlign="stretch">
-        <shared-global-command [data]="globalComands"></shared-global-command>
+    <shared-global-command fxLayout="row" fxLayoutAlign="space-evently strech" fxFill fxLayoutGap="5px"
+        [data]="globalComands"></shared-global-command>
 
-        <!-- TEST BUTTONS -->
-        <!-- <button mat-button (click)="openSnackBar('Testuji, tedy jsem')">Test snack</button>
-        <button mat-button (click)="openDialog()">Test dialog</button>
-        <button mat-button (click)="testTerminal('TESTUJI TERMINAL')">Test term</button> -->
-    </div>
+    <!-- TEST BUTTONS -->
+    <!-- <button mat-button (click)="openSnackBar('Testuji, tedy jsem')">Test snack</button>
+            <button mat-button (click)="openDialog()">Test dialog</button>
+            <button mat-button (click)="testTerminal('TESTUJI TERMINAL')">Test term</button> -->
 
-    <div fxLayout="column" fxLayoutAlign="stretch">
-        <!-- Modules -->
-        <div fxFlex="100%">
-            <shared-module [data]="modules"></shared-module>
-        </div>
-    </div>
+    <!-- Modules -->
+    <shared-module fxLayout="row" fxLayoutAlign="space-evently strech" fxFill [data]="modules"></shared-module>
 
     <!-- Search -->
-    <div fxLayout="column" fxLayoutAlign="stretch">
-        <div fxFlex="100%">
-            <shared-search></shared-search>
-        </div>
-    </div>
-
+    <shared-search fxLayout="row" fxLayoutAlign="fill"></shared-search>
 
     <!-- Content -->
-    <div fxLayout="column" fxLayoutAlign="stretch">
-        <div fxFlex="100%">
-            <router-outlet></router-outlet>
-        </div>
-    </div>
+    <router-outlet fxLayout="row" fxLayoutAlign="fill"></router-outlet>
 
     <!-- Footer -->
-    <div fxLayout="row" class="content footer" fxLayoutAlign="stretch">
+    <div fxLayout="row" class="content footer" fxLayoutAlign="fill">
         <div fxFlex="50%">
             Author: Nikolas Diesl (<a href="dieslnikolas@gmail.com">dieslnikolas@gmail.com</a>,
             <a href="https://www.dieslnikolas.cz" alt="dieslnikolas web page">web</a>)
@@ -53,7 +49,7 @@
     </div>
 
     <!-- Terminal -->
-    <!-- <div fxLayout="column" fxLayoutAlign="stretch">
+    <div fxLayout="column" fxLayoutAlign="stretch">
         <shared-terminal *ngIf="showOverlay == false"></shared-terminal>
-    </div> -->
+    </div>
 </div>
