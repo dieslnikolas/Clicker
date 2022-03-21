@@ -6,6 +6,7 @@ import { ProjectService } from './core/services/project/project.service';
 import { DialogComponent } from './shared/components/dialog/dialog.component';
 import { TerminalComponent } from './shared/components/terminal/terminal.component';
 import { ElectronService } from './core/services/electron/electron.service';
+import { ScriptRunnerService } from './core/services/script/script-runner.service';
 
 @Component({
   selector: 'app-root',
@@ -30,7 +31,8 @@ export class AppComponent {
   @ViewChild(TerminalComponent) terminal: TerminalComponent;
 
   constructor(private electronService: ElectronService, private translate: TranslateService,
-    public dialog: MatDialog, private _snackBar: MatSnackBar, private projectService: ProjectService) {
+    public dialog: MatDialog, private _snackBar: MatSnackBar, private projectService: ProjectService,
+    private scriptRunnerService: ScriptRunnerService) {
 
     this.translate.setDefaultLang('en');
 
@@ -107,6 +109,8 @@ export class AppComponent {
         this.modules = this.projectService.modules;
         this.isLoading = false;
         this.isProjectLoaded = true;
+
+        this.scriptRunnerService.Init();
       }
       else {
         this.isLoading = false;

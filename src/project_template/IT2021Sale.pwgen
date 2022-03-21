@@ -611,7 +611,7 @@
         "AppNamespace": "IT2021.Main",
         "DataServiceNamespace": "IT2021.SaleDataService",
         "DataLayerNamespace": "IT2021.SaleDataLayer",
-        "ConnectionString": "Data Source=.;Initial Catalog=IT2021Sale;User Id=IT2021SaleUser; Password=5mcyhgd256jdd9",
+        "ConnectionString": "D",
         "Path": "c:\\temp\\IT2021\\",
         "UseGenerated": false
     },
