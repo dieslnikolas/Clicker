@@ -1,6 +1,8 @@
 import { Injectable } from "@angular/core";
 import { Subject } from 'rxjs';
+import { Command } from "../../common/scripts/command";
 import { ElectronService } from "../electron/electron.service";
+import { ProjectModel } from "./project.model";
 
 @Injectable({
     providedIn: 'root'
@@ -24,61 +26,24 @@ export class ProjectService {
     }
 
 
-    private _settings: any;
+    private _projectModel: ProjectModel;
     /**
      * Settings getter
      */
-    public get settings(): any {
-        if (this._settings == null) {
-
-            // DEFAULT
-            return {
-
-                "Path": null,
-                "ProcessItem": "",
-                "IsDeveloper": false,
-                "Metadata": {
-                    "ProjectName": null,
-                    "Solution": null,
-                    "AppNamespace": null,
-                    "DataServiceNamespace": null,
-                    "DataLayerNamespace": null,
-                    "ConnectionString": null,
-                    "Path": null,
-                    "UseGenerated": false
-                },
-
-                // Temp data (for scripts)
-                "TempData": null,
-
-                // Loaded data
-                // "Tables": {},
-                // "Views": {},
-                // "Procedures": {},
-                // "Functions": {},
-
-                // Scripts
-                "Scripts": {
-                    // global commands 
-                    "InitializeScript": {},
-                    "FileOperations": {},
-                    "SettingOperations": {},
-                    "Commands": {},
-                    // modules
-                    "Modules": {
-                        // "Tables": {},
-                        // "Views": {},
-                        // "Procedures": {},
-                        // "Functions": {},
-                    }
-                },
-            };
+    public get projectModel(): ProjectModel {
+        if (this._projectModel == null) {
+            this._projectModel = new ProjectModel();
         }
-        return this._settings;
+
+        return this._projectModel;
     }
 
-    public set settings(v: any) {
-        this._settings = v;
+    setProcessedItem(item: Command) {
+        this.projectModel.ProcessItem = item;
+    }
+    
+    processedItemClear() {
+        this._projectModel.ProcessItem = null
     }
 
     /**
@@ -86,18 +51,21 @@ export class ProjectService {
      */
     get commands() {
         // deleting modules
-        let commands = { ...this.settings.Scripts };
-        // delete commands.Modules; // Item right-click events
-        // delete commands.InitializeScript; // PREDEFINED SCRIPT FOR INIT APP
-
+        let commands = this.getProjectCopy({ ...this.projectModel.Scripts });
+        delete commands.Modules; // Item right-click events
+        delete commands.InitializeScript; // PREDEFINED SCRIPT FOR INIT APP
         return commands;
+    }
+
+    get initCommand(): Command {
+        return this.projectModel["Scripts"]["InitializeScript"];
     }
 
     /**
      * Returns all modules
      */
     get modules() {
-        return this.settings.Scripts.Modules;
+        return this.getProjectCopy(this.projectModel.Scripts.Modules);
     }
 
     get modulesCount() {
@@ -108,21 +76,33 @@ export class ProjectService {
     * Returns all commands for module
     */
     get moduleCommands() {
-        let commands = { ...this.settings.Scripts.Modules };
+        let commands = this.getProjectCopy({ ...this.projectModel.Scripts.Modules });
         // PREDEFINED SCRIPT FOR IMPORTING DATA
-        // delete commands[this.selectedModule]["Import" + this.selectedModule]; 
+        delete commands[this.selectedModule]["Import" + this.selectedModule];
         return commands[this.selectedModule];
     }
 
+     /**
+      * Returns command for import
+      */
     get moduleImport() {
-        let commands = { ...this.settings.Scripts.Modules };
-        console.log(commands);
+        if (this.selectedModule == null) return null;
+
+        let commands = this.getProjectCopy({ ...this.projectModel.Scripts.Modules });
         // PREDEFINED SCRIPT FOR IMPORT DATA
         return commands[this.selectedModule]["Import" + this.selectedModule];
     }
 
     get moduleColumns() {
-        return ['DisplayName', 'Schema', 'Name'];
+
+        try {
+            return Object.keys(Object.entries(this.projectModel[this.selectedModule])[0][1]);
+        }
+        catch (err) {
+            // NO DATA
+        }
+        console.log();
+        return [];
     }
 
     /**
@@ -130,11 +110,26 @@ export class ProjectService {
      */
     get moduleData() {
         // data for module
-        let data = Object.entries(this.settings[this.selectedModule]).map(item => item[1]);
+        let data = Object.entries(this.projectModel[this.selectedModule]).map(item => item[1]);
         return data;
     }
 
     constructor(private electronService: ElectronService) {
+    }
+
+
+    /**
+     * Creates copy 
+     * @param objectToCopy object which will be copied
+     * @returns copy of object
+     */
+    private getProjectCopy(objectToCopy: { [key: string]: any; }) {
+        let copy: { [key: string]: any; } = ["delteme"];
+        Object.assign(copy, objectToCopy);
+
+        delete copy[0]; // deleteme
+
+        return copy;
     }
 
     /**
@@ -144,7 +139,7 @@ export class ProjectService {
 
         try {
             let rawdata = this.electronService.fs.readFileSync(path, `utf-8`).trim();
-            this.settings = JSON.parse(rawdata);
+            this._projectModel = JSON.parse(rawdata);
 
             // change root folder of the all paths (it will be relative to project)
             if (rawdata != null)
@@ -163,10 +158,16 @@ export class ProjectService {
      */
     public async save(path: string): Promise<void> {
 
-        if (this.settings.ProjectName == null || this.settings.ProjectName.length == 0) {
-            this.settings.ProjectName = this.electronService.path.parse(path).name;
+        if (this.projectModel.Metadata["ProjectName"] == null || this.projectModel.Metadata["ProjectName"].length == 0) {
+            this.projectModel.Metadata["ProjectName"] = this.electronService.path.parse(path).name;
         }
 
-        await this.electronService.fs.writeFileSync(path, JSON.stringify(this.settings))
+        await this.electronService.fs.writeFileSync(path, JSON.stringify(this.projectModel));
+    }
+
+    public async saveTmp(): Promise<void> {
+        let path = this.electronService.path.resolve(this.appPath, "tmp.json");
+        await this.electronService.fs.writeFileSync(path , JSON.stringify(this.projectModel));
     }
 }
+

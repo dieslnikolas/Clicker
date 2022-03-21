@@ -50,6 +50,44 @@ export class ScriptRunnerService implements IScriptRunner {
         return task;
     }
 
+    /**
+     * Initialize
+     * @returns Initialize data
+     */
+    Init(): ChildProcessWithoutNullStreams {
+        let item = this.projectService.initCommand;
+        item.Path = this.electronService.path.resolve(this.projectService.appPath, item.Path);
+
+        if (!this.electronService.fs.existsSync(item.Path))
+            throw new Error("File doesn't exists: " + item.Path);
+
+        this.projectService.processedItemClear();
+        if (item.IsContext) {
+            this.projectService.setProcessedItem(item);
+        }
+
+        let runner = this.getCurrentRunner(item.Path);
+        let task = runner.Init();
+
+        task.stdout.on("data", data => {
+            console.log(`stdout: ${data}`);
+        });
+        
+        task.stderr.on("data", data => {
+            console.log(`stderr: ${data}`);
+        });
+        
+        task.on('error', (error) => {
+            console.log(`error: ${error.message}`);
+        });
+        
+        task.on("close", code => {
+            console.log(`child process exited with code ${code}`);
+        });
+
+        return task;
+    }
+
     private getCurrentRunner(scriptPath: string): IScriptRunner {
 
         // script type
