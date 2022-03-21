@@ -20,9 +20,9 @@ export class BashRunner implements IScriptRunner {
     Run(action: string, item: Command) : ChildProcessWithoutNullStreams {
         
         // Windows fix
-        item.Path = item.Path.replace("C:", "/mnt/c").replace(/\\/g,"/");
+        let path = item.Path.replace("C:", "/mnt/c").replace(/\\/g,"/");
         
-        return this.electronService.childProcess.spawn("bash", [`-c`, `"${item.Path}"`], {
+        return this.electronService.childProcess.spawn("bash", [`-c`, `"${path}"`], {
             cwd: this.projectService.appPath
           });
     }
