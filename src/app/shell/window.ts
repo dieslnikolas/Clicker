@@ -6,7 +6,7 @@ import * as url from 'url';
 
 /**
  * Builder for creating app window
- */
+ */ 
 export class WindowBuilder {
 
     /**
@@ -39,26 +39,24 @@ export class WindowBuilder {
         // arguments
         let args = WindowBuilder.getArguments();
 
-        // Dont want to recreate window each time
+        // Dont want to recreate window each time 
         if (WindowBuilder.win != null) {
             return WindowBuilder.win;
         }
 
-        // Screen
-        const electronScreen = screen;
-        const size = electronScreen.getPrimaryDisplay().workAreaSize;
-
         // Create the browser window.
         WindowBuilder.win = new BrowserWindow({
-            x: 0,
+            x: 0, 
             y: 0,
-            width: size.width,
-            height: size.height,
+            width: 800,
+            height: 600,
+            frame: false, 
             webPreferences: {
                 nodeIntegration: true,
                 allowRunningInsecureContent: (args) ? true : false,
                 contextIsolation: false,  // false if you want to run e2e test with Spectron
-                enableRemoteModule: true // true if you want to run e2e test with Spectron or use remote module in renderer context (ie. Angular)
+                enableRemoteModule: true, // true if you want to run e2e test with Spectron or use remote module in renderer context (ie. Angular)
+                devTools: false,
             },
         });
 
