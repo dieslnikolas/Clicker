@@ -3,17 +3,17 @@
 }
 
 .spinner-message {
-    color:white;
+    color: white;
 }
 
-.my-overlay {
+.overlay {
     left: 0 !important;
     top: 0 !important;
     z-index: 10000 !important;
     width: 100% !important;
     height: 100% !important;
     position: fixed !important;
-    background-color: rgba(0,0,0,0.9) !important;
+    background-color: rgba(0, 0, 0, 0.9) !important;
     cursor: pointer !important;
     visibility: visible !important;
     transition: visibility 0s, opacity 0.4s linear !important;
@@ -23,6 +23,16 @@
     cursor: wait !important;
 }
 
-.my-overlay i.fa.fa-spinner.fa-spin, .spinner-big {
+.overlay i.fa.fa-spinner.fa-spin,
+.spinner-big {
     font-size: 100px !important;
+}
+
+// CONTENT FRAME
+#main {
+    height: calc(100% - 32px);
+    overflow-y: auto;
+    margin-left: 8px;
+    margin-right: 8px;
+    padding-top: 46px;
 }
