@@ -1,4 +1,4 @@
-import { BrowserWindow, screen } from 'electron'
+import { BrowserWindow } from 'electron';
 
 import * as path from 'path';
 import * as fs from 'fs';
@@ -6,7 +6,7 @@ import * as url from 'url';
 
 /**
  * Builder for creating app window
- */ 
+ */
 export class WindowBuilder {
 
     /**
@@ -46,17 +46,17 @@ export class WindowBuilder {
 
         // Create the browser window.
         WindowBuilder.win = new BrowserWindow({
-            x: 0, 
+            x: 0,
             y: 0,
-            width: 800,
-            height: 600,
-            frame: false, 
+            width: 1024,
+            height: 768,
+            frame: false,
             webPreferences: {
                 nodeIntegration: true,
                 allowRunningInsecureContent: (args) ? true : false,
                 contextIsolation: false,  // false if you want to run e2e test with Spectron
                 enableRemoteModule: true, // true if you want to run e2e test with Spectron or use remote module in renderer context (ie. Angular)
-                devTools: false,
+                devTools: true,
             },
         });
 
@@ -100,7 +100,17 @@ export class WindowBuilder {
             WindowBuilder.win = null;
         });
 
+        // Custom FRAME
+        CreateFrame(WindowBuilder.win);
+
         // returns window
         return WindowBuilder.win;
     }
+}
+
+/**
+ * Custom JS Frame
+ */
+function CreateFrame(win: BrowserWindow) {
+    // THIS IS IN ANGULAR
 }

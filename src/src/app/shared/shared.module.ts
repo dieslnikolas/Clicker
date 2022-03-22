@@ -50,6 +50,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { DialogComponent } from './components/dialog/dialog.component';
+import { FrameComponent } from './components/frame/frame.component';
 
 @NgModule({
   declarations: [
@@ -62,6 +63,7 @@ import { DialogComponent } from './components/dialog/dialog.component';
     GlobalCommandComponent,
     ModuleComponent,
     DialogComponent,
+    FrameComponent,
  
     // Directives
     WebviewDirective,
@@ -144,6 +146,7 @@ import { DialogComponent } from './components/dialog/dialog.component';
     ModuleComponent,
     SearchComponent,
     DialogComponent,
+    FrameComponent,
 
     // Pipes
     BoolToYesNoPipe

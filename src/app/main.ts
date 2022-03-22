@@ -1,6 +1,7 @@
 import { app, BrowserWindow } from 'electron';
+import { Logger } from './common/logger';
 import { WindowBuilder } from './window';
-import { Logger } from './logger';
+import { MenuBarBuilder } from './menubar';
 
 
 // Initialize remote module
@@ -41,8 +42,7 @@ try {
             WindowBuilder.createWindow();
 
             // Creates menubar
-            // MenuBarBuilder.createMenu();
-       
+            MenuBarBuilder.createMenu();
         }
     });
 

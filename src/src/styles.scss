@@ -1,20 +1,22 @@
 @import "./../node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css";
 
 /* You can add global styles to this file, and also import other style files */
-html,
 body {
-  font-family: Roboto, Arial, Helvetica, sans-serif;
-  background-color: rgb(255, 255, 255);
-  height:100%;
+    font-family: Roboto, Arial, Helvetica, sans-serif;
+    background-color: rgb(255, 255, 255);
+    height: 100%;
+    margin: 0px;
 }
 
 .content {
-  margin:25px;
+    margin: 25px;
 }
 
-
+::-webkit-scrollbar {
+    display: none;
+}
 
 // Material override
 .mat-tab-label .mat-tab-label-content {
-  color:#0b0c0c !important;
+    color: #0b0c0c !important;
 }
