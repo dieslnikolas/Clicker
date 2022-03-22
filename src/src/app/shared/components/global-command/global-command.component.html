@@ -12,7 +12,7 @@
         </button>
 
         <!-- ADD buton -->
-        <button mat-flat-button color="accent" (click)="generateGlobalScript()" *ngIf="commandGroup.key == 'Commands'"
+        <button mat-flat-button color="accent" (click)="generateGlobalScript(commandGroup.value, commandGroup.key)" *ngIf="commandGroup.key == 'Commands'"
             aria-label="Example icon button with a menu icon" matTooltip="Create new global command"
             #tooltip="matTooltip">
             <mat-icon>add</mat-icon> Add command

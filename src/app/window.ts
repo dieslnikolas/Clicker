@@ -50,7 +50,7 @@ export class WindowBuilder {
             y: 0,
             width: 1024,
             height: 768,
-            frame: false,
+            frame: process.platform === 'darwin',
             webPreferences: {
                 nodeIntegration: true,
                 allowRunningInsecureContent: (args) ? true : false,

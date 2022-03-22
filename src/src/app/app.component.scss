@@ -34,5 +34,10 @@
     overflow-y: auto;
     margin-left: 8px;
     margin-right: 8px;
-    padding-top: 46px;
+    padding-top: 8px;
+}
+
+// windows uses custom frame 
+.move-from-windows-title {
+    padding-top: 46px !important;
 }

@@ -10,7 +10,7 @@
 <shared-frame></shared-frame>
 
 <!-- CONTENT FRAME -->
-<div id="main">
+<div id="main" [ngClass]="isWindows ? 'move-from-windows-title' : ''">
 
     <!-- LOAD OR CREATE -->
     <div *ngIf="!isloading && !isProjectLoaded" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="5px">
@@ -27,7 +27,7 @@
 
         <!-- Global commands -->
         <shared-global-command fxLayout="row" fxLayoutAlign="space-evently strech" fxFill fxLayoutGap="5px"
-            [data]="globalComands"></shared-global-command>
+            [data]="globalComands" ></shared-global-command>
 
         <!-- TEST BUTTONS -->
         <!-- <button mat-button (click)="openSnackBar('Testuji, tedy jsem')">Test snack</button>

@@ -27,7 +27,9 @@ export class GlobalCommandComponent implements OnChanges {
         }
     }
 
-    generateGlobalScript() {
+    generateGlobalScript(commandGroup: any, commandgroupKey: string) {
+
+        console.log(commandgroupKey, commandGroup);
         const dialogRef = this.dialog.open(DialogComponent, {
             data: {}
         });

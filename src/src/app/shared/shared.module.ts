@@ -18,6 +18,7 @@ import { WebviewDirective } from './directives/webview/webview.directive';
 
 // Pipes
 import { BoolToYesNoPipe } from './pipes/bool-to-yes-no.pipe';
+import { NgForFilterPipe } from './pipes/ng-for-filter.pipe';
 
 // FlexLayout
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -69,7 +70,8 @@ import { FrameComponent } from './components/frame/frame.component';
     WebviewDirective,
 
     // Pipies
-    BoolToYesNoPipe
+    BoolToYesNoPipe,
+    NgForFilterPipe
   ],
   imports: [
     CommonModule, 
@@ -149,7 +151,8 @@ import { FrameComponent } from './components/frame/frame.component';
     FrameComponent,
 
     // Pipes
-    BoolToYesNoPipe
+    BoolToYesNoPipe,
+    NgForFilterPipe
   ],
   providers: [
     

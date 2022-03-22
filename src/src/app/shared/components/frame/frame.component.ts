@@ -12,6 +12,7 @@ export class FrameComponent implements OnInit {
     @ViewChild('maximizeButton', {static: true}) public maximizeButton: any;
 
     public isMaximized = false;
+    public isMac = false;
 
     private static _win: Electron.BrowserWindow;
     public static win(electron: ElectronService): Electron.BrowserWindow {
@@ -22,12 +23,13 @@ export class FrameComponent implements OnInit {
         return this._win;
     }
 
-    constructor(private electron: ElectronService) { }
+    constructor(private electron: ElectronService) {     }
 
     ngOnInit(): void {
 
         FrameComponent.win(this.electron).on('unmaximize',this.toggleMaxRestoreButtons);
         FrameComponent.win(this.electron).on('maximize',this.toggleMaxRestoreButtons);
+        this.isMac = this.electron.remote.process.platform === 'darwin';
         this.toggleMaxRestoreButtons();
     }
 
