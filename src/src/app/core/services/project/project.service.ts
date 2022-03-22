@@ -41,7 +41,7 @@ export class ProjectService {
     setProcessedItem(item: Command) {
         this.projectModel.ProcessItem = item;
     }
-    
+
     processedItemClear() {
         this._projectModel.ProcessItem = null
     }
@@ -54,6 +54,7 @@ export class ProjectService {
         let commands = this.getProjectCopy({ ...this.projectModel.Scripts });
         delete commands.Modules; // Item right-click events
         delete commands.InitializeScript; // PREDEFINED SCRIPT FOR INIT APP
+
         return commands;
     }
 
@@ -82,9 +83,9 @@ export class ProjectService {
         return commands[this.selectedModule];
     }
 
-     /**
-      * Returns command for import
-      */
+    /**
+     * Returns command for import
+     */
     get moduleImport() {
         if (this.selectedModule == null) return null;
 
@@ -167,7 +168,7 @@ export class ProjectService {
 
     public async saveTmp(): Promise<void> {
         let path = this.electronService.path.resolve(this.appPath, "tmp.json");
-        await this.electronService.fs.writeFileSync(path , JSON.stringify(this.projectModel));
+        await this.electronService.fs.writeFileSync(path, JSON.stringify(this.projectModel));
     }
 }
 

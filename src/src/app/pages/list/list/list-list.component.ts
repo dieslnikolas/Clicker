@@ -21,6 +21,7 @@ export class ListListComponent {
     displayedColumns: string[];
     commands: any;
     dataLoaded: boolean = false;
+    existsImport = false;
 
     @ViewChild(MatPaginator) paginator: MatPaginator;
     @ViewChild(MatSort) sort: MatSort;
@@ -42,6 +43,8 @@ export class ListListComponent {
             // filter pagination
             this.dataSource.paginator = this.paginator;
             this.dataSource.sort = this.sort;
+
+            this.existsImport = this.projectService.moduleImport != null;
         });
     }
 

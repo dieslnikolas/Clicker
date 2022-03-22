@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
@@ -13,7 +13,7 @@ import { ScriptRunnerService } from './core/services/script/script-runner.servic
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
 
   // page state
   public isLoading = true;
@@ -24,6 +24,7 @@ export class AppComponent {
   // data 
   public globalComands: any;
   public modules: any;
+  public isWindows = true;
 
   // for speeding devel proces, there is template
   private PROJECT_TEMPLATE: string = '/project_template/IT2021Sale.pwgen';
@@ -41,6 +42,9 @@ export class AppComponent {
       this.electronService.path.resolve(this.electronService.remote.app.getAppPath() + this.PROJECT_TEMPLATE)
     );
   }
+    ngOnInit(): void {
+        this.isWindows = this.electronService.remote.process.platform === 'win32';
+    }
 
   openDialog() {
     const dialogRef = this.dialog.open(DialogComponent, {
