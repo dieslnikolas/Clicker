@@ -1,10 +1,10 @@
 .title {
-    color:#8991b4;
-    font-size:smaller;
+    color: #8991b4;
+    font-size: smaller;
 }
 
 .menu {
-    font-size:smaller;
+    font-size: smaller;
 }
 
 .global-command-group {
@@ -17,6 +17,11 @@
     height: 100%;
 }
 
-.mat-stroked-button{
-    color: #232631
+.mat-stroked-button {
+    color: #232631;
+}
+
+.mat-menu-item {
+    line-height: 30px;
+    height: 30px;
 }

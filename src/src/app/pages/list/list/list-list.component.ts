@@ -79,4 +79,14 @@ export class ListListComponent {
             this.dataSource.paginator.firstPage();
         }
     }
+    
+    deleteItem(command: any) {
+        console.log(command);
+    }
+    renameItem(command: any) {
+        console.log(command);
+    }
+    editItem(command: any) {
+        console.log(command);
+    }
 }

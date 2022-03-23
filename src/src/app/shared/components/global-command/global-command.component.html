@@ -7,14 +7,28 @@
 
         <!-- Buttons -->
         <button mat-button class="menu" *ngFor="let command of commandGroup.value | keyvalue"
-            (click)="RunCommand(command.value)">
+            (click)="runCommand(command.value)" (contextmenu)="onRightClick($event, command)">
             {{command.value.DisplayName}}
+
+            <div style="visibility: hidden; position: fixed"
+                [style.left]="contextMenuPosition.x"
+                [style.top]="contextMenuPosition.y"
+                [matMenuTriggerFor]="contextMenu">
+            </div>
+
+            <mat-menu #contextMenu="matMenu" >
+                <ng-template matMenuContent let-item="item">
+                    <button mat-menu-item (click)="deleteItem(item)">Delete</button>
+                    <button mat-menu-item (click)="renameItem(item)">Rename</button>
+                    <button mat-menu-item (click)="editItem(item)">Edit</button>
+                </ng-template>
+            </mat-menu>
         </button>
 
         <!-- ADD buton -->
-        <button mat-flat-button color="accent" (click)="generateGlobalScript(commandGroup.value, commandGroup.key)" *ngIf="commandGroup.key == 'Commands'"
-            aria-label="Example icon button with a menu icon" matTooltip="Create new global command"
-            #tooltip="matTooltip">
+        <button mat-flat-button color="accent" (click)="generateGlobalScript(commandGroup.value, commandGroup.key)"
+            *ngIf="commandGroup.key == 'Commands'" aria-label="Example icon button with a menu icon"
+            matTooltip="Create new global command" #tooltip="matTooltip">
             <mat-icon>add</mat-icon> Add command
         </button>
     </div>

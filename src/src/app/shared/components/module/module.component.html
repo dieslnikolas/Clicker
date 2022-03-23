@@ -8,5 +8,24 @@
 
 <mat-tab-group mat-align-tabs="start" backgroundColor="accent" color="accent" animationDuration="0ms"
     (selectedTabChange)="onSelectedTabChange($event)" fxFill>
-    <mat-tab *ngFor="let module of data | keyvalue" label="{{module.key}}"></mat-tab>
+
+    <mat-tab *ngFor="let module of data | keyvalue" label="{{module.key}}">
+        <ng-template mat-tab-label>
+            <span (contextmenu)="onRightClick($event, command)" class="custom-button">
+                {{module.key}}
+            </span>
+        </ng-template>
+
+        <div style="visibility: hidden; position: fixed" [style.left]="contextMenuPosition.x"
+            [style.top]="contextMenuPosition.y" [matMenuTriggerFor]="contextMenu">
+        </div>
+
+        <mat-menu #contextMenu="matMenu">
+            <ng-template matMenuContent let-item="item">
+                <button mat-menu-item (click)="deleteItem(item)">Delete</button>
+                <button mat-menu-item (click)="renameItem(item)">Rename</button>
+                <button mat-menu-item (click)="editItem(item)">Edit</button>
+            </ng-template>
+        </mat-menu>
+    </mat-tab>
 </mat-tab-group>
