@@ -1,4 +1,5 @@
 export enum ScriptScope {
     Global,
-    Item
+    Item,
+    Import
 }

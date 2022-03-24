@@ -11,19 +11,35 @@ import { ProjectService } from "../../../services/project/project.service";
 })
 export class BashRunner implements IScriptRunner {
 
-    constructor(private electronService: ElectronService, private projectService: ProjectService) {}
+    constructor(private electronService: ElectronService, private projectService: ProjectService) { }
 
-    Init(): ChildProcessWithoutNullStreams {
-        return this.Run("Initialize", this.projectService.initCommand);
+    async ScriptTemplate(path: string): Promise<string> {
+        return `
+// file sits in ${path}
+// data are accessible via:
+//
+//    param (
+//        [Parameter(ValueFromPipeline = $true)]$data = $null
+//    )
+//    echo $data
+        `
+    }
+    async CanRunOrHowTo(path: string): Promise<string> {
+        // check if bash installed? WTF
+        return null;
     }
 
-    Run(action: string, item: Command) : ChildProcessWithoutNullStreams {
-        
-        // Windows fix
-        let path = item.Path.replace("C:", "/mnt/c").replace(/\\/g,"/");
-        
+    async Run(action: string, item: Command): Promise<ChildProcessWithoutNullStreams> {
+
+        let path = item.Path;
+
+        // Windows fix (WSL support)
+        if (this.electronService.isWindows) {
+            path = item.Path.replace("C:", "/mnt/c").replace(/\\/g, "/");
+        }
+
         return this.electronService.childProcess.spawn("bash", [`-c`, `"${path}"`], {
             cwd: this.projectService.appPath
-          });
+        });
     }
 }

@@ -43,7 +43,7 @@ export class AppComponent implements OnInit {
     );
   }
     ngOnInit(): void {
-        this.isWindows = this.electronService.remote.process.platform === 'win32';
+        this.isWindows = this.electronService.isWindows;
     }
 
   openDialog() {

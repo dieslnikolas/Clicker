@@ -39,13 +39,16 @@ export class ModuleComponent {
     }
 
     createNewModule() {
+
+        // create dialog
         const dialogRef = this.dialog.open(DialogComponent, {
-            data: {}
+            data: {
+                scriptScope: ScriptScope.Item
+            }
         });
 
-        dialogRef.afterClosed().subscribe(result => {
-            this.scriptGeneratorService.generate(result.name, ScriptScope.Global, result.scriptType)
-        });
+        // closed event
+        dialogRef.afterClosed().subscribe(result => {});
     }
 
     onRightClick(event: MouseEvent, command: any) {

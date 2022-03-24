@@ -8,11 +8,16 @@ export interface IScriptRunner {
      * @param scriptPath path to scripts
      * @param item command
      */
-    Run(action: string, item: Command): ChildProcessWithoutNullStreams;
+    Run(action: string, item: Command): Promise<ChildProcessWithoutNullStreams>;
 
     /**
-     * Initialize action
+     * init script template
      */
-    Init(): ChildProcessWithoutNullStreams;
+    ScriptTemplate(path: string): Promise<string>;
 
+    /**
+     * Check if script is runnable on this machine
+     * @param path path to file
+     */
+    CanRunOrHowTo(path: string): Promise<string>;
 }

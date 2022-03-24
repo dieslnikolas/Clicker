@@ -44,7 +44,7 @@ export class ScriptTypeHelper {
         for(var scriptType in ScriptType) {
             
             if (scriptType != "toString" && scriptType != "parse" && scriptType != "toArray")
-                arr.push(scriptType);
+                arr.push(ScriptType[scriptType]);
         };
 
         return arr;

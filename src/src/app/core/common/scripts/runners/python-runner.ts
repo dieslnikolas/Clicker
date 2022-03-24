@@ -11,16 +11,29 @@ import { IScriptRunner } from "../script-runner.interface";
 })
 export class PythonRunner implements IScriptRunner {
 
-    constructor(private electronService: ElectronService, private projectService: ProjectService) {}
+    constructor(private electronService: ElectronService, private projectService: ProjectService) { }
 
-    Init(): ChildProcessWithoutNullStreams {
-        return this.Run("Initialize", this.projectService.initCommand);
+     async ScriptTemplate(path: string): Promise<string> {
+        return `
+// file sits in ${path}
+// data are accessible via:
+//
+//    param (
+//        [Parameter(ValueFromPipeline = $true)]$data = $null
+//    )
+//    echo $data
+        `;
     }
-    
-    Run(action: string, item: Command): ChildProcessWithoutNullStreams{
+
+    CanRunOrHowTo(path: string): Promise<string> {
+        // is python3 is installed
+        return null;
+    }
+
+    async Run(action: string, item: Command): Promise<ChildProcessWithoutNullStreams> {
         return this.electronService.childProcess.spawn("python3", [item.Path], {
             cwd: this.projectService.appPath
-          });
+        });
     }
 
 }

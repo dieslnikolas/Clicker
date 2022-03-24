@@ -1,21 +1,35 @@
-<h1 mat-dialog-title>{{ data.title }}</h1>
-<div mat-dialog-content>
-  <mat-form-field appearance="fill">
-    <mat-label>{{ data.entity }}</mat-label>
-    <input matInput [(ngModel)]="data.name">
-  </mat-form-field>
+<form>
 
-  <mat-form-field appearance="fill">
-    <mat-label>Type</mat-label>
-    <mat-select [(ngModel)]="data.scriptType">
-      <mat-option *ngFor="let scriptType of scriptTypes" [value]="scriptType">
-        {{scriptType}}
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
-  
-</div>
-<div mat-dialog-actions>
-  <button mat-button (click)="onNoClick()">Cancel</button>
-  <button mat-button [mat-dialog-close]="data" cdkFocusInitial>Ok</button>
-</div>
+    <!-- <h1 mat-dialog-title>{{ data.scriptScope | enumToString }}</h1> -->
+    <h1 mat-dialog-title *ngIf="data.scriptScope == 0"> Generate global script</h1>
+    <h1 mat-dialog-title *ngIf="data.scriptScope == 1"> Generate module script</h1>
+    <h1 mat-dialog-title *ngIf="data.scriptScope == 2"> Generate import script</h1>
+
+    <div mat-dialog-content>
+
+        <mat-form-field appearance="fill">
+            <mat-label>Script name</mat-label>
+            <input matInput [(ngModel)]="data.name" [formControl]="name" required [errorStateMatcher]="matcher">
+            <mat-error *ngIf="name.hasError('required')">Enter script name</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label>Type</mat-label>
+            <mat-select [(ngModel)]="data.scriptType" [formControl]="scriptType" [errorStateMatcher]="matcher">
+                <mat-option [value]="scriptType" *ngFor="let scriptType of data.scriptTypes" required>
+                    {{ scriptType | scriptTypeToString }}
+                </mat-option>
+            </mat-select>
+            <mat-error *ngIf="scriptType.hasError('required')">You must select type</mat-error>
+        </mat-form-field>
+
+        <br />
+        <mat-checkbox [(ngModel)]="data.hasData" name="hasData">Has data</mat-checkbox>
+
+    </div>
+
+    <div mat-dialog-actions >
+        <button mat-flat-button style="margin-right:5px" (click)="onNoClick()">Cancel</button>
+        <button mat-flat-button color="primary" [mat-dialog-close]="data" [disabled]="matcher.isValid"  (click)="onOkClick()" cdkFocusInitial>Ok</button>
+    </div>
+</form>
