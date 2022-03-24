@@ -15,23 +15,35 @@ export class PowershellRunner implements IScriptRunner {
 
     constructor(private electronService: ElectronService, private projectService: ProjectService) { }
 
-    Init(): ChildProcessWithoutNullStreams {
-        return this.electronService.childProcess.spawn(this.commnad, [`${this.projectService.initCommand.Path}`], {
-            cwd: this.projectService.appPath
-        });
+    async ScriptTemplate(path: string): Promise<string> {
+        return `
+// file sits in ${path}
+// data are accessible via:
+//
+//    param (
+//        [Parameter(ValueFromPipeline = $true)]$data = $null
+//    )
+//    echo $data
+        `;
     }
 
-    Run(action: string, item: Command): any {
-
+    async Run(action: string, item: Command): Promise<any> {
         
-        // MIN powershell VERSION 7.2.1 >> dotnet tool install --global PowerShell
-        // if (item.IsContext) {
-        this.projectService.saveTmp();
-        let path = this.electronService.path.resolve(this.projectService.appPath, "tmp.json");
-        // }
-        return this.electronService.childProcess.spawn(this.commnad, [`-Command`, `${this.projectService.initCommand.Path} && Get-Content "${path}" | ConvertFrom-JsonExtend | ${item.Path}`], {
+        // ADS CONTEXT IF ITS NESESARY
+        let context = "";
+        if (item.IsContext) {
+            let path = await this.projectService.saveTmp();
+            context = `Get-Content "${path}" | `
+        }
+
+        return this.electronService.childProcess.spawn(this.commnad, [`-Command`, `${this.projectService.initCommand.Path} && ${context}${item.Path}`], {
             cwd: this.projectService.appPath
         });
+
     }
 
+    async CanRunOrHowTo(path: string): Promise<string> {
+        // MIN powershell VERSION 7.2.1 >> dotnet tool install --global PowerShell
+        return "";
+    }
 }

@@ -21,7 +21,7 @@ export class GlobalCommandComponent implements OnChanges {
 
     contextMenuPosition = { x: '0px', y: '0px' };
 
-    constructor(private dialog: MatDialog, private scriptGenerator: ScriptGeneratorService, private scriptRunnerService: ScriptRunnerService) { }
+    constructor(private dialog: MatDialog, private scriptGeneratorService: ScriptGeneratorService, private scriptRunnerService: ScriptRunnerService) { }
 
     ngOnInit(): void {
     }
@@ -35,14 +35,17 @@ export class GlobalCommandComponent implements OnChanges {
 
     generateGlobalScript(commandGroup: any, commandgroupKey: string) {
 
-        console.log(commandgroupKey, commandGroup);
+        // dialog open
         const dialogRef = this.dialog.open(DialogComponent, {
-            data: {}
+            disableClose : true,
+            autoFocus : true,
+            data: {
+                scriptScope: ScriptScope.Global
+            }
         });
 
-        dialogRef.afterClosed().subscribe(result => {
-            this.scriptGenerator.generate(result.name, ScriptScope.Global, result.scriptType)
-        });
+        // closed event
+        dialogRef.afterClosed().subscribe(result => {});
     }
 
     runCommand(data: any, command: any) {

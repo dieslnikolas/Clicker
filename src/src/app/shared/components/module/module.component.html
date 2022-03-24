@@ -7,7 +7,7 @@
 </div>
 
 <mat-tab-group mat-align-tabs="start" backgroundColor="accent" color="accent" animationDuration="0ms"
-    (selectedTabChange)="onSelectedTabChange($event)" fxFill>
+    (selectedTabChange)="onSelectedTabChange($event)" [selectedIndex]="0" fxFill>
 
     <mat-tab *ngFor="let module of data | keyvalue" label="{{module.key}}">
         <ng-template mat-tab-label>

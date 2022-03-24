@@ -5,7 +5,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 
 // Components
-
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { TerminalComponent } from './components/terminal/terminal.component';
 import { ContextMenuComponent } from './components/context-menu/context-menu.component';
@@ -19,6 +18,7 @@ import { WebviewDirective } from './directives/webview/webview.directive';
 // Pipes
 import { BoolToYesNoPipe } from './pipes/bool-to-yes-no.pipe';
 import { NgForFilterPipe } from './pipes/ng-for-filter.pipe';
+import { ScriptTypeToStringPipe } from './pipes/script-type-to-string.pipe';
 
 // FlexLayout
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -50,6 +50,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+
 import { DialogComponent } from './components/dialog/dialog.component';
 import { FrameComponent } from './components/frame/frame.component';
 
@@ -71,7 +73,8 @@ import { FrameComponent } from './components/frame/frame.component';
 
     // Pipies
     BoolToYesNoPipe,
-    NgForFilterPipe
+    NgForFilterPipe,
+    ScriptTypeToStringPipe
   ],
   imports: [
     CommonModule, 
@@ -105,6 +108,7 @@ import { FrameComponent } from './components/frame/frame.component';
     MatDialogModule,
     MatExpansionModule,
     MatTabsModule,
+    MatCheckboxModule,
 
     NgTerminalModule
   ],
@@ -140,6 +144,7 @@ import { FrameComponent } from './components/frame/frame.component';
     MatDialogModule,
     MatExpansionModule, 
     MatTabsModule,
+    MatCheckboxModule,
     
     // Components
     TerminalComponent,
@@ -152,7 +157,8 @@ import { FrameComponent } from './components/frame/frame.component';
 
     // Pipes
     BoolToYesNoPipe,
-    NgForFilterPipe
+    NgForFilterPipe,
+    ScriptTypeToStringPipe
   ],
   providers: [
     

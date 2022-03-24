@@ -23,8 +23,25 @@ export class ElectronService {
   fs: typeof fs;
   path: typeof path;
 
+  /**
+   * If application si running in electron container
+   */
   get isElectron(): boolean {
     return !!(window && window.process && window.process.type);
+  }
+
+  /**
+   * If platform is windows
+   */
+  get isWindows(): boolean {
+    return this.remote.process.platform === 'win32'; // valid even for 64bit
+  }
+
+  /**
+   * If platform is mac
+   */
+  get isMac() : boolean {
+    return this.remote.process.platform === 'darwin';
   }
 
   constructor() {

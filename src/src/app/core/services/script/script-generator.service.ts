@@ -5,6 +5,7 @@ import { ScriptTypeHelper } from "../../common/scripts/script-type-helper";
 import { ProjectService } from "../project/project.service";
 import { APP_CONFIG } from "../../../../environments/environment";
 import { ElectronService } from "../electron/electron.service";
+import { ScriptRunnerService } from "./script-runner.service";
 
 /**
  * Genetares scripts based by some folder structure
@@ -14,27 +15,38 @@ import { ElectronService } from "../electron/electron.service";
 })
 export class ScriptGeneratorService {
 
-    constructor(private electron: ElectronService, private projectService: ProjectService, private scriptTypeHelper: ScriptTypeHelper) { }
+    constructor(private electron: ElectronService, private projectService: ProjectService, private scriptTypeHelper: ScriptTypeHelper, private scriptRunnerService: ScriptRunnerService) { }
 
     /**
      * Genetates physicaly script on the disk
-     * @param name Script name
+     * @param fileName Script name
      * @param scope Script scope (global or item)
      * @param type Script type (language)
      */
-    public generate(name: string, scope: ScriptScope, type: ScriptType) {
-        let fixedName = this.fixName(name, scope, type);
+    public async generate(fileName: string, scope: ScriptScope, type: ScriptType, hasData: boolean) : Promise<void> {
 
-        console.log("Generating file " + fixedName);
-        console.log("Exists " + this.electron.fs.existsSync(fixedName));
+        // validation
+        await this.validate(fileName, scope, type);
+
+        // prepare file path
+        let path = await this.getPathAndFixName(fileName, scope, type);
+
+        // add command to json
+        this.projectService.addCommand(fileName, path, scope, hasData);
+
+        // create file
+        let content = await this.scriptRunnerService.ScriptTemplate(path);
+
+        // open file in associated program
+
     }
 
     /**
      * Gets default script type
      * @returns Default project script type
      */
-    public get defaultType() : ScriptType {
-        return ScriptType[APP_CONFIG.defaultScriptType] as ScriptType;
+    public get defaultType(): ScriptType {
+        return this.scriptTypeHelper.parse(ScriptType[APP_CONFIG.defaultScriptType]);
     }
 
     public get scriptTypes(): ScriptType[] {
@@ -43,25 +55,62 @@ export class ScriptGeneratorService {
 
     /**
      * Generate full file path
-     * @param name Script Name
+     * @param fileName Script Name
      * @param scope Script scope
      * @param type Script type
      */
-    private fixName(name: string, scope: ScriptScope, type: ScriptType): string {
-        let path = "/";
+    private async getPathAndFixName(fileName: string, scope: ScriptScope, type: ScriptType): Promise<string> {
+
+        let pathFixed = "";
 
         // SCOPE
-        if (scope == ScriptScope.Global)
-            path += "global/";
-        else
-            path += "item/"
+        // global
+        if (scope == ScriptScope.Global) {
+            pathFixed += `/Scripts/Global/Commands/`;
+        }
+
+        // item // row // import
+        else if (scope == ScriptScope.Item || scope == ScriptScope.Import) {
+            pathFixed += `/Scripts/${this.projectService.selectedModule}/`;
+        }
+
+        // unsuported
+        else {
+            throw new Error(`Unsuported scope ` + scope);
+        }
+
+        let file = this.electron.path.parse(fileName);
 
         // NAME
-        path += name.replace("-", "_");
+        fileName += scope == ScriptScope.Import ? 
 
-        // EXTENSION
-        path += "." + ScriptType[type];
+            // import script - name is ignored
+            `Import${this.projectService.selectedModule}.${type.toString()}` 
 
-        return path;
+            // regular row script
+            : `${file.name.replace("-", "_")}.${type.toString()}`;
+
+        // finaly connect whole path 
+        pathFixed = `${pathFixed}/${fileName}`;
+
+        return pathFixed;
+    }
+
+    /**
+     * 
+     * @param name path to file
+     * @param scope global/item
+     * @param type 
+     * @returns 
+     */
+    public async validate(name: string, scope: ScriptScope, type: ScriptType): Promise<boolean> {
+
+        if (name == null || name.length == 0)
+            throw new Error("Missing script name");
+
+        if (this.electron.fs.existsSync(name))
+            throw new Error("file exists " + name);
+
+        return true;
     }
 }

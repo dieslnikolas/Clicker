@@ -1,6 +1,9 @@
 import { Injectable } from "@angular/core";
 import { Subject } from 'rxjs';
+import { textChangeRangeIsUnchanged } from "typescript/lib/tsserverlibrary";
 import { Command } from "../../common/scripts/command";
+import { ScriptScope } from "../../common/scripts/script-scope";
+import { ScriptType } from "../../common/scripts/script-type";
 import { ElectronService } from "../electron/electron.service";
 import { ProjectModel } from "./project.model";
 
@@ -166,9 +169,48 @@ export class ProjectService {
         await this.electronService.fs.writeFileSync(path, JSON.stringify(this.projectModel));
     }
 
-    public async saveTmp(): Promise<void> {
+    public async saveTmp(): Promise<string> {
         let path = this.electronService.path.resolve(this.appPath, "tmp.json");
         await this.electronService.fs.writeFileSync(path, JSON.stringify(this.projectModel));
+
+        return path;
+    }
+
+    public addCommand(fileName: string, path: string, scope: ScriptScope, hasData: boolean) {
+
+        switch (scope) {
+            case ScriptScope.Global:
+                this.projectModel.Scripts['Commands'] = {
+                    
+                    ...this.projectModel.Scripts['Commands'], 
+
+                    [fileName] : {
+                        "DisplayName": fileName,
+                        "Path": path,
+                        "HasData": hasData
+                    },
+                }
+                break;
+
+            case ScriptScope.Item:
+            case ScriptScope.Import:
+
+                // TODO correct path
+                this.projectModel.Scripts['Modules'][this.selectedModule] = {
+                    
+                    ...this.projectModel.Scripts['Modules'], 
+
+                    [fileName] : {
+                        "DisplayName": fileName,
+                        "Path": path,
+                        "HasData": hasData
+                    },
+                }
+                break;
+        }
+
+        console.log(this.projectModel.Scripts);
+        console.log(this.projectModel);
     }
 }
 

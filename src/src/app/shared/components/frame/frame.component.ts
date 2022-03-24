@@ -29,7 +29,7 @@ export class FrameComponent implements OnInit {
 
         FrameComponent.win(this.electron).on('unmaximize',this.toggleMaxRestoreButtons);
         FrameComponent.win(this.electron).on('maximize',this.toggleMaxRestoreButtons);
-        this.isMac = this.electron.remote.process.platform === 'darwin';
+        this.isMac = this.electron.isMac;
         this.toggleMaxRestoreButtons();
     }
 
