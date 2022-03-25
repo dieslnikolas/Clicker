@@ -3,7 +3,6 @@ import { CoreModule } from "@angular/flex-layout";
 import { Command } from "../command";
 import { IScriptRunner } from "../script-runner.interface";
 import { ElectronService } from "../../../services/electron/electron.service";
-import { ChildProcessWithoutNullStreams } from "node:child_process";
 import { ProjectService } from "../../../services/project/project.service";
 
 @Injectable({
@@ -31,9 +30,10 @@ $data`;
         
         // ADS CONTEXT IF ITS NESESARY
         let context = "";
+        
         if (item.IsContext) {
             let path = await this.projectService.saveTmp();
-            context = `Get-Content "${path}" | `
+            context = `Get-Content "${path}" | ConvertFrom-JsonExtend | `
         }
 
         return this.electronService.childProcess.spawn(this.commnad, [`-Command`, `${this.projectService.initCommand.Path} && ${context}${item.Path}`], {
@@ -44,6 +44,6 @@ $data`;
 
     async CanRunOrHowTo(path: string): Promise<string> {
         // MIN powershell VERSION 7.2.1 >> dotnet tool install --global PowerShell
-        return "";
+        return null;
     }
 }

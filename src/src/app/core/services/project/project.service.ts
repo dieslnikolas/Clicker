@@ -1,5 +1,7 @@
 import { Injectable } from "@angular/core";
+import { MatDialog } from "@angular/material/dialog";
 import { Subject } from 'rxjs';
+import { DialogComponent } from "../../../shared/components/dialog/dialog.component";
 import { Command } from "../../common/scripts/command";
 import { ScriptScope } from "../../common/scripts/script-scope";
 import { ElectronService } from "../electron/electron.service";
@@ -48,12 +50,19 @@ export class ProjectService {
 
         return this._projectModel;
     }
-    
-    setProcessedItem(item: Command) {
-        this.projectModel.ProcessItem = item;
+
+    /**
+     * Sets item from module
+     * @param item Processed item
+     */
+    public setProcessedItem(item: Command) {
+        this.projectModel.ProcessItem = { [item?.Key]: item?.ProcessItem };
     }
 
-    processedItemClear() {
+    /**
+     * Clears the pricess item 
+     */
+    public processedItemClear() {
         this._projectModel.ProcessItem = null
     }
 
@@ -128,17 +137,33 @@ export class ProjectService {
         return data;
     }
 
-    constructor(private electronService: ElectronService) {
+    constructor(private electronService: ElectronService, private dialog: MatDialog) {
     }
 
     /**
      * Load settings from file (project file)
      */
-    public async load(path: string): Promise<Boolean> {
+    public async load(path: string, forceOpenNew: boolean = false): Promise<Boolean> {
 
         try {
+
+            // use default path
             if (path == null)
                 path = this.appPathFull;
+
+            // if path is still null, then it is not saved at all
+            if (path == null || forceOpenNew) {
+                let dialogResul = await this.electronService.remote.dialog.showOpenDialog(
+                    {
+                        filters: [
+                            { name: 'Powergene', extensions: ['pwgen'] },
+                            { name: 'Clicker', extensions: ['clicker'] },
+                            { name: 'All Files', extensions: ['*'] }
+                        ]
+                    });
+
+                path = dialogResul.filePaths[0] ?? this.appPathFull;
+            }
 
             let rawdata = this.electronService.fs.readFileSync(path, `utf-8`).trim();
             this._projectModel = JSON.parse(rawdata);
@@ -150,12 +175,19 @@ export class ProjectService {
             }
 
             console.log('Project loaded');
+            let firstModule = Object.keys(this.modules).sort()[0];
+            this.selectedModule = firstModule;
             this.projectLoaded.next();
 
             return true;
         }
         catch (error) {
             console.warn(error);
+
+            // something went
+            this._projectModel = new ProjectModel();
+            this.projectLoaded.next();
+
             return false;
         }
     }
@@ -163,17 +195,46 @@ export class ProjectService {
     /**
      * Save settings to openned file
      */
-    public async save(path: string): Promise<void> {
+    public async save(path: string, forceSaveAs: boolean = false): Promise<void> {
 
+        // if save without path use project path
         if (path == null)
             path = this.appPathFull;
 
+        // if path is still null, then it is not saved at all
+        if (path == null || forceSaveAs) {
+            path = this.electronService.remote.dialog.showSaveDialogSync(
+                {
+                    filters: [
+                        { name: 'Powergene', extensions: ['pwgen'] },
+                        { name: 'Clicker', extensions: ['clicker'] },
+                        { name: 'All Files', extensions: ['*'] }
+                    ]
+                });
+        }
+
+        // main data
+        // project name from file
         if (this.projectModel.Metadata["ProjectName"] == null || this.projectModel.Metadata["ProjectName"].length == 0) {
             this.projectModel.Metadata["ProjectName"] = this.electronService.path.parse(path).name;
         }
+        // file path
+        this.appPathFull = path;
+        this.appPath = this.electronService.path.parse(path).dir;
+        let fromFolder = this.electronService.path.resolve(this.electronService.remote.app.getAppPath(), "src/assets/scripts_default");
+        let toFolder = this.electronService.path.resolve(this.appPath, "Scripts");
+        console.log(`%c From:${fromFolder} -> To:${toFolder}`, 'color:yellow;border:1px solid dodgerblue');
 
+        // save project file
         await this.electronService.fs.writeFileSync(path, JSON.stringify(this.projectModel));
+
+        // copy init files
+        this.electronService.fse.copy(fromFolder, toFolder, { overwrite: true }, (err) => {
+            if (err)
+                console.error(err);
+        });
         console.log('Project saved!');
+
     }
 
     /**
@@ -255,9 +316,17 @@ export class ProjectService {
      * @param scope scope (where to find command)
      */
     public async deleteCommand(command: Command, scope: ScriptScope) {
-        let found = await this.getCommandParentInTree(command, scope);
-        // console.log(found.parrent[found.key]);
-        delete found.parrent[found.key];
+
+        if (scope == ScriptScope.Module) {
+            // script section
+            delete this.projectModel.Scripts['Modules'][command.Path];
+            delete this._projectModel[command.Path];
+        }
+        else {
+            let found = await this.getCommandParentInTree(command, scope);
+            // console.log(found.parrent[found.key]);
+            delete found.parrent[found.key];
+        }
     }
 
     /**
@@ -317,17 +386,16 @@ export class ProjectService {
                 break;
         }
 
-        let key: string; 
+        let key: string;
         Object.entries(parrent).forEach(element => {
             console.log(element[1]["Path"]);
-            if (element[1]["Path"] === command.Path)
-                { 
-                    key = element[0];
-                    return;
-                }
+            if (element[1]["Path"] === command.Path) {
+                key = element[0];
+                return;
+            }
         });
 
-        return { "parrent": parrent, "key" : key };
+        return { "parrent": parrent, "key": key };
     }
 }
 

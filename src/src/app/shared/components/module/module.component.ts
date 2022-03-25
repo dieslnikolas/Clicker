@@ -7,6 +7,7 @@ import { DialogComponent } from '../dialog/dialog.component';
 import { ProjectService } from '../../../core/services/project/project.service'
 import { MatMenuTrigger } from '@angular/material/menu';
 import { APP_CONFIG } from '../../../../environments/environment';
+import { Command } from '../../../core/common/scripts/command';
 
 @Component({
     selector: 'shared-module',
@@ -69,9 +70,14 @@ export class ModuleComponent implements OnInit {
         this.contextMenu.openMenu();
     }
 
-    deleteItem(command: any) {
+    deleteItem(command: Command) {
         if(confirm(`Are you sure to delete ${command.DisplayName}`))
-            this.scriptGeneratorSercice.delete(command, ScriptScope.Module);
+        {
+            // fake command button
+            let fakeCommand = new Command();
+            fakeCommand.Path = command["key"];
+            this.scriptGeneratorSercice.delete(fakeCommand, ScriptScope.Module);
+        }
     }
     renameItem(command: any) {
         let name = null; // TODO GET NEW NAME

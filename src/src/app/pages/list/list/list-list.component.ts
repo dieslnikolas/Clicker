@@ -34,7 +34,7 @@ export class ListListComponent {
 
     constructor(private projectService: ProjectService, private dialog: MatDialog,
         private scriptRunnerService: ScriptRunnerService, private scriptGeneratorSercice: ScriptGeneratorService
-        ) {
+    ) {
         this.projectService.moduleChanged.subscribe(() => {
             this.refreshModule();
         });
@@ -43,7 +43,7 @@ export class ListListComponent {
             this.refreshModule();
         });
     }
-    
+
     /**
      * 
      */
@@ -56,6 +56,20 @@ export class ListListComponent {
             }
         });
     }
+
+    /**
+     * 
+     */
+     private async createNewImportScript() {
+
+        // create dialog
+        const dialogRef = this.dialog.open(DialogComponent, {
+            data: {
+                scriptScope: ScriptScope.Import
+            }
+        });
+    }
+    
 
 
     /**
@@ -72,8 +86,11 @@ export class ListListComponent {
         this.contextMenu.openMenu();
     }
 
-    onContextMenuAction(item: any, action: string) {
-        this.scriptRunnerService.Run(action, item.value);
+    onContextMenuAction(command: any, action: string, row: any) {
+        command.value.ProcessItem = row;
+        command.value.Key = row.name;
+        
+        this.scriptRunnerService.Run(action, command.value);
     }
 
     importData() {
@@ -88,16 +105,20 @@ export class ListListComponent {
             this.dataSource.paginator.firstPage();
         }
     }
-    
-    deleteItem(command: any) {
-        if(confirm(`Are you sure to delete ${command.DisplayName}`))
+
+    deleteItem(command: any, row: any) {
+        if (confirm(`Are you sure to delete ${command.DisplayName}`)) {
+            command.ProcessItem = row;
             this.scriptGeneratorSercice.delete(command, ScriptScope.Item);
+        }
     }
-    renameItem(command: any) {
+    renameItem(command: any, row: any) {
         let name = null; // TODO GET NEW NAME
+        command.ProcessItem = row;
         this.scriptGeneratorSercice.rename(name, command, ScriptScope.Item);
     }
-    editItem(command: any) {
+    editItem(command: any, row: any) {
+        command.ProcessItem = row;
         this.scriptGeneratorSercice.edit(command);
     }
 
@@ -116,5 +137,5 @@ export class ListListComponent {
         this.dataSource.sort = this.sort;
 
         this.existsImport = this.projectService.moduleImport != null;
-   }
+    }
 }

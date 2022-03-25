@@ -6,7 +6,8 @@
     <div fxFlex fxLayoutGap="3px">
 
         <!-- Buttons -->
-        <button mat-button class="menu" *ngFor="let command of commandGroup.value | keyvalue"
+        <button mat-button class="menu" *ngFor="let command of commandGroup.value | keyvalue" 
+            [disabled]="isProjectNotSaved && command.key != 'Open'"
             (click)="runCommand(command.value)" (contextmenu)="onRightClick($event, command)">
             {{command.value.DisplayName}}
 
@@ -26,7 +27,7 @@
         </button>
 
         <!-- ADD buton -->
-        <button mat-flat-button color="accent" (click)="generateGlobalScript(commandGroup.value, commandGroup.key)"
+        <button mat-flat-button color="accent" (click)="generateGlobalScript()"
             *ngIf="commandGroup.key == 'Commands'" aria-label="Example icon button with a menu icon"
             matTooltip="Create new global command" #tooltip="matTooltip">
             <mat-icon>add</mat-icon> Add command
