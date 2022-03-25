@@ -36,25 +36,18 @@ export class ListListComponent {
         private scriptRunnerService: ScriptRunnerService, private scriptGeneratorSercice: ScriptGeneratorService
         ) {
         this.projectService.moduleChanged.subscribe(() => {
+            this.refreshModule();
+        });
 
-            // Assign the data to the data source for the table to render
-            this.commands = this.projectService.moduleCommands;
-            this.displayedColumns = this.projectService.moduleColumns;
-
-            // datasource
-            let data = this.projectService.moduleData;
-            this.dataSource = new MatTableDataSource(data);
-            this.dataLoaded = data != null && data.length > 0;
-
-            // filter pagination
-            this.dataSource.paginator = this.paginator;
-            this.dataSource.sort = this.sort;
-
-            this.existsImport = this.projectService.moduleImport != null;
+        this.projectService.projectLoaded.subscribe(() => {
+            this.refreshModule();
         });
     }
-
-    createNewModule() {
+    
+    /**
+     * 
+     */
+    private async createNewScript() {
 
         // create dialog
         const dialogRef = this.dialog.open(DialogComponent, {
@@ -62,9 +55,6 @@ export class ListListComponent {
                 scriptScope: ScriptScope.Item
             }
         });
-
-        // closed event
-        dialogRef.afterClosed().subscribe(result => { });
     }
 
 
@@ -110,4 +100,21 @@ export class ListListComponent {
     editItem(command: any) {
         this.scriptGeneratorSercice.edit(command);
     }
+
+    private async refreshModule() {
+        // Assign the data to the data source for the table to render
+        this.commands = this.projectService.moduleCommands;
+        this.displayedColumns = this.projectService.moduleColumns;
+
+        // datasource
+        let data = this.projectService.moduleData;
+        this.dataSource = new MatTableDataSource(data);
+        this.dataLoaded = data != null && data.length > 0;
+
+        // filter pagination
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+
+        this.existsImport = this.projectService.moduleImport != null;
+   }
 }

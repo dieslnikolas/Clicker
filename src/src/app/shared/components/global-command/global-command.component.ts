@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatMenuTrigger } from '@angular/material/menu';
 import { APP_CONFIG } from '../../../../environments/environment';
@@ -22,7 +22,7 @@ export class GlobalCommandComponent implements OnInit {
     contextMenu: MatMenuTrigger;
     contextMenuPosition = { x: '0px', y: '0px' };
 
-    constructor(private dialog: MatDialog, private cdr: ChangeDetectorRef, private scriptGeneratorSercice: ScriptGeneratorService, private projectService: ProjectService, private scriptRunnerService: ScriptRunnerService) {
+    constructor(private dialog: MatDialog, private scriptGeneratorSercice: ScriptGeneratorService, private projectService: ProjectService, private scriptRunnerService: ScriptRunnerService) {
     }
     
     ngOnInit(): void {
@@ -34,7 +34,6 @@ export class GlobalCommandComponent implements OnInit {
             console.log("Global -> project reloaded")
             setTimeout(() => {
                 this.data = this.projectService.commands;
-                this.cdr.detectChanges();
             }, APP_CONFIG.projectLoadedZoneTimeout);
         })
     }
@@ -47,9 +46,6 @@ export class GlobalCommandComponent implements OnInit {
                 scriptScope: ScriptScope.Global
             }
         });
-
-        // closed event
-        dialogRef.afterClosed().subscribe(result => { });
     }
 
     runCommand(data: any, command: any) {
