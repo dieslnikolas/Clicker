@@ -15,12 +15,12 @@ export class ProjectService {
     /**
      * Module selection changed (notify all modules who depends on selected module)
      */
-    moduleChanged: Subject<string> = new Subject<string>();
+    public moduleChanged: Subject<string> = new Subject<string>();
 
     /**
      * Usable for knowing that proj file is loaded
      */
-    projectLoaded: Subject<void> = new Subject<void>();
+    public projectLoaded: Subject<void> = new Subject<void>();
 
     public appPath: string;
     private appPathFull: string;

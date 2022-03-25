@@ -171,7 +171,7 @@ export class ScriptGeneratorService {
             `Import${this.projectService.selectedModule}.${type.toString()}`
 
             // regular row script
-            : `${file.name.replace("-", "_")}.${type.toString()}`;
+            : `${file.name.replace("-", "_").replace(/\s/g, '')}.${type.toString()}`;
 
         // finaly connect whole path 
         pathFixed = `${pathFixed}/${fileName}`;

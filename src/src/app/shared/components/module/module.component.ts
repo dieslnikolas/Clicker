@@ -58,9 +58,6 @@ export class ModuleComponent implements OnInit {
                 scriptScope: ScriptScope.Module
             }
         });
-
-        // closed event
-        dialogRef.afterClosed().subscribe(result => { });
     }
 
     onRightClick(event: MouseEvent, command: any) {
