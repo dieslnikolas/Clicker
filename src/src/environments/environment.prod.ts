@@ -4,5 +4,6 @@
 export const APP_CONFIG = {
   production: true,
   environment: 'PROD',
-  defaultScriptType: "Powershell"
+  defaultScriptType: "Powershell",
+  projectLoadedZoneTimeout: 100
 };

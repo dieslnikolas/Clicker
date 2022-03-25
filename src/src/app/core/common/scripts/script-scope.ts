@@ -1,5 +1,6 @@
 export enum ScriptScope {
     Global,
     Item,
-    Import
+    Import,
+    Module
 }

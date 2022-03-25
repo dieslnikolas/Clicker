@@ -1,51 +1,55 @@
-import { Component, Input, OnChanges, SimpleChanges, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatMenuTrigger } from '@angular/material/menu';
+import { APP_CONFIG } from '../../../../environments/environment';
 import { ScriptScope } from '../../../core/common/scripts/script-scope';
-import { ScriptGeneratorService } from '../../../core/services/script/script-generator.service';
+import { ProjectService } from '../../../core/services/project/project.service';
 import { ScriptRunnerService } from '../../../core/services/script/script-runner.service';
 import { DialogComponent } from '../dialog/dialog.component';
+import { ScriptGeneratorService } from '../../../core/services/script/script-generator.service';
 
 @Component({
     selector: 'shared-global-command',
     templateUrl: './global-command.component.html',
     styleUrls: ['./global-command.component.scss']
 })
-export class GlobalCommandComponent implements OnChanges {
+export class GlobalCommandComponent implements OnInit {
 
     @Input()
     public data: any
 
     @ViewChild(MatMenuTrigger)
     contextMenu: MatMenuTrigger;
-
     contextMenuPosition = { x: '0px', y: '0px' };
 
-    constructor(private dialog: MatDialog, private scriptGeneratorService: ScriptGeneratorService, private scriptRunnerService: ScriptRunnerService) { }
-
+    constructor(private dialog: MatDialog, private cdr: ChangeDetectorRef, private scriptGeneratorSercice: ScriptGeneratorService, private projectService: ProjectService, private scriptRunnerService: ScriptRunnerService) {
+    }
+    
     ngOnInit(): void {
+       this.registerSubscribtion();
     }
 
-    ngOnChanges(changes: SimpleChanges) {
-        let data = changes[`data`];
-        if (data) {
-            console.log('GlobalCommandComponent got data');
-        }
+    private registerSubscribtion() {
+        this.projectService.projectLoaded.subscribe(() => {
+            console.log("Global -> project reloaded")
+            setTimeout(() => {
+                this.data = this.projectService.commands;
+                this.cdr.detectChanges();
+            }, APP_CONFIG.projectLoadedZoneTimeout);
+        })
     }
 
     generateGlobalScript(commandGroup: any, commandgroupKey: string) {
 
         // dialog open
         const dialogRef = this.dialog.open(DialogComponent, {
-            disableClose : true,
-            autoFocus : true,
             data: {
                 scriptScope: ScriptScope.Global
             }
         });
 
         // closed event
-        dialogRef.afterClosed().subscribe(result => {});
+        dialogRef.afterClosed().subscribe(result => { });
     }
 
     runCommand(data: any, command: any) {
@@ -60,15 +64,18 @@ export class GlobalCommandComponent implements OnChanges {
         this.contextMenu.menu.focusFirstItem('mouse');
         this.contextMenu.openMenu();
     }
-        
+
     deleteItem(command: any) {
-        console.log(command);
+        if(confirm(`Are you sure to delete ${command.DisplayName}`)) {
+            this.scriptGeneratorSercice.delete(command, ScriptScope.Global);
+        }
     }
     renameItem(command: any) {
-        console.log(command);
+        let name = null; // TODO GET NEW NAME
+        this.scriptGeneratorSercice.rename(name, command, ScriptScope.Global);
     }
     editItem(command: any) {
-        console.log(command);
+        this.scriptGeneratorSercice.edit(command);
     }
 }
 
