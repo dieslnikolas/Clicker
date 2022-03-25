@@ -1,8 +1,8 @@
 <!-- CURRENTLY LOADING OVERLAY WHEN LOADING  -->
 <div class="overlay" *ngIf="isLoading">
-    <div fxLayout="column" fxLayoutAlign="stretch">
+    <div fxLayout="column" fxLayoutAlign="center center">
         <mat-spinner></mat-spinner>
-        <span class="spinner-message">{{ loadingMessage }}</span>
+        <span class="spinner-message" [innerHtml]="loadingMessage"></span>
     </div>
 </div>
 
@@ -12,22 +12,11 @@
 <!-- CONTENT FRAME -->
 <div id="main" [ngClass]="isWindows ? 'move-from-windows-title' : ''">
 
-    <!-- LOAD OR CREATE -->
-    <div *ngIf="!isloading && !isProjectLoaded" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="5px">
-        <button mat-raised-button color="accent" (click)="loadProject()">
-            <mat-icon>folder</mat-icon>Load project
-        </button>
-        <button mat-raised-button color="accent" (click)="createProject()">
-            <mat-icon>create_new_folder</mat-icon>New project
-        </button>
-    </div>
-
     <!-- LOADED -->
-    <div fxLayout="column" fxLayoutAlign="start stretch" *ngIf="!isloading && isProjectLoaded" fxLayoutGap="3px">
+    <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="3px">
 
         <!-- Global commands -->
-        <shared-global-command fxLayout="row" fxLayoutAlign="space-evently strech" fxFill fxLayoutGap="5px"
-            [data]="globalComands" ></shared-global-command>
+        <shared-global-command fxLayout="row" fxLayoutAlign="space-evently strech" fxFill fxLayoutGap="5px" #globalCommands></shared-global-command>
 
         <!-- TEST BUTTONS -->
         <!-- <button mat-button (click)="openSnackBar('Testuji, tedy jsem')">Test snack</button>
@@ -35,7 +24,7 @@
             <button mat-button (click)="testTerminal('TESTUJI TERMINAL')">Test term</button> -->
 
         <!-- Modules -->
-        <shared-module fxLayout="row" fxLayoutAlign="space-evently strech" fxFill [data]="modules"></shared-module>
+        <shared-module fxLayout="row" fxLayoutAlign="space-evently strech" fxFill #modules></shared-module>
 
         <!-- Search -->
         <shared-search fxLayout="row" fxLayoutAlign="fill"></shared-search>
@@ -55,7 +44,7 @@
         </div>
 
         <!-- Terminal -->
-        <div fxLayout="column" fxLayoutAlign="stretch">
+        <div fxLayout="column" fxLayoutAlign="stretch" #term>
             <shared-terminal *ngIf="showOverlay == false"></shared-terminal>
         </div>
     </div>

@@ -18,9 +18,9 @@
 
             <mat-menu #contextMenu="matMenu" >
                 <ng-template matMenuContent let-item="item">
-                    <button mat-menu-item (click)="deleteItem(item)">Delete</button>
-                    <button mat-menu-item (click)="renameItem(item)">Rename</button>
-                    <button mat-menu-item (click)="editItem(item)">Edit</button>
+                    <button mat-menu-item (click)="editItem(item.value)">Edit</button>
+                    <!-- <button mat-menu-item (click)="renameItem(item.value)">Rename</button> -->
+                    <button mat-menu-item (click)="deleteItem(item.value)">Delete</button>
                 </ng-template>
             </mat-menu>
         </button>

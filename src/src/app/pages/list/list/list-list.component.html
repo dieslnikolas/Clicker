@@ -60,18 +60,28 @@
 
 
 <!-- Grid context right click -->
-<div style="visibility: hidden; position: fixed" [style.left]="contextMenuPosition.x"
-    [style.top]="contextMenuPosition.y" [matMenuTriggerFor]="contextMenu">
-</div>
+<div style="visibility: hidden; position: fixed" 
+    [style.left]="contextMenuPosition.x"
+    [style.top]="contextMenuPosition.y" 
+    [matMenuTriggerFor]="contextMenu"> </div>
 <mat-menu #contextMenu="matMenu">
     <ng-template matMenuContent let-item="item">
+
+        <!-- ADD BUTTON -->
+        <button mat-menu-item name="buttonAdd" (click)="createNewScript()"
+            aria-label="Example icon button with a menu icon" matTooltip="Create new module" #tooltip="matTooltip">
+            <mat-icon>add</mat-icon> Create new item script
+        </button>
+
+        <!-- OTHER BUTTONS -->
         <button mat-menu-item *ngFor="let command of commands | keyvalue" [matMenuTriggerFor]="subMenu"
             (click)="onContextMenuAction(command, command.key)">{{ command.value.DisplayName }}
+            <mat-menu #subMenu="matMenu">
+                <button mat-menu-item (click)="editItem(command.value)">Edit</button>
+                <!-- <button mat-menu-item (click)="renameItem(command.value)">Rename</button> -->
+                <button mat-menu-item (click)="deleteItem(command.value)">Delete</button>
+            </mat-menu>
         </button>
-        <mat-menu #subMenu="matMenu">
-            <button mat-menu-item (click)="deleteItem(command)">Delete</button>
-            <button mat-menu-item (click)="renameItem(command)">Rename</button>
-            <button mat-menu-item (click)="editItem(command)">Edit</button>
-        </mat-menu>
+
     </ng-template>
 </mat-menu>

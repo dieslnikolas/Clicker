@@ -1,10 +1,14 @@
-import { AfterViewInit, Component, Input, ViewChild } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { Component, ViewChild } from '@angular/core';
 import { MatMenuTrigger } from '@angular/material/menu';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { ScriptScope } from '../../../core/common/scripts/script-scope';
 import { ProjectService } from '../../../core/services/project/project.service';
+import { ScriptGeneratorService } from '../../../core/services/script/script-generator.service';
 import { ScriptRunnerService } from '../../../core/services/script/script-runner.service';
+import { DialogComponent } from '../../../shared/components/dialog/dialog.component';
 
 /**
  * @title Data table with sorting, pagination, and filtering.
@@ -28,7 +32,9 @@ export class ListListComponent {
     @ViewChild(MatMenuTrigger)
     contextMenu: MatMenuTrigger;
 
-    constructor(private projectService: ProjectService, private scriptRunnerService: ScriptRunnerService) {
+    constructor(private projectService: ProjectService, private dialog: MatDialog,
+        private scriptRunnerService: ScriptRunnerService, private scriptGeneratorSercice: ScriptGeneratorService
+        ) {
         this.projectService.moduleChanged.subscribe(() => {
 
             // Assign the data to the data source for the table to render
@@ -46,6 +52,19 @@ export class ListListComponent {
 
             this.existsImport = this.projectService.moduleImport != null;
         });
+    }
+
+    createNewModule() {
+
+        // create dialog
+        const dialogRef = this.dialog.open(DialogComponent, {
+            data: {
+                scriptScope: ScriptScope.Item
+            }
+        });
+
+        // closed event
+        dialogRef.afterClosed().subscribe(result => { });
     }
 
 
@@ -81,12 +100,14 @@ export class ListListComponent {
     }
     
     deleteItem(command: any) {
-        console.log(command);
+        if(confirm(`Are you sure to delete ${command.DisplayName}`))
+            this.scriptGeneratorSercice.delete(command, ScriptScope.Item);
     }
     renameItem(command: any) {
-        console.log(command);
+        let name = null; // TODO GET NEW NAME
+        this.scriptGeneratorSercice.rename(name, command, ScriptScope.Item);
     }
     editItem(command: any) {
-        console.log(command);
+        this.scriptGeneratorSercice.edit(command);
     }
 }

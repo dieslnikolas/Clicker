@@ -16,15 +16,15 @@ export class PowershellRunner implements IScriptRunner {
     constructor(private electronService: ElectronService, private projectService: ProjectService) { }
 
     async ScriptTemplate(path: string): Promise<string> {
-        return `
-// file sits in ${path}
-// data are accessible via:
-//
-//    param (
-//        [Parameter(ValueFromPipeline = $true)]$data = $null
-//    )
-//    echo $data
-        `;
+        return `# file sits in ${path}
+# data are accessible via script bellow:
+#
+
+param (
+    [Parameter(ValueFromPipeline = $true)]$data = $null
+)
+
+$data`;
     }
 
     async Run(action: string, item: Command): Promise<any> {
