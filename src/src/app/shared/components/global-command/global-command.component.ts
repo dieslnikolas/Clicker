@@ -7,6 +7,7 @@ import { ProjectService } from '../../../core/services/project/project.service';
 import { ScriptRunnerService } from '../../../core/services/script/script-runner.service';
 import { DialogComponent } from '../dialog/dialog.component';
 import { ScriptGeneratorService } from '../../../core/services/script/script-generator.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
     selector: 'shared-global-command',
@@ -22,7 +23,9 @@ export class GlobalCommandComponent implements OnInit {
     contextMenu: MatMenuTrigger;
     contextMenuPosition = { x: '0px', y: '0px' };
 
-    constructor(private dialog: MatDialog, private scriptGeneratorSercice: ScriptGeneratorService, private projectService: ProjectService, private scriptRunnerService: ScriptRunnerService) {
+    isProjectNotSaved = false;
+
+    constructor(private dialog: MatDialog, private snackBar: MatSnackBar, private scriptGeneratorSercice: ScriptGeneratorService, private projectService: ProjectService, private scriptRunnerService: ScriptRunnerService) {
     }
     
     ngOnInit(): void {
@@ -34,12 +37,12 @@ export class GlobalCommandComponent implements OnInit {
             console.log("Global -> project reloaded")
             setTimeout(() => {
                 this.data = this.projectService.commands;
+                this.isProjectNotSaved = this.projectService.appPath == null;
             }, APP_CONFIG.projectLoadedZoneTimeout);
         })
     }
 
-    generateGlobalScript(commandGroup: any, commandgroupKey: string) {
-
+    generateGlobalScript() {
         // dialog open
         const dialogRef = this.dialog.open(DialogComponent, {
             data: {
@@ -48,8 +51,30 @@ export class GlobalCommandComponent implements OnInit {
         });
     }
 
-    runCommand(data: any, command: any) {
-        this.scriptRunnerService.Run("GlobalCommand", data);
+    runCommand(data: any) {
+
+        // File
+        if (data.Path == "Scripts/Core/FileOperations/Open-File.ps1") {
+            this.projectService.load(null, true);
+        }
+        else if (data.Path == "Scripts/Core/FileOperations/Save-File.ps1") {
+            this.projectService.save(null);
+        }
+        else if (data.Path == "Scripts/Core/FileOperations/Save-As-File.ps1") {
+            this.projectService.save(null, true);
+        }
+        
+        // Settings
+        else if (data.Path == "Scripts/Core/Commands/Publish-Project.ps1") 
+            this.projectService.load(null, true);
+        else if (data.Path == "Scripts/Core/SettingOperations/Set-Settings.ps1")
+            this.projectService.save(null);
+        else if (data.Path == "Scripts/Core/SettingOperations/Open-Temp-Folder.ps1")
+            this.projectService.save(null, true);
+        
+        // OTHER
+        else 
+            this.scriptRunnerService.Run("GlobalCommand", data);
     }
 
     onRightClick(event: MouseEvent, command: any) {

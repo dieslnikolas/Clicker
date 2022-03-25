@@ -7,6 +7,8 @@ import * as remote from '@electron/remote';
 import * as childProcess from 'child_process';
 import * as fs from 'fs';
 import * as path from 'path'
+import * as fse from 'fs-extra';
+
 
 @Injectable({
   providedIn: 'root'
@@ -21,6 +23,7 @@ export class ElectronService {
   // NODEJS
   childProcess: typeof childProcess;
   fs: typeof fs;
+  fse: typeof fse;
   path: typeof path;
 
   /**
@@ -57,6 +60,7 @@ export class ElectronService {
       // nodejs
       this.childProcess = window.require('child_process');
       this.fs = window.require('fs');
+      this.fse = window.require('fs-extra');
       this.path = window.require('path');
 
       // If you want to use a NodeJS 3rd party deps in Renderer process (like @electron/remote),

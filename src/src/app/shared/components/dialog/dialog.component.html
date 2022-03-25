@@ -2,8 +2,9 @@
 
     <!-- <h1 mat-dialog-title>{{ data.scriptScope | enumToString }}</h1> -->
     <h1 mat-dialog-title *ngIf="data.scriptScope == 0"> Generate global script</h1>
-    <h1 mat-dialog-title *ngIf="data.scriptScope == 1"> Generate module script</h1>
+    <h1 mat-dialog-title *ngIf="data.scriptScope == 1"> Generate item script</h1>
     <h1 mat-dialog-title *ngIf="data.scriptScope == 2"> Generate import script</h1>
+    <h1 mat-dialog-title *ngIf="data.scriptScope == 3"> Generate module script</h1>
 
     <div mat-dialog-content>
 
@@ -13,7 +14,7 @@
             <mat-error *ngIf="name.hasError('required')">Enter script name</mat-error>
         </mat-form-field>
 
-        <mat-form-field appearance="fill">
+        <mat-form-field appearance="fill" *ngIf="data.scriptScope != 3">
             <mat-label>Type</mat-label>
             <mat-select [(ngModel)]="data.scriptType" [formControl]="scriptType" [errorStateMatcher]="matcher">
                 <mat-option [value]="scriptType" *ngFor="let scriptType of data.scriptTypes" required>
@@ -24,7 +25,7 @@
         </mat-form-field>
 
         <br />
-        <mat-checkbox [(ngModel)]="data.hasData" name="hasData">Has data</mat-checkbox>
+        <mat-checkbox [(ngModel)]="data.hasData" name="hasData" *ngIf="data.scriptScope != 3">Has data</mat-checkbox>
 
     </div>
 

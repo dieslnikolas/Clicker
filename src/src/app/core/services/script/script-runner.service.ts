@@ -9,6 +9,7 @@ import { Command } from "../../common/scripts/command"
 import { ProjectService } from "../project/project.service";
 import { BashRunner } from "../../common/scripts/runners/bash-runner";
 import { ChildProcessWithoutNullStreams } from "node:child_process";
+import { MatSnackBar } from "@angular/material/snack-bar";
 
 @Injectable({
     providedIn: 'root'
@@ -33,10 +34,10 @@ export class ScriptRunnerService implements IScriptRunner {
             return this.bashRunner;
     }
 
-    constructor(private scriptTypeHelper: ScriptTypeHelper, private electronService: ElectronService, private projectService: ProjectService,
-        private powershellRunner: PowershellRunner, 
+    constructor(private scriptTypeHelper: ScriptTypeHelper, private _snackBar: MatSnackBar, private electronService: ElectronService, private projectService: ProjectService,
+        private powershellRunner: PowershellRunner,
         private pythonRunner: PythonRunner,
-        private bashRunner: BashRunner) {}
+        private bashRunner: BashRunner) { }
 
 
     /**
@@ -45,7 +46,10 @@ export class ScriptRunnerService implements IScriptRunner {
      * @param item Command item, reads path from it
      * @returns returns promise with finished command
      */
-    public async Run(action: string, item: Command): Promise<ChildProcessWithoutNullStreams> {
+    public async Run(action: string, item: Command, supressSnack: boolean = false): Promise<ChildProcessWithoutNullStreams> {
+
+        this.projectService.processedItemClear();
+        this.projectService.setProcessedItem(item);
 
         let isRunnableCommand = await this.CanRunOrHowTo(item.Path);
         if (isRunnableCommand != null) {
@@ -62,18 +66,32 @@ export class ScriptRunnerService implements IScriptRunner {
         let task = await runner.Run(action, item);
 
         task.stdout.on("data", data => {
+            if (!supressSnack)
+                this.openSnackBar("OK");
+
             console.log(`stdout: ${data}`);
         });
-        
+
         task.stderr.on("data", data => {
+            if (!supressSnack)
+                this.openSnackBar("Error");
+
             console.log(`stderr: ${data}`);
         });
-        
+
         task.on('error', (error) => {
+            if (!supressSnack)
+                this.openSnackBar("Error");
+
             console.log(`error: ${error.message}`);
         });
-        
+
         task.on("close", code => {
+            if (code == 0 && !supressSnack)
+                this.openSnackBar("OK");
+            else if (!supressSnack)
+                this.openSnackBar("Something went wrong");
+
             console.log(`child process exited with code ${code}`);
         });
 
@@ -84,10 +102,17 @@ export class ScriptRunnerService implements IScriptRunner {
      * Initialize (some global collection of functions or scripts)
      * @returns Initialize data
      */
-     async Init(): Promise<ChildProcessWithoutNullStreams> {
+    async Init(): Promise<ChildProcessWithoutNullStreams> {
 
+        // try to find command
         let item = this.projectService.initCommand;
-       return await this.Run("Initialize", item);
+        
+        // if there is no init (typicialy on empty proj)
+        if (item == null)
+            return null;
+
+        // run init script
+        return await this.Run("Initialize", item, true);
     }
 
     /**
@@ -95,7 +120,7 @@ export class ScriptRunnerService implements IScriptRunner {
      * @param path path to file suppose to be (for runner check)
      * @returns return script template
      */
-    async ScriptTemplate(path: string) : Promise<string> {
+    async ScriptTemplate(path: string): Promise<string> {
         let runner = await this.getCurrentRunner(path);
         let content = await runner.ScriptTemplate(path);
         return content;
@@ -109,5 +134,16 @@ export class ScriptRunnerService implements IScriptRunner {
     async CanRunOrHowTo(path: string): Promise<string> {
         let runner = this.getCurrentRunner(path);
         return runner.CanRunOrHowTo(path);
+    }
+
+
+    /**
+     * Sends snack bar message
+     * @param message Message to snack bar info
+     */
+    private async openSnackBar(message: string) {
+        this._snackBar.open(message, 'Dismiss', {
+            duration: 3000
+        });
     }
 }

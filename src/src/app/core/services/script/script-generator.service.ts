@@ -33,7 +33,7 @@ export class ScriptGeneratorService {
         let path = scope != ScriptScope.Module ? await this.getPathAndFixName(fileName, scope, type) : fileName;
 
         // add command to json
-        this.projectService.addCommand(fileName, path, scope, hasData);
+        await this.projectService.addCommand(fileName, path, scope, hasData);
 
         // MODULE
         if (scope == ScriptScope.Module) {
@@ -98,20 +98,30 @@ export class ScriptGeneratorService {
      * @param command command
      */
     public async delete(command: Command, scope: ScriptScope): Promise<void> {
+
         // remove command from json
-        this.projectService.deleteCommand(command, scope);
+        await this.projectService.deleteCommand(command, scope);
 
-        // remove file
-        let path = this.electronService.path.resolve(this.projectService.appPath, command.Path);
-        this.electronService.fs.rm(path, (err) => {
-            if (err)
-                console.log(err)
+        if (scope != ScriptScope.Module) {
+            // remove file
+            let path = this.electronService.path.resolve(this.projectService.appPath, command.Path);
+            this.electronService.fs.rm(path, (err) => {
+                if (err)
+                    console.log(err)
 
+                // reload project
+                this.projectService.save(null).then(() => {
+                    this.projectService.load(null);
+                })
+            });
+
+        } 
+        else {
             // reload project
             this.projectService.save(null).then(() => {
                 this.projectService.load(null);
-            })
-        });
+            });
+        }
 
     }
 
@@ -129,7 +139,7 @@ export class ScriptGeneratorService {
         let newPath = this.electronService.path.resolve(path.dir, name);
 
         // rename json
-        this.projectService.renameCommand(name, command, scope);
+        await this.projectService.renameCommand(name, command, scope);
 
         // rename file
         this.electronService.fs.rename(oldPath, newPath, () => {

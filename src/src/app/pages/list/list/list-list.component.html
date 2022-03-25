@@ -7,7 +7,7 @@
     </mat-form-field>
 
     <!-- DATA -->
-    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z0" matSort>
 
         <!-- ID Column
       <ng-container matColumnDef="key">
@@ -44,16 +44,23 @@
 
     <div fxLayout="row">
 
-        <div fxFlex="10">
+        <div fxFlex="10" style="padding-top: 10px" *ngIf="existsImport">
             <button mat-raised-button color="accent" aria-label="Example icon button with a menu icon"
                 (click)="importData()" [disabled]="existsImport ? 'disabled' : ''">
                 <mat-icon>download</mat-icon> Import
             </button>
         </div>
 
-        <div fxFill>
-            <mat-paginator [pageSizeOptions]="[10, 25, 50, 100]"></mat-paginator>
+        <div fxFlex="10" style="padding-top: 10px" *ngIf="!existsImport" matTooltip="Create new module import command">
+            <button mat-raised-button color="accent" aria-label="Example icon button with a menu icon"
+                (click)="createNewImportScript()">
+                <mat-icon>add</mat-icon> Add import
+            </button>
         </div>
+
+        <!-- <div fxFill>
+            <mat-paginator [pageSizeOptions]="[10, 25, 50, 100]"></mat-paginator>
+        </div> -->
     </div>
 
 </div>
@@ -69,17 +76,17 @@
 
         <!-- ADD BUTTON -->
         <button mat-menu-item name="buttonAdd" (click)="createNewScript()"
-            aria-label="Example icon button with a menu icon" matTooltip="Create new module" #tooltip="matTooltip">
+            aria-label="Example icon button with a menu icon" matTooltip="Create new module command" #tooltip="matTooltip">
             <mat-icon>add</mat-icon> Create new item script
         </button>
 
         <!-- OTHER BUTTONS -->
         <button mat-menu-item *ngFor="let command of commands | keyvalue" [matMenuTriggerFor]="subMenu"
-            (click)="onContextMenuAction(command, command.key)">{{ command.value.DisplayName }}
+            (click)="onContextMenuAction(command, command.key, item)">{{ command.value.DisplayName }}
             <mat-menu #subMenu="matMenu">
-                <button mat-menu-item (click)="editItem(command.value)">Edit</button>
+                <button mat-menu-item (click)="editItem(item, command.value)">Edit</button>
                 <!-- <button mat-menu-item (click)="renameItem(command.value)">Rename</button> -->
-                <button mat-menu-item (click)="deleteItem(command.value)">Delete</button>
+                <button mat-menu-item (click)="deleteItem(item, command.value)">Delete</button>
             </mat-menu>
         </button>
 

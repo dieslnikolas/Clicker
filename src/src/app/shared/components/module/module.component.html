@@ -1,32 +1,21 @@
 <!-- // COMMANDS -->
 <div class="add-module-button-container">
     <button (click)="createNewModule()" mat-flat-button color="accent" aria-label="Example icon button with a menu icon"
-        matTooltip="Create new module" #tooltip="matTooltip"
-        [disabled]="isNotSelected">
-        <mat-icon>add</mat-icon>
+        matTooltip="Create new module" #tooltip="matTooltip">
+        <mat-icon>add</mat-icon>Add module
     </button>
 </div>
 
 <mat-tab-group mat-align-tabs="start" backgroundColor="accent" color="accent" animationDuration="0ms"
-    (selectedTabChange)="onSelectedTabChange($event)" [selectedIndex]="0" fxFill #tabs> 
+    (selectedTabChange)="onSelectedTabChange($event)" [selectedIndex]="0" fxFill #tabs>
 
     <mat-tab *ngFor="let module of data | keyvalue" label="{{module.key}}" >
+
         <ng-template mat-tab-label>
-            <span (contextmenu)="onRightClick($event, command)" class="custom-button">
+            <span (contextmenu)="deleteItem(module)" class="custom-button" matTooltip="RMB to delete!">
                 {{module.key}}
             </span>
         </ng-template>
 
-        <div style="visibility: hidden; position: fixed" [style.left]="contextMenuPosition.x"
-            [style.top]="contextMenuPosition.y" [matMenuTriggerFor]="contextMenu">
-        </div>
-
-        <mat-menu #contextMenu="matMenu">
-            <ng-template matMenuContent let-item="item">
-                <!-- <button mat-menu-item (click)="deleteItem(item)">Delete</button> -->
-                <!-- <button mat-menu-item (click)="renameItem(item)">Rename</button>
-                <button mat-menu-item (click)="editItem(item)">Edit</button> -->
-            </ng-template>
-        </mat-menu>
     </mat-tab>
 </mat-tab-group>
