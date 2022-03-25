@@ -1,9 +1,7 @@
 import { Injectable } from "@angular/core";
 import { Subject } from 'rxjs';
-import { APP_CONFIG } from "../../../../environments/environment";
 import { Command } from "../../common/scripts/command";
 import { ScriptScope } from "../../common/scripts/script-scope";
-import { ScriptType } from "../../common/scripts/script-type";
 import { ElectronService } from "../electron/electron.service";
 import { ProjectModel } from "./project.model";
 
@@ -50,7 +48,7 @@ export class ProjectService {
 
         return this._projectModel;
     }
-
+    
     setProcessedItem(item: Command) {
         this.projectModel.ProcessItem = item;
     }
@@ -199,6 +197,8 @@ export class ProjectService {
     public async addCommand(fileName: string, path: string, scope: ScriptScope, hasData: boolean) {
 
         switch (scope) {
+
+            // GLOBAL SCRIPTS
             case ScriptScope.Global:
                 this.projectModel.Scripts['Commands'] = {
 
@@ -212,10 +212,10 @@ export class ProjectService {
                 }
                 break;
 
+            // ROW//ITEM/TALBE
             case ScriptScope.Item:
             case ScriptScope.Import:
 
-                // TODO correct path
                 this.projectModel.Scripts['Modules'][this.selectedModule] = {
 
                     ...this.projectModel.Scripts['Modules'][this.selectedModule],
@@ -227,6 +227,25 @@ export class ProjectService {
                     },
                 }
                 break;
+
+            // MODULES
+            case ScriptScope.Module:
+
+                // script section
+                this.projectModel.Scripts['Modules'] = {
+
+                    ...this.projectModel.Scripts['Modules'],
+                    [fileName]: {},
+                }
+
+                // data section
+                this._projectModel = {
+
+                    ...this.projectModel,
+                    [fileName]: {},
+                }
+                break;
+
         }
     }
 

@@ -1,1 +1,870 @@
-{"IsDeveloper":false,"Functions":{},"Views":{},"Tables":{"PLZoneHead":{"Name":"PLZoneHead","DisplayName":"dbo.PLZoneHead","Schema":"dbo"},"SalesType":{"Name":"SalesType","DisplayName":"dbo.SalesType","Schema":"dbo"},"AuditLogSetting":{"Name":"AuditLogSetting","DisplayName":"dbo.AuditLogSetting","Schema":"dbo"},"Carrier":{"Name":"Carrier","DisplayName":"dbo.Carrier","Schema":"dbo"},"PriceListItemListZoneValue":{"Name":"PriceListItemListZoneValue","DisplayName":"dbo.PriceListItemListZoneValue","Schema":"dbo"},"LocalizedFuelPriceType":{"Name":"LocalizedFuelPriceType","DisplayName":"dbo.LocalizedFuelPriceType","Schema":"dbo"},"PackingType":{"Name":"PackingType","DisplayName":"dbo.PackingType","Schema":"dbo"},"UserGroup":{"Name":"UserGroup","DisplayName":"dbo.UserGroup","Schema":"dbo"},"Company":{"Name":"Company","DisplayName":"dbo.Company","Schema":"dbo"},"LocalizedPriceListIntervalType":{"Name":"LocalizedPriceListIntervalType","DisplayName":"dbo.LocalizedPriceListIntervalType","Schema":"dbo"},"PriceListType":{"Name":"PriceListType","DisplayName":"dbo.PriceListType","Schema":"dbo"},"Group":{"Name":"Group","DisplayName":"dbo.Group","Schema":"dbo"},"ServiceAllocatorSetService":{"Name":"ServiceAllocatorSetService","DisplayName":"dbo.ServiceAllocatorSetService","Schema":"dbo"},"Permission":{"Name":"Permission","DisplayName":"dbo.Permission","Schema":"dbo"},"Product":{"Name":"Product","DisplayName":"dbo.Product","Schema":"dbo"},"PriceListFinalValueType":{"Name":"PriceListFinalValueType","DisplayName":"dbo.PriceListFinalValueType","Schema":"dbo"},"LocalizedPriceListFinalValueType":{"Name":"LocalizedPriceListFinalValueType","DisplayName":"dbo.LocalizedPriceListFinalValueType","Schema":"dbo"},"LocalizedServiceAllocatorType":{"Name":"LocalizedServiceAllocatorType","DisplayName":"dbo.LocalizedServiceAllocatorType","Schema":"dbo"},"ServiceAllocator":{"Name":"ServiceAllocator","DisplayName":"dbo.ServiceAllocator","Schema":"dbo"},"Customer":{"Name":"Customer","DisplayName":"dbo.Customer","Schema":"dbo"},"Depot":{"Name":"Depot","DisplayName":"dbo.Depot","Schema":"dbo"},"PLRegionHead":{"Name":"PLRegionHead","DisplayName":"dbo.PLRegionHead","Schema":"dbo"},"ServiceAllocatorType":{"Name":"ServiceAllocatorType","DisplayName":"dbo.ServiceAllocatorType","Schema":"dbo"},"LocalizedSalesType":{"Name":"LocalizedSalesType","DisplayName":"dbo.LocalizedSalesType","Schema":"dbo"},"FuelPriceType":{"Name":"FuelPriceType","DisplayName":"dbo.FuelPriceType","Schema":"dbo"},"Log":{"Name":"Log","DisplayName":"dbo.Log","Schema":"dbo"},"EntityTranslation":{"Name":"EntityTranslation","DisplayName":"dbo.EntityTranslation","Schema":"dbo"},"UserPermission":{"Name":"UserPermission","DisplayName":"dbo.UserPermission","Schema":"dbo"},"Service":{"Name":"Service","DisplayName":"dbo.Service","Schema":"dbo"},"GroupPermission":{"Name":"GroupPermission","DisplayName":"dbo.GroupPermission","Schema":"dbo"},"AuditLog":{"Name":"AuditLog","DisplayName":"dbo.AuditLog","Schema":"dbo"},"PriceListItemTemplate":{"Name":"PriceListItemTemplate","DisplayName":"dbo.PriceListItemTemplate","Schema":"dbo"},"PriceListDiscount":{"Name":"PriceListDiscount","DisplayName":"dbo.PriceListDiscount","Schema":"dbo"},"ServiceAllocatorSet":{"Name":"ServiceAllocatorSet","DisplayName":"dbo.ServiceAllocatorSet","Schema":"dbo"},"PLRegion":{"Name":"PLRegion","DisplayName":"dbo.PLRegion","Schema":"dbo"},"UserCompany":{"Name":"UserCompany","DisplayName":"dbo.UserCompany","Schema":"dbo"},"PLZone":{"Name":"PLZone","DisplayName":"dbo.PLZone","Schema":"dbo"},"LocalizedPriceListItemTemplate":{"Name":"LocalizedPriceListItemTemplate","DisplayName":"dbo.LocalizedPriceListItemTemplate","Schema":"dbo"},"PriceListIntervalType":{"Name":"PriceListIntervalType","DisplayName":"dbo.PriceListIntervalType","Schema":"dbo"},"PriceListDiscountService":{"Name":"PriceListDiscountService","DisplayName":"dbo.PriceListDiscountService","Schema":"dbo"},"LocalizedPackingType":{"Name":"LocalizedPackingType","DisplayName":"dbo.LocalizedPackingType","Schema":"dbo"},"PLZoneRegion":{"Name":"PLZoneRegion","DisplayName":"dbo.PLZoneRegion","Schema":"dbo"},"PriceListItem":{"Name":"PriceListItem","DisplayName":"dbo.PriceListItem","Schema":"dbo"},"User":{"Name":"User","DisplayName":"dbo.User","Schema":"dbo"},"PriceListItemZone":{"Name":"PriceListItemZone","DisplayName":"dbo.PriceListItemZone","Schema":"dbo"},"LocalizedProduct":{"Name":"LocalizedProduct","DisplayName":"dbo.LocalizedProduct","Schema":"dbo"},"UserDepot":{"Name":"UserDepot","DisplayName":"dbo.UserDepot","Schema":"dbo"},"Language":{"Name":"Language","DisplayName":"dbo.Language","Schema":"dbo"},"LocalizableEntity":{"Name":"LocalizableEntity","DisplayName":"dbo.LocalizableEntity","Schema":"dbo"},"PriceListQuantitativePeriod":{"Name":"PriceListQuantitativePeriod","DisplayName":"dbo.PriceListQuantitativePeriod","Schema":"dbo"},"PriceListItemInterval":{"Name":"PriceListItemInterval","DisplayName":"dbo.PriceListItemInterval","Schema":"dbo"},"PLRegionZipCode":{"Name":"PLRegionZipCode","DisplayName":"dbo.PLRegionZipCode","Schema":"dbo"},"GroupPermissionCondition":{"Name":"GroupPermissionCondition","DisplayName":"dbo.GroupPermissionCondition","Schema":"dbo"},"Country":{"Name":"Country","DisplayName":"dbo.Country","Schema":"dbo"},"LocalizedPriceListType":{"Name":"LocalizedPriceListType","DisplayName":"dbo.LocalizedPriceListType","Schema":"dbo"},"PriceListHead":{"Name":"PriceListHead","DisplayName":"dbo.PriceListHead","Schema":"dbo"},"PriceListItemList":{"Name":"PriceListItemList","DisplayName":"dbo.PriceListItemList","Schema":"dbo"},"CountryZipCodesRange":{"Name":"CountryZipCodesRange","DisplayName":"dbo.CountryZipCodesRange","Schema":"dbo"},"PriceListItemService":{"Name":"PriceListItemService","DisplayName":"dbo.PriceListItemService","Schema":"dbo"},"PriceListHeaderType":{"Name":"PriceListHeaderType","DisplayName":"dbo.PriceListHeaderType","Schema":"dbo"},"LocalizedCurrency":{"Name":"LocalizedCurrency","DisplayName":"dbo.LocalizedCurrency","Schema":"dbo"},"LocalizedPriceListQuantitativePeriod":{"Name":"LocalizedPriceListQuantitativePeriod","DisplayName":"dbo.LocalizedPriceListQuantitativePeriod","Schema":"dbo"},"PriceListHeadCustomer":{"Name":"PriceListHeadCustomer","DisplayName":"dbo.PriceListHeadCustomer","Schema":"dbo"},"ReplicationQueueSettings":{"Name":"ReplicationQueueSettings","DisplayName":"dbo.ReplicationQueueSettings","Schema":"dbo"},"PriceListItemListInterval":{"Name":"PriceListItemListInterval","DisplayName":"dbo.PriceListItemListInterval","Schema":"dbo"},"ReplicationQueue":{"Name":"ReplicationQueue","DisplayName":"dbo.ReplicationQueue","Schema":"dbo"},"Currency":{"Name":"Currency","DisplayName":"dbo.Currency","Schema":"dbo"},"PriceList":{"Name":"PriceList","DisplayName":"dbo.PriceList","Schema":"dbo"},"ActAsLog":{"Name":"ActAsLog","DisplayName":"dbo.ActAsLog","Schema":"dbo"},"__EFMigrationsHistory":{"Name":"__EFMigrationsHistory","DisplayName":"dbo.__EFMigrationsHistory","Schema":"dbo"},"LocalizedPriceListHeaderType":{"Name":"LocalizedPriceListHeaderType","DisplayName":"dbo.LocalizedPriceListHeaderType","Schema":"dbo"},"PriceListItemUnitLimit":{"Name":"PriceListItemUnitLimit","DisplayName":"dbo.PriceListItemUnitLimit","Schema":"dbo"},"UserPermissionCondition":{"Name":"UserPermissionCondition","DisplayName":"dbo.UserPermissionCondition","Schema":"dbo"},"Address":{"Name":"Address","DisplayName":"dbo.Address","Schema":"dbo"}},"Metadata":{"Solution":"IT2021","AppNamespace":"IT2021.Main","Path":"c:\\temp\\IT2021\\","ConnectionString":"D","DataLayerNamespace":"IT2021.SaleDataLayer","DataServiceNamespace":"IT2021.SaleDataService","UseGenerated":false,"ProjectName":"IT2021 - Sales"},"ProcessItem":null,"Scripts":{"InitializeScript":{"Path":"C:\\Users\\diesl\\Developing\\src\\Dieslnikolas\\Clicker\\src\\project_template\\Scripts\\Core\\Commands\\Initialize-Script.ps1"},"Commands":{"Build":{"Path":"Scripts/Core/Commands/open-terminal-in-deploy.ps1","DisplayName":"Open Terminal and deploy"},"BashTest":{"Path":"C:\\Users\\diesl\\Developing\\src\\Dieslnikolas\\Clicker\\src\\project_template\\Scripts\\Core\\Commands\\test.sh","DisplayName":"Bash"},"PythonTest":{"Path":"C:\\Users\\diesl\\Developing\\src\\Dieslnikolas\\Clicker\\src\\project_template\\Scripts\\Core\\Commands\\test.py","DisplayName":"Python"},"VPN":{"Path":"Scripts/Core/Commands/VPN.ps1","DisplayName":"VPN"},"EditVersion":{"Path":"Scripts/Core/Commands/Edit-Version.ps1","DisplayName":"Edit project version"},"OpenPowerShellISE":{"Path":"Scripts/Core/Commands/Open-Powershell-ISE.ps1","DisplayName":"PowerShell ISE"},"PublishProject":{"Path":"Scripts/Core/Commands/Publish-Project.ps1","DisplayName":"Publish project"},"OpenVisualCode":{"Path":"Scripts/Core/Commands/Open-Visual-Code.ps1","DisplayName":"Visual Code"}},"FileOperations":{"SaveAs":{"Path":"Scripts/Core/FileOperations/Save-As-File.ps1","DisplayName":"Save as","HasData":false},"Open":{"Path":"Scripts/Core/FileOperations/Open-File.ps1","DisplayName":"Open","HasData":true},"Save":{"Path":"C:\\Users\\diesl\\Developing\\src\\Dieslnikolas\\Clicker\\src\\project_template\\Scripts\\Core\\FileOperations\\Save-File.ps1","DisplayName":"Save","HasData":false}},"Modules":{"Tables":{"NewReplicationFrom":{"Path":"Scripts/MsSQL/Tables/Commands/New-Replication-From.ps1","IsDefault":false,"DisplayName":"Generate dataService replication from","IsContext":true},"NewDataServiceServices":{"Path":"Scripts/MsSQL/Tables/Commands/New-DataService-Services.ps1","IsDefault":false,"DisplayName":"Generate dataService services","IsContext":true},"NewWPFListViewModels":{"Path":"Scripts/MsSQL/Tables/Commands/New-WPF-List-ViewModels.ps1","IsDefault":false,"DisplayName":"Generate WPF List viewmodels","IsContext":true},"ShowTableDetail":{"Path":"Scripts/MsSQL/Tables/Commands/Show-Table-Detail.ps1","IsDefault":true,"DisplayName":"Show SELECT command","IsContext":true},"NewReplicationTo":{"Path":"Scripts/MsSQL/Tables/Commands/New-Replication-To.ps1","IsDefault":false,"DisplayName":"Generate dataService replication to","IsContext":true},"NewWPFDetailViews":{"Path":"Scripts/MsSQL/Tables/Commands/New-WPF-Detail-Views.ps1","IsDefault":false,"DisplayName":"Generate WPF Detail views","IsContext":true},"NewDatalayerListProcedure":{"Path":"Scripts/MsSQL/Tables/Commands/New-Datalayer-List-Procedure.ps1","IsDefault":false,"DisplayName":"Generate dataLayer List procedure","IsContext":true},"NewDataValidatorServices":{"Path":"Scripts/MsSQL/Tables/Commands/New-DataService-Validator.ps1","IsDefault":false,"DisplayName":"Generate dataService validator","IsContext":true},"NewWPFContext":{"Path":"Scripts/MsSQL/Tables/Commands/New-WPF-Context.ps1","IsDefault":false,"DisplayName":"Generate WPF Context","IsContext":true},"Nswag":{"Path":"fakescript.ps1","IsDefault":false,"DisplayName":"-- přegeneruj NSWAG --","IsContext":true},"NewWPFDetailViewModels":{"Path":"Scripts/MsSQL/Tables/Commands/New-WPF-Detail-ViewModels.ps1","IsDefault":false,"DisplayName":"Generate WPF Detail viewmodels","IsContext":true},"RemoveTable":{"Path":"Scripts/MsSQL/Tables/Commands/Remove-Table.ps1","IsDefault":false,"DisplayName":"Remove table","IsContext":true},"NewDataServiceControllers":{"Path":"Scripts/MsSQL/Tables/Commands/New-DataService-Controllers.ps1","IsDefault":false,"DisplayName":"Generate dataService controllers","IsContext":true},"NewWPFListViews":{"Path":"Scripts/MsSQL/Tables/Commands/New-WPF-List-Views.ps1","IsDefault":false,"DisplayName":"Generate WPF List views","IsContext":true},"NewDataServiceModels":{"Path":"Scripts/MsSQL/Tables/Commands/New-DataService-Models.ps1","IsDefault":false,"DisplayName":"Generate dataService models","IsContext":true}},"Views":{"ShowViewDetail":{"Path":"Scripts/MsSQL/Views/Commands/Show-View-Detail.ps1","IsDefault":true,"DisplayName":"Show detail","IsContext":true},"RemoveView":{"Path":"Scripts/MsSQL/Views/Commands/Remove-View.ps1","IsDefault":false,"DisplayName":"Remove view","IsContext":true}},"Procedures":{"ShowProcedureDetail":{"Path":"Scripts/MsSQL/Procedures/Commands/Show-Procedure-Detail.ps1","IsDefault":true,"DisplayName":"Show detail","IsContext":true},"RemoveProcedure":{"Path":"Scripts/MsSQL/Procedures/Commands/Remove-Procedure.ps1","IsDefault":false,"DisplayName":"Remove","IsContext":true}},"Functions":{"ShowFunctionDetail":{"Path":"Scripts/MsSQL/Functions/Commands/Show-Function-Detail.ps1","IsDefault":true,"DisplayName":"Show detail","IsContext":true},"RemoveFunction":{"Path":"Scripts/MsSQL/Functions/Commands/Remove-Function.ps1","IsDefault":false,"DisplayName":"Remove function","IsContext":true},"asaasd":{"DisplayName":"asaasd","Path":"Scripts/Functions//asaasdasaasd.ps1","HasData":false}}},"SettingOperations":{"Settings":{"Path":"Scripts/Core/SettingOperations/Set-Settings.ps1","DisplayName":"Settings","HasData":true},"OpenFolder":{"Path":"C:\\Users\\diesl\\Developing\\src\\Dieslnikolas\\Clicker\\src\\project_template\\Scripts\\Core\\SettingOperations\\Open-Temp-Folder.ps1","DisplayName":"Open temp Folder","HasData":false}}},"TempData":{"PLZoneHead":{"Columns":{"CustomerId":{"IsNullable":true,"Table":"Customer","IsFk":true,"Type":"Guid","Name":"CustomerId","DbType":"Guid","Description":null,"TypeLength":null,"IsPK":false,"OriginalType":"uniqueidentifier","IsRequired":false,"TableName":"Customer","FkColumnName":"Name","ListName":"Customers"},"PLZoneHeadId":{"IsNullable":false,"Table":"","IsFk":false,"Type":"Guid","Name":"PLZoneHeadId","DbType":"Guid","Description":null,"TypeLength":null,"IsPK":true,"OriginalType":"uniqueidentifier","IsRequired":true,"TableName":"","FkColumnName":"","ListName":""},"Name":{"IsNullable":false,"Table":"","IsFk":false,"Type":"string","Name":"Name","DbType":"String","Description":null,"TypeLength":200,"IsPK":false,"OriginalType":"nvarchar","IsRequired":true,"TableName":"","FkColumnName":"","ListName":""},"ChangedBy":{"IsNullable":true,"Table":"","IsFk":false,"Type":"Guid","Name":"ChangedBy","DbType":"Guid","Description":null,"TypeLength":null,"IsPK":false,"OriginalType":"uniqueidentifier","IsRequired":false,"TableName":"","FkColumnName":"","ListName":""},"Changed":{"IsNullable":true,"Table":"","IsFk":false,"Type":"DateTimeOffset","Name":"Changed","DbType":"DateTimeOffset","Description":null,"TypeLength":null,"IsPK":false,"OriginalType":"datetimeoffset","IsRequired":false,"TableName":"","FkColumnName":"","ListName":""},"Code":{"IsNullable":false,"Table":"","IsFk":false,"Type":"string","Name":"Code","DbType":"String","Description":null,"TypeLength":40,"IsPK":false,"OriginalType":"nvarchar","IsRequired":true,"TableName":"","FkColumnName":"","ListName":""},"Description":{"IsNullable":false,"Table":"","IsFk":false,"Type":"string","Name":"Description","DbType":"String","Description":null,"TypeLength":1000,"IsPK":false,"OriginalType":"nvarchar","IsRequired":false,"TableName":"","FkColumnName":"","ListName":""},"CompanyId":{"IsNullable":false,"Table":"Company","IsFk":true,"Type":"Guid","Name":"CompanyId","DbType":"Guid","Description":null,"TypeLength":null,"IsPK":false,"OriginalType":"uniqueidentifier","IsRequired":true,"TableName":"Company","FkColumnName":"Name","ListName":"Companies"},"CreatedBy":{"IsNullable":false,"Table":"","IsFk":false,"Type":"Guid","Name":"CreatedBy","DbType":"Guid","Description":null,"TypeLength":null,"IsPK":false,"OriginalType":"uniqueidentifier","IsRequired":true,"TableName":"","FkColumnName":"","ListName":""},"ProductId":{"IsNullable":false,"Table":"Product","IsFk":true,"Type":"Guid","Name":"ProductId","DbType":"Guid","Description":null,"TypeLength":null,"IsPK":false,"OriginalType":"uniqueidentifier","IsRequired":true,"TableName":"Product","FkColumnName":"Name","ListName":"Products"},"AddressId":{"IsNullable":true,"Table":"Address","IsFk":true,"Type":"Guid","Name":"AddressId","DbType":"Guid","Description":null,"TypeLength":null,"IsPK":false,"OriginalType":"uniqueidentifier","IsRequired":false,"TableName":"Address","FkColumnName":"Name","ListName":"Addresses"},"Created":{"IsNullable":false,"Table":"","IsFk":false,"Type":"DateTimeOffset","Name":"Created","DbType":"DateTimeOffset","Description":null,"TypeLength":null,"IsPK":false,"OriginalType":"datetimeoffset","IsRequired":true,"TableName":"","FkColumnName":"","ListName":""},"Deleted":{"IsNullable":false,"Table":"","IsFk":false,"Type":"bool","Name":"Deleted","DbType":"Boolean","Description":null,"TypeLength":null,"IsPK":false,"OriginalType":"bit","IsRequired":true,"TableName":"","FkColumnName":"","ListName":""},"ValidFrom":{"IsNullable":false,"Table":"","IsFk":false,"Type":"DateTime","Name":"ValidFrom","DbType":"DateTime","Description":null,"TypeLength":null,"IsPK":false,"OriginalType":"date","IsRequired":true,"TableName":"","FkColumnName":"","ListName":""},"ValidTo":{"IsNullable":true,"Table":"","IsFk":false,"Type":"DateTime","Name":"ValidTo","DbType":"DateTime","Description":null,"TypeLength":null,"IsPK":false,"OriginalType":"date","IsRequired":false,"TableName":"","FkColumnName":"","ListName":""}},"Metadata":{"Table":"PLZoneHead","ContextNamespace":null,"Name":"PLZoneHead","Description":"","PluralName":"PLZoneHeads","ProjectName":"IT2021 - Sales","UseGenerated":false,"DataServiceNamespace":"IT2021.SaleDataService","TableRelation":null,"DataLayerNamespace":"IT2021.SaleDataLayer","Modules":"Core"},"ProcessItem":{"PLZoneHead":{"Name":"PLZoneHead","DisplayName":"dbo.PLZoneHead","Schema":"dbo"}}}},"Items":{},"Path":"IT2021Sale.pwgen","Procedures":{}}
+{
+    "IsDeveloper": false,
+    "Functions": {},
+    "Views": {},
+    "Tables": {
+        "PLZoneHead": {
+            "Name": "PLZoneHead",
+            "DisplayName": "dbo.PLZoneHead",
+            "Schema": "dbo"
+        },
+        "SalesType": {
+            "Name": "SalesType",
+            "DisplayName": "dbo.SalesType",
+            "Schema": "dbo"
+        },
+        "AuditLogSetting": {
+            "Name": "AuditLogSetting",
+            "DisplayName": "dbo.AuditLogSetting",
+            "Schema": "dbo"
+        },
+        "Carrier": {
+            "Name": "Carrier",
+            "DisplayName": "dbo.Carrier",
+            "Schema": "dbo"
+        },
+        "PriceListItemListZoneValue": {
+            "Name": "PriceListItemListZoneValue",
+            "DisplayName": "dbo.PriceListItemListZoneValue",
+            "Schema": "dbo"
+        },
+        "LocalizedFuelPriceType": {
+            "Name": "LocalizedFuelPriceType",
+            "DisplayName": "dbo.LocalizedFuelPriceType",
+            "Schema": "dbo"
+        },
+        "PackingType": {
+            "Name": "PackingType",
+            "DisplayName": "dbo.PackingType",
+            "Schema": "dbo"
+        },
+        "UserGroup": {
+            "Name": "UserGroup",
+            "DisplayName": "dbo.UserGroup",
+            "Schema": "dbo"
+        },
+        "Company": {
+            "Name": "Company",
+            "DisplayName": "dbo.Company",
+            "Schema": "dbo"
+        },
+        "LocalizedPriceListIntervalType": {
+            "Name": "LocalizedPriceListIntervalType",
+            "DisplayName": "dbo.LocalizedPriceListIntervalType",
+            "Schema": "dbo"
+        },
+        "PriceListType": {
+            "Name": "PriceListType",
+            "DisplayName": "dbo.PriceListType",
+            "Schema": "dbo"
+        },
+        "Group": {
+            "Name": "Group",
+            "DisplayName": "dbo.Group",
+            "Schema": "dbo"
+        },
+        "ServiceAllocatorSetService": {
+            "Name": "ServiceAllocatorSetService",
+            "DisplayName": "dbo.ServiceAllocatorSetService",
+            "Schema": "dbo"
+        },
+        "Permission": {
+            "Name": "Permission",
+            "DisplayName": "dbo.Permission",
+            "Schema": "dbo"
+        },
+        "Product": {
+            "Name": "Product",
+            "DisplayName": "dbo.Product",
+            "Schema": "dbo"
+        },
+        "PriceListFinalValueType": {
+            "Name": "PriceListFinalValueType",
+            "DisplayName": "dbo.PriceListFinalValueType",
+            "Schema": "dbo"
+        },
+        "LocalizedPriceListFinalValueType": {
+            "Name": "LocalizedPriceListFinalValueType",
+            "DisplayName": "dbo.LocalizedPriceListFinalValueType",
+            "Schema": "dbo"
+        },
+        "LocalizedServiceAllocatorType": {
+            "Name": "LocalizedServiceAllocatorType",
+            "DisplayName": "dbo.LocalizedServiceAllocatorType",
+            "Schema": "dbo"
+        },
+        "ServiceAllocator": {
+            "Name": "ServiceAllocator",
+            "DisplayName": "dbo.ServiceAllocator",
+            "Schema": "dbo"
+        },
+        "Customer": {
+            "Name": "Customer",
+            "DisplayName": "dbo.Customer",
+            "Schema": "dbo"
+        },
+        "Depot": {
+            "Name": "Depot",
+            "DisplayName": "dbo.Depot",
+            "Schema": "dbo"
+        },
+        "PLRegionHead": {
+            "Name": "PLRegionHead",
+            "DisplayName": "dbo.PLRegionHead",
+            "Schema": "dbo"
+        },
+        "ServiceAllocatorType": {
+            "Name": "ServiceAllocatorType",
+            "DisplayName": "dbo.ServiceAllocatorType",
+            "Schema": "dbo"
+        },
+        "LocalizedSalesType": {
+            "Name": "LocalizedSalesType",
+            "DisplayName": "dbo.LocalizedSalesType",
+            "Schema": "dbo"
+        },
+        "FuelPriceType": {
+            "Name": "FuelPriceType",
+            "DisplayName": "dbo.FuelPriceType",
+            "Schema": "dbo"
+        },
+        "Log": {
+            "Name": "Log",
+            "DisplayName": "dbo.Log",
+            "Schema": "dbo"
+        },
+        "EntityTranslation": {
+            "Name": "EntityTranslation",
+            "DisplayName": "dbo.EntityTranslation",
+            "Schema": "dbo"
+        },
+        "UserPermission": {
+            "Name": "UserPermission",
+            "DisplayName": "dbo.UserPermission",
+            "Schema": "dbo"
+        },
+        "Service": {
+            "Name": "Service",
+            "DisplayName": "dbo.Service",
+            "Schema": "dbo"
+        },
+        "GroupPermission": {
+            "Name": "GroupPermission",
+            "DisplayName": "dbo.GroupPermission",
+            "Schema": "dbo"
+        },
+        "AuditLog": {
+            "Name": "AuditLog",
+            "DisplayName": "dbo.AuditLog",
+            "Schema": "dbo"
+        },
+        "PriceListItemTemplate": {
+            "Name": "PriceListItemTemplate",
+            "DisplayName": "dbo.PriceListItemTemplate",
+            "Schema": "dbo"
+        },
+        "PriceListDiscount": {
+            "Name": "PriceListDiscount",
+            "DisplayName": "dbo.PriceListDiscount",
+            "Schema": "dbo"
+        },
+        "ServiceAllocatorSet": {
+            "Name": "ServiceAllocatorSet",
+            "DisplayName": "dbo.ServiceAllocatorSet",
+            "Schema": "dbo"
+        },
+        "PLRegion": {
+            "Name": "PLRegion",
+            "DisplayName": "dbo.PLRegion",
+            "Schema": "dbo"
+        },
+        "UserCompany": {
+            "Name": "UserCompany",
+            "DisplayName": "dbo.UserCompany",
+            "Schema": "dbo"
+        },
+        "PLZone": {
+            "Name": "PLZone",
+            "DisplayName": "dbo.PLZone",
+            "Schema": "dbo"
+        },
+        "LocalizedPriceListItemTemplate": {
+            "Name": "LocalizedPriceListItemTemplate",
+            "DisplayName": "dbo.LocalizedPriceListItemTemplate",
+            "Schema": "dbo"
+        },
+        "PriceListIntervalType": {
+            "Name": "PriceListIntervalType",
+            "DisplayName": "dbo.PriceListIntervalType",
+            "Schema": "dbo"
+        },
+        "PriceListDiscountService": {
+            "Name": "PriceListDiscountService",
+            "DisplayName": "dbo.PriceListDiscountService",
+            "Schema": "dbo"
+        },
+        "LocalizedPackingType": {
+            "Name": "LocalizedPackingType",
+            "DisplayName": "dbo.LocalizedPackingType",
+            "Schema": "dbo"
+        },
+        "PLZoneRegion": {
+            "Name": "PLZoneRegion",
+            "DisplayName": "dbo.PLZoneRegion",
+            "Schema": "dbo"
+        },
+        "PriceListItem": {
+            "Name": "PriceListItem",
+            "DisplayName": "dbo.PriceListItem",
+            "Schema": "dbo"
+        },
+        "User": {
+            "Name": "User",
+            "DisplayName": "dbo.User",
+            "Schema": "dbo"
+        },
+        "PriceListItemZone": {
+            "Name": "PriceListItemZone",
+            "DisplayName": "dbo.PriceListItemZone",
+            "Schema": "dbo"
+        },
+        "LocalizedProduct": {
+            "Name": "LocalizedProduct",
+            "DisplayName": "dbo.LocalizedProduct",
+            "Schema": "dbo"
+        },
+        "UserDepot": {
+            "Name": "UserDepot",
+            "DisplayName": "dbo.UserDepot",
+            "Schema": "dbo"
+        },
+        "Language": {
+            "Name": "Language",
+            "DisplayName": "dbo.Language",
+            "Schema": "dbo"
+        },
+        "LocalizableEntity": {
+            "Name": "LocalizableEntity",
+            "DisplayName": "dbo.LocalizableEntity",
+            "Schema": "dbo"
+        },
+        "PriceListQuantitativePeriod": {
+            "Name": "PriceListQuantitativePeriod",
+            "DisplayName": "dbo.PriceListQuantitativePeriod",
+            "Schema": "dbo"
+        },
+        "PriceListItemInterval": {
+            "Name": "PriceListItemInterval",
+            "DisplayName": "dbo.PriceListItemInterval",
+            "Schema": "dbo"
+        },
+        "PLRegionZipCode": {
+            "Name": "PLRegionZipCode",
+            "DisplayName": "dbo.PLRegionZipCode",
+            "Schema": "dbo"
+        },
+        "GroupPermissionCondition": {
+            "Name": "GroupPermissionCondition",
+            "DisplayName": "dbo.GroupPermissionCondition",
+            "Schema": "dbo"
+        },
+        "Country": {
+            "Name": "Country",
+            "DisplayName": "dbo.Country",
+            "Schema": "dbo"
+        },
+        "LocalizedPriceListType": {
+            "Name": "LocalizedPriceListType",
+            "DisplayName": "dbo.LocalizedPriceListType",
+            "Schema": "dbo"
+        },
+        "PriceListHead": {
+            "Name": "PriceListHead",
+            "DisplayName": "dbo.PriceListHead",
+            "Schema": "dbo"
+        },
+        "PriceListItemList": {
+            "Name": "PriceListItemList",
+            "DisplayName": "dbo.PriceListItemList",
+            "Schema": "dbo"
+        },
+        "CountryZipCodesRange": {
+            "Name": "CountryZipCodesRange",
+            "DisplayName": "dbo.CountryZipCodesRange",
+            "Schema": "dbo"
+        },
+        "PriceListItemService": {
+            "Name": "PriceListItemService",
+            "DisplayName": "dbo.PriceListItemService",
+            "Schema": "dbo"
+        },
+        "PriceListHeaderType": {
+            "Name": "PriceListHeaderType",
+            "DisplayName": "dbo.PriceListHeaderType",
+            "Schema": "dbo"
+        },
+        "LocalizedCurrency": {
+            "Name": "LocalizedCurrency",
+            "DisplayName": "dbo.LocalizedCurrency",
+            "Schema": "dbo"
+        },
+        "LocalizedPriceListQuantitativePeriod": {
+            "Name": "LocalizedPriceListQuantitativePeriod",
+            "DisplayName": "dbo.LocalizedPriceListQuantitativePeriod",
+            "Schema": "dbo"
+        },
+        "PriceListHeadCustomer": {
+            "Name": "PriceListHeadCustomer",
+            "DisplayName": "dbo.PriceListHeadCustomer",
+            "Schema": "dbo"
+        },
+        "ReplicationQueueSettings": {
+            "Name": "ReplicationQueueSettings",
+            "DisplayName": "dbo.ReplicationQueueSettings",
+            "Schema": "dbo"
+        },
+        "PriceListItemListInterval": {
+            "Name": "PriceListItemListInterval",
+            "DisplayName": "dbo.PriceListItemListInterval",
+            "Schema": "dbo"
+        },
+        "ReplicationQueue": {
+            "Name": "ReplicationQueue",
+            "DisplayName": "dbo.ReplicationQueue",
+            "Schema": "dbo"
+        },
+        "Currency": {
+            "Name": "Currency",
+            "DisplayName": "dbo.Currency",
+            "Schema": "dbo"
+        },
+        "PriceList": {
+            "Name": "PriceList",
+            "DisplayName": "dbo.PriceList",
+            "Schema": "dbo"
+        },
+        "ActAsLog": {
+            "Name": "ActAsLog",
+            "DisplayName": "dbo.ActAsLog",
+            "Schema": "dbo"
+        },
+        "__EFMigrationsHistory": {
+            "Name": "__EFMigrationsHistory",
+            "DisplayName": "dbo.__EFMigrationsHistory",
+            "Schema": "dbo"
+        },
+        "LocalizedPriceListHeaderType": {
+            "Name": "LocalizedPriceListHeaderType",
+            "DisplayName": "dbo.LocalizedPriceListHeaderType",
+            "Schema": "dbo"
+        },
+        "PriceListItemUnitLimit": {
+            "Name": "PriceListItemUnitLimit",
+            "DisplayName": "dbo.PriceListItemUnitLimit",
+            "Schema": "dbo"
+        },
+        "UserPermissionCondition": {
+            "Name": "UserPermissionCondition",
+            "DisplayName": "dbo.UserPermissionCondition",
+            "Schema": "dbo"
+        },
+        "Address": {
+            "Name": "Address",
+            "DisplayName": "dbo.Address",
+            "Schema": "dbo"
+        }
+    },
+    "Metadata": {
+        "Solution": "IT2021",
+        "AppNamespace": "IT2021.Main",
+        "Path": "c:/temp/IT2021/",
+        "ConnectionString": "D",
+        "DataLayerNamespace": "IT2021.SaleDataLayer",
+        "DataServiceNamespace": "IT2021.SaleDataService",
+        "UseGenerated": false,
+        "ProjectName": "IT2021 - Sales"
+    },
+    "ProcessItem": null,
+    "Scripts": {
+        "InitializeScript": {
+            "Path": "Scripts/Core/Commands/Initialize-Script.ps1"
+        },
+        "Commands": {
+            "Build": {
+                "Path": "Scripts/Core/Commands/open-terminal-in-deploy.ps1",
+                "DisplayName": "Open Terminal and deploy"
+            },
+            "BashTest": {
+                "Path": "Scripts/Core/Commands/test.sh",
+                "DisplayName": "Bash"
+            },
+            "PythonTest": {
+                "Path": "Scripts/Core/Commands/test.py",
+                "DisplayName": "Python"
+            },
+            "VPN": {
+                "Path": "Scripts/Core/Commands/VPN.ps1",
+                "DisplayName": "VPN"
+            },
+            "EditVersion": {
+                "Path": "Scripts/Core/Commands/Edit-Version.ps1",
+                "DisplayName": "Edit project version"
+            },
+            "OpenPowerShellISE": {
+                "Path": "Scripts/Core/Commands/Open-Powershell-ISE.ps1",
+                "DisplayName": "PowerShell ISE"
+            },
+            "PublishProject": {
+                "Path": "Scripts/Core/Commands/Publish-Project.ps1",
+                "DisplayName": "Publish project"
+            },
+            "OpenVisualCode": {
+                "Path": "Scripts/Core/Commands/Open-Visual-Code.ps1",
+                "DisplayName": "Visual Code"
+            }
+        },
+        "FileOperations": {
+            "SaveAs": {
+                "Path": "Scripts/Core/FileOperations/Save-As-File.ps1",
+                "DisplayName": "Save as",
+                "HasData": false
+            },
+            "Open": {
+                "Path": "Scripts/Core/FileOperations/Open-File.ps1",
+                "DisplayName": "Open",
+                "HasData": true
+            },
+            "Save": {
+                "Path": "Scripts/Core/FileOperations/Save-File.ps1",
+                "DisplayName": "Save",
+                "HasData": false
+            }
+        },
+        "Modules": {
+            "Tables": {
+                "NewReplicationFrom": {
+                    "Path": "Scripts/MsSQL/Tables/Commands/New-Replication-From.ps1",
+                    "IsDefault": false,
+                    "DisplayName": "Generate dataService replication from",
+                    "IsContext": true
+                },
+                "NewDataServiceServices": {
+                    "Path": "Scripts/MsSQL/Tables/Commands/New-DataService-Services.ps1",
+                    "IsDefault": false,
+                    "DisplayName": "Generate dataService services",
+                    "IsContext": true
+                },
+                "NewWPFListViewModels": {
+                    "Path": "Scripts/MsSQL/Tables/Commands/New-WPF-List-ViewModels.ps1",
+                    "IsDefault": false,
+                    "DisplayName": "Generate WPF List viewmodels",
+                    "IsContext": true
+                },
+                "ShowTableDetail": {
+                    "Path": "Scripts/MsSQL/Tables/Commands/Show-Table-Detail.ps1",
+                    "IsDefault": true,
+                    "DisplayName": "Show SELECT command",
+                    "IsContext": true
+                },
+                "NewReplicationTo": {
+                    "Path": "Scripts/MsSQL/Tables/Commands/New-Replication-To.ps1",
+                    "IsDefault": false,
+                    "DisplayName": "Generate dataService replication to",
+                    "IsContext": true
+                },
+                "NewWPFDetailViews": {
+                    "Path": "Scripts/MsSQL/Tables/Commands/New-WPF-Detail-Views.ps1",
+                    "IsDefault": false,
+                    "DisplayName": "Generate WPF Detail views",
+                    "IsContext": true
+                },
+                "NewDatalayerListProcedure": {
+                    "Path": "Scripts/MsSQL/Tables/Commands/New-Datalayer-List-Procedure.ps1",
+                    "IsDefault": false,
+                    "DisplayName": "Generate dataLayer List procedure",
+                    "IsContext": true
+                },
+                "NewDataValidatorServices": {
+                    "Path": "Scripts/MsSQL/Tables/Commands/New-DataService-Validator.ps1",
+                    "IsDefault": false,
+                    "DisplayName": "Generate dataService validator",
+                    "IsContext": true
+                },
+                "NewWPFContext": {
+                    "Path": "Scripts/MsSQL/Tables/Commands/New-WPF-Context.ps1",
+                    "IsDefault": false,
+                    "DisplayName": "Generate WPF Context",
+                    "IsContext": true
+                },
+                "Nswag": {
+                    "Path": "fakescript.ps1",
+                    "IsDefault": false,
+                    "DisplayName": "-- přegeneruj NSWAG --",
+                    "IsContext": true
+                },
+                "NewWPFDetailViewModels": {
+                    "Path": "Scripts/MsSQL/Tables/Commands/New-WPF-Detail-ViewModels.ps1",
+                    "IsDefault": false,
+                    "DisplayName": "Generate WPF Detail viewmodels",
+                    "IsContext": true
+                },
+                "RemoveTable": {
+                    "Path": "Scripts/MsSQL/Tables/Commands/Remove-Table.ps1",
+                    "IsDefault": false,
+                    "DisplayName": "Remove table",
+                    "IsContext": true
+                },
+                "NewDataServiceControllers": {
+                    "Path": "Scripts/MsSQL/Tables/Commands/New-DataService-Controllers.ps1",
+                    "IsDefault": false,
+                    "DisplayName": "Generate dataService controllers",
+                    "IsContext": true
+                },
+                "NewWPFListViews": {
+                    "Path": "Scripts/MsSQL/Tables/Commands/New-WPF-List-Views.ps1",
+                    "IsDefault": false,
+                    "DisplayName": "Generate WPF List views",
+                    "IsContext": true
+                },
+                "NewDataServiceModels": {
+                    "Path": "Scripts/MsSQL/Tables/Commands/New-DataService-Models.ps1",
+                    "IsDefault": false,
+                    "DisplayName": "Generate dataService models",
+                    "IsContext": true
+                }
+            },
+            "Views": {
+                "ShowViewDetail": {
+                    "Path": "Scripts/MsSQL/Views/Commands/Show-View-Detail.ps1",
+                    "IsDefault": true,
+                    "DisplayName": "Show detail",
+                    "IsContext": true
+                },
+                "RemoveView": {
+                    "Path": "Scripts/MsSQL/Views/Commands/Remove-View.ps1",
+                    "IsDefault": false,
+                    "DisplayName": "Remove view",
+                    "IsContext": true
+                }
+            },
+            "Procedures": {
+                "ShowProcedureDetail": {
+                    "Path": "Scripts/MsSQL/Procedures/Commands/Show-Procedure-Detail.ps1",
+                    "IsDefault": true,
+                    "DisplayName": "Show detail",
+                    "IsContext": true
+                },
+                "RemoveProcedure": {
+                    "Path": "Scripts/MsSQL/Procedures/Commands/Remove-Procedure.ps1",
+                    "IsDefault": false,
+                    "DisplayName": "Remove",
+                    "IsContext": true
+                }
+            },
+            "Functions": {
+                "ShowFunctionDetail": {
+                    "Path": "Scripts/MsSQL/Functions/Commands/Show-Function-Detail.ps1",
+                    "IsDefault": true,
+                    "DisplayName": "Show detail",
+                    "IsContext": true
+                },
+                "RemoveFunction": {
+                    "Path": "Scripts/MsSQL/Functions/Commands/Remove-Function.ps1",
+                    "IsDefault": false,
+                    "DisplayName": "Remove function",
+                    "IsContext": true
+                },
+                "asaasd": {
+                    "DisplayName": "asaasd",
+                    "Path": "Scripts/Functions//asaasdasaasd.ps1",
+                    "HasData": false
+                }
+            },
+            "novy modul": {},
+            "muj dalsi novy modul krasny 2": {}
+        },
+        "SettingOperations": {
+            "Settings": {
+                "Path": "Scripts/Core/SettingOperations/Set-Settings.ps1",
+                "DisplayName": "Settings",
+                "HasData": true
+            },
+            "OpenFolder": {
+                "Path": "Scripts/Core/SettingOperations/Open-Temp-Folder.ps1",
+                "DisplayName": "Open temp Folder",
+                "HasData": false
+            }
+        }
+    },
+    "TempData": {
+        "PLZoneHead": {
+            "Columns": {
+                "CustomerId": {
+                    "IsNullable": true,
+                    "Table": "Customer",
+                    "IsFk": true,
+                    "Type": "Guid",
+                    "Name": "CustomerId",
+                    "DbType": "Guid",
+                    "Description": null,
+                    "TypeLength": null,
+                    "IsPK": false,
+                    "OriginalType": "uniqueidentifier",
+                    "IsRequired": false,
+                    "TableName": "Customer",
+                    "FkColumnName": "Name",
+                    "ListName": "Customers"
+                },
+                "PLZoneHeadId": {
+                    "IsNullable": false,
+                    "Table": "",
+                    "IsFk": false,
+                    "Type": "Guid",
+                    "Name": "PLZoneHeadId",
+                    "DbType": "Guid",
+                    "Description": null,
+                    "TypeLength": null,
+                    "IsPK": true,
+                    "OriginalType": "uniqueidentifier",
+                    "IsRequired": true,
+                    "TableName": "",
+                    "FkColumnName": "",
+                    "ListName": ""
+                },
+                "Name": {
+                    "IsNullable": false,
+                    "Table": "",
+                    "IsFk": false,
+                    "Type": "string",
+                    "Name": "Name",
+                    "DbType": "String",
+                    "Description": null,
+                    "TypeLength": 200,
+                    "IsPK": false,
+                    "OriginalType": "nvarchar",
+                    "IsRequired": true,
+                    "TableName": "",
+                    "FkColumnName": "",
+                    "ListName": ""
+                },
+                "ChangedBy": {
+                    "IsNullable": true,
+                    "Table": "",
+                    "IsFk": false,
+                    "Type": "Guid",
+                    "Name": "ChangedBy",
+                    "DbType": "Guid",
+                    "Description": null,
+                    "TypeLength": null,
+                    "IsPK": false,
+                    "OriginalType": "uniqueidentifier",
+                    "IsRequired": false,
+                    "TableName": "",
+                    "FkColumnName": "",
+                    "ListName": ""
+                },
+                "Changed": {
+                    "IsNullable": true,
+                    "Table": "",
+                    "IsFk": false,
+                    "Type": "DateTimeOffset",
+                    "Name": "Changed",
+                    "DbType": "DateTimeOffset",
+                    "Description": null,
+                    "TypeLength": null,
+                    "IsPK": false,
+                    "OriginalType": "datetimeoffset",
+                    "IsRequired": false,
+                    "TableName": "",
+                    "FkColumnName": "",
+                    "ListName": ""
+                },
+                "Code": {
+                    "IsNullable": false,
+                    "Table": "",
+                    "IsFk": false,
+                    "Type": "string",
+                    "Name": "Code",
+                    "DbType": "String",
+                    "Description": null,
+                    "TypeLength": 40,
+                    "IsPK": false,
+                    "OriginalType": "nvarchar",
+                    "IsRequired": true,
+                    "TableName": "",
+                    "FkColumnName": "",
+                    "ListName": ""
+                },
+                "Description": {
+                    "IsNullable": false,
+                    "Table": "",
+                    "IsFk": false,
+                    "Type": "string",
+                    "Name": "Description",
+                    "DbType": "String",
+                    "Description": null,
+                    "TypeLength": 1000,
+                    "IsPK": false,
+                    "OriginalType": "nvarchar",
+                    "IsRequired": false,
+                    "TableName": "",
+                    "FkColumnName": "",
+                    "ListName": ""
+                },
+                "CompanyId": {
+                    "IsNullable": false,
+                    "Table": "Company",
+                    "IsFk": true,
+                    "Type": "Guid",
+                    "Name": "CompanyId",
+                    "DbType": "Guid",
+                    "Description": null,
+                    "TypeLength": null,
+                    "IsPK": false,
+                    "OriginalType": "uniqueidentifier",
+                    "IsRequired": true,
+                    "TableName": "Company",
+                    "FkColumnName": "Name",
+                    "ListName": "Companies"
+                },
+                "CreatedBy": {
+                    "IsNullable": false,
+                    "Table": "",
+                    "IsFk": false,
+                    "Type": "Guid",
+                    "Name": "CreatedBy",
+                    "DbType": "Guid",
+                    "Description": null,
+                    "TypeLength": null,
+                    "IsPK": false,
+                    "OriginalType": "uniqueidentifier",
+                    "IsRequired": true,
+                    "TableName": "",
+                    "FkColumnName": "",
+                    "ListName": ""
+                },
+                "ProductId": {
+                    "IsNullable": false,
+                    "Table": "Product",
+                    "IsFk": true,
+                    "Type": "Guid",
+                    "Name": "ProductId",
+                    "DbType": "Guid",
+                    "Description": null,
+                    "TypeLength": null,
+                    "IsPK": false,
+                    "OriginalType": "uniqueidentifier",
+                    "IsRequired": true,
+                    "TableName": "Product",
+                    "FkColumnName": "Name",
+                    "ListName": "Products"
+                },
+                "AddressId": {
+                    "IsNullable": true,
+                    "Table": "Address",
+                    "IsFk": true,
+                    "Type": "Guid",
+                    "Name": "AddressId",
+                    "DbType": "Guid",
+                    "Description": null,
+                    "TypeLength": null,
+                    "IsPK": false,
+                    "OriginalType": "uniqueidentifier",
+                    "IsRequired": false,
+                    "TableName": "Address",
+                    "FkColumnName": "Name",
+                    "ListName": "Addresses"
+                },
+                "Created": {
+                    "IsNullable": false,
+                    "Table": "",
+                    "IsFk": false,
+                    "Type": "DateTimeOffset",
+                    "Name": "Created",
+                    "DbType": "DateTimeOffset",
+                    "Description": null,
+                    "TypeLength": null,
+                    "IsPK": false,
+                    "OriginalType": "datetimeoffset",
+                    "IsRequired": true,
+                    "TableName": "",
+                    "FkColumnName": "",
+                    "ListName": ""
+                },
+                "Deleted": {
+                    "IsNullable": false,
+                    "Table": "",
+                    "IsFk": false,
+                    "Type": "bool",
+                    "Name": "Deleted",
+                    "DbType": "Boolean",
+                    "Description": null,
+                    "TypeLength": null,
+                    "IsPK": false,
+                    "OriginalType": "bit",
+                    "IsRequired": true,
+                    "TableName": "",
+                    "FkColumnName": "",
+                    "ListName": ""
+                },
+                "ValidFrom": {
+                    "IsNullable": false,
+                    "Table": "",
+                    "IsFk": false,
+                    "Type": "DateTime",
+                    "Name": "ValidFrom",
+                    "DbType": "DateTime",
+                    "Description": null,
+                    "TypeLength": null,
+                    "IsPK": false,
+                    "OriginalType": "date",
+                    "IsRequired": true,
+                    "TableName": "",
+                    "FkColumnName": "",
+                    "ListName": ""
+                },
+                "ValidTo": {
+                    "IsNullable": true,
+                    "Table": "",
+                    "IsFk": false,
+                    "Type": "DateTime",
+                    "Name": "ValidTo",
+                    "DbType": "DateTime",
+                    "Description": null,
+                    "TypeLength": null,
+                    "IsPK": false,
+                    "OriginalType": "date",
+                    "IsRequired": false,
+                    "TableName": "",
+                    "FkColumnName": "",
+                    "ListName": ""
+                }
+            },
+            "Metadata": {
+                "Table": "PLZoneHead",
+                "ContextNamespace": null,
+                "Name": "PLZoneHead",
+                "Description": "",
+                "PluralName": "PLZoneHeads",
+                "ProjectName": "IT2021 - Sales",
+                "UseGenerated": false,
+                "DataServiceNamespace": "IT2021.SaleDataService",
+                "TableRelation": null,
+                "DataLayerNamespace": "IT2021.SaleDataLayer",
+                "Modules": "Core"
+            },
+            "ProcessItem": {
+                "PLZoneHead": {
+                    "Name": "PLZoneHead",
+                    "DisplayName": "dbo.PLZoneHead",
+                    "Schema": "dbo"
+                }
+            }
+        }
+    },
+    "Items": {},
+    "Path": "IT2021Sale.pwgen",
+    "Procedures": {},
+    "novy modul": {},
+    "muj dalsi novy modul krasny 2": {}
+}

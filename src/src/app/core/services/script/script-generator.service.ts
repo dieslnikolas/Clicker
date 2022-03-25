@@ -30,24 +30,37 @@ export class ScriptGeneratorService {
         await this.validate(fileName, scope, type);
 
         // prepare file path
-        let path = await this.getPathAndFixName(fileName, scope, type);
+        let path = scope != ScriptScope.Module ? await this.getPathAndFixName(fileName, scope, type) : fileName;
 
         // add command to json
         this.projectService.addCommand(fileName, path, scope, hasData);
 
-        // create file
-        path = this.electronService.path.resolve(this.projectService.appPath, path);
-        let content = await this.scriptRunnerService.ScriptTemplate(path);
-
-        // FILE
-        this.writeFile(path, content, () => {
+        // MODULE
+        if (scope == ScriptScope.Module) {
             // open file in associated program
             this.projectService.save(null).then(() => {
-                this.projectService.load(null).then(() => {
-                    this.openFile(path);
-                })
+                this.projectService.load(null);
             })
-        });
+        }
+
+        // OTHERS
+        else {
+
+            // create file
+            path = this.electronService.path.resolve(this.projectService.appPath, path);
+            let content = await this.scriptRunnerService.ScriptTemplate(path);
+
+            // FILE
+            this.writeFile(path, content, () => {
+                // open file in associated program
+                this.projectService.save(null).then(() => {
+                    this.projectService.load(null).then(() => {
+                        this.openFile(path);
+                    })
+                })
+            });
+        }
+
     }
 
     /**
