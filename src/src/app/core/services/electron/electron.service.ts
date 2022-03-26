@@ -60,7 +60,7 @@ export class ElectronService {
       // nodejs
       this.childProcess = window.require('child_process');
       this.fs = window.require('fs');
-      this.fse = window.require('fs-extra');
+      this.fse = window.require('fs-extra')
       this.path = window.require('path');
 
       // If you want to use a NodeJS 3rd party deps in Renderer process (like @electron/remote),
