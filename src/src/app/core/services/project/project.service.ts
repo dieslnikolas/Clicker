@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
 import { MatDialog } from "@angular/material/dialog";
 import { Subject } from 'rxjs';
+import { APP_CONFIG } from "../../../../environments/environment";
 import { DialogComponent } from "../../../shared/components/dialog/dialog.component";
 import { Command } from "../../common/scripts/command";
 import { ScriptScope } from "../../common/scripts/script-scope";
@@ -221,7 +222,12 @@ export class ProjectService {
         // file path
         this.appPathFull = path;
         this.appPath = this.electronService.path.parse(path).dir;
-        let fromFolder = this.electronService.path.resolve(this.electronService.remote.app.getAppPath(), "src/assets/scripts_default");
+        let fromFolder = 
+            APP_CONFIG.production  ?
+            // devel
+            this.electronService.path.resolve(this.electronService.remote.app.getAppPath(), "assets/scripts_default")
+            // prduction
+            : this.electronService.path.resolve(this.electronService.remote.app.getAppPath(), "src/assets/scripts_default");
         let toFolder = this.electronService.path.resolve(this.appPath, "Scripts");
         console.log(`%c From:${fromFolder} -> To:${toFolder}`, 'color:yellow;border:1px solid dodgerblue');
 
