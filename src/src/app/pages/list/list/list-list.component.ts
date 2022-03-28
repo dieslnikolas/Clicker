@@ -106,18 +106,18 @@ export class ListListComponent {
         }
     }
 
-    deleteItem(command: any, row: any) {
+    deleteItem(row: any, command: any) {
         if (confirm(`Are you sure to delete ${command.DisplayName}`)) {
             command.ProcessItem = row;
             this.scriptGeneratorSercice.delete(command, ScriptScope.Item);
         }
     }
-    renameItem(command: any, row: any) {
+    renameItem(row: any, command: any) {
         let name = null; // TODO GET NEW NAME
         command.ProcessItem = row;
         this.scriptGeneratorSercice.rename(name, command, ScriptScope.Item);
     }
-    editItem(command: any, row: any) {
+    editItem(row: any, command: any) {
         command.ProcessItem = row;
         this.scriptGeneratorSercice.edit(command);
     }

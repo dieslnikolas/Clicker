@@ -14,14 +14,17 @@ export class PythonRunner implements IScriptRunner {
     constructor(private electronService: ElectronService, private projectService: ProjectService) { }
 
      async ScriptTemplate(path: string): Promise<string> {
-        return `// file sits in ${path}
-// data are accessible via:
-//
-//    param (
-//        [Parameter(ValueFromPipeline = $true)]$data = $null
-//    )
-//    echo $data
-        `;
+        return `# file sits in ${path}
+# data are accessible via:
+#
+#    sys.argv[1]
+#
+
+import json
+import sys
+
+data = sys.argv[1]
+print(data)`;
     }
 
     CanRunOrHowTo(path: string): Promise<string> {
@@ -30,7 +33,17 @@ export class PythonRunner implements IScriptRunner {
     }
 
     async Run(action: string, item: Command): Promise<ChildProcessWithoutNullStreams> {
-        return this.electronService.childProcess.spawn("python3", [item.Path], {
+
+        // ADS CONTEXT IF ITS NESESARY
+        let args = [item.Path];
+
+        if (item.HasData) {
+            let path = await this.projectService.saveTmp();
+            args.push(`${path}`);
+        }
+
+
+        return this.electronService.childProcess.spawn("python", args, {
             cwd: this.projectService.appPath
         });
     }

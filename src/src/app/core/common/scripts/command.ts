@@ -11,7 +11,7 @@ export class Command {
     /**
      * Context
      */
-    public IsContext: boolean;
+    public HasData: boolean;
 
     /**
      * Default action
