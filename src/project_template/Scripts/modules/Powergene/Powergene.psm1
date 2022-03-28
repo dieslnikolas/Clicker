@@ -1,4 +1,5 @@
 ﻿## Prace s builderem (StringBuilder)
+using namespace System.Text.Json
 
 # lokalni promenna StringBuilderu
 $script:sb = $null
@@ -59,22 +60,22 @@ function ConvertFrom-Json {
         Write-Debug "Beginning $($MyInvocation.Mycommand)"
         Write-Debug "Bound parameters:`n$($PSBoundParameters | out-string)"
 
-        try {
-            # Use this class to perform the deserialization:
-            # https://msdn.microsoft.com/en-us/library/system.web.script.serialization.javascriptserializer(v=vs.110).aspx
-            Add-Type -AssemblyName "System.Web.Extensions, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" -ErrorAction Stop
-        }
-        catch {
-            throw "Unable to locate the System.Web.Extensions namespace from System.Web.Extensions.dll. Are you using .NET 4.5 or greater?"
-        }
+        # try {
+        #     # Use this class to perform the deserialization:
+        #     # https://msdn.microsoft.com/en-us/library/system.web.script.serialization.javascriptserializer(v=vs.110).aspx
+        #     Add-Type -AssemblyName "System.Web.Extensions, Version=1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" -ErrorAction Stop
+        # }
+        # catch {
+        #     throw "Unable to locate the System.Web.Extensions namespace from System.Web.Extensions.dll. Are you using .NET 4.5 or greater?"
+        # }
 
-        $jsSerializer = New-Object -TypeName System.Web.Script.Serialization.JavaScriptSerializer
+        # $jsSerializer = New-Object -TypeName System.Web.Script.Serialization.JavaScriptSerializer
     }
 
     process {
         switch ($As) {
             'Hashtable' {
-                $jsSerializer.Deserialize($InputObject, 'Hashtable')
+                [JsonSerializer]::Deserialize($InputObject, 'Hashtable')
             }
             default {
                 # If we don't know what to do, use the native cmdlet.

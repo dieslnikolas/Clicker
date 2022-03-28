@@ -394,7 +394,6 @@ export class ProjectService {
 
         let key: string;
         Object.entries(parrent).forEach(element => {
-            console.log(element[1]["Path"]);
             if (element[1]["Path"] === command.Path) {
                 key = element[0];
                 return;

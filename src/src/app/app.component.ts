@@ -24,7 +24,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     public isWindows = true;
 
     // for speeding devel proces, there is template
-    private PROJECT_TEMPLATE: string = '/project_template/IT2021Sale.pwgen';
+    private PROJECT_TEMPLATE: string = '/project_template/IT2021Sale2.pwgen';
 
     @ViewChild('term') terminal: TerminalComponent;
     @ViewChild(GlobalCommandComponent) globalCommand: GlobalCommandComponent;
