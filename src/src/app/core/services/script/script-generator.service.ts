@@ -7,7 +7,6 @@ import { APP_CONFIG } from "../../../../environments/environment";
 import { ElectronService } from "../electron/electron.service";
 import { ScriptRunnerService } from "./script-runner.service";
 import { Command } from "../../common/scripts/command";
-import { NoParamCallback } from "fs";
 
 /**
  * Genetares scripts based by some folder structure
@@ -51,14 +50,11 @@ export class ScriptGeneratorService {
             let content = await this.scriptRunnerService.ScriptTemplate(path);
 
             // FILE
-            this.writeFile(path, content, () => {
-                // open file in associated program
-                this.projectService.save(null).then(() => {
-                    this.projectService.load(null).then(() => {
-                        this.openFile(path);
-                    })
-                })
-            });
+            await this.writeFile(path, content);
+            await this.projectService.save(null);
+            await this.projectService.load(null);
+            // open file in associated program
+            this.openFile(path);
         }
 
     }
@@ -105,7 +101,7 @@ export class ScriptGeneratorService {
         if (scope != ScriptScope.Module) {
             // remove file
             let path = this.electronService.path.resolve(this.projectService.appPath, command.Path);
-            this.electronService.fs.rm(path, (err) => {
+            this.electronService.fs.remove(path, (err) => {
                 if (err)
                     console.log(err)
 
@@ -208,19 +204,19 @@ export class ScriptGeneratorService {
      * @param data content
      * @param callback callback after finished
      */
-    private async writeFile(filePath, data, callback: NoParamCallback) {
+    private async writeFile(filePath, data) {
         try {
             let file = this.electronService.path.parse(filePath);
 
             // creating DIR
-            this.electronService.fs.promises.mkdir(file.dir,
+            await this.electronService.fs.promises.mkdir(file.dir,
                 {
                     recursive: true
-                }).catch(console.error);
+                }).catch((err) => console.log(err));
 
             // GENERATING FILE
             console.log("Generating file: " + filePath)
-            await this.electronService.fs.writeFile(filePath, data, callback);
+            this.electronService.fs.writeFileSync(filePath, data);
         } catch (err) {
             throw new Error(err);
         }

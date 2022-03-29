@@ -222,23 +222,32 @@ export class ProjectService {
         // file path
         this.appPathFull = path;
         this.appPath = this.electronService.path.parse(path).dir;
-        let fromFolder = 
-            APP_CONFIG.production  ?
-            // devel
-            this.electronService.path.resolve(this.electronService.remote.app.getAppPath(), "assets/scripts_default")
-            // prduction
-            : this.electronService.path.resolve(this.electronService.remote.app.getAppPath(), "src/assets/scripts_default");
+        let fromFolder =
+            APP_CONFIG.production ?
+                // devel
+                this.electronService.path.resolve(this.electronService.remote.app.getAppPath(), "assets/scripts_default")
+                // prduction
+                : this.electronService.path.resolve(this.electronService.remote.app.getAppPath(), "src/assets/scripts_default");
         let toFolder = this.electronService.path.resolve(this.appPath, "Scripts");
         console.log(`%c From:${fromFolder} -> To:${toFolder}`, 'color:yellow;border:1px solid dodgerblue');
+
+        // creating DIR
+        let file = this.electronService.path.parse(path);
+        await this.electronService.fs.promises.mkdir(file.dir,
+            {
+                recursive: true
+            }).catch((err) => console.log(err));
 
         // save project file
         await this.electronService.fs.writeFileSync(path, JSON.stringify(this.projectModel));
 
         // copy init files
-        this.electronService.fse.copy(fromFolder, toFolder, { overwrite: true }, (err) => {
-            if (err)
-                console.error(err);
-        });
+        try {
+            this.electronService.fs.copyFileSync(fromFolder, toFolder);
+        }
+        catch (error) {
+            console.log(`${fromFolder} => Is probably allready saved`);
+        }
         console.log('Project saved!');
 
     }
@@ -248,8 +257,17 @@ export class ProjectService {
      * @returns Save tmp json (ready to use in scripts)
      */
     public async saveTmp(): Promise<string> {
-        let path = this.electronService.path.resolve(this.appPath, "tmp.json");
-        await this.electronService.fs.writeFileSync(path, JSON.stringify(this.projectModel));
+        let path = this.electronService.path.resolve(this.electronService.remote.app.getPath('temp'), 'Clicker', "tmp.json");
+        console.log(`Saving temp file: ${path}`);
+
+        // creating DIR
+        let file = this.electronService.path.parse(path);
+        await this.electronService.fs.promises.mkdir(file.dir,
+            {
+                recursive: true
+            }).catch((err) => console.log(err));
+
+        this.electronService.fs.writeFileSync(path, JSON.stringify(this.projectModel));
 
         return path;
     }
@@ -347,6 +365,18 @@ export class ProjectService {
         // found[command.Key]["Path"] = found[command.Key]["Path"]
     }
 
+    public async openSettings() {
+        let path = await this.saveTmp();
+        this.openFile(path);
+    }
+
+    public async openTempFolder() {
+        let path = this.electronService.path.resolve(this.electronService.remote.app.getPath('temp'), 'Clicker');
+        console.log(`Openning temp folder ${path}`);
+
+        this.electronService.remote.shell.openPath(path);
+    }
+
     /**
     * Creates copy 
     * @param objectToCopy object which will be copied
@@ -401,6 +431,31 @@ export class ProjectService {
         });
 
         return { "parrent": parrent, "key": key };
+    }
+
+    /**
+    * Opens file in associated program
+    * @param path path to file
+    */
+    private async openFile(path: string) {
+        console.log('Openning file: ' + path);
+        let task = this.electronService.childProcess.exec(`start ${path}`);
+
+        task.stdout.on("data", data => {
+            console.log(`stdout: ${data}`);
+        });
+
+        task.stderr.on("data", data => {
+            console.log(`stderr: ${data}`);
+        });
+
+        task.on('error', (error) => {
+            console.log(`error: ${error.message}`);
+        });
+
+        task.on("close", code => {
+            console.log(`child process exited with code ${code}`);
+        });
     }
 }
 

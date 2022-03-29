@@ -14,6 +14,11 @@ export class Command {
     public HasData: boolean;
 
     /**
+     * Context
+     */
+     public IsContext: boolean;
+
+    /**
      * Default action
      */
     public IsDefault: boolean;

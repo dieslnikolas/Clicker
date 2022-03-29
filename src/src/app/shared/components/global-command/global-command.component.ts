@@ -65,13 +65,11 @@ export class GlobalCommandComponent implements OnInit {
         }
         
         // Settings
-        else if (data.Path == "Scripts/Core/Commands/Publish-Project.ps1") 
-            this.projectService.load(null, true);
-        else if (data.Path == "Scripts/Core/SettingOperations/Set-Settings.ps1")
-            this.projectService.save(null);
+        else if (data.Path == "Scripts/Core/SettingOperations/Set-Settings.ps1") 
+            this.projectService.openSettings();
         else if (data.Path == "Scripts/Core/SettingOperations/Open-Temp-Folder.ps1")
-            this.projectService.save(null, true);
-        
+            this.projectService.openTempFolder();
+      
         // OTHER
         else 
             this.scriptRunnerService.Run("GlobalCommand", data);

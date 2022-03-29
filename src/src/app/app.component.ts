@@ -48,6 +48,12 @@ export class AppComponent implements OnInit, AfterViewInit {
     }
 
     ngAfterViewInit(): void {
+        let path = this.electronService.remote.app.getAppPath() + this.PROJECT_TEMPLATE;
+        if (process.argv[1] != null) {
+            path = process.argv[1];
+            console.log(path);
+        }
+
         // try to load default project
         this.loadProjectFromFile(
             this.electronService.path.resolve(this.electronService.remote.app.getAppPath() + this.PROJECT_TEMPLATE)

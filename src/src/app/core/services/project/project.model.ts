@@ -20,11 +20,11 @@ export class ProjectModel {
 
         // init script
         this["Scripts"] = {};
-        this["Scripts"]["InitializeScript"] = { "Path": "Scripts/Core/Commands/Initialize-Script.ps1" }
+        this["Scripts"]["InitializeScript"] = { "Path": "Scripts/Core/Commands/Initialize-Script.ps1" };
 
         // commands
         this["Scripts"] = {};
-        this["Scripts"]["Commands"] = {}
+        this["Scripts"]["Commands"] = {};
 
         // FileOperations
         this["Scripts"]["FileOperations"] = {
@@ -43,14 +43,10 @@ export class ProjectModel {
                 "Path": "Scripts/Core/FileOperations/Save-As-File.ps1",
                 "HasData": false
             }
-        }
+        };
 
         // SettingOperations
         this["Scripts"]["SettingOperations"] = {
-            "PublishProject": {
-                "DisplayName": "Publish project",
-                "Path": "Scripts/Core/Commands/Publish-Project.ps1"
-            },
             "Settings": {
                 "DisplayName": "Settings",
                 "Path": "Scripts/Core/SettingOperations/Set-Settings.ps1",
@@ -61,27 +57,9 @@ export class ProjectModel {
                 "Path": "Scripts/Core/SettingOperations/Open-Temp-Folder.ps1",
                 "HasData": false
             }
-        }
+        };
 
         // Modules
-        this["Scripts"]["Modules"] = { "Example module": {} }
-        this["Example module"] =
-        {
-            "Example item #1": {
-                "DisplayName": "Some item 1",
-                "Schema": "dbo",
-                "Name": "item1"
-            },
-            "Example item #2": {
-                "DisplayName": "Some item 2",
-                "Schema": "dbo",
-                "Name": "item2"
-            },
-            "Example item #3": {
-                "DisplayName": "Some item 3",
-                "Schema": "dbo",
-                "Name": "item3"
-            }
-        }
+        this["Scripts"]["Modules"] = {  };
     }
 }
