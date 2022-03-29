@@ -37,7 +37,7 @@ print(data)`;
         // ADS CONTEXT IF ITS NESESARY
         let args = [item.Path];
 
-        if (item.HasData) {
+        if (item.HasData || item.IsContext) {
             let path = await this.projectService.saveTmp();
             args.push(`${path}`);
         }
