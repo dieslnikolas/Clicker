@@ -20,7 +20,7 @@
     }
   ],
   "win": {
-    "icon": "../dist/assets/icons",
+    "icon": "../dist/assets/icons/favicon.ico",
     "target": [
       "portable"
     ]
