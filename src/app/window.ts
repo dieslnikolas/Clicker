@@ -58,6 +58,7 @@ export class WindowBuilder {
                 enableRemoteModule: true, // true if you want to run e2e test with Spectron or use remote module in renderer context (ie. Angular)
                 devTools: true,
             },
+            icon: path.join(__dirname, '/../src/assets/icons/favicon.ico')
         });
 
         // Hosted via ng serve
