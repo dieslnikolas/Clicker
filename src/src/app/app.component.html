@@ -1,7 +1,7 @@
 <!-- CURRENTLY LOADING OVERLAY WHEN LOADING  -->
 <div class="overlay" *ngIf="isLoading">
     <div fxLayout="column" fxLayoutAlign="center center">
-        <mat-spinner></mat-spinner>
+        <mat-spinner color="accent"></mat-spinner>
         <span class="spinner-message" [innerHtml]="loadingMessage"></span>
     </div>
 </div>
