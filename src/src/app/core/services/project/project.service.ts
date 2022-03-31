@@ -21,6 +21,11 @@ export class ProjectService {
     /**
      * Usable for knowing that proj file is loaded
      */
+     public projectLoading: Subject<void> = new Subject<void>();
+
+    /**
+     * Usable for knowing that proj file is loaded
+     */
     public projectLoaded: Subject<void> = new Subject<void>();
 
     public appPath: string;
@@ -50,6 +55,16 @@ export class ProjectService {
         }
 
         return this._projectModel;
+    }
+
+    public get isUnsaved(): boolean {
+        return this.appPathFull == null;
+    }
+
+    public get title(): string {
+        if (this.isUnsaved) 
+            return `Clicker`;
+        return `Clicker - ${this.appPathFull}`;
     }
 
     /**
@@ -147,6 +162,7 @@ export class ProjectService {
     public async load(path: string, forceOpenNew: boolean = false): Promise<Boolean> {
 
         try {
+            this.projectLoading.next();
 
             // use default path
             if (path == null)
@@ -198,6 +214,8 @@ export class ProjectService {
      */
     public async save(path: string, forceSaveAs: boolean = false): Promise<void> {
 
+        let isUnsaved = this.isUnsaved; // preload, because it will be changed in the end
+
         // if save without path use project path
         if (path == null)
             path = this.appPathFull;
@@ -243,7 +261,8 @@ export class ProjectService {
 
         // copy init files
         try {
-            this.electronService.fs.copyFileSync(fromFolder, toFolder);
+            if (isUnsaved)
+                this.electronService.fs.copyFileSync(fromFolder, toFolder);
         }
         catch (error) {
             console.log(`${fromFolder} => Is probably allready saved`);

@@ -36,6 +36,16 @@ export class AppComponent implements OnInit, AfterViewInit {
 
         this.translate.setDefaultLang('en');
 
+         /**
+         * Project is loading
+         */
+          this.projectService.projectLoading.subscribe(() => {
+            setTimeout(() => this.isLoading = true, 50);
+        });
+
+        /**
+         * Project is loaded
+         */
         this.projectService.projectLoaded.subscribe(() => {
             setTimeout(() => {
                 this.projectLoaded(true)
@@ -44,7 +54,8 @@ export class AppComponent implements OnInit, AfterViewInit {
                 });
 
             }, APP_CONFIG.projectLoadedZoneTimeout);
-        })
+        });
+
     }
 
     ngAfterViewInit(): void {
