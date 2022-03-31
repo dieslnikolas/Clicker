@@ -26,6 +26,7 @@ export class ListListComponent {
     commands: any;
     dataLoaded: boolean = false;
     existsImport = false;
+    moduleSelected = false;
 
     @ViewChild(MatPaginator) paginator: MatPaginator;
     @ViewChild(MatSort) sort: MatSort;
@@ -129,13 +130,16 @@ export class ListListComponent {
 
         // datasource
         let data = this.projectService.moduleData;
-        this.dataSource = new MatTableDataSource(data);
-        this.dataLoaded = data != null && data.length > 0;
+        if (data != null) {
+            this.dataSource = new MatTableDataSource(data);
+            this.dataLoaded = data != null && data.length > 0;
+            
+            // filter pagination
+            this.dataSource.paginator = this.paginator;
+            this.dataSource.sort = this.sort;
+        }
 
-        // filter pagination
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
-
-        this.existsImport = this.projectService.moduleImport != null;
+        this.existsImport = this.projectService.moduleImport != null && data != null;
+        this.moduleSelected = this.projectService.selectedModule != null;
     }
 }

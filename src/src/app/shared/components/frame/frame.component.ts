@@ -13,7 +13,8 @@ export class FrameComponent implements OnInit {
     @ViewChild('maximizeButton', {static: true}) public maximizeButton: any;
 
     public isMaximized = false;
-    windowTitle = "Clicker";
+    public windowTitle = "Clicker";
+    public isMac = false;
 
     private static _win: Electron.BrowserWindow;
     public static win(electron: ElectronService): Electron.BrowserWindow {
@@ -24,13 +25,15 @@ export class FrameComponent implements OnInit {
         return this._win;
     }
 
-    constructor(private electron: ElectronService, private projectService: ProjectService) {     }
+    constructor(private electronService: ElectronService, private projectService: ProjectService) {     }
 
     ngOnInit(): void {
 
-        FrameComponent.win(this.electron).on('unmaximize',this.toggleMaxRestoreButtons);
-        FrameComponent.win(this.electron).on('maximize',this.toggleMaxRestoreButtons);
+        FrameComponent.win(this.electronService).on('unmaximize',this.toggleMaxRestoreButtons);
+        FrameComponent.win(this.electronService).on('maximize',this.toggleMaxRestoreButtons);
         this.toggleMaxRestoreButtons();
+
+        this.isMac = this.electronService.isMac;
 
         this.projectService.projectLoaded.subscribe(() => {
             setTimeout(() => this.windowTitle = this.projectService.title, 100);

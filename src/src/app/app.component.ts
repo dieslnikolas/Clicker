@@ -22,6 +22,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     public loadingMessage = `Loading...`;
     public selectedModule: string;
     public isWindows = true;
+    public isProject: boolean = false; 
 
     // for speeding devel proces, there is template
     private PROJECT_TEMPLATE: string = '/project_template/IT2021Sale2.pwgen';
@@ -56,10 +57,12 @@ export class AppComponent implements OnInit, AfterViewInit {
         this.projectService.projectLoaded.subscribe(() => {
             setTimeout(() => {
                 this.projectLoaded(true)
-                this.snackBar.open(`Application oppened at: ${this.projectService.appPath ?? "<empty project>"}`, 'Dismiss', {
-                    duration: 3000
-                });
 
+                if (this.projectService.appPath!=null) {
+                    this.snackBar.open(`Application oppened at: ${this.projectService.appPath ?? "<empty project>"}`, 'Dismiss', {
+                        duration: 3000
+                    });
+                }
             }, APP_CONFIG.projectLoadedZoneTimeout);
         });
 
@@ -88,11 +91,13 @@ export class AppComponent implements OnInit, AfterViewInit {
                 properties: ['openFile'],
                 filters: [
                     { name: 'Powergene', extensions: ['pwgen'] },
+                    { name: 'Clicker', extensions: ['clicker'] },
                     { name: 'All Files', extensions: ['*'] }
                 ]
             });
 
-        this.loadProjectFromFile(dialogResult.pop());
+        if (dialogResult != null)
+            this.loadProjectFromFile(dialogResult.pop());
     }
 
     async createProject() {
@@ -100,6 +105,7 @@ export class AppComponent implements OnInit, AfterViewInit {
             {
                 filters: [
                     { name: 'Powergene', extensions: ['pwgen'] },
+                    { name: 'Clicker', extensions: ['clicker'] },
                     { name: 'All Files', extensions: ['*'] }
                 ]
             });
@@ -129,6 +135,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     }
 
     private async projectLoaded(isLoaded: Boolean) {
+        this.isProject = this.projectService.appPath != null;
         if (isLoaded) {
             this.isLoading = false;
             await this.scriptRunnerService.Init();

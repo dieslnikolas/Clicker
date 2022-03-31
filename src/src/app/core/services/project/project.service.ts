@@ -113,11 +113,14 @@ export class ProjectService {
     * Returns all commands for module
     */
     get moduleCommands() {
+
+        if (this.selectedModule == null)
+            return null;
+
         let commands = this.getProjectCopy({ ...this.projectModel.Scripts.Modules });
 
         // PREDEFINED SCRIPT FOR IMPORTING DATA
         delete commands[this.selectedModule]["Import" + this.selectedModule];
-
         return commands[this.selectedModule];
     }
 
@@ -135,6 +138,7 @@ export class ProjectService {
     get moduleColumns() {
 
         try {
+            if (this.selectedModule == null) return null;
             return Object.keys(Object.entries(this.projectModel[this.selectedModule])[0][1]);
         }
         catch (err) {
@@ -149,6 +153,8 @@ export class ProjectService {
      */
     get moduleData() {
         // data for module
+        if (this.selectedModule == null) return null;
+
         let data = Object.entries(this.projectModel[this.selectedModule]).map(item => item[1]);
         return data;
     }
@@ -459,7 +465,10 @@ export class ProjectService {
     */
     private async openFile(path: string) {
         console.log('Openning file: ' + path);
-        let task = this.electronService.childProcess.exec(`start ${path}`);
+    
+        let task = this.electronService.isMac ?
+            this.electronService.childProcess.exec(`open ${path}`)
+            : this.electronService.childProcess.exec(`start ${path}`);
 
         task.stdout.on("data", data => {
             console.log(`stdout: ${data}`);

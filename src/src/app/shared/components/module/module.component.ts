@@ -43,10 +43,15 @@ export class ModuleComponent implements OnInit {
                 this.cdr.detectChanges();
             }, APP_CONFIG.projectLoadedZoneTimeout);
         })
-        
+
     }
 
     onSelectedTabChange(event: MatTabChangeEvent) {
+        if (event.tab == null) {
+            this.isNotSelected = true;
+            return;
+        }
+
         this.projectService.selectedModule = event.tab.textLabel;
         this.isNotSelected = false;
     }
@@ -71,8 +76,7 @@ export class ModuleComponent implements OnInit {
     }
 
     deleteItem(command: Command) {
-        if(confirm(`Are you sure to delete ${command.DisplayName}`))
-        {
+        if (confirm(`Are you sure to delete ${command.DisplayName}`)) {
             // fake command button
             let fakeCommand = new Command();
             fakeCommand.Path = command["key"];

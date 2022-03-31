@@ -14,13 +14,13 @@ export class BashRunner implements IScriptRunner {
     constructor(private electronService: ElectronService, private projectService: ProjectService) { }
 
     async ScriptTemplate(path: string): Promise<string> {
-        return `// file sits in ${path}
-// data are accessible via:
-//
-//    param (
-//        [Parameter(ValueFromPipeline = $true)]$data = $null
-//    )
-//    echo $data
+        return `# file sits in ${path}
+# data are accessible via:
+#
+#    param (
+#        [Parameter(ValueFromPipeline = $true)]$data = $null
+#    )
+#    echo $data
         `
     }
     async CanRunOrHowTo(path: string): Promise<string> {
@@ -34,11 +34,18 @@ export class BashRunner implements IScriptRunner {
 
         // Windows fix (WSL support)
         if (this.electronService.isWindows) {
-            path = item.Path.replace("C:", "/mnt/c").replace(/\\/g, "/");
+            path = item.Path.replace("C:", "/mnt/c").replace(`///`, "/");
+            
+            return this.electronService.childProcess.spawn("bash", [`-c`, `"${path}"`], {
+                cwd: this.projectService.appPath
+            });
         }
 
-        return this.electronService.childProcess.spawn("bash", [`-c`, `"${path}"`], {
-            cwd: this.projectService.appPath
-        });
+        // UNIX
+        else {
+            return this.electronService.childProcess.spawn("bash", [`-c`, `"${path}"`], {
+                cwd: this.projectService.appPath
+            });
+        }
     }
 }
