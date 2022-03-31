@@ -101,22 +101,14 @@ export class ScriptGeneratorService {
         if (scope != ScriptScope.Module) {
             // remove file
             let path = this.electronService.path.resolve(this.projectService.appPath, command.Path);
-            this.electronService.fs.remove(path, (err) => {
-                if (err)
-                    console.log(err)
-
-                // reload project
-                this.projectService.save(null).then(() => {
-                    this.projectService.load(null);
-                })
-            });
-
-        } 
+            this.electronService.fs.rmSync(path, { recursive: true });
+            await this.projectService.save(null);
+            await this.projectService.load(null);
+        }
         else {
             // reload project
-            this.projectService.save(null).then(() => {
-                this.projectService.load(null);
-            });
+            await this.projectService.save(null);
+            await this.projectService.load(null);
         }
 
     }
@@ -138,12 +130,9 @@ export class ScriptGeneratorService {
         await this.projectService.renameCommand(name, command, scope);
 
         // rename file
-        this.electronService.fs.rename(oldPath, newPath, () => {
-            // reload project
-            this.projectService.save(null).then(() => {
-                this.projectService.load(null);
-            })
-        })
+        await this.electronService.fs.rename(oldPath, newPath);
+        await this.projectService.save(null);
+        await this.projectService.load(null);
 
     }
 
@@ -170,11 +159,11 @@ export class ScriptGeneratorService {
         // SCOPE
         // global
         if (scope == ScriptScope.Global) {
-            pathFixed += `Scripts/Global/Commands/`;
+            pathFixed += `Scripts/Global/Commands`;
         }
         // item // row // import
         else if (scope == ScriptScope.Item || scope == ScriptScope.Import) {
-            pathFixed += `Scripts/${this.projectService.selectedModule}/`;
+            pathFixed += `Scripts/${this.projectService.selectedModule}`;
         }
         // unsuported
         else {
@@ -228,7 +217,10 @@ export class ScriptGeneratorService {
      */
     private async openFile(path: string) {
         console.log('Openning file: ' + path);
-        let task = this.electronService.childProcess.exec(`start ${path}`);
+
+        let task = this.electronService.isMac ?
+            this.electronService.childProcess.exec(`open ${path}`)
+            : this.electronService.childProcess.exec(`start ${path}`);
 
         task.stdout.on("data", data => {
             console.log(`stdout: ${data}`);

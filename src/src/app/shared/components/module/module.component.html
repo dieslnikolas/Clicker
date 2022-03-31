@@ -1,12 +1,12 @@
 <!-- // COMMANDS -->
-<div class="add-module-button-container">
+<div class="add-module-button-container" *ngIf="data != null" [style]="isNotSelected ? 'min-width: 100%;': 'unset'">
     <button (click)="createNewModule()" mat-flat-button color="accent" aria-label="Example icon button with a menu icon"
         matTooltip="Create new module" #tooltip="matTooltip">
         <mat-icon>add</mat-icon>Add module
     </button>
 </div>
 
-<mat-tab-group mat-align-tabs="start" backgroundColor="accent" color="accent" animationDuration="0ms"
+<mat-tab-group mat-align-tabs="start" backgroundColor="accent" color="accent" fxFill animationDuration="0ms"
     (selectedTabChange)="onSelectedTabChange($event)" [selectedIndex]="0" fxFill #tabs>
 
     <mat-tab *ngFor="let module of data | keyvalue" label="{{module.key}}" >

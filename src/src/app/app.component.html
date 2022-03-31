@@ -10,13 +10,14 @@
 <shared-frame></shared-frame>
 
 <!-- CONTENT FRAME -->
-<div id="main" [ngClass]="isWindows ? 'move-from-windows-title' : ''">
+<div id="main" [ngClass]="isWindows ? 'move-from-windows-title' : ''" [ngClass]="{hidden: !isProject}" >
 
     <!-- LOADED -->
     <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="3px">
 
         <!-- Global commands -->
-        <shared-global-command fxLayout="row" fxLayoutAlign="space-evently strech" fxFill fxLayoutGap="5px" #globalCommands></shared-global-command>
+        <shared-global-command fxLayout="row" fxLayoutAlign="space-evently strech" fxFill fxLayoutGap="5px"
+            #globalCommands></shared-global-command>
 
         <!-- TEST BUTTONS -->
         <!-- <button mat-button (click)="testTerminal('TESTUJI TERMINAL')">Test term</button> -->
@@ -47,4 +48,23 @@
         </div>
     </div>
 
+</div>
+
+<div id="main" *ngIf="!isProject">
+    <!-- LOADED -->
+    <div fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="3px" class="load-new-screen">
+        <mat-card class="card-with-options">
+            <mat-card-title color="primary">Clicker</mat-card-title>
+            <mat-card-subtitle>
+                You need: <a href="https://www.python.org/downloads/"target="_blank">Python 3+</a> or <a href="https://github.com/PowerShell/PowerShell" target="_blank">PowershellCore 7+</a>
+            </mat-card-subtitle>
+            <mat-card-content>Choose what to do next:</mat-card-content>
+            <mat-card-actions fxLayout="row" fxLayoutGap="5px" fxLayoutAlign="center center">
+                <button mat-flat-button color="accent" (click)="loadProject()">Open</button>
+                <button mat-flat-button color="basic" (click)="createProject()">New</button>
+            </mat-card-actions>
+            <mat-card-footer>
+            </mat-card-footer>
+        </mat-card>
+    </div>
 </div>
