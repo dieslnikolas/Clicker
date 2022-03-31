@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ElectronService } from '../../../core/services/electron/electron.service';
+import { ProjectService } from '../../../core/services/project/project.service';
 
 @Component({
     selector: 'shared-frame',
@@ -12,7 +13,7 @@ export class FrameComponent implements OnInit {
     @ViewChild('maximizeButton', {static: true}) public maximizeButton: any;
 
     public isMaximized = false;
-    public isMac = false;
+    windowTitle = "Clicker";
 
     private static _win: Electron.BrowserWindow;
     public static win(electron: ElectronService): Electron.BrowserWindow {
@@ -23,14 +24,17 @@ export class FrameComponent implements OnInit {
         return this._win;
     }
 
-    constructor(private electron: ElectronService) {     }
+    constructor(private electron: ElectronService, private projectService: ProjectService) {     }
 
     ngOnInit(): void {
 
         FrameComponent.win(this.electron).on('unmaximize',this.toggleMaxRestoreButtons);
         FrameComponent.win(this.electron).on('maximize',this.toggleMaxRestoreButtons);
-        this.isMac = this.electron.isMac;
         this.toggleMaxRestoreButtons();
+
+        this.projectService.projectLoaded.subscribe(() => {
+            setTimeout(() => this.windowTitle = this.projectService.title, 100);
+        });
     }
 
     minimize() {

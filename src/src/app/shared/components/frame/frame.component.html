@@ -1,68 +1,38 @@
 <!-- TITLE  -->
-<header id="titlebar" [ngClass]="isMaximized ? 'maximized':''" [ngClass]="isMac ? 'hidden' : ''" >
+<header id="titlebar" [ngClass]="isMaximized ? 'maximized':''" [ngClass]="isMac ? 'hidden' : ''">
     <div id="drag-region">
-
-        <!-- MAC CONTROLS -->
-        <div id="window-controls" [ngClass]="isMac ? '' : 'hidden'" class="left">
-
-            <div class="button" id="min-button" (click)="minimize()">
-                <img class="icon"
-                    srcset="assets/icons/min-w-10.png 1x, assets/icons/min-w-12.png 1.25x, assets/icons/min-w-15.png 1.5x, assets/icons/min-w-15.png 1.75x, assets/icons/min-w-20.png 2x, assets/icons/min-w-20.png 2.25x, assets/icons/min-w-24.png 2.5x, assets/icons/min-w-30.png 3x, assets/icons/min-w-30.png 3.5x"
-                    draggable="false" />
-            </div>
-
-            <div class="button" id="max-button" (click)="maximize()" #minimizeButton
-                [style.display]="isMaximized ? 'none' : 'flex'">
-                <img class="icon"
-                    srcset="assets/icons/max-w-10.png 1x, assets/icons/max-w-12.png 1.25x, assets/icons/max-w-15.png 1.5x, assets/icons/max-w-15.png 1.75x, assets/icons/max-w-20.png 2x, assets/icons/max-w-20.png 2.25x, assets/icons/max-w-24.png 2.5x, assets/icons/max-w-30.png 3x, assets/icons/max-w-30.png 3.5x"
-                    draggable="false" />
-            </div>
-
-            <div class="button" id="restore-button" (click)="restore()" #maximizeButton
-                [style.display]="isMaximized ? 'flex' : 'none'">
-                <img class="icon"
-                    srcset="assets/icons/restore-w-10.png 1x, assets/icons/restore-w-12.png 1.25x, assets/icons/restore-w-15.png 1.5x, assets/icons/restore-w-15.png 1.75x, assets/icons/restore-w-20.png 2x, assets/icons/restore-w-20.png 2.25x, assets/icons/restore-w-24.png 2.5x, assets/icons/restore-w-30.png 3x, assets/icons/restore-w-30.png 3.5x"
-                    draggable="false" />
-            </div>
-
-            <div class="button" id="close-button" (click)="close()">
-                <img class="icon"
-                    srcset="assets/icons/close-w-10.png 1x, assets/icons/close-w-12.png 1.25x, assets/icons/close-w-15.png 1.5x, assets/icons/close-w-15.png 1.75x, assets/icons/close-w-20.png 2x, assets/icons/close-w-20.png 2.25x, assets/icons/close-w-24.png 2.5x, assets/icons/close-w-30.png 3x, assets/icons/close-w-30.png 3.5x"
-                    draggable="false" />
-            </div>
-        </div>
 
         <!-- TITLE -->
         <div id="window-title">
-            <span>Clicker</span>
+            <div>{{ windowTitle }}</div>
         </div>
 
         <!-- WIDOWS CONTROLS -->
-        <div id="window-controls" [ngClass]="isMac ? 'hidden' : ''">
+        <div id="window-controls">
 
             <div class="button" id="min-button" (click)="minimize()">
                 <img class="icon"
-                    srcset="assets/icons/min-w-10.png 1x, assets/icons/min-w-12.png 1.25x, assets/icons/min-w-15.png 1.5x, assets/icons/min-w-15.png 1.75x, assets/icons/min-w-20.png 2x, assets/icons/min-w-20.png 2.25x, assets/icons/min-w-24.png 2.5x, assets/icons/min-w-30.png 3x, assets/icons/min-w-30.png 3.5x"
+                    srcset="assets/icons/frame/min-w-10.png 1x, assets/icons/frame/min-w-12.png 1.25x, assets/icons/frame/min-w-15.png 1.5x, assets/icons/frame/min-w-15.png 1.75x, assets/icons/frame/min-w-20.png 2x, assets/icons/frame/min-w-20.png 2.25x, assets/icons/frame/min-w-24.png 2.5x, assets/icons/frame/min-w-30.png 3x, assets/icons/frame/min-w-30.png 3.5x"
                     draggable="false" />
             </div>
 
             <div class="button" id="max-button" (click)="maximize()" #minimizeButton
                 [style.display]="isMaximized ? 'none' : 'flex'">
                 <img class="icon"
-                    srcset="assets/icons/max-w-10.png 1x, assets/icons/max-w-12.png 1.25x, assets/icons/max-w-15.png 1.5x, assets/icons/max-w-15.png 1.75x, assets/icons/max-w-20.png 2x, assets/icons/max-w-20.png 2.25x, assets/icons/max-w-24.png 2.5x, assets/icons/max-w-30.png 3x, assets/icons/max-w-30.png 3.5x"
+                    srcset="assets/icons/frame/max-w-10.png 1x, assets/icons/frame/max-w-12.png 1.25x, assets/icons/frame/max-w-15.png 1.5x, assets/icons/frame/max-w-15.png 1.75x, assets/icons/frame/max-w-20.png 2x, assets/icons/frame/max-w-20.png 2.25x, assets/icons/frame/max-w-24.png 2.5x, assets/icons/frame/max-w-30.png 3x, assets/icons/frame/max-w-30.png 3.5x"
                     draggable="false" />
             </div>
 
             <div class="button" id="restore-button" (click)="restore()" #maximizeButton
                 [style.display]="isMaximized ? 'flex' : 'none'">
                 <img class="icon"
-                    srcset="assets/icons/restore-w-10.png 1x, assets/icons/restore-w-12.png 1.25x, assets/icons/restore-w-15.png 1.5x, assets/icons/restore-w-15.png 1.75x, assets/icons/restore-w-20.png 2x, assets/icons/restore-w-20.png 2.25x, assets/icons/restore-w-24.png 2.5x, assets/icons/restore-w-30.png 3x, assets/icons/restore-w-30.png 3.5x"
+                    srcset="assets/icons/frame/restore-w-10.png 1x, assets/icons/frame/restore-w-12.png 1.25x, assets/icons/frame/restore-w-15.png 1.5x, assets/icons/frame/restore-w-15.png 1.75x, assets/icons/frame/restore-w-20.png 2x, assets/icons/frame/restore-w-20.png 2.25x, assets/icons/frame/restore-w-24.png 2.5x, assets/icons/frame/restore-w-30.png 3x, assets/icons/frame/restore-w-30.png 3.5x"
                     draggable="false" />
             </div>
 
             <div class="button" id="close-button" (click)="close()">
                 <img class="icon"
-                    srcset="assets/icons/close-w-10.png 1x, assets/icons/close-w-12.png 1.25x, assets/icons/close-w-15.png 1.5x, assets/icons/close-w-15.png 1.75x, assets/icons/close-w-20.png 2x, assets/icons/close-w-20.png 2.25x, assets/icons/close-w-24.png 2.5x, assets/icons/close-w-30.png 3x, assets/icons/close-w-30.png 3.5x"
+                    srcset="assets/icons/frame/close-w-10.png 1x, assets/icons/frame/close-w-12.png 1.25x, assets/icons/frame/close-w-15.png 1.5x, assets/icons/frame/close-w-15.png 1.75x, assets/icons/frame/close-w-20.png 2x, assets/icons/frame/close-w-20.png 2.25x, assets/icons/frame/close-w-24.png 2.5x, assets/icons/frame/close-w-30.png 3x, assets/icons/frame/close-w-30.png 3.5x"
                     draggable="false" />
             </div>
 
