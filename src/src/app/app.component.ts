@@ -39,8 +39,15 @@ export class AppComponent implements OnInit, AfterViewInit {
          /**
          * Project is loading
          */
-          this.projectService.projectLoading.subscribe(() => {
-            setTimeout(() => this.isLoading = true, 50);
+        this.projectService.projectLoading.subscribe((projectFile) => {
+            setTimeout(() => {
+                this.isLoading = true; 
+
+                if (projectFile != null)
+                    this.loadingMessage = `<span style="font-weight:bolder">Loading:</span> <small style="color:#aaa">${projectFile}</small>`
+                else
+                    this.loadingMessage = `Loading...`;
+            }, 50);
         });
 
         /**

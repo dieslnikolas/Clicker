@@ -21,7 +21,7 @@ export class ProjectService {
     /**
      * Usable for knowing that proj file is loaded
      */
-     public projectLoading: Subject<void> = new Subject<void>();
+     public projectLoading: Subject<string> = new Subject<string>();
 
     /**
      * Usable for knowing that proj file is loaded
@@ -162,7 +162,7 @@ export class ProjectService {
     public async load(path: string, forceOpenNew: boolean = false): Promise<Boolean> {
 
         try {
-            this.projectLoading.next();
+            this.projectLoading.next(null);
 
             // use default path
             if (path == null)
@@ -182,6 +182,7 @@ export class ProjectService {
                 path = dialogResul.filePaths[0] ?? this.appPathFull;
             }
 
+            this.projectLoading.next(path);
             let rawdata = this.electronService.fs.readFileSync(path, `utf-8`).trim();
             this._projectModel = JSON.parse(rawdata);
 
