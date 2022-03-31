@@ -3,12 +3,12 @@ import { TranslateService } from '@ngx-translate/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
 import { ProjectService } from './core/services/project/project.service';
-import { TerminalComponent } from './shared/components/terminal/terminal.component';
 import { ElectronService } from './core/services/electron/electron.service';
 import { ScriptRunnerService } from './core/services/script/script-runner.service';
 import { APP_CONFIG } from '../environments/environment';
 import { GlobalCommandComponent } from './shared/components/global-command/global-command.component';
 import { ModuleComponent } from './shared/components/module/module.component';
+import { LogService } from './core/services/logger/log.service';
 
 @Component({
     selector: 'app-root',
@@ -27,11 +27,10 @@ export class AppComponent implements OnInit, AfterViewInit {
     // for speeding devel proces, there is template
     private PROJECT_TEMPLATE: string = '/project_template/IT2021Sale2.pwgen';
 
-    @ViewChild('term') terminal: TerminalComponent;
     @ViewChild(GlobalCommandComponent) globalCommand: GlobalCommandComponent;
     @ViewChild(ModuleComponent) module: ModuleComponent;
 
-    constructor(private electronService: ElectronService, private translate: TranslateService,
+    constructor(private logService: LogService, private electronService: ElectronService, private translate: TranslateService,
         public dialog: MatDialog, private snackBar: MatSnackBar, private projectService: ProjectService,
         private scriptRunnerService: ScriptRunnerService) {
 
@@ -59,9 +58,11 @@ export class AppComponent implements OnInit, AfterViewInit {
                 this.projectLoaded(true)
 
                 if (this.projectService.appPath!=null) {
-                    this.snackBar.open(`Application oppened at: ${this.projectService.appPath ?? "<empty project>"}`, 'Dismiss', {
+                    let message = `Application oppened at: ${this.projectService.appPath ?? "<empty project>"}`;
+                    this.snackBar.open(message, 'Dismiss', {
                         duration: 3000
                     });
+                    this.logService.success(message);
                 }
             }, APP_CONFIG.projectLoadedZoneTimeout);
         });
@@ -72,7 +73,7 @@ export class AppComponent implements OnInit, AfterViewInit {
         let path = this.electronService.remote.app.getAppPath() + this.PROJECT_TEMPLATE;
         if (process.argv[1] != null) {
             path = process.argv[1];
-            console.log(path);
+            this.logService.write(path);
         }
 
         // try to load default project
@@ -115,15 +116,6 @@ export class AppComponent implements OnInit, AfterViewInit {
             await this.loadProjectFromFile(filePath);
         }
     }
-
-    /**
-     * Sends message to terminal
-     * @param message Terminal message (testing purposes)
-     */
-    testTerminal(message: string) {
-        this.terminal.write(message);
-    }
-
 
     /**
      * 

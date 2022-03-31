@@ -8,6 +8,7 @@ import { ProjectService } from '../../../core/services/project/project.service'
 import { MatMenuTrigger } from '@angular/material/menu';
 import { APP_CONFIG } from '../../../../environments/environment';
 import { Command } from '../../../core/common/scripts/command';
+import { LogService } from '../../../core/services/logger/log.service';
 
 @Component({
     selector: 'shared-module',
@@ -28,7 +29,7 @@ export class ModuleComponent implements OnInit {
 
     @ViewChild('tabs') public tabs: MatTabGroup;
 
-    constructor(private projectService: ProjectService, private cdr: ChangeDetectorRef, private scriptGeneratorSercice: ScriptGeneratorService, private dialog: MatDialog, private scriptGeneratorService: ScriptGeneratorService) {
+    constructor(private logService: LogService, private projectService: ProjectService, private cdr: ChangeDetectorRef, private scriptGeneratorSercice: ScriptGeneratorService, private dialog: MatDialog, private scriptGeneratorService: ScriptGeneratorService) {
 
     }
     ngOnInit(): void {
@@ -37,7 +38,7 @@ export class ModuleComponent implements OnInit {
 
     private registerSubscribtion() {
         this.projectService.projectLoaded.subscribe(() => {
-            console.log("Module -> project reloaded")
+            this.logService.write("Module -> project reloaded");
             setTimeout(() => {
                 this.data = this.projectService.modules;
                 this.cdr.detectChanges();

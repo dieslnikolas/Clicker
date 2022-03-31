@@ -7,6 +7,7 @@ import { APP_CONFIG } from "../../../../environments/environment";
 import { ElectronService } from "../electron/electron.service";
 import { ScriptRunnerService } from "./script-runner.service";
 import { Command } from "../../common/scripts/command";
+import { LogService } from "../logger/log.service";
 
 /**
  * Genetares scripts based by some folder structure
@@ -16,7 +17,7 @@ import { Command } from "../../common/scripts/command";
 })
 export class ScriptGeneratorService {
 
-    constructor(private electronService: ElectronService, private projectService: ProjectService, private scriptTypeHelper: ScriptTypeHelper, private scriptRunnerService: ScriptRunnerService) { }
+    constructor(private logService: LogService, private electronService: ElectronService, private projectService: ProjectService, private scriptTypeHelper: ScriptTypeHelper, private scriptRunnerService: ScriptRunnerService) { }
 
     /**
      * Genetates physicaly script on the disk
@@ -201,10 +202,10 @@ export class ScriptGeneratorService {
             await this.electronService.fs.promises.mkdir(file.dir,
                 {
                     recursive: true
-                }).catch((err) => console.log(err));
+                }).catch((err) => this.logService.write(err));
 
             // GENERATING FILE
-            console.log("Generating file: " + filePath)
+            this.logService.write("Generating file: " + filePath)
             this.electronService.fs.writeFileSync(filePath, data);
         } catch (err) {
             throw new Error(err);
@@ -216,26 +217,26 @@ export class ScriptGeneratorService {
      * @param path path to file
      */
     private async openFile(path: string) {
-        console.log('Openning file: ' + path);
+        this.logService.write('Openning file: ' + path);
 
         let task = this.electronService.isMac ?
             this.electronService.childProcess.exec(`open ${path}`)
             : this.electronService.childProcess.exec(`start ${path}`);
 
         task.stdout.on("data", data => {
-            console.log(`stdout: ${data}`);
+            this.logService.write(`stdout: ${data}`);
         });
 
         task.stderr.on("data", data => {
-            console.log(`stderr: ${data}`);
+            this.logService.write(`stderr: ${data}`);
         });
 
         task.on('error', (error) => {
-            console.log(`error: ${error.message}`);
+            this.logService.write(`error: ${error.message}`);
         });
 
         task.on("close", code => {
-            console.log(`child process exited with code ${code}`);
+            this.logService.write(`child process exited with code ${code}`);
         });
     }
 }

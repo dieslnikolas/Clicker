@@ -2,10 +2,10 @@ import { Injectable } from "@angular/core";
 import { MatDialog } from "@angular/material/dialog";
 import { Subject } from 'rxjs';
 import { APP_CONFIG } from "../../../../environments/environment";
-import { DialogComponent } from "../../../shared/components/dialog/dialog.component";
 import { Command } from "../../common/scripts/command";
 import { ScriptScope } from "../../common/scripts/script-scope";
 import { ElectronService } from "../electron/electron.service";
+import { LogService } from "../logger/log.service";
 import { ProjectModel } from "./project.model";
 
 @Injectable({
@@ -61,10 +61,16 @@ export class ProjectService {
         return this.appPathFull == null;
     }
 
-    public get title(): string {
+    public get projectNameFull(): string {
         if (this.isUnsaved) 
             return `Clicker`;
         return `Clicker - ${this.appPathFull}`;
+    }
+
+    public get projectName(): string {
+        if (this.isUnsaved) 
+            return null;
+        return this.electronService.path.parse(this.appPathFull).dir;
     }
 
     /**
@@ -144,7 +150,8 @@ export class ProjectService {
         catch (err) {
             // NO DATA
         }
-        console.log();
+
+        this.logService.write(``);
         return [];
     }
 
@@ -159,7 +166,7 @@ export class ProjectService {
         return data;
     }
 
-    constructor(private electronService: ElectronService, private dialog: MatDialog) {
+    constructor(private logService: LogService, private electronService: ElectronService, private dialog: MatDialog) {
     }
 
     /**
@@ -198,7 +205,7 @@ export class ProjectService {
                 this.appPathFull = path;
             }
 
-            console.log('Project loaded');
+            this.logService.write('Project loaded');
             let firstModule = Object.keys(this.modules).sort()[0];
             this.selectedModule = firstModule;
             this.projectLoaded.next();
@@ -206,7 +213,7 @@ export class ProjectService {
             return true;
         }
         catch (error) {
-            console.warn(error);
+            this.logService.write(error);
 
             // something went
             this._projectModel = new ProjectModel();
@@ -254,14 +261,14 @@ export class ProjectService {
                 // prduction
                 : this.electronService.path.resolve(this.electronService.remote.app.getAppPath(), "src/assets/scripts_default");
         let toFolder = this.electronService.path.resolve(this.appPath, "Scripts");
-        console.log(`%c From:${fromFolder} -> To:${toFolder}`, 'color:yellow;border:1px solid dodgerblue');
+        this.logService.warn(`From:${fromFolder} -> To:${toFolder}`);
 
         // creating DIR
         let file = this.electronService.path.parse(path);
         await this.electronService.fs.promises.mkdir(file.dir,
             {
                 recursive: true
-            }).catch((err) => console.log(err));
+            }).catch((err) => this.logService.write(err));
 
         // save project file
         await this.electronService.fs.writeFileSync(path, JSON.stringify(this.projectModel));
@@ -272,9 +279,9 @@ export class ProjectService {
                 this.electronService.fs.copyFileSync(fromFolder, toFolder);
         }
         catch (error) {
-            console.log(`${fromFolder} => Is probably allready saved`);
+            this.logService.write(`${fromFolder} => Is probably allready saved`);
         }
-        console.log('Project saved!');
+        this.logService.write('Project saved!');
 
     }
 
@@ -284,14 +291,14 @@ export class ProjectService {
      */
     public async saveTmp(): Promise<string> {
         let path = this.electronService.path.resolve(this.electronService.remote.app.getPath('temp'), 'Clicker', "tmp.json");
-        console.log(`Saving temp file: ${path}`);
+        this.logService.write(`Saving temp file: ${path}`);
 
         // creating DIR
         let file = this.electronService.path.parse(path);
         await this.electronService.fs.promises.mkdir(file.dir,
             {
                 recursive: true
-            }).catch((err) => console.log(err));
+            }).catch((err) => this.logService.write(err));
 
         this.electronService.fs.writeFileSync(path, JSON.stringify(this.projectModel));
 
@@ -374,7 +381,7 @@ export class ProjectService {
         }
         else {
             let found = await this.getCommandParentInTree(command, scope);
-            // console.log(found.parrent[found.key]);
+            // this.logService.write(found.parrent[found.key]);
             delete found.parrent[found.key];
         }
     }
@@ -387,7 +394,7 @@ export class ProjectService {
      */
     public async renameCommand(newName: string, command: Command, scope: ScriptScope) {
         // let found = await this.getCommandParentInTree(scope);
-        // console.log("NOT IMPLEMENTED: " + found);
+        // this.logService.write("NOT IMPLEMENTED: " + found);
         // found[command.Key]["Path"] = found[command.Key]["Path"]
     }
 
@@ -398,7 +405,7 @@ export class ProjectService {
 
     public async openTempFolder() {
         let path = this.electronService.path.resolve(this.electronService.remote.app.getPath('temp'), 'Clicker');
-        console.log(`Openning temp folder ${path}`);
+        this.logService.write(`Openning temp folder ${path}`);
 
         this.electronService.remote.shell.openPath(path);
     }
@@ -464,26 +471,26 @@ export class ProjectService {
     * @param path path to file
     */
     private async openFile(path: string) {
-        console.log('Openning file: ' + path);
+        this.logService.write('Openning file: ' + path);
     
         let task = this.electronService.isMac ?
             this.electronService.childProcess.exec(`open ${path}`)
             : this.electronService.childProcess.exec(`start ${path}`);
 
         task.stdout.on("data", data => {
-            console.log(`stdout: ${data}`);
+            this.logService.write(`stdout: ${data}`);
         });
 
         task.stderr.on("data", data => {
-            console.log(`stderr: ${data}`);
+            this.logService.write(`stderr: ${data}`);
         });
 
         task.on('error', (error) => {
-            console.log(`error: ${error.message}`);
+            this.logService.write(`error: ${error.message}`);
         });
 
         task.on("close", code => {
-            console.log(`child process exited with code ${code}`);
+            this.logService.write(`child process exited with code ${code}`);
         });
     }
 }

@@ -1,21 +1,31 @@
-<mat-accordion>
+<!-- Terminal -->
+<div class="collapsable-term">
+    <!-- <span matBadge="15" matBadgeColor="warn" class="">Terminal</span> -->
+    <div class="terminal">
+        <button mat-flat-button color="accent" class="clear-terminal" (click)="clearTerminal()">
+            <mat-icon>highlight_off</mat-icon>
+        </button>
+        <div *ngFor="let item of data.reverse()">
 
-    <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+            <!-- DEBUG -->
+            <span *ngIf="item.logSeverity == 0">
+                {{item.log4jsOutput}}
+            </span>
 
-        <!-- Header -->
-        <mat-expansion-panel-header>
-            <mat-panel-title>
-                Terminal
-            </mat-panel-title>
-            <mat-panel-description>
-                Terminal is {{panelOpenState ? 'opened' : 'closed'}}
-            </mat-panel-description>
-        </mat-expansion-panel-header>
+            <!-- WARN -->
+            <span *ngIf="item.logSeverity == 1" style="color:#d2ae00">
+                {{item.log4jsOutput}}
+            </span>
 
-        <!-- Terminal -->
-        <div class="collapsable-term">
-            <ng-terminal #term></ng-terminal>
+            <!-- ERROR -->
+            <span *ngIf="item.logSeverity == 2" style="color:rgb(255, 60, 1)">
+                {{item.log4jsOutput}}
+            </span>
+
+            <!-- SUCESS -->
+            <span *ngIf="item.logSeverity == 3" style="color:rgb(0, 212, 11)">
+                {{item.log4jsOutput}}
+            </span>
         </div>
-
-    </mat-expansion-panel>
-</mat-accordion>
+    </div>
+</div>

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { LogService } from '../../../core/services/logger/log.service';
 
 @Component({
   selector: 'app-about-detail',
@@ -7,10 +8,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AboutDetailComponent implements OnInit {
 
-  constructor() { }
+  constructor(private logService: LogService) { }
 
   ngOnInit(): void {
-    console.log('AboutDetailComponent INIT');
+    this.logService.write('AboutDetailComponent INIT');
    }
 
 }
