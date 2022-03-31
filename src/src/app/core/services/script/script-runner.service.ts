@@ -10,6 +10,7 @@ import { ProjectService } from "../project/project.service";
 import { BashRunner } from "../../common/scripts/runners/bash-runner";
 import { ChildProcessWithoutNullStreams } from "node:child_process";
 import { MatSnackBar } from "@angular/material/snack-bar";
+import { LogService } from "../logger/log.service";
 
 @Injectable({
     providedIn: 'root'
@@ -34,7 +35,7 @@ export class ScriptRunnerService implements IScriptRunner {
             return this.bashRunner;
     }
 
-    constructor(private scriptTypeHelper: ScriptTypeHelper, private _snackBar: MatSnackBar, private electronService: ElectronService, private projectService: ProjectService,
+    constructor(private logService: LogService, private scriptTypeHelper: ScriptTypeHelper, private _snackBar: MatSnackBar, private electronService: ElectronService, private projectService: ProjectService,
         private powershellRunner: PowershellRunner,
         private pythonRunner: PythonRunner,
         private bashRunner: BashRunner) { }
@@ -62,40 +63,46 @@ export class ScriptRunnerService implements IScriptRunner {
         if (!this.electronService.fs.existsSync(item.Path))
             throw new Error("File doesn't exists: " + item.Path);
 
-        let runner = this.getCurrentRunner(item.Path);
-        let task = await runner.Run(action, item);
+        try {
+            let runner = this.getCurrentRunner(item.Path);
+            let task = await runner.Run(action, item);
 
-        task.stdout.on("data", data => {
-            if (!supressSnack)
-                this.openSnackBar("OK");
+            task.stdout.on("data", data => {
+                if (!supressSnack)
+                    this.openSnackBar("OK");
 
-            console.log(`stdout: ${data}`);
-        });
+                this.logService.write(`stdout: ${data}`);
+            });
 
-        task.stderr.on("data", data => {
-            if (!supressSnack)
-                this.openSnackBar("Error");
+            task.stderr.on("data", data => {
+                if (!supressSnack)
+                    this.openSnackBar("Error");
 
-            console.log(`stderr: ${data}`);
-        });
+                this.logService.write(`stderr: ${data}`);
+            });
 
-        task.on('error', (error) => {
-            if (!supressSnack)
-                this.openSnackBar("Error");
+            task.on('error', (error) => {
+                if (!supressSnack)
+                    this.openSnackBar("Error");
 
-            console.log(`error: ${error.message}`);
-        });
+                this.logService.write(`error: ${error.message}`);
+            });
 
-        task.on("close", code => {
-            if (code == 0 && !supressSnack)
-                this.openSnackBar("OK");
-            else if (!supressSnack)
-                this.openSnackBar("Something went wrong");
+            task.on("close", code => {
+                if (code == 0 && !supressSnack)
+                    this.openSnackBar("OK");
+                else if (!supressSnack)
+                    this.openSnackBar("Something went wrong");
 
-            console.log(`child process exited with code ${code}`);
-        });
+                this.logService.write(`child process exited with code ${code}`);
+            });
+            return task;
+        }
+        catch (error) {
+            this.logService.error(error);
+            return null;
+        }
 
-        return task;
     }
 
     /**
@@ -106,7 +113,7 @@ export class ScriptRunnerService implements IScriptRunner {
 
         // try to find command
         let item = this.projectService.initCommand;
-        
+
         // if there is no init (typicialy on empty proj)
         if (item == null)
             return null;

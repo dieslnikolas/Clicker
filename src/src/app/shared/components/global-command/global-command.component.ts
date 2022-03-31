@@ -8,6 +8,7 @@ import { ScriptRunnerService } from '../../../core/services/script/script-runner
 import { DialogComponent } from '../dialog/dialog.component';
 import { ScriptGeneratorService } from '../../../core/services/script/script-generator.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { LogService } from '../../../core/services/logger/log.service';
 
 @Component({
     selector: 'shared-global-command',
@@ -25,7 +26,7 @@ export class GlobalCommandComponent implements OnInit {
 
     isProjectNotSaved = false;
 
-    constructor(private dialog: MatDialog, private snackBar: MatSnackBar, private scriptGeneratorSercice: ScriptGeneratorService, private projectService: ProjectService, private scriptRunnerService: ScriptRunnerService) {
+    constructor(private logService: LogService, private dialog: MatDialog, private snackBar: MatSnackBar, private scriptGeneratorSercice: ScriptGeneratorService, private projectService: ProjectService, private scriptRunnerService: ScriptRunnerService) {
     }
     
     ngOnInit(): void {
@@ -34,7 +35,7 @@ export class GlobalCommandComponent implements OnInit {
 
     private registerSubscribtion() {
         this.projectService.projectLoaded.subscribe(() => {
-            console.log("Global -> project reloaded")
+            this.logService.write("Global -> project reloaded")
             setTimeout(() => {
                 this.data = this.projectService.commands;
                 this.isProjectNotSaved = this.projectService.appPath == null;

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { LogService } from '../../../core/services/logger/log.service';
 
 @Component({
   selector: 'app-settings-edit',
@@ -7,10 +8,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SettingsEditComponent implements OnInit {
 
-  constructor() { }
+  constructor(private logService: LogService) { }
 
   ngOnInit(): void {
-    console.log('SettingsEditComponent INIT');
+    this.logService.write('SettingsEditComponent INIT');
    }
 
 }

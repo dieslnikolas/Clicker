@@ -36,7 +36,7 @@ export class FrameComponent implements OnInit {
         this.isMac = this.electronService.isMac;
 
         this.projectService.projectLoaded.subscribe(() => {
-            setTimeout(() => this.windowTitle = this.projectService.title, 100);
+            setTimeout(() => this.windowTitle = this.projectService.projectName, 100);
         });
     }
 

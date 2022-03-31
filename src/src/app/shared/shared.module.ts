@@ -23,9 +23,6 @@ import { ScriptTypeToStringPipe } from './pipes/script-type-to-string.pipe';
 // FlexLayout
 import { FlexLayoutModule } from '@angular/flex-layout';
 
-// Terminal
-import { NgTerminalModule } from 'ng-terminal';
-
 // Material
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
@@ -51,6 +48,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatBadgeModule } from '@angular/material/badge';
 
 import { DialogComponent } from './components/dialog/dialog.component';
 import { FrameComponent } from './components/frame/frame.component';
@@ -109,8 +107,7 @@ import { FrameComponent } from './components/frame/frame.component';
     MatExpansionModule,
     MatTabsModule,
     MatCheckboxModule,
-
-    NgTerminalModule
+    MatBadgeModule
   ],
   exports: [
     CommonModule, 
@@ -145,6 +142,7 @@ import { FrameComponent } from './components/frame/frame.component';
     MatExpansionModule, 
     MatTabsModule,
     MatCheckboxModule,
+    MatBadgeModule,
     
     // Components
     TerminalComponent,

@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
+import { FormControl, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ScriptScope } from '../../../core/common/scripts/script-scope';
@@ -47,6 +47,7 @@ export class DialogComponent implements OnInit {
         // model
         this.data.scriptTypes = this.scriptGeneratorService.scriptTypes;
         this.data.scriptType = this.scriptGeneratorService.defaultType;
+        this.data.hasData = true;
     }
 
     async onOkClick(): Promise<void> {
