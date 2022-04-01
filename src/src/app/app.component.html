@@ -10,7 +10,7 @@
 <shared-frame></shared-frame>
 
 <!-- CONTENT FRAME -->
-<div id="main" [ngClass]="isWindows ? 'move-from-windows-title' : ''" [ngClass]="{hidden: !isProject}">
+<div id="main" [ngClass]="{'move-from-windows-title': isWindows, 'hidden': !isProject}">
 
     <!-- LOADED -->
     <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="3px">
@@ -34,16 +34,14 @@
         <div fxLayout="row" class="content center" fxLayoutAlign="fill">
             <div fxFlex="50%">
                 Author: Nikolas Diesl (<a href="mailto:dieslnikolas@gmail.com">dieslnikolas@gmail.com</a>,
-                <a href="https://www.dieslnikolas.cz" target="_blank" alt="dieslnikolas web page">web</a>)
-                
+                <a (click)="openExternal('https://www.dieslnikolas.cz'); $event.preventDefault()" href="#"  target="_blank" alt="dieslnikolas web page">web</a>)
                 <br />
-                Original project: Pavel Lorenz (<a href="https://github.com/elpablos/PowerGene" target="_blank">PowerGene</a>)
+                Original project: Pavel Lorenz (<a (click)="openExternal('https://github.com/elpablos/PowerGene'); $event.preventDefault()" href="#" target="_blank">PowerGene</a>)
             </div>
             <div fxFlex="50%" class="aling-right">
                 Version: 1.0
             </div>
         </div>
-        
     </div>
 
 </div>
@@ -54,8 +52,8 @@
         <mat-card class="card-with-options">
             <mat-card-title color="primary">Clicker</mat-card-title>
             <mat-card-subtitle>
-                You need: <a href="https://www.python.org/downloads/" target="_blank">Python 3+</a> or <a
-                    href="https://github.com/PowerShell/PowerShell" target="_blank">PowershellCore 7+</a>
+                You'll need: <a href="#" (click)="openExternal('https://www.python.org/downloads/'); $event.preventDefault()" target="_blank">Python 3+</a> or 
+                <a href="#" (click)="openExternal('https://github.com/PowerShell/PowerShell'); $event.preventDefault()" target="_blank">PowershellCore 7+</a>
             </mat-card-subtitle>
             <mat-card-content>Choose what to do next:</mat-card-content>
             <mat-card-actions fxLayout="row" fxLayoutGap="5px" fxLayoutAlign="center center">

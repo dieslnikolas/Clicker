@@ -6,6 +6,7 @@ import { Command } from "../../common/scripts/command";
 import { ScriptScope } from "../../common/scripts/script-scope";
 import { ElectronService } from "../electron/electron.service";
 import { LogService } from "../logger/log.service";
+import { ScriptRunnerService } from "../script/script-runner.service";
 import { ProjectModel } from "./project.model";
 
 @Injectable({
@@ -41,6 +42,7 @@ export class ProjectService {
     }
     public set selectedModule(v: string) {
         this._selectedModule = v;
+        this.logService.success(`Current module "${v}"`);
         this.moduleChanged.next(this._selectedModule);
     }
 
@@ -70,7 +72,7 @@ export class ProjectService {
     public get projectName(): string {
         if (this.isUnsaved) 
             return null;
-        return this.electronService.path.parse(this.appPathFull).dir;
+        return this.electronService.path.parse(this.appPathFull).name;
     }
 
     /**
@@ -149,9 +151,9 @@ export class ProjectService {
         }
         catch (err) {
             // NO DATA
+            this.logService.error(err);
         }
 
-        this.logService.write(``);
         return [];
     }
 
@@ -205,7 +207,7 @@ export class ProjectService {
                 this.appPathFull = path;
             }
 
-            this.logService.write('Project loaded');
+            this.logService.success('Project loaded');
             let firstModule = Object.keys(this.modules).sort()[0];
             this.selectedModule = firstModule;
             this.projectLoaded.next();
@@ -268,7 +270,7 @@ export class ProjectService {
         await this.electronService.fs.promises.mkdir(file.dir,
             {
                 recursive: true
-            }).catch((err) => this.logService.write(err));
+            }).catch((err) => this.logService.error(err));
 
         // save project file
         await this.electronService.fs.writeFileSync(path, JSON.stringify(this.projectModel));
@@ -279,9 +281,9 @@ export class ProjectService {
                 this.electronService.fs.copyFileSync(fromFolder, toFolder);
         }
         catch (error) {
-            this.logService.write(`${fromFolder} => Is probably allready saved`);
+            this.logService.warn(`${fromFolder} => Is probably allready saved`);
         }
-        this.logService.write('Project saved!');
+        this.logService.success('Project saved!');
 
     }
 
@@ -291,7 +293,7 @@ export class ProjectService {
      */
     public async saveTmp(): Promise<string> {
         let path = this.electronService.path.resolve(this.electronService.remote.app.getPath('temp'), 'Clicker', "tmp.json");
-        this.logService.write(`Saving temp file: ${path}`);
+        this.logService.warn(`Saving temp file: ${path}`);
 
         // creating DIR
         let file = this.electronService.path.parse(path);
@@ -405,7 +407,7 @@ export class ProjectService {
 
     public async openTempFolder() {
         let path = this.electronService.path.resolve(this.electronService.remote.app.getPath('temp'), 'Clicker');
-        this.logService.write(`Openning temp folder ${path}`);
+        this.logService.warn(`Openning temp folder ${path}`);
 
         this.electronService.remote.shell.openPath(path);
     }
@@ -476,22 +478,9 @@ export class ProjectService {
         let task = this.electronService.isMac ?
             this.electronService.childProcess.exec(`open ${path}`)
             : this.electronService.childProcess.exec(`start ${path}`);
+    
+        ScriptRunnerService.handleTask(task, true, this.logService);
 
-        task.stdout.on("data", data => {
-            this.logService.write(`stdout: ${data}`);
-        });
-
-        task.stderr.on("data", data => {
-            this.logService.write(`stderr: ${data}`);
-        });
-
-        task.on('error', (error) => {
-            this.logService.write(`error: ${error.message}`);
-        });
-
-        task.on("close", code => {
-            this.logService.write(`child process exited with code ${code}`);
-        });
     }
 }
 

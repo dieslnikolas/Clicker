@@ -11,6 +11,7 @@ import { BashRunner } from "../../common/scripts/runners/bash-runner";
 import { ChildProcessWithoutNullStreams } from "node:child_process";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { LogService } from "../logger/log.service";
+import { CommonRunner } from "../../common/scripts/runners/common-runner";
 
 @Injectable({
     providedIn: 'root'
@@ -38,7 +39,8 @@ export class ScriptRunnerService implements IScriptRunner {
     constructor(private logService: LogService, private scriptTypeHelper: ScriptTypeHelper, private _snackBar: MatSnackBar, private electronService: ElectronService, private projectService: ProjectService,
         private powershellRunner: PowershellRunner,
         private pythonRunner: PythonRunner,
-        private bashRunner: BashRunner) { }
+        private bashRunner: BashRunner,
+        private commonRunner: CommonRunner) { }
 
 
     /**
@@ -49,60 +51,48 @@ export class ScriptRunnerService implements IScriptRunner {
      */
     public async Run(action: string, item: Command, supressSnack: boolean = false): Promise<ChildProcessWithoutNullStreams> {
 
-        this.projectService.processedItemClear();
-        this.projectService.setProcessedItem(item);
-
-        let isRunnableCommand = await this.CanRunOrHowTo(item.Path);
-        if (isRunnableCommand != null) {
-            return;
-        }
-
-        // tune path to file (relative from project folder)
-        item.Path = this.electronService.path.resolve(this.projectService.appPath, item.Path);
-
-        if (!this.electronService.fs.existsSync(item.Path))
-            throw new Error("File doesn't exists: " + item.Path);
-
         try {
+            this.projectService.processedItemClear();
+            this.projectService.setProcessedItem(item);
+
+            let isRunnableCommand = await this.CanRunOrHowTo(item.Path);
+            if (isRunnableCommand != null) {
+                return;
+            }
+
+            // tune path to file (relative from project folder)
+            item.Path = this.electronService.path.resolve(this.projectService.appPath, item.Path);
+
+            if (!this.electronService.fs.existsSync(item.Path))
+                throw new Error("File doesn't exists: " + item.Path);
+
             let runner = this.getCurrentRunner(item.Path);
             let task = await runner.Run(action, item);
-
-            task.stdout.on("data", data => {
-                if (!supressSnack)
-                    this.openSnackBar("OK");
-
-                this.logService.write(`stdout: ${data}`);
-            });
-
-            task.stderr.on("data", data => {
-                if (!supressSnack)
-                    this.openSnackBar("Error");
-
-                this.logService.write(`stderr: ${data}`);
-            });
-
-            task.on('error', (error) => {
-                if (!supressSnack)
-                    this.openSnackBar("Error");
-
-                this.logService.write(`error: ${error.message}`);
-            });
-
-            task.on("close", code => {
-                if (code == 0 && !supressSnack)
-                    this.openSnackBar("OK");
-                else if (!supressSnack)
-                    this.openSnackBar("Something went wrong");
-
-                this.logService.write(`child process exited with code ${code}`);
-            });
+            ScriptRunnerService.handleTask(task, supressSnack, this.logService);
             return task;
         }
         catch (error) {
             this.logService.error(error);
             return null;
         }
+    }
 
+    async RunCMD(command: string): Promise<ChildProcessWithoutNullStreams> {
+        try {
+            let runner = this.commonRunner;
+            let commandObj = new Command();
+
+            commandObj.Path = command;
+            commandObj.HasData = true;
+
+            let task = await runner.Run(command);
+            ScriptRunnerService.handleTask(task, true, this.logService);
+            return task;
+        }
+        catch (error) {
+            this.logService.error(error);
+            return null;
+        }
     }
 
     /**
@@ -151,6 +141,43 @@ export class ScriptRunnerService implements IScriptRunner {
     private async openSnackBar(message: string) {
         this._snackBar.open(message, 'Dismiss', {
             duration: 3000
+        });
+    }
+
+    /**
+     * Result of the command
+     * @param task task from child_processs
+     * @param suppressSnack if show snack
+     */
+    public static handleTask(task: ChildProcessWithoutNullStreams, suppressSnack: boolean, logService: LogService) {
+        task.stdout.on("data", data => {
+            // if (!suppressSnack)
+            //     this.openSnackBar("OK");
+
+            logService.write(`${data}`);
+        });
+
+        task.stderr.on("data", data => {
+            // if (!suppressSnack)
+            //     this.openSnackBar("Error");
+
+            logService.error(`${data}`);
+        });
+
+        task.on('error', (error) => {
+            // if (!suppressSnack)
+            //     this.openSnackBar("Error");
+
+            logService.error(`${error.message}`);
+        });
+
+        task.on("close", code => {
+            // if (code == 0 && !suppressSnack)
+            //     this.openSnackBar("OK");
+            // else if (!suppressSnack)
+            //     this.openSnackBar("Something went wrong");
+
+            logService.success(`child process exited with code ${code}`);
         });
     }
 }

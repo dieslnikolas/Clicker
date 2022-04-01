@@ -1,4 +1,9 @@
-.mat-menu-item{
-    line-height:22px;
-    height:22px;
-  }
+.mat-menu-item {
+    line-height: 22px;
+    height: 22px;
+}
+
+.table-wrapper {
+    max-height: 400px;
+    overflow: auto; 
+}

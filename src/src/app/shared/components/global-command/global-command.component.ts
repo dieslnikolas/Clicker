@@ -35,7 +35,7 @@ export class GlobalCommandComponent implements OnInit {
 
     private registerSubscribtion() {
         this.projectService.projectLoaded.subscribe(() => {
-            this.logService.write("Global -> project reloaded")
+            this.logService.success("Global -> project reloaded")
             setTimeout(() => {
                 this.data = this.projectService.commands;
                 this.isProjectNotSaved = this.projectService.appPath == null;
