@@ -13,6 +13,8 @@ process.env['ELECTRON_DISABLE_SECURITY_WARNINGS'] = 'true';
 // Browser window is global to not create another instances
 let win: BrowserWindow = null;
 
+let logger = new Logger(); // init logging
+
 // Run application
 try {
 
@@ -47,5 +49,5 @@ try {
     });
 
 } catch (e) {
-    Logger.catch(e);
+    logger.write(e);
 }

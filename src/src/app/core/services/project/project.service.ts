@@ -205,6 +205,7 @@ export class ProjectService {
             if (rawdata != null) {
                 this.appPath = this.electronService.path.parse(path).dir;
                 this.appPathFull = path;
+                localStorage.setItem("last_project", this.appPathFull);
             }
 
             this.logService.success('Project loaded');
@@ -255,6 +256,7 @@ export class ProjectService {
         }
         // file path
         this.appPathFull = path;
+        localStorage.setItem("last_project", this.appPathFull);
         this.appPath = this.electronService.path.parse(path).dir;
         let fromFolder =
             APP_CONFIG.production ?

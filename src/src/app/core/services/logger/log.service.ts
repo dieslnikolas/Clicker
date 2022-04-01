@@ -8,23 +8,9 @@ import { Log, LogSeverity } from "./log.model";
 })
 export class LogService {
 
-    private logger;
     public onLogged: Subject<Log> = new Subject<Log>();
 
     constructor(private electronService: ElectronService) {
-
-        // gets logger
-        this.logger = this.electronService.log4js.getLogger();
-
-        // FILE - only errors to file
-        let path = this.electronService.path.resolve(this.electronService.remote.app.getPath('temp'), 'Clicker', "log.txt");
-        this.electronService.log4js.configure({
-            appenders: { toFile: { type: "file", filename: path } },
-            categories: { default: { appenders: ["toFile"], level: "error" } }
-        });
-
-        // how much we want to log
-        this.logger.level = "debug";
     }
 
     /**
@@ -35,39 +21,40 @@ export class LogService {
         this.writeMsg(message, LogSeverity.DEBUG);
     }
 
+    /**
+     * Red
+     * @param error 
+     */
     public async error(error: any) {
         this.writeMsg(error, LogSeverity.ERROR);
     }
 
+    /**
+     * Yellow
+     * @param message 
+     */
     public async warn(message: string) {
         this.writeMsg(message, LogSeverity.WARN);
     }
 
+    /**
+     * Green
+     * @param message 
+     */
     public async success(message: string) {
         this.writeMsg(message, LogSeverity.SUCCESS);
     }
 
-    private writeMsg(message: any, logSeverity: LogSeverity) {
+    private async writeMsg(message: any, logSeverity: LogSeverity) {
 
+        // error check
         if (message.stack != null)
             logSeverity = LogSeverity.ERROR;
 
-        switch (logSeverity) {
-            case LogSeverity.DEBUG:
-                this.logger.debug(message);
-                break;
-            case LogSeverity.WARN:
-                this.logger.warn(message);
-                break;
-            case LogSeverity.ERROR:
-                this.logger.error(message);
-                break;
-             case LogSeverity.SUCCESS:
-                this.logger.info(message);
-                    break;
-        }
+        // electron log
+        this.electronService.ipcRenderer.invoke('logger-ipc', message, LogSeverity.DEBUG);
 
-        // new log
+        // new log (console output)
         let log = Log.Factory(message, logSeverity);
         this.onLogged.next(log);
     }

@@ -1,5 +1,5 @@
 import { BrowserWindow } from 'electron';
-
+import * as electron from 'electron';
 import * as path from 'path';
 import * as fs from 'fs';
 import * as url from 'url';
@@ -45,12 +45,18 @@ export class WindowBuilder {
         }
 
         // Create the browser window.
+        const WINDOW_WIDTH = 1024;
+        const WINDOW_HEIGHT = 768;
+        let bounds = electron.screen.getPrimaryDisplay().bounds;
+        let x = bounds.x + ((bounds.width - WINDOW_WIDTH) / 2);
+        let y = bounds.y + ((bounds.height - WINDOW_HEIGHT) / 2);
         WindowBuilder.win = new BrowserWindow({
-            x: 0,
-            y: 0,
-            width: 1024,
-            height: 768,
+            x: x,
+            y: y,
+            width: WINDOW_WIDTH,
+            height: WINDOW_HEIGHT,
             frame: process.platform === 'darwin',
+            center: true,
             webPreferences: {
                 nodeIntegration: true,
                 allowRunningInsecureContent: (args) ? true : false,
