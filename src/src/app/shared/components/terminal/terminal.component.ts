@@ -58,7 +58,6 @@ export class TerminalComponent implements OnInit {
 
         // run script 
         await this.scriptRunnerService.RunCMD(command);
-        this.cdr.detectChanges();
     }
 
     async clearTerminal() {
@@ -67,8 +66,8 @@ export class TerminalComponent implements OnInit {
     }
 
     private async handleData(log: Log) {
-        if (this.data == null || this.data.length == 0)
-            return;
+        if (this.data == null)
+            this.data = [];
 
         // max data length
         while (this.data.length > this.CONSOLE_MAX_LINIES) {
@@ -80,5 +79,6 @@ export class TerminalComponent implements OnInit {
 
         // goes to temp
         localStorage.setItem(this.consoleCacheName, JSON.stringify(this.data));
+        this.cdr.detectChanges();
     }
 }

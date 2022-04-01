@@ -22,10 +22,12 @@ export class AppComponent implements OnInit, AfterViewInit {
     public loadingMessage = `Loading...`;
     public selectedModule: string;
     public isWindows = true;
-    public isProject: boolean = false; 
+    public isProject: boolean = false;
 
     // for speeding devel proces, there is template
-    private PROJECT_TEMPLATE: string = '/project_template/IT2021Sale2.pwgen';
+    private get PROJECT_TEMPLATE(): string {
+        return localStorage.getItem("last_project");
+    }
 
     @ViewChild(GlobalCommandComponent) globalCommand: GlobalCommandComponent;
     @ViewChild(ModuleComponent) module: ModuleComponent;
@@ -36,12 +38,12 @@ export class AppComponent implements OnInit, AfterViewInit {
 
         this.translate.setDefaultLang('en');
 
-         /**
-         * Project is loading
-         */
+        /**
+        * Project is loading
+        */
         this.projectService.projectLoading.subscribe((projectFile) => {
             setTimeout(() => {
-                this.isLoading = true; 
+                this.isLoading = true;
 
                 if (projectFile != null)
                     this.loadingMessage = `<span style="font-weight:bolder">Loading:</span> <small style="color:#aaa">${projectFile}</small>`
@@ -57,7 +59,7 @@ export class AppComponent implements OnInit, AfterViewInit {
             setTimeout(() => {
                 this.projectLoaded(true)
 
-                if (this.projectService.appPath!=null) {
+                if (this.projectService.appPath != null) {
                     let message = `Application oppened at: ${this.projectService.appPath ?? "<empty project>"}`;
                     this.snackBar.open(message, 'Dismiss', {
                         duration: 3000
@@ -70,16 +72,19 @@ export class AppComponent implements OnInit, AfterViewInit {
     }
 
     ngAfterViewInit(): void {
-        let path = this.electronService.remote.app.getAppPath() + this.PROJECT_TEMPLATE;
-        if (process.argv[1] != null) {
-            path = process.argv[1];
-            this.logService.write(path);
-        }
-
         // try to load default project
-        this.loadProjectFromFile(
-            this.electronService.path.resolve(this.electronService.remote.app.getAppPath() + this.PROJECT_TEMPLATE)
-        );
+        try {
+            // if project exists
+            if (this.PROJECT_TEMPLATE != null)
+                this.loadProjectFromFile(this.PROJECT_TEMPLATE);
+        }
+        catch (error) {
+            this.logService.warn(`${this.projectLoaded} doest not exits, deleting from cache`);
+            localStorage.removeItem("last_project");
+        }
+        
+        // not loading
+        setTimeout(() => this.isLoading = false, 100);
     }
 
     ngOnInit(): void {
@@ -126,8 +131,7 @@ export class AppComponent implements OnInit, AfterViewInit {
         await this.projectService.load(file);
     }
 
-    async openExternal(url: string)
-    {
+    async openExternal(url: string) {
         this.electronService.remote.shell.openExternal(url);
     }
 
