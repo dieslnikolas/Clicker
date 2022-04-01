@@ -1,14 +1,15 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
-import { Log } from '../../../core/services/logger/log.model';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { Log, LogSeverity } from '../../../core/services/logger/log.model';
 import { LogService } from '../../../core/services/logger/log.service';
 import { ProjectService } from '../../../core/services/project/project.service';
+import { ScriptRunnerService } from '../../../core/services/script/script-runner.service';
 
 @Component({
     selector: 'shared-terminal',
     templateUrl: './terminal.component.html',
     styleUrls: ['./terminal.component.scss']
 })
-export class TerminalComponent implements OnInit, AfterViewInit {
+export class TerminalComponent implements OnInit {
 
     public data: Log[]; // LIST OF LOGS
     private readonly CONSOLE_BACKUP: string = `console-data`;
@@ -16,59 +17,68 @@ export class TerminalComponent implements OnInit, AfterViewInit {
 
     panelOpenState: boolean = false;
 
-    constructor(private projectService: ProjectService, private logService: LogService) { }
+    get consoleCacheName(): string  {
+        return `${this.CONSOLE_BACKUP}-${this.projectService.projectName}`;
+    }
+
+    constructor(private projectService: ProjectService, private scriptRunnerService: ScriptRunnerService, private logService: LogService, private cdr: ChangeDetectorRef) { }
 
     ngOnInit(): void {
 
-        // LOAD DATA
-        this.data = JSON.parse(localStorage.getItem(this.CONSOLE_BACKUP)) ?? [];
+        // SAVE AND PUSH DATA
+        this.projectService.projectLoaded.subscribe(() => {
+            setTimeout(() => {
+                // LOAD DATA
+                this.data = JSON.parse(localStorage.getItem(this.consoleCacheName)) ?? [];
+
+            }, 100);
+        });
+
 
         // SAVE AND PUSH DATA
         this.logService.onLogged.subscribe((log) => {
-
-            // max data length
-            while (this.data.length > this.CONSOLE_MAX_LINIES) {
-                this.data.shift();
-            }
-
-            // push to VM
-            this.data.push(log);
-
-            // goes to temp
-            localStorage.setItem(this.CONSOLE_BACKUP, JSON.stringify(this.data));
+            this.handleData(log);
         });
     }
 
-    ngAfterViewInit() {
-        // this.xTermJS.keyEventInput.subscribe(e => {
+    async save(event) {
 
-        //     // get args
-        //     const ev = e.domEvent;
-        //     const printable = !ev.altKey && !ev.ctrlKey && !ev.metaKey;
+        // get input
+        let command = event.target.value;
+        event.target.value = null;
 
-        //     // ENTER
-        //     if (ev.keyCode === 13) {
-        //         this.write(``);
-        //     }
+        // value checking
+        if (command == null) {
+            return;
+        }
 
-        //     // dont know
-        //     else if (ev.keyCode === 8) {
-        //         if (this.xTermJS.underlying.buffer.active.cursorX > 2) {
-        //             this.xTermJS.write('\b \b');
-        //         }
+        // get log recrod
+        let log = Log.Factory(`${command}`, LogSeverity.SUCCESS);
+        this.handleData(log);
 
-
-        //     }
-
-        //     // regular key
-        //     else if (printable) {
-        //         this.xTermJS.write(e.key);
-        //     }
-        // })
+        // run script 
+        await this.scriptRunnerService.RunCMD(command);
+        this.cdr.detectChanges();
     }
 
-    clearTerminal() {
+    async clearTerminal() {
         this.data = [];
-        localStorage.removeItem(this.CONSOLE_BACKUP);
+        localStorage.removeItem(this.consoleCacheName);
+    }
+
+    private async handleData(log: Log) {
+        if (this.data == null || this.data.length == 0)
+            return;
+
+        // max data length
+        while (this.data.length > this.CONSOLE_MAX_LINIES) {
+            this.data.shift();
+        }
+
+        // push to VM
+        this.data.push(log);
+
+        // goes to temp
+        localStorage.setItem(this.consoleCacheName, JSON.stringify(this.data));
     }
 }

@@ -1,31 +1,44 @@
 <!-- Terminal -->
-<div class="collapsable-term">
+<div class="terminal-wrapper" fxLayout="column">
+
+    <!-- INPUT -->
+    <div fxFlex class="terminal-input">
+        <input matInput placeholder="Enter command" (keydown.enter)="save($event)" #input>
+    </div>
+    <!-- OUTPUT -->
     <!-- <span matBadge="15" matBadgeColor="warn" class="">Terminal</span> -->
-    <div class="terminal">
-        <button mat-flat-button color="accent" class="clear-terminal" (click)="clearTerminal()">
+    <div class="terminal" fxFlex>
+
+        <!-- Terminal clear -->
+        <button mat-flat-button color="accent" matTooltip="Clears terminal" class="clear-terminal"
+            (click)="clearTerminal()">
             <mat-icon>highlight_off</mat-icon>
         </button>
-        <div *ngFor="let item of data.reverse()">
 
-            <!-- DEBUG -->
-            <span *ngIf="item.logSeverity == 0">
-                {{item.log4jsOutput}}
-            </span>
+        <!-- CMD historic -->
+        <div fxLayout="column-reverse">
+            <div *ngFor="let item of data" class="pre-wrap-text">
 
-            <!-- WARN -->
-            <span *ngIf="item.logSeverity == 1" style="color:#d2ae00">
-                {{item.log4jsOutput}}
-            </span>
+                <!-- DEBUG -->
+                <div *ngIf="item.logSeverity == 0">
+                    {{item.log4jsOutput}}
+                </div>
 
-            <!-- ERROR -->
-            <span *ngIf="item.logSeverity == 2" style="color:rgb(255, 60, 1)">
-                {{item.log4jsOutput}}
-            </span>
+                <!-- WARN -->
+                <div *ngIf="item.logSeverity == 1" style="color:#d2ae00">
+                    {{item.log4jsOutput}}
+                </div>
 
-            <!-- SUCESS -->
-            <span *ngIf="item.logSeverity == 3" style="color:rgb(0, 212, 11)">
-                {{item.log4jsOutput}}
-            </span>
+                <!-- ERROR -->
+                <div *ngIf="item.logSeverity == 2" style="color:rgb(255, 60, 1)">
+                    {{item.log4jsOutput}}
+                </div>
+
+                <!-- SUCESS -->
+                <div *ngIf="item.logSeverity == 3" style="color:rgb(0, 212, 11)">
+                    {{item.log4jsOutput}}
+                </div>
+            </div>
         </div>
     </div>
 </div>

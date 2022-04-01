@@ -38,7 +38,7 @@ export class ModuleComponent implements OnInit {
 
     private registerSubscribtion() {
         this.projectService.projectLoaded.subscribe(() => {
-            this.logService.write("Module -> project reloaded");
+            this.logService.success("Module -> project reloaded");
             setTimeout(() => {
                 this.data = this.projectService.modules;
                 this.cdr.detectChanges();

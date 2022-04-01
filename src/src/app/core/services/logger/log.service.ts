@@ -35,19 +35,22 @@ export class LogService {
         this.writeMsg(message, LogSeverity.DEBUG);
     }
 
-    error(error: any) {
+    public async error(error: any) {
         this.writeMsg(error, LogSeverity.ERROR);
     }
 
-    warn(message: string) {
+    public async warn(message: string) {
         this.writeMsg(message, LogSeverity.WARN);
     }
 
-    success(message: string) {
+    public async success(message: string) {
         this.writeMsg(message, LogSeverity.SUCCESS);
     }
 
     private writeMsg(message: any, logSeverity: LogSeverity) {
+
+        if (message.stack != null)
+            logSeverity = LogSeverity.ERROR;
 
         switch (logSeverity) {
             case LogSeverity.DEBUG:
@@ -65,26 +68,7 @@ export class LogService {
         }
 
         // new log
-        let log = new Log();
-
-        // SEVERITY ADN MESSAGE
-        log.logSeverity = logSeverity;
-        log.message = message
-        
-        // ERROR CALL STACK
-        if (message.stack != null) {
-            log.message = `
-            
-            \r\nSTACK: ${message.stack}`;
-        }
-
-        // date
-        const d = new Date();
-        const dd = [d.getHours(), d.getMinutes(), d.getSeconds()].map((a) => (a < 10 ? '0' + a : a));
-        log.datetime = dd.join(':')
-
-        log.log4jsOutput = `${log.datetime} - ${LogSeverity[log.logSeverity]}: ${log.message}`;
-
+        let log = Log.Factory(message, logSeverity);
         this.onLogged.next(log);
     }
 }

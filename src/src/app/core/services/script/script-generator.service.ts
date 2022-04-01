@@ -26,36 +26,41 @@ export class ScriptGeneratorService {
      * @param type Script type (language)
      */
     public async generate(fileName: string, scope: ScriptScope, type: ScriptType, hasData: boolean): Promise<void> {
-        // validation
-        await this.validate(fileName, scope, type);
 
-        // prepare file path
-        let path = scope != ScriptScope.Module ? await this.getPathAndFixName(fileName, scope, type) : fileName;
+        try {
+            // validation
+            await this.validate(fileName, scope, type);
 
-        // add command to json
-        await this.projectService.addCommand(fileName, path, scope, hasData);
+            // prepare file path
+            let path = scope != ScriptScope.Module ? await this.getPathAndFixName(fileName, scope, type) : fileName;
 
-        // MODULE
-        if (scope == ScriptScope.Module) {
-            // open file in associated program
-            this.projectService.save(null).then(() => {
-                this.projectService.load(null);
-            })
+            // add command to json
+            await this.projectService.addCommand(fileName, path, scope, hasData);
+
+            // MODULE
+            if (scope == ScriptScope.Module) {
+                // open file in associated program
+                await this.projectService.save(null);
+                await this.projectService.load(null);
+            }
+
+            // OTHERS
+            else {
+
+                // create file
+                path = this.electronService.path.resolve(this.projectService.appPath, path);
+                let content = await this.scriptRunnerService.ScriptTemplate(path);
+
+                // FILE
+                await this.writeFile(path, content);
+                await this.projectService.save(null);
+                await this.projectService.load(null);
+                // open file in associated program
+                this.openFile(path);
+            }
         }
-
-        // OTHERS
-        else {
-
-            // create file
-            path = this.electronService.path.resolve(this.projectService.appPath, path);
-            let content = await this.scriptRunnerService.ScriptTemplate(path);
-
-            // FILE
-            await this.writeFile(path, content);
-            await this.projectService.save(null);
-            await this.projectService.load(null);
-            // open file in associated program
-            this.openFile(path);
+        catch (error) {
+            this.logService.error(error);
         }
 
     }
@@ -96,22 +101,29 @@ export class ScriptGeneratorService {
      */
     public async delete(command: Command, scope: ScriptScope): Promise<void> {
 
-        // remove command from json
-        await this.projectService.deleteCommand(command, scope);
+        try {
 
-        if (scope != ScriptScope.Module) {
-            // remove file
-            let path = this.electronService.path.resolve(this.projectService.appPath, command.Path);
-            this.electronService.fs.rmSync(path, { recursive: true });
-            await this.projectService.save(null);
-            await this.projectService.load(null);
-        }
-        else {
-            // reload project
-            await this.projectService.save(null);
-            await this.projectService.load(null);
-        }
+            // remove command from json
+            await this.projectService.deleteCommand(command, scope);
 
+            if (scope != ScriptScope.Module) {
+                // remove file
+                let path = this.electronService.path.resolve(this.projectService.appPath, command.Path);
+                this.electronService.fs.rmSync(path, { recursive: true });
+                await this.projectService.save(null);
+                await this.projectService.load(null);
+            }
+            else {
+                // reload project
+                await this.projectService.save(null);
+                await this.projectService.load(null);
+            }
+
+            this.logService.success(`Command (${command.Key}) ${command.Path} has been deleted!`)
+        }
+        catch (error) {
+            this.logService.error(error);
+        }
     }
 
     /**
@@ -122,19 +134,25 @@ export class ScriptGeneratorService {
      */
     public async rename(name: string, command: Command, scope: ScriptScope): Promise<void> {
 
-        // file name
-        let path = this.electronService.path.parse(this.electronService.path.resolve(this.projectService.appPath, command.Path));
-        let oldPath = path.base;
-        let newPath = this.electronService.path.resolve(path.dir, name);
+        try {
+            // file name
+            let path = this.electronService.path.parse(this.electronService.path.resolve(this.projectService.appPath, command.Path));
+            let oldPath = path.base;
+            let newPath = this.electronService.path.resolve(path.dir, name);
 
-        // rename json
-        await this.projectService.renameCommand(name, command, scope);
+            // rename json
+            await this.projectService.renameCommand(name, command, scope);
 
-        // rename file
-        await this.electronService.fs.rename(oldPath, newPath);
-        await this.projectService.save(null);
-        await this.projectService.load(null);
+            // rename file
+            await this.electronService.fs.rename(oldPath, newPath);
+            await this.projectService.save(null);
+            await this.projectService.load(null);
 
+            this.logService.success(`Command (${command.Key}) ${command.Path} has been renamed to "${name}"!`)
+        }
+        catch (error) {
+            this.logService.error(error);
+        }
     }
 
     /**
@@ -143,8 +161,14 @@ export class ScriptGeneratorService {
      * @param command command
      */
     public async edit(command: Command): Promise<void> {
-        let path = this.electronService.path.resolve(this.projectService.appPath, command.Path);
-        this.openFile(path);
+        try {
+
+            let path = this.electronService.path.resolve(this.projectService.appPath, command.Path);
+            this.openFile(path);
+        }
+        catch (error) {
+            this.logService.error(error);
+        }
     }
 
     /**
@@ -217,26 +241,31 @@ export class ScriptGeneratorService {
      * @param path path to file
      */
     private async openFile(path: string) {
-        this.logService.write('Openning file: ' + path);
+        try {
+            this.logService.write('Openning file: ' + path);
 
-        let task = this.electronService.isMac ?
-            this.electronService.childProcess.exec(`open ${path}`)
-            : this.electronService.childProcess.exec(`start ${path}`);
+            let task = this.electronService.isMac ?
+                this.electronService.childProcess.exec(`open ${path}`)
+                : this.electronService.childProcess.exec(`start ${path}`);
 
-        task.stdout.on("data", data => {
-            this.logService.write(`stdout: ${data}`);
-        });
+            task.stdout.on("data", data => {
+                this.logService.write(`stdout: ${data}`);
+            });
 
-        task.stderr.on("data", data => {
-            this.logService.write(`stderr: ${data}`);
-        });
+            task.stderr.on("data", data => {
+                this.logService.write(`stderr: ${data}`);
+            });
 
-        task.on('error', (error) => {
-            this.logService.write(`error: ${error.message}`);
-        });
+            task.on('error', (error) => {
+                this.logService.write(`error: ${error.message}`);
+            });
 
-        task.on("close", code => {
-            this.logService.write(`child process exited with code ${code}`);
-        });
+            task.on("close", code => {
+                this.logService.write(`child process exited with code ${code}`);
+            });
+        }
+        catch (error) {
+            this.logService.error(error);
+        }
     }
 }

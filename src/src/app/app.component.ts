@@ -126,6 +126,11 @@ export class AppComponent implements OnInit, AfterViewInit {
         await this.projectService.load(file);
     }
 
+    async openExternal(url: string)
+    {
+        this.electronService.remote.shell.openExternal(url);
+    }
+
     private async projectLoaded(isLoaded: Boolean) {
         this.isProject = this.projectService.appPath != null;
         if (isLoaded) {
