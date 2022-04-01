@@ -12,13 +12,23 @@ import { ScriptRunnerService } from '../../../core/services/script/script-runner
 export class TerminalComponent implements OnInit {
 
     public data: Log[]; // LIST OF LOGS
+    private isInitialized: boolean = false;
     private readonly CONSOLE_BACKUP: string = `console-data`;
     private readonly CONSOLE_MAX_LINIES: number = 150;
 
-    panelOpenState: boolean = false;
-
-    get consoleCacheName(): string  {
+    get consoleCacheName(): string {
         return `${this.CONSOLE_BACKUP}-${this.projectService.projectName}`;
+    }
+
+    get dataFromCache(): Log[] {
+        let data = JSON.parse(localStorage.getItem(this.consoleCacheName)) ?? [];
+
+        if (!this.isInitialized) {
+            this.isInitialized = true;
+            data.push(Log.Factory("*************** APPLICATION STARTED ***************", LogSeverity.SUCCESS));
+        }
+
+        return data;
     }
 
     constructor(private projectService: ProjectService, private scriptRunnerService: ScriptRunnerService, private logService: LogService, private cdr: ChangeDetectorRef) { }
@@ -29,11 +39,9 @@ export class TerminalComponent implements OnInit {
         this.projectService.projectLoaded.subscribe(() => {
             setTimeout(() => {
                 // LOAD DATA
-                this.data = JSON.parse(localStorage.getItem(this.consoleCacheName)) ?? [];
-
+                this.data = this.dataFromCache
             }, 100);
         });
-
 
         // SAVE AND PUSH DATA
         this.logService.onLogged.subscribe((log) => {
@@ -41,7 +49,7 @@ export class TerminalComponent implements OnInit {
         });
     }
 
-    async save(event) {
+    async run(event) {
 
         // get input
         let command = event.target.value;
@@ -67,7 +75,7 @@ export class TerminalComponent implements OnInit {
 
     private async handleData(log: Log) {
         if (this.data == null)
-            this.data = [];
+            this.data = this.dataFromCache;
 
         // max data length
         while (this.data.length > this.CONSOLE_MAX_LINIES) {

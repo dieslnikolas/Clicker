@@ -180,4 +180,12 @@ export class ScriptRunnerService implements IScriptRunner {
             logService.success(`child process exited with code ${code}`);
         });
     }
+
+    private iconvDecode(str = '') {
+
+        // const encoding = 'cp936';
+        // const binaryEncoding = 'binary';
+
+        // return iconv.decode(Buffer.from(str, binaryEncoding), encoding);
+    }
 }
