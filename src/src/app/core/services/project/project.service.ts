@@ -22,7 +22,7 @@ export class ProjectService {
     /**
      * Usable for knowing that proj file is loaded
      */
-     public projectLoading: Subject<string> = new Subject<string>();
+    public projectLoading: Subject<string> = new Subject<string>();
 
     /**
      * Usable for knowing that proj file is loaded
@@ -33,6 +33,16 @@ export class ProjectService {
     private appPathFull: string;
 
     private _selectedModule: string;
+
+    /**
+     * Settings of the app
+     */
+    public get settings(): { [key: string]: any; } {
+        return this._projectModel["Metadata"];
+    }
+    public set settings(v: { [key: string]: any; }) {
+        this._projectModel.Metadata = v;
+    }
 
     /**
      * Current module
@@ -64,13 +74,13 @@ export class ProjectService {
     }
 
     public get projectNameFull(): string {
-        if (this.isUnsaved) 
+        if (this.isUnsaved)
             return `Clicker`;
         return `Clicker - ${this.appPathFull}`;
     }
 
     public get projectName(): string {
-        if (this.isUnsaved) 
+        if (this.isUnsaved)
             return null;
         return this.electronService.path.parse(this.appPathFull).name;
     }
@@ -146,8 +156,9 @@ export class ProjectService {
     get moduleColumns() {
 
         try {
-            if (this.selectedModule == null) return null;
-            return Object.keys(Object.entries(this.projectModel[this.selectedModule])[0][1]);
+            // brutal check :facepalm:
+            if (this.moduleData == null) return null;
+            return Object.keys(Object.entries(this.moduleData)[0][1]);
         }
         catch (err) {
             // NO DATA
@@ -163,6 +174,7 @@ export class ProjectService {
     get moduleData() {
         // data for module
         if (this.selectedModule == null) return null;
+        if (Object.entries(this.projectModel[this.selectedModule]).length == 0) return null;
 
         let data = Object.entries(this.projectModel[this.selectedModule]).map(item => item[1]);
         return data;
@@ -254,16 +266,19 @@ export class ProjectService {
         if (this.projectModel.Metadata["ProjectName"] == null || this.projectModel.Metadata["ProjectName"].length == 0) {
             this.projectModel.Metadata["ProjectName"] = this.electronService.path.parse(path).name;
         }
+
         // file path
         this.appPathFull = path;
         localStorage.setItem("last_project", this.appPathFull);
         this.appPath = this.electronService.path.parse(path).dir;
+
         let fromFolder =
             APP_CONFIG.production ?
                 // devel
                 this.electronService.path.resolve(this.electronService.remote.app.getAppPath(), "assets/scripts_default")
                 // prduction
                 : this.electronService.path.resolve(this.electronService.remote.app.getAppPath(), "src/assets/scripts_default");
+
         let toFolder = this.electronService.path.resolve(this.appPath, "Scripts");
         this.logService.warn(`From:${fromFolder} -> To:${toFolder}`);
 
@@ -274,18 +289,21 @@ export class ProjectService {
                 recursive: true
             }).catch((err) => this.logService.error(err));
 
-        // save project file
-        await this.electronService.fs.writeFileSync(path, JSON.stringify(this.projectModel));
-
         // copy init files
         try {
+
+            // save project file
+            await this.electronService.fs.writeFileSync(path, JSON.stringify(this.projectModel))
+
             if (isUnsaved)
                 this.electronService.fs.copyFileSync(fromFolder, toFolder);
+
+            this.logService.success('Project saved!');
         }
         catch (error) {
-            this.logService.warn(`${fromFolder} => Is probably allready saved`);
+            this.logService.warn(`${error}`);
         }
-        this.logService.success('Project saved!');
+
 
     }
 
@@ -403,14 +421,17 @@ export class ProjectService {
     }
 
     public async openSettings() {
+        throw new Error("Depreceated method");
+
         let path = await this.saveTmp();
         this.openFile(path);
     }
 
     public async openTempFolder() {
+
+        await this.saveTmp();
         let path = this.electronService.path.resolve(this.electronService.remote.app.getPath('temp'), 'Clicker');
         this.logService.warn(`Openning temp folder ${path}`);
-
         this.electronService.remote.shell.openPath(path);
     }
 
@@ -476,11 +497,11 @@ export class ProjectService {
     */
     private async openFile(path: string) {
         this.logService.write('Openning file: ' + path);
-    
+
         let task = this.electronService.isMac ?
             this.electronService.childProcess.exec(`open ${path}`)
             : this.electronService.childProcess.exec(`start ${path}`);
-    
+
         ScriptRunnerService.handleTask(task, true, this.logService);
 
     }

@@ -54,6 +54,21 @@ export class LogService {
         // electron log
         this.electronService.ipcRenderer.invoke('logger-ipc', message, LogSeverity.DEBUG);
 
+        switch (logSeverity) {
+            case LogSeverity.DEBUG:
+                console.debug(message);
+                break;
+            case LogSeverity.WARN:
+                console.warn(message);
+                break;
+            case LogSeverity.ERROR:
+                console.error(message);
+                break;
+            case LogSeverity.SUCCESS:
+                console.info(message);
+                break;
+        }
+
         // new log (console output)
         let log = Log.Factory(message, logSeverity);
         this.onLogged.next(log);

@@ -1,12 +1,18 @@
 {
-  "PAGES": {
-      "HOME": {
-          "TITLE": "App works !",
-          "GO_TO_DETAIL": "Go to Detail"
-      },
-      "DETAIL": {
-        "TITLE": "Detail page !",
-        "BACK_TO_HOME": "Back to Home"
+    "GENERAL": {
+        "OK": "OK",
+        "CANCEL": "Cancel",
+        "BACK": "Back",
+        "SAVE": "Save",
+        "NEW": "New"
+    },
+    "PAGES": {
+        "SETTINGS": {
+            "EDIT": {
+              "TITLE": "Settings",
+              "KEY": "Key",
+              "VALUE": "Value"
+            }
+        }
     }
-  }
 }

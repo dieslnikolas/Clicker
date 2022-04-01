@@ -1,5 +1,5 @@
 import { MatDialog } from '@angular/material/dialog';
-import { Component, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatMenuTrigger } from '@angular/material/menu';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -18,7 +18,7 @@ import { DialogComponent } from '../../../shared/components/dialog/dialog.compon
     styleUrls: ['list-list.component.scss'],
     templateUrl: 'list-list.component.html',
 })
-export class ListListComponent {
+export class ListListComponent implements OnInit {
 
     contextMenuPosition = { x: '0px', y: '0px' };
     dataSource: MatTableDataSource<any>;
@@ -43,6 +43,10 @@ export class ListListComponent {
         this.projectService.projectLoaded.subscribe(() => {
             this.refreshModule();
         });
+    }
+
+    ngOnInit(): void {
+        this.refreshModule();
     }
 
     /**
@@ -130,7 +134,8 @@ export class ListListComponent {
 
         // datasource
         let data = this.projectService.moduleData;
-        if (data != null) {
+        let hasData = data != null && Object.entries(data).length > 0;
+        if (hasData) {
             this.dataSource = new MatTableDataSource(data);
             this.dataLoaded = data != null && data.length > 0;
             
@@ -138,6 +143,10 @@ export class ListListComponent {
             this.dataSource.paginator = this.paginator;
             this.dataSource.sort = this.sort;
         }
+        else {
+            this.dataSource = null;
+        }
+        this.dataLoaded = hasData;
 
         this.existsImport = this.projectService.moduleImport != null && data != null;
         this.moduleSelected = this.projectService.selectedModule != null;
