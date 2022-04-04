@@ -11,6 +11,9 @@ import { ContextMenuComponent } from './components/context-menu/context-menu.com
 import { SearchComponent } from './components/search/search.component';
 import { GlobalCommandComponent } from './components/global-command/global-command.component';
 import { ModuleComponent } from './components/module/module.component';
+import { DialogComponent } from './components/dialog/dialog.component';
+import { FrameComponent } from './components/frame/frame.component';
+import { FooterComponent } from './components/footer/footer.component';
 
 // Directives
 import { WebviewDirective } from './directives/webview/webview.directive';
@@ -50,9 +53,6 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatBadgeModule } from '@angular/material/badge';
 
-import { DialogComponent } from './components/dialog/dialog.component';
-import { FrameComponent } from './components/frame/frame.component';
-
 @NgModule({
   declarations: [
 
@@ -65,6 +65,7 @@ import { FrameComponent } from './components/frame/frame.component';
     ModuleComponent,
     DialogComponent,
     FrameComponent,
+    FooterComponent,
  
     // Directives
     WebviewDirective,
@@ -152,6 +153,7 @@ import { FrameComponent } from './components/frame/frame.component';
     SearchComponent,
     DialogComponent,
     FrameComponent,
+    FooterComponent,
 
     // Pipes
     BoolToYesNoPipe,
