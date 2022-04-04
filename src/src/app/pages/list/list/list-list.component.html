@@ -44,7 +44,7 @@
 
     <div fxLayout="row">
 
-        <div fxFlex="10" style="padding-top: 10px" *ngIf="existsImport">
+        <div fxFlex="10" style="padding-top: 10px" *ngIf="existsImport && moduleSelected">
             <button mat-raised-button color="accent" aria-label="Example icon button with a menu icon"
                 (click)="importData()" [disabled]="existsImport ? 'disabled' : ''">
                 <mat-icon>download</mat-icon> Import

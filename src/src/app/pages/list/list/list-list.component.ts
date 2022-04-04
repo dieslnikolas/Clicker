@@ -148,7 +148,7 @@ export class ListListComponent implements OnInit {
         }
         this.dataLoaded = hasData;
 
-        this.existsImport = this.projectService.moduleImport != null && data != null;
+        this.existsImport = this.projectService.moduleImport != null && Object.entries(data).length > 0;
         this.moduleSelected = this.projectService.selectedModule != null;
     }
 }
