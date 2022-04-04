@@ -1,13 +1,13 @@
 <!-- // COMMANDS -->
 <div fxLayout="column" class="table-wrapper">
 
-    <mat-form-field appearance="fill" color="accent" backgroundColor="accent">
+    <mat-form-field appearance="fill" color="accent" backgroundColor="accent" class="filter">
         <mat-label color="accent">Filter</mat-label>
         <input matInput placeholder="Enter value" (keyup)="applyFilter($event)" #input>
     </mat-form-field>
 
     <!-- DATA -->
-    <table mat-table [dataSource]="dataSource" class="mat-elevation-z0" matSort>
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z0" matSort style="padding: 0px">
 
         <!-- ID Column
       <ng-container matColumnDef="key">
@@ -45,22 +45,20 @@
     <div fxLayout="row">
 
         <div fxFlex="10" style="padding-top: 10px" *ngIf="existsImport && moduleSelected">
-            <button mat-raised-button color="accent" aria-label="Example icon button with a menu icon"
-                (click)="importData()" [disabled]="existsImport ? 'disabled' : ''">
+            <button mat-raised-button color="accent" aria-label="Example icon button with a menu icon" (click)="importData()">
                 <mat-icon>download</mat-icon> Import
             </button>
         </div>
 
         <div fxFlex="10" style="padding-top: 10px" *ngIf="!existsImport && moduleSelected" matTooltip="Create new module import command">
-            <button mat-raised-button color="accent" aria-label="Example icon button with a menu icon"
-                (click)="createNewImportScript()">
+            <button mat-raised-button color="accent" aria-label="Example icon button with a menu icon" (click)="createNewImportScript()">
                 <mat-icon>add</mat-icon> Create import script
             </button>
         </div>
 
-        <!-- <div fxFill>
+        <div fxFill>
             <mat-paginator [pageSizeOptions]="[10, 25, 50, 100]"></mat-paginator>
-        </div> -->
+        </div>
     </div>
 
 </div>

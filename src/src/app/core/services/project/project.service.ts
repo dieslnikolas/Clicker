@@ -135,10 +135,10 @@ export class ProjectService {
         if (this.selectedModule == null)
             return null;
 
-        let commands = this.getProjectCopy({ ...this.projectModel.Scripts.Modules });
+        let commands = this.getProjectCopy({ ...this._projectModel.Scripts.Modules });
 
         // PREDEFINED SCRIPT FOR IMPORTING DATA
-        delete commands[this.selectedModule]["Import" + this.selectedModule];
+        // delete commands[this.selectedModule]["Import" + this.selectedModule];
         return commands[this.selectedModule];
     }
 
@@ -148,9 +148,8 @@ export class ProjectService {
     get moduleImport() {
         if (this.selectedModule == null) return null;
 
-        let commands = this.getProjectCopy({ ...this.projectModel.Scripts.Modules });
         // PREDEFINED SCRIPT FOR IMPORT DATA
-        return commands[this.selectedModule]["Import" + this.selectedModule];
+        return this._projectModel.Scripts.Modules[this.selectedModule][`Import${this.selectedModule}`];
     }
 
     get moduleColumns() {

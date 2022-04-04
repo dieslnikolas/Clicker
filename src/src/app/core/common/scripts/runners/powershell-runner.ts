@@ -31,7 +31,7 @@ $data`;
         // ADS CONTEXT IF ITS NESESARY
         let context = "";
         
-        if (item.HasData || item.IsContext) {
+        if (true || item.HasData || item.IsContext) {
             let path = await this.projectService.saveTmp();
             context = `Get-Content "${path}" | ConvertFrom-JsonExtend | `
         }
