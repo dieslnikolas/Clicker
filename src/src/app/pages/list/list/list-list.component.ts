@@ -9,6 +9,7 @@ import { ProjectService } from '../../../core/services/project/project.service';
 import { ScriptGeneratorService } from '../../../core/services/script/script-generator.service';
 import { ScriptRunnerService } from '../../../core/services/script/script-runner.service';
 import { DialogComponent } from '../../../shared/components/dialog/dialog.component';
+import { LogService } from '../../../core/services/logger/log.service';
 
 /**
  * @title Data table with sorting, pagination, and filtering.
@@ -33,7 +34,7 @@ export class ListListComponent implements OnInit {
     @ViewChild(MatMenuTrigger)
     contextMenu: MatMenuTrigger;
 
-    constructor(private projectService: ProjectService, private dialog: MatDialog,
+    constructor(private projectService: ProjectService, private dialog: MatDialog, private logService: LogService,
         private scriptRunnerService: ScriptRunnerService, private scriptGeneratorSercice: ScriptGeneratorService
     ) {
         this.projectService.moduleChanged.subscribe(() => {
@@ -98,8 +99,11 @@ export class ListListComponent implements OnInit {
         this.scriptRunnerService.Run(action, command.value);
     }
 
-    importData() {
-        this.scriptRunnerService.Run("Import", this.projectService.moduleImport);
+    async importData() {
+        await this.scriptRunnerService.Run("Import", this.projectService.moduleImport);
+        let lastCommandResult = this.scriptRunnerService.getResult();
+        let data = JSON.parse(lastCommandResult)[this.projectService.selectedModule];
+        console.log(data);
     }
 
     applyFilter(event: Event) {

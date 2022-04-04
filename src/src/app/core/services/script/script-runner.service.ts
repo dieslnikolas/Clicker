@@ -144,6 +144,10 @@ export class ScriptRunnerService implements IScriptRunner {
         });
     }
 
+    public getResult(): any {
+        return localStorage.getItem("script-runner-result"); 
+    }
+
     /**
      * Result of the command
      * @param task task from child_processs
@@ -155,6 +159,7 @@ export class ScriptRunnerService implements IScriptRunner {
             //     this.openSnackBar("OK");
 
             logService.write(`${data}`);
+            localStorage.setItem("script-runner-result", JSON.parse(data.trim())); 
         });
 
         task.stderr.on("data", data => {
