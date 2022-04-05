@@ -36,7 +36,7 @@ $data`;
             context = `Get-Content "${path}" | ConvertFrom-JsonExtend | `
         }
 
-        return this.electronService.childProcess.spawn(this.commnad, [`-Command`, `${this.projectService.initCommand.Path} && ${context}${item.Path}`], {
+        return this.electronService.childProcess.spawn(this.commnad, [`-Command`, `${this.projectService.initCommand.Path} && ${context}${item.Path} | ConvertTo-Json -Depth 99`], {
             cwd: this.projectService.appPath
         });
 

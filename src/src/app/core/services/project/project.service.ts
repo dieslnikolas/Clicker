@@ -501,7 +501,7 @@ export class ProjectService {
             this.electronService.childProcess.exec(`open ${path}`)
             : this.electronService.childProcess.exec(`start ${path}`);
 
-        ScriptRunnerService.handleTask(task, true, this.logService);
+        ScriptRunnerService.handleTask(task, true, this.logService, null);
 
     }
 }
