@@ -45,13 +45,16 @@
     <div fxLayout="row">
 
         <div fxFlex="10" style="padding-top: 10px" *ngIf="existsImport && moduleSelected">
-            <button mat-raised-button color="accent" aria-label="Example icon button with a menu icon" (click)="importData()">
+            <button mat-raised-button color="accent" aria-label="Example icon button with a menu icon"
+                (click)="importData()">
                 <mat-icon>download</mat-icon> Import
             </button>
         </div>
 
-        <div fxFlex="10" style="padding-top: 10px" *ngIf="!existsImport && moduleSelected" matTooltip="Create new module import command">
-            <button mat-raised-button color="accent" aria-label="Example icon button with a menu icon" (click)="createNewImportScript()">
+        <div fxFlex="10" style="padding-top: 10px" *ngIf="!existsImport && moduleSelected"
+            matTooltip="Create new module import command">
+            <button mat-raised-button color="accent" aria-label="Example icon button with a menu icon"
+                (click)="createNewImportScript()">
                 <mat-icon>add</mat-icon> Create import script
             </button>
         </div>
@@ -65,22 +68,21 @@
 
 
 <!-- Grid context right click -->
-<div style="visibility: hidden; position: fixed" 
-    [style.left]="contextMenuPosition.x"
-    [style.top]="contextMenuPosition.y" 
-    [matMenuTriggerFor]="contextMenu"> </div>
+<div style="visibility: hidden; position: fixed" [style.left]="contextMenuPosition.x"
+    [style.top]="contextMenuPosition.y" [matMenuTriggerFor]="contextMenu"> </div>
 <mat-menu #contextMenu="matMenu">
     <ng-template matMenuContent let-item="item">
 
         <!-- ADD BUTTON -->
         <button mat-menu-item name="buttonAdd" (click)="createNewScript()"
-            aria-label="Example icon button with a menu icon" matTooltip="Create new module command" #tooltip="matTooltip">
+            aria-label="Example icon button with a menu icon" matTooltip="Create new module command"
+            #tooltip="matTooltip">
             <mat-icon>add</mat-icon> Create new item script
         </button>
 
         <!-- OTHER BUTTONS -->
         <button mat-menu-item *ngFor="let command of commands | keyvalue" [matMenuTriggerFor]="subMenu"
-            (click)="onContextMenuAction(command, command.key, item)" >{{ command.value.DisplayName }}
+            (click)="onContextMenuAction(command, command.key, item)">{{ command.value.DisplayName }}
             <mat-menu #subMenu="matMenu">
                 <button mat-menu-item (click)="editItem(item, command.value)">Edit</button>
                 <!-- <button mat-menu-item (click)="renameItem(command.value)">Rename</button> -->

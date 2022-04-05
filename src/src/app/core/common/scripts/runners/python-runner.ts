@@ -39,7 +39,7 @@ print(data)`;
 
         if (true || item.HasData || item.IsContext) {
             let path = await this.projectService.saveTmp();
-            args.push(`${path}`);
+            args.push(`${path} | python -m json.tool`);
         }
 
 
