@@ -10,6 +10,7 @@ import { ScriptGeneratorService } from '../../../core/services/script/script-gen
 import { ScriptRunnerService } from '../../../core/services/script/script-runner.service';
 import { DialogComponent } from '../../../shared/components/dialog/dialog.component';
 import { LogService } from '../../../core/services/logger/log.service';
+import { DialogImportComponent } from '../../../shared/components/dialog-import/dialog-import.component';
 
 /**
  * @title Data table with sorting, pagination, and filtering.
@@ -66,7 +67,7 @@ export class ListListComponent implements OnInit {
     /**
      * 
      */
-     private async createNewImportScript() {
+    private async createNewImportScript() {
 
         // create dialog
         const dialogRef = this.dialog.open(DialogComponent, {
@@ -75,7 +76,7 @@ export class ListListComponent implements OnInit {
             }
         });
     }
-    
+
 
 
     /**
@@ -95,15 +96,22 @@ export class ListListComponent implements OnInit {
     onContextMenuAction(command: any, action: string, row: any) {
         command.value.ProcessItem = row;
         command.value.Key = row.name;
-        
+
         this.scriptRunnerService.Run(action, command.value);
     }
 
     async importData() {
-        await this.scriptRunnerService.Run("Import", this.projectService.moduleImport);
-        let lastCommandResult = this.scriptRunnerService.getResult();
-        let data = JSON.parse(lastCommandResult)[this.projectService.selectedModule];
-        console.log(data);
+
+        let obs = this.scriptRunnerService.onScriptFinished.subscribe((result) => {
+            obs.unsubscribe();
+            let data = JSON.parse(result)[this.projectService.selectedModule];
+            // create dialog
+            const dialogRef = this.dialog.open(DialogImportComponent, {
+                data: Object.entries(data)
+            });
+        });
+
+        this.scriptRunnerService.Run("Import", this.projectService.moduleImport);
     }
 
     applyFilter(event: Event) {
@@ -132,6 +140,7 @@ export class ListListComponent implements OnInit {
     }
 
     private async refreshModule() {
+
         // Assign the data to the data source for the table to render
         this.commands = this.projectService.moduleCommands;
         this.displayedColumns = this.projectService.moduleColumns;
@@ -142,7 +151,7 @@ export class ListListComponent implements OnInit {
         if (hasData) {
             this.dataSource = new MatTableDataSource(data);
             this.dataLoaded = data != null && data.length > 0;
-            
+
             // filter pagination
             this.dataSource.paginator = this.paginator;
             this.dataSource.sort = this.sort;
@@ -150,9 +159,10 @@ export class ListListComponent implements OnInit {
         else {
             this.dataSource = null;
         }
-        this.dataLoaded = hasData;
 
-        this.existsImport = this.projectService.moduleImport != null && Object.entries(data).length > 0;
+        // bits
+        this.dataLoaded = hasData;
+        this.existsImport = this.projectService.moduleImport != null && data != null && Object.entries(data).length > 0;
         this.moduleSelected = this.projectService.selectedModule != null;
     }
 }

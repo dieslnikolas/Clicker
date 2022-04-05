@@ -52,6 +52,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatBadgeModule } from '@angular/material/badge';
+import { DialogImportComponent } from './components/dialog-import/dialog-import.component';
 
 @NgModule({
   declarations: [
@@ -64,6 +65,7 @@ import { MatBadgeModule } from '@angular/material/badge';
     GlobalCommandComponent,
     ModuleComponent,
     DialogComponent,
+    DialogImportComponent,
     FrameComponent,
     FooterComponent,
  
@@ -152,6 +154,7 @@ import { MatBadgeModule } from '@angular/material/badge';
     ModuleComponent,
     SearchComponent,
     DialogComponent,
+    DialogImportComponent,
     FrameComponent,
     FooterComponent,
 

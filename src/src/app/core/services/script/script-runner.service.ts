@@ -12,11 +12,15 @@ import { ChildProcessWithoutNullStreams } from "node:child_process";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { LogService } from "../logger/log.service";
 import { CommonRunner } from "../../common/scripts/runners/common-runner";
+import { Subject } from "rxjs";
+import  * as iconvlite from 'iconv-lite'
 
 @Injectable({
     providedIn: 'root'
 })
 export class ScriptRunnerService implements IScriptRunner {
+
+    public onScriptFinished: Subject<any> = new Subject<any>();
 
     /**
      * Determine which runner to use
@@ -68,7 +72,7 @@ export class ScriptRunnerService implements IScriptRunner {
 
             let runner = this.getCurrentRunner(item.Path);
             let task = await runner.Run(action, item);
-            ScriptRunnerService.handleTask(task, supressSnack, this.logService);
+            ScriptRunnerService.handleTask(task, supressSnack, this.logService, this.onScriptFinished);
             return task;
         }
         catch (error) {
@@ -86,7 +90,7 @@ export class ScriptRunnerService implements IScriptRunner {
             commandObj.HasData = true;
 
             let task = await runner.Run(command);
-            ScriptRunnerService.handleTask(task, true, this.logService);
+            ScriptRunnerService.handleTask(task, true, this.logService, this.onScriptFinished);
             return task;
         }
         catch (error) {
@@ -144,22 +148,22 @@ export class ScriptRunnerService implements IScriptRunner {
         });
     }
 
-    public getResult(): any {
-        return localStorage.getItem("script-runner-result"); 
-    }
-
     /**
      * Result of the command
      * @param task task from child_processs
      * @param suppressSnack if show snack
      */
-    public static handleTask(task: ChildProcessWithoutNullStreams, suppressSnack: boolean, logService: LogService) {
+    public static handleTask(task: ChildProcessWithoutNullStreams, suppressSnack: boolean, logService: LogService, onScriptFinished: Subject<any>) {
         task.stdout.on("data", data => {
             // if (!suppressSnack)
             //     this.openSnackBar("OK");
 
+            // DATA
             logService.write(`${data}`);
-            localStorage.setItem("script-runner-result", JSON.parse(data.trim())); 
+
+            // SUBSCRIBERS
+            if (onScriptFinished)
+                onScriptFinished.next(data);
         });
 
         task.stderr.on("data", data => {
