@@ -72,7 +72,7 @@ export class ScriptRunnerService implements IScriptRunner {
 
             let runner = this.getCurrentRunner(item.Path);
             let task = await runner.Run(action, item);
-            ScriptRunnerService.handleTask(task, supressSnack, this.logService, this.onScriptFinished);
+            ScriptRunnerService.handleTask(item, task, supressSnack, this.logService, this.onScriptFinished);
             return task;
         }
         catch (error) {
@@ -90,7 +90,7 @@ export class ScriptRunnerService implements IScriptRunner {
             commandObj.HasData = true;
 
             let task = await runner.Run(command);
-            ScriptRunnerService.handleTask(task, true, this.logService, this.onScriptFinished);
+            ScriptRunnerService.handleTask(commandObj, task, true, this.logService, this.onScriptFinished);
             return task;
         }
         catch (error) {
@@ -153,7 +153,12 @@ export class ScriptRunnerService implements IScriptRunner {
      * @param task task from child_processs
      * @param suppressSnack if show snack
      */
-    public static handleTask(task: ChildProcessWithoutNullStreams, suppressSnack: boolean, logService: LogService, onScriptFinished: Subject<any>) {
+    public static handleTask(command: Command, task: ChildProcessWithoutNullStreams, suppressSnack: boolean, logService: LogService, onScriptFinished: Subject<any>) {
+        
+        // Start task
+        logService.success(`Running command: ${command.Path} (${command.Key})`)
+        // logService.success(task.spawnargs.join(""))
+        
         task.stdout.on("data", data => {
             // if (!suppressSnack)
             //     this.openSnackBar("OK");
@@ -181,12 +186,13 @@ export class ScriptRunnerService implements IScriptRunner {
         });
 
         task.on("close", code => {
-            // if (code == 0 && !suppressSnack)
-            //     this.openSnackBar("OK");
-            // else if (!suppressSnack)
-            //     this.openSnackBar("Something went wrong");
 
-            logService.success(`child process exited with code ${code}`);
+            if (code == 0 && !suppressSnack)
+                logService.success(`child process exited with code ${code}`);
+
+            else if (!suppressSnack)
+                logService.error(`Some error's occured`);
+            
         });
     }
 
