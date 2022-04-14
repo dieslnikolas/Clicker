@@ -72,7 +72,7 @@ export class ScriptRunnerService implements IScriptRunner {
 
             let runner = this.getCurrentRunner(item.Path);
             let task = await runner.Run(action, item);
-            ScriptRunnerService.handleTask(item, task, supressSnack, this.logService, this.onScriptFinished);
+            ScriptRunnerService.handleTask(item, task, supressSnack, this.logService);
             return task;
         }
         catch (error) {
@@ -90,7 +90,7 @@ export class ScriptRunnerService implements IScriptRunner {
             commandObj.HasData = true;
 
             let task = await runner.Run(command);
-            ScriptRunnerService.handleTask(commandObj, task, true, this.logService, this.onScriptFinished);
+            ScriptRunnerService.handleTask(commandObj, task, true, this.logService);
             return task;
         }
         catch (error) {
@@ -153,7 +153,7 @@ export class ScriptRunnerService implements IScriptRunner {
      * @param task task from child_processs
      * @param suppressSnack if show snack
      */
-    public static handleTask(command: Command, task: ChildProcessWithoutNullStreams, suppressSnack: boolean, logService: LogService, onScriptFinished: Subject<any>) {
+    public static handleTask(command: Command, task: ChildProcessWithoutNullStreams, suppressSnack: boolean, logService: LogService) {
         
         // Start task
         logService.success(`Running command: ${command.Path} (${command.Key})`)
@@ -165,10 +165,6 @@ export class ScriptRunnerService implements IScriptRunner {
 
             // DATA
             logService.write(`${data}`);
-
-            // SUBSCRIBERS
-            if (onScriptFinished)
-                onScriptFinished.next(data);
         });
 
         task.stderr.on("data", data => {
