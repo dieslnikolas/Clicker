@@ -501,7 +501,12 @@ export class ProjectService {
             this.electronService.childProcess.exec(`open ${path}`)
             : this.electronService.childProcess.exec(`start ${path}`);
 
-        ScriptRunnerService.handleTask(task, true, this.logService, null);
+        let commandObj = new Command();
+
+        commandObj.Path = "OPEN_FILE";
+        commandObj.HasData = true;
+
+        ScriptRunnerService.handleTask(commandObj, task, true, this.logService);
 
     }
 }
