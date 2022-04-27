@@ -77,12 +77,10 @@ export class AppComponent implements OnInit, AfterViewInit {
 
             // asociated file
             let path = this.electronService.remote.process.argv[1];
-            this.logService.success(`path (ENV): ${path}`);
 
             // last know project
-            if (path == null && this.PROJECT_TEMPLATE != null) {
+            if ((path == null || path == ".") && this.PROJECT_TEMPLATE != null) {
                 path = this.PROJECT_TEMPLATE;
-                this.logService.success(`path (PROJECT_TEMPLATE): ${path}`);
             }
 
             // default 

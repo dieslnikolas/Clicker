@@ -279,7 +279,7 @@ export class ProjectService {
                 : this.electronService.path.resolve(this.electronService.remote.app.getAppPath(), "src/assets/scripts_default");
 
         let toFolder = this.electronService.path.resolve(this.appPath, "Scripts");
-        this.logService.warn(`From:${fromFolder} -> To:${toFolder}`);
+        this.logService.warn(`From: ${fromFolder} -> To: ${toFolder}`);
 
         // creating DIR
         let file = this.electronService.path.parse(path);
