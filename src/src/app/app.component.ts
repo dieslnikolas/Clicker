@@ -74,15 +74,26 @@ export class AppComponent implements OnInit, AfterViewInit {
     ngAfterViewInit(): void {
         // try to load default project
         try {
-            // if project exists
-            if (this.PROJECT_TEMPLATE != null)
-                this.loadProjectFromFile(this.PROJECT_TEMPLATE);
+
+            // asociated file
+            let path = this.electronService.remote.process.argv[1];
+            this.logService.success(`path (ENV): ${path}`);
+
+            // last know project
+            if (path == null && this.PROJECT_TEMPLATE != null) {
+                path = this.PROJECT_TEMPLATE;
+                this.logService.success(`path (PROJECT_TEMPLATE): ${path}`);
+            }
+
+            // default 
+            if (path != null)
+                this.loadProjectFromFile(path);
         }
         catch (error) {
             this.logService.warn(`${this.projectLoaded} doest not exits, deleting from cache`);
             localStorage.removeItem("last_project");
         }
-        
+
         // not loading
         setTimeout(() => this.isLoading = false, 100);
     }
