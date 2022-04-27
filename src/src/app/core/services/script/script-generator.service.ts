@@ -17,6 +17,13 @@ import { LogService } from "../logger/log.service";
 })
 export class ScriptGeneratorService {
 
+    /**
+     * ImportScriptName is preserved
+     */
+    ImportScriptName(type: ScriptType): string {
+        return `Import${this.projectService.selectedModule}`;
+    }
+
     constructor(private logService: LogService, private electronService: ElectronService, private projectService: ProjectService, private scriptTypeHelper: ScriptTypeHelper, private scriptRunnerService: ScriptRunnerService) { }
 
     /**
@@ -28,6 +35,10 @@ export class ScriptGeneratorService {
     public async generate(fileName: string, scope: ScriptScope, type: ScriptType, hasData: boolean): Promise<void> {
 
         try {
+
+            if (scope == ScriptScope.Import)
+                fileName = this.ImportScriptName(type);
+
             // validation
             await this.validate(fileName, scope, type);
 
@@ -87,8 +98,11 @@ export class ScriptGeneratorService {
      */
     public async validate(name: string, scope: ScriptScope, type: ScriptType): Promise<boolean> {
 
-        if (name == null || name.length == 0)
+        if ((name == null || name.length == 0) && scope != ScriptScope.Import)
             throw new Error("Missing script name");
+
+        if (scope != ScriptScope.Import && name == this.ImportScriptName(type))
+            throw new Error("Preserved filename " + name + " use another name");
 
         if (this.electronService.fs.existsSync(name))
             throw new Error("file exists " + name);
@@ -195,19 +209,11 @@ export class ScriptGeneratorService {
             throw new Error(`Unsuported scope ` + scope);
         }
 
-        let file = this.electronService.path.parse(fileName);
-
-        // NAME
-        fileName = scope == ScriptScope.Import ?
-
-            // import script - name is ignored
-            `Import${this.projectService.selectedModule}.${type.toString()}`
-
-            // regular row script
-            : `${file.name.replace("-", "_").replace(/\s/g, '')}.${type.toString()}`;
+        let file = this.electronService.path.parse(fileName)
+        let fileNameFixed = `${file.name.replace("-", "_").replace(/\s/g, '')}.${type.toString()}`
 
         // finaly connect whole path 
-        pathFixed = `${pathFixed}/${fileName}`;
+        pathFixed = `${pathFixed}/${fileNameFixed}`;
 
         return pathFixed;
     }

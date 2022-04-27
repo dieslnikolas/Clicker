@@ -8,7 +8,7 @@
 
     <div mat-dialog-content>
 
-        <mat-form-field appearance="fill">
+        <mat-form-field appearance="fill" *ngIf="data.scriptScope != 2">
             <mat-label>Script name</mat-label>
             <input matInput [(ngModel)]="data.name" [formControl]="name" required [errorStateMatcher]="matcher">
             <mat-error *ngIf="name.hasError('required')">Enter script name</mat-error>
@@ -23,9 +23,6 @@
             </mat-select>
             <mat-error *ngIf="scriptType.hasError('required')">You must select type</mat-error>
         </mat-form-field>
-
-        <br />
-        <mat-checkbox [(ngModel)]="data.hasData" name="hasData" *ngIf="data.scriptScope != 3">Has data</mat-checkbox>
 
     </div>
 

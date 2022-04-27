@@ -101,17 +101,15 @@ export class ListListComponent implements OnInit {
     }
 
     async importData() {
-
-        let obs = this.scriptRunnerService.onScriptFinished.subscribe((result) => {
-            obs.unsubscribe();
-            let data = JSON.parse(result)[this.projectService.selectedModule];
-            // create dialog
-            const dialogRef = this.dialog.open(DialogImportComponent, {
-                data: Object.entries(data)
-            });
+        let result = await this.scriptRunnerService.Run("Import", this.projectService.moduleImport);
+        
+        // TODO, wait for result and use it in import
+        let data = JSON.parse(result)[this.projectService.selectedModule];
+        
+        // create dialog
+        const dialogRef = this.dialog.open(DialogImportComponent, {
+            data: Object.entries(data)
         });
-
-        this.scriptRunnerService.Run("Import", this.projectService.moduleImport);
     }
 
     applyFilter(event: Event) {
@@ -162,7 +160,7 @@ export class ListListComponent implements OnInit {
 
         // bits
         this.dataLoaded = hasData;
-        this.existsImport = this.projectService.moduleImport != null && data != null && Object.entries(data).length > 0;
+        this.existsImport = this.projectService.moduleImport != null;
         this.moduleSelected = this.projectService.selectedModule != null;
     }
 }
