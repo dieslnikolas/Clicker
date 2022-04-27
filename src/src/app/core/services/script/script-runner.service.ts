@@ -20,8 +20,6 @@ import  * as iconvlite from 'iconv-lite'
 })
 export class ScriptRunnerService implements IScriptRunner {
 
-    public onScriptFinished: Subject<any> = new Subject<any>();
-
     /**
      * Determine which runner to use
      * @param scriptPath path to script
@@ -156,7 +154,7 @@ export class ScriptRunnerService implements IScriptRunner {
     public static handleTask(command: Command, task: ChildProcessWithoutNullStreams, suppressSnack: boolean, logService: LogService) {
         
         // Start task
-        logService.success(`Running command: ${command.Path} (${command.Key})`)
+        logService.success(`Running command: ${command.Path} (Key: ${command.Key ?? "NO_KEY" })`)
         // logService.success(task.spawnargs.join(""))
         
         task.stdout.on("data", data => {
