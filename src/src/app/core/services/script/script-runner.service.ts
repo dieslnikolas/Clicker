@@ -65,12 +65,12 @@ export class ScriptRunnerService implements IScriptRunner {
             }
 
             // tune path to file (relative from project folder)
-            item.Path = this.electronService.path.resolve(this.projectService.appPath, item.Path);
+            let pathResolved = this.electronService.path.resolve(this.projectService.appPath, item.Path);
 
-            if (!this.electronService.fs.existsSync(item.Path))
-                throw new Error("File doesn't exists: " + item.Path);
+            if (!this.electronService.fs.existsSync(pathResolved))
+                throw new Error("File doesn't exists: " + pathResolved);
 
-            let runner = this.getCurrentRunner(item.Path);
+            let runner = this.getCurrentRunner(pathResolved);
             let task = await runner.Run(action, item);
             ScriptRunnerService.handleTask(item, task, supressSnack, this.logService);
             return task;
