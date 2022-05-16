@@ -17,11 +17,8 @@
     ]
   },
   "files": [
-    "app/main.ts"
+    "electron/main.ts"
   ],
-//   "include": [
-//     "app/**/*.ts"
-//   ],
   "exclude": [
     "node_modules",
     "**/*.spec.ts"

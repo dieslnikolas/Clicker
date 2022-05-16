@@ -6,10 +6,10 @@
 /out-tsc
 /app-builds
 /release
-app/**/*.js
-app/**/*.map
-src/**/*.js
-!src/karma.conf.js
+electron/**/*.js
+electron/**/*.map
+clientAngular/**/*.js
+!clientAngular/karma.conf.js
 *.js.map
 
 # dependencies

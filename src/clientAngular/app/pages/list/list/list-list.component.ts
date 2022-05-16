@@ -104,7 +104,7 @@ export class ListListComponent implements OnInit {
         let result = await this.scriptRunnerService.Run("Import", this.projectService.moduleImport);
         
         // TODO, wait for result and use it in import
-        let data = JSON.parse(result)[this.projectService.selectedModule];
+        let data = {}; //= JSON.parse(result)[this.projectService.selectedModule];
         
         // create dialog
         const dialogRef = this.dialog.open(DialogImportComponent, {
