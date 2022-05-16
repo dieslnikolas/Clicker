@@ -21,7 +21,7 @@
     ]
   },
   "include": [
-    "src/**/*.d.ts"
+    "clientAngular/**/*.d.ts"
   ],
   "exclude": [
     "node_modules"
