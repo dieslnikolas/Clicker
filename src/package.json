@@ -46,10 +46,12 @@
 
         "version": "conventional-changelog -i CHANGELOG.md -s -r 0 && git add CHANGELOG.md",
 
-        "api:test": "echo \"Error: no test specified\" && exit 1",
+        "api:build": "tsc -p api/tsconfig.json -w",
+        "api:buildnowatch": "tsc -p api/tsconfig.json",
         "api:start": "npm-run-all -p api:build api:run",
-        "api:run": "node api/dist/index.js",
-        "api:build": "tsc -p api/tsconfig.json -w"
+        "api:run": "ENVIRONMENT=dev node api/dist/server.js",
+        "api:rundev": "ENVIRONMENT=production node api/dist/server.js",
+        "api:test": "echo \"Error: no test specified\" && exit 1"
     },
     "dependencies": {
         "@angular/animations": "13.3.0",
