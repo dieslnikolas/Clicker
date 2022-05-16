@@ -8,5 +8,8 @@
     "@electron/remote": "1.2.0",
     "fs-extra": "^10.0.1",
     "log4js": "^6.4.4"
+  },
+  "devDependencies": {
+    "typescript": "^4.6.4"
   }
 }
