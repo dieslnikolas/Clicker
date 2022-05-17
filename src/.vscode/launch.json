@@ -5,6 +5,16 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "API",
+            "port": 8080,
+            "request": "attach",
+            "localRoot": "${workspaceFolder}/api",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "type": "node"
+        },
+        {
             "name": "Renderer",
             "type": "chrome",
             "request": "attach",
@@ -35,15 +45,6 @@
                 "runtimeExecutable": "${workspaceFolder}/node_modules/.bin/electron.cmd"
             },
             "preLaunchTask": "Build.Main"
-        },
-        {
-            "name": "REST API",
-            "type": "node",
-            "request": "launch",
-            "cwd": "${workspaceFolder}",
-            "program": "${workspaceFolder}/api/src/server.ts",
-            "preLaunchTask": "Build.API",
-            "outFiles": ["${workspaceFolder}/api/dist/**/server.js"]
         }
     ],
     "compounds": [

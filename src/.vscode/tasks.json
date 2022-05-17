@@ -48,7 +48,7 @@
       {
         "label": "Build.API",
         "type": "shell",
-        "command": "npm run api:buildnowatch",
+        "command": "npm run api:dev",
         "isBackground": true,
         "group": {
           "kind": "build",
