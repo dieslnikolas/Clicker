@@ -1,20 +1,15 @@
-import { env } from "./application/environment/env";
-import { App } from "./application/application";
-import { middleware } from "./application/middleware";
-import { router } from "./application/routes/project.router";
+import express, { Express, Request, Response } from 'express';
+import dotenv from 'dotenv';
 
-const port: number = env().port ?? 8080;
+dotenv.config();
 
-/**
- * Configure App instance
- */
-const app = new App(
-  port,
-  middleware,
-  [router] //* Add your express router objects here
-);
+const app: Express = express();
+const port = 8080; // process.env.PORT;
 
-/**
- * Launch!
- */
-app.listen();
+app.get('/', (req: Request, res: Response) => {
+  res.send('Clicker API');
+});
+
+app.listen(port, () => {
+  console.log(`⚡️[server]: Server is running at https://localhost:${port}`);
+});
