@@ -5,6 +5,7 @@
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
+    "outDir": "../../dist/shell",
     "target": "es5",
     "types": [
       "node"
@@ -17,7 +18,7 @@
     ]
   },
   "files": [
-    "main.ts"
+    "src/main.ts",
   ],
   "exclude": [
     "../node_modules",
