@@ -6,15 +6,15 @@
     "compounds": [
         {
             "name": "Debug ALL (F5)",
-            "configurations": [ "Client Angular", "API Express", "Electron" ]
+            "configurations": [ "API", "Shell" ]
         }
     ],
     "configurations": [
         {
             "console": "integratedTerminal",
             "internalConsoleOptions": "neverOpen",
-            "name": "API Express",
-            "program": "${workspaceFolder}/api/src/server.ts",
+            "name": "API",
+            "program": "${workspaceFolder}/Clicker.API/src/app.ts",
             "request": "launch",
             "restart": true,
             "runtimeExecutable": "nodemon",
@@ -38,11 +38,11 @@
             "preLaunchTask": "Build.Renderer"
         },
         {
-            "name": "Electron",
+            "name": "Shell",
             "type": "node",
             "request": "launch",
             "cwd": "${workspaceFolder}",
-            "runtimeExecutable": "${workspaceFolder}/node_modules/.bin/electron",
+            "runtimeExecutable": "${workspaceFolder}/Clicker.Shell/node_modules/.bin/electron",
             "trace": true,
             "runtimeArgs": [
                 "--serve",
@@ -50,7 +50,7 @@
                 "--remote-debugging-port=9786"
             ],
             "windows": {
-                "runtimeExecutable": "${workspaceFolder}/node_modules/.bin/electron.cmd"
+                "runtimeExecutable": "${workspaceFolder}/Clicker.Shell/node_modules/.bin/electron.cmd"
             },
             "preLaunchTask": "Build.Main"
         }

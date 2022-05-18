@@ -34,7 +34,8 @@
 
         "shell:installdeps": "cd Clicker.Shell && npm run installdeps",
         "shell:build": "cd Clicker.Shell && npm run build",
-        "shell:start": "cd Clicker.Shell && npm start",
+        "shell:start": "cd Clicker.Shell && npm run start",
+        "shell:development": "cd Clicker.Shell && npm run development",
 
         "client:installdeps": "cd Clicker.Client && npm run installdeps",
         "client:build": "cd Clicker.Client && npm run build",
