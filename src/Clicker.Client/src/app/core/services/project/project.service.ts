@@ -276,7 +276,7 @@ export class ProjectService {
                 // devel
                 this.electronService.path.resolve(this.electronService.remote.app.getAppPath(), "assets/scripts_default")
                 // prduction
-                : this.electronService.path.resolve(this.electronService.remote.app.getAppPath(), "clientAngular/assets/scripts_default");
+                : this.electronService.path.resolve(this.electronService.remote.app.getAppPath(), "Clicker.Client/assets/scripts_default");
 
         let toFolder = this.electronService.path.resolve(this.appPath, "Scripts");
         this.logService.warn(`From: ${fromFolder} -> To: ${toFolder}`);
