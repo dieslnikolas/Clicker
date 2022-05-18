@@ -1,0 +1,18 @@
+{
+    "files.exclude": {
+        "**/.git": true,
+        "**/.svn": true,
+        "**/.hg": true,
+        "**/CVS": true,
+        "**/.DS_Store": true,
+        "**/Thumbs.db": true,
+        "**/node_modules": true,
+        "**/dist": true,
+        "electron/**/*.js": true,
+        "electron/**/*.js.map": true,
+        // hide test, since I dont know how to use it yet
+        "e2e": true,
+        ".eslintrc.json": true,
+    },
+    "editor.tabSize": 4
+}
