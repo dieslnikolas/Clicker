@@ -7,7 +7,8 @@
     "scripts": {
         "installdeps": "npm ci && cp package.json ../../dist/shell && cd ../../dist/shell && npm install --only=production",
         "build": "tsc -p tsconfig.json",
-        "start": "cd ../../dist/shell && npx electron ./main.js --serve"
+        "start": "cd ../../dist/shell && npx electron ./main.js --serve",
+        "development": "npm run build && npm run start"
     },
     "dependencies": {
         "@electron/remote": "1.2.0",
