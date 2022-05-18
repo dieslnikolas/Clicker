@@ -1,3 +1,4 @@
+import { ChildProcessWithoutNullStreams } from "node:child_process";
 import { Command } from "./command";
 
 export interface IScriptRunner {
@@ -7,7 +8,7 @@ export interface IScriptRunner {
      * @param scriptPath path to scripts
      * @param item command
      */
-    Run(action: string, item: Command): Promise<any>;
+    Run(action: string, item: Command): Promise<ChildProcessWithoutNullStreams>;
 
     /**
      * init script template

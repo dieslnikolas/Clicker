@@ -6,7 +6,7 @@
     "compounds": [
         {
             "name": "Debug ALL (F5)",
-            "configurations": [ "API", "Shell" ]
+            "configurations": [ "Client Angular", "API", "Shell" ]
         }
     ],
     "configurations": [
@@ -33,7 +33,7 @@
             "timeout": 10000,
             "trace": true,
             "sourceMapPathOverrides": {
-                "webpack:///./*": "${workspaceFolder}/*"
+                "webpack:///./*": "${workspaceFolder}/Clicker.Client/*"
             },
             "preLaunchTask": "Build.Renderer"
         },

@@ -76,7 +76,7 @@ export class ModuleComponent implements OnInit {
         this.contextMenu.openMenu();
     }
 
-    deleteItem(command: Command) {
+    deleteItem(command: any) {
         if (confirm(`Are you sure to delete ${command.DisplayName}`)) {
             // fake command button
             let fakeCommand = new Command();

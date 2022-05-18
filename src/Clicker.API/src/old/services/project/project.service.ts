@@ -4,14 +4,13 @@ import { Subject } from 'rxjs';
 import { APP_CONFIG } from "../../../../environments/environment";
 import { Command } from "../../common/scripts/command";
 import { ScriptScope } from "../../common/scripts/script-scope";
-import { CoreModule } from "../../core.module";
 import { ElectronService } from "../electron/electron.service";
 import { LogService } from "../logger/log.service";
 import { ScriptRunnerService } from "../script/script-runner.service";
 import { ProjectModel } from "./project.model";
 
 @Injectable({
-    providedIn: CoreModule
+    providedIn: 'root'
 })
 export class ProjectService {
 

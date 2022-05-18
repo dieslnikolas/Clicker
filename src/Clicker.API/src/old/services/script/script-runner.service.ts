@@ -8,14 +8,15 @@ import { ElectronService } from "../electron/electron.service";
 import { Command } from "../../common/scripts/command"
 import { ProjectService } from "../project/project.service";
 import { BashRunner } from "../../common/scripts/runners/bash-runner";
+import { ChildProcessWithoutNullStreams } from "node:child_process";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { LogService } from "../logger/log.service";
 import { CommonRunner } from "../../common/scripts/runners/common-runner";
 import { Subject } from "rxjs";
-import { CoreModule } from "../../core.module";
+import  * as iconvlite from 'iconv-lite'
 
 @Injectable({
-    providedIn: CoreModule
+    providedIn: 'root'
 })
 export class ScriptRunnerService implements IScriptRunner {
 
@@ -50,7 +51,7 @@ export class ScriptRunnerService implements IScriptRunner {
      * @param item Command item, reads path from it
      * @returns returns promise with finished command
      */
-    public async Run(action: string, item: Command, supressSnack: boolean = false): Promise<any> {
+    public async Run(action: string, item: Command, supressSnack: boolean = false): Promise<ChildProcessWithoutNullStreams> {
 
         try {
             this.projectService.processedItemClear();
@@ -78,7 +79,7 @@ export class ScriptRunnerService implements IScriptRunner {
         }
     }
 
-    async RunCMD(command: string): Promise<any> {
+    async RunCMD(command: string): Promise<ChildProcessWithoutNullStreams> {
         try {
             let runner = this.commonRunner;
             let commandObj = new Command();
@@ -100,7 +101,7 @@ export class ScriptRunnerService implements IScriptRunner {
      * Initialize (some global collection of functions or scripts)
      * @returns Initialize data
      */
-    async Init(): Promise<any> {
+    async Init(): Promise<ChildProcessWithoutNullStreams> {
 
         // try to find command
         let item = this.projectService.initCommand;
@@ -150,7 +151,7 @@ export class ScriptRunnerService implements IScriptRunner {
      * @param task task from child_processs
      * @param suppressSnack if show snack
      */
-    public static handleTask(command: Command, task: any, suppressSnack: boolean, logService: LogService) {
+    public static handleTask(command: Command, task: ChildProcessWithoutNullStreams, suppressSnack: boolean, logService: LogService) {
         
         // Start task
         logService.success(`Running command: ${command.Path} (Key: ${command.Key ?? "NO_KEY" })`)

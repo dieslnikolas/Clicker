@@ -1,5 +1,6 @@
 import { Injectable } from "@angular/core";
 import { CoreModule } from "@angular/flex-layout";
+import { ChildProcessWithoutNullStreams } from "node:child_process";
 import { ElectronService } from "../../../services/electron/electron.service";
 import { ProjectService } from "../../../services/project/project.service";
 import { Command } from "../command";
@@ -31,7 +32,7 @@ print(data)`;
         return null;
     }
 
-    async Run(action: string, item: Command): Promise<any> {
+    async Run(action: string, item: Command): Promise<ChildProcessWithoutNullStreams> {
 
         // ADS CONTEXT IF ITS NESESARY
         let args = [item.Path];

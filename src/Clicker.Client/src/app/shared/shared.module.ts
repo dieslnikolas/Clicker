@@ -12,7 +12,6 @@ import { SearchComponent } from './components/search/search.component';
 import { GlobalCommandComponent } from './components/global-command/global-command.component';
 import { ModuleComponent } from './components/module/module.component';
 import { DialogComponent } from './components/dialog/dialog.component';
-import { FrameComponent } from './components/frame/frame.component';
 import { FooterComponent } from './components/footer/footer.component';
 
 // Directives
@@ -66,7 +65,6 @@ import { DialogImportComponent } from './components/dialog-import/dialog-import.
     ModuleComponent,
     DialogComponent,
     DialogImportComponent,
-    FrameComponent,
     FooterComponent,
  
     // Directives
@@ -155,7 +153,6 @@ import { DialogImportComponent } from './components/dialog-import/dialog-import.
     SearchComponent,
     DialogComponent,
     DialogImportComponent,
-    FrameComponent,
     FooterComponent,
 
     // Pipes

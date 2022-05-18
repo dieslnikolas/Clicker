@@ -8,13 +8,12 @@ import { ElectronService } from "../electron/electron.service";
 import { ScriptRunnerService } from "./script-runner.service";
 import { Command } from "../../common/scripts/command";
 import { LogService } from "../logger/log.service";
-import { CoreModule } from "../../core.module";
 
 /**
  * Genetares scripts based by some folder structure
  */
 @Injectable({
-    providedIn: CoreModule
+    providedIn: 'root'
 })
 export class ScriptGeneratorService {
 

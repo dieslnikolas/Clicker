@@ -28,6 +28,7 @@
 
     <div mat-dialog-actions >
         <button mat-flat-button style="margin-right:5px" (click)="onNoClick()">Cancel</button>
-        <button mat-flat-button color="primary" [mat-dialog-close]="data" [disabled]="matcher.isValid"  (click)="onOkClick()" cdkFocusInitial>Ok</button>
+        <button mat-flat-button color="primary" [mat-dialog-close]="data"  (click)="onOkClick()" cdkFocusInitial>Ok</button>
+        <!-- <button mat-flat-button color="primary" [mat-dialog-close]="data" [disabled]="matcher.isValid"  (click)="onOkClick()" cdkFocusInitial>Ok</button> -->
     </div>
 </form>
