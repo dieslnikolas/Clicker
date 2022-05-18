@@ -1,3 +1,4 @@
+
 ## Original project
 
 - original repository : 
@@ -40,3 +41,11 @@
 
 - how to create scripts
 - supported scripts
+
+
+## NPM global libraries:
+├── @angular/cli@11.2.8
+├── concurrently@5.3.0
+├── nodemon@2.0.16
+├── npm@6.14.13
+└── wait-on@5.2.1

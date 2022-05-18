@@ -2,55 +2,57 @@
     // Use IntelliSense to learn about possible attributes.
     // Hover to view descriptions of existing attributes.
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
-    "version": "0.2.0",
+    "version": "1.0.0",
+    "compounds": [
+        {
+            "name": "Debug ALL (F5)",
+            "configurations": [ "Client Angular", "API Express", "Electron" ]
+        }
+    ],
     "configurations": [
         {
-            "name": "API",
-            "port": 8080,
-            "request": "attach",
-            "localRoot": "${workspaceFolder}/api",
+            "console": "integratedTerminal",
+            "internalConsoleOptions": "neverOpen",
+            "name": "API Express",
+            "program": "${workspaceFolder}/api/src/server.ts",
+            "request": "launch",
+            "restart": true,
+            "runtimeExecutable": "nodemon",
             "skipFiles": [
                 "<node_internals>/**"
             ],
             "type": "node"
         },
         {
-            "name": "Renderer",
+            "name": "Client Angular",
             "type": "chrome",
             "request": "attach",
-            "port": 9876,
+            "port": 9786,
             "url": "http://localhost:4200",
             "sourceMaps": true,  
             "timeout": 10000,
-            "trace": "verbose",
+            "trace": true,
             "sourceMapPathOverrides": {
                 "webpack:///./*": "${workspaceFolder}/*"
             },
             "preLaunchTask": "Build.Renderer"
         },
         {
-            "name": "Main",
+            "name": "Electron",
             "type": "node",
             "request": "launch",
-            "protocol": "inspector",
             "cwd": "${workspaceFolder}",
             "runtimeExecutable": "${workspaceFolder}/node_modules/.bin/electron",
-            "trace": "verbose",
+            "trace": true,
             "runtimeArgs": [
                 "--serve",
                 ".",
-                "--remote-debugging-port=9876"
+                "--remote-debugging-port=9786"
             ],
             "windows": {
                 "runtimeExecutable": "${workspaceFolder}/node_modules/.bin/electron.cmd"
             },
             "preLaunchTask": "Build.Main"
-        }
-    ],
-    "compounds": [
-        {
-            "name": "Application Debug",
-            "configurations": [ "Renderer", "Main" ]
         }
     ]
 }
