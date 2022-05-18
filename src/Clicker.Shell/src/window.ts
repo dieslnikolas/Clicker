@@ -73,7 +73,7 @@ export class WindowBuilder {
             // auto reloads shell when changes in electron are made
             require('electron-reload')(__dirname, {
                 // need to re-require electron
-                electron: require(path.join(__dirname, '/../node_modules/electron'))
+                electron: require(path.join(__dirname, '/node_modules/electron'))
             });
 
             // url with hosted app

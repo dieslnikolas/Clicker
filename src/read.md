@@ -49,3 +49,10 @@
 ├── nodemon@2.0.16
 ├── npm@6.14.13
 └── wait-on@5.2.1
+
+global package.json vs local
+electron starts (--serve web otherwise localfile (package))
+express start
+client start
+
+TODO fill this piece of s...
