@@ -1,7 +1,7 @@
 import { app, BrowserWindow } from 'electron';
 import { Logger } from './common/logger';
-import { WindowBuilder } from '../window';
-import { MenuBarBuilder } from '../menubar';
+import { WindowBuilder } from './window';
+import { MenuBarBuilder } from './menubar';
 
 
 // Initialize remote module
@@ -9,9 +9,6 @@ require('@electron/remote/main').initialize();
 
 // disable warnings
 process.env['ELECTRON_DISABLE_SECURITY_WARNINGS'] = 'true';
-
-// Browser window is global to not create another instances
-let win: BrowserWindow = null;
 
 let logger = new Logger(); // init logging
 

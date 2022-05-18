@@ -1,7 +1,7 @@
 {
   "asar": false,
   "directories": {
-    "output": "../release/"
+    "output": "../../dist/release/"
   },
   "files": [
     "**/*",
@@ -12,7 +12,7 @@
   ],
   "extraResources": [
     {
-      "from": "../dist",
+      "from": "../../dist/shell",
       "to": "src",
       "filter": [
         "**/*"
@@ -29,13 +29,13 @@
     "splashImage": "../dist/assets/icons/electron.bmp"
   },
   "mac": {
-    "icon": "../dist/assets/icons",
+    "icon": "../../dist/shell/assets/icons",
     "target": [
       "dmg"
     ]
   },
   "linux": {
-    "icon": "../dist/assets/icons",
+    "icon": "../..//dist/shell/assets/icons",
     "target": [
       "AppImage"
     ]
