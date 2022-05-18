@@ -9,7 +9,7 @@
   "projects": {
     "angular-electron": {
       "root": "",
-      "sourceRoot": "clientAngular",
+      "sourceRoot": "Clicker.Client",
       "projectType": "application",
       "schematics": {
         "@schematics/angular:application": {
@@ -21,16 +21,16 @@
           "builder": "@angular-builders/custom-webpack:browser",
           "options": {
             "outputPath": "../dist",
-            "index": "clientAngular/index.html",
-            "main": "clientAngular/main.ts",
-            "tsConfig": "clientAngular/tsconfig.app.json",
-            "polyfills": "clientAngular/polyfills.ts",
+            "index": "Clicker.Client/index.html",
+            "main": "Clicker.Client/main.ts",
+            "tsConfig": "Clicker.Client/tsconfig.app.json",
+            "polyfills": "Clicker.Client/polyfills.ts",
             "assets": [
-              "clientAngular/favicon.ico",
-              "clientAngular/assets"
+              "Clicker.Client/favicon.ico",
+              "Clicker.Client/assets"
             ],
             "styles": [
-              "clientAngular/styles.scss"
+              "Clicker.Client/styles.scss"
             ],
             "scripts": [],
             "customWebpackConfig": {
@@ -49,8 +49,8 @@
               "buildOptimizer": false,
               "fileReplacements": [
                 {
-                  "replace": "clientAngular/environments/environment.ts",
-                  "with": "clientAngular/environments/environment.dev.ts"
+                  "replace": "Clicker.Client/environments/environment.ts",
+                  "with": "Clicker.Client/environments/environment.dev.ts"
                 }
               ]
             },
@@ -65,8 +65,8 @@
               "buildOptimizer": false,
               "fileReplacements": [
                 {
-                  "replace": "clientAngular/environments/environment.ts",
-                  "with": "clientAngular/environments/environment.web.ts"
+                  "replace": "Clicker.Client/environments/environment.ts",
+                  "with": "Clicker.Client/environments/environment.web.ts"
                 }
               ]
             },
@@ -81,8 +81,8 @@
               "buildOptimizer": false,
               "fileReplacements": [
                 {
-                  "replace": "clientAngular/environments/environment.ts",
-                  "with": "clientAngular/environments/environment.prod.ts"
+                  "replace": "Clicker.Client/environments/environment.ts",
+                  "with": "Clicker.Client/environments/environment.prod.ts"
                 }
               ]
             }
@@ -114,16 +114,16 @@
         "test": {
           "builder": "@angular-builders/custom-webpack:karma",
           "options": {
-            "main": "clientAngular/test.ts",
-            "polyfills": "clientAngular/polyfills-test.ts",
-            "tsConfig": "clientAngular/tsconfig.spec.json",
-            "karmaConfig": "clientAngular/karma.conf.js",
+            "main": "Clicker.Client/test.ts",
+            "polyfills": "Clicker.Client/polyfills-test.ts",
+            "tsConfig": "Clicker.Client/tsconfig.spec.json",
+            "karmaConfig": "Clicker.Client/karma.conf.js",
             "scripts": [],
             "styles": [
-              "clientAngular/styles.scss"
+              "Clicker.Client/styles.scss"
             ],
             "assets": [
-              "clientAngular/assets"
+              "Clicker.Client/assets"
             ],
             "customWebpackConfig": {
               "path": "./angular.webpack.js"
@@ -134,8 +134,8 @@
           "builder": "@angular-eslint/builder:lint",
           "options": {
             "lintFilePatterns": [
-              "clientAngular/**/*.ts",
-              "clientAngular/**/*.html"
+              "Clicker.Client/**/*.ts",
+              "Clicker.Client/**/*.html"
             ]
           }
         }

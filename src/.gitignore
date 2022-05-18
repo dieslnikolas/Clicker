@@ -8,8 +8,7 @@
 /release
 electron/**/*.js
 electron/**/*.map
-clientAngular/**/*.js
-!clientAngular/karma.conf.js
+Clicker.Client/src/**/*.js
 *.js.map
 
 # dependencies

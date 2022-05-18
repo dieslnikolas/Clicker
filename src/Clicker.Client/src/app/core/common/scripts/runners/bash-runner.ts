@@ -3,7 +3,7 @@ import { CoreModule } from "@angular/flex-layout";
 import { Command } from "../command";
 import { IScriptRunner } from "../script-runner.interface";
 import { ElectronService } from "../../../services/electron/electron.service";
-import { ChildProcessWithoutNullStreams } from "node:child_process";
+// import { ChildProcessWithoutNullStreams } from "node:child_process";
 import { ProjectService } from "../../../services/project/project.service";
 
 @Injectable({
@@ -28,7 +28,8 @@ export class BashRunner implements IScriptRunner {
         return null;
     }
 
-    async Run(action: string, item: Command): Promise<ChildProcessWithoutNullStreams> {
+    async Run(action: string, item: Command): Promise<any> {
+    //Promise<ChildProcessWithoutNullStreams> {
 
         let path = item.Path;
 

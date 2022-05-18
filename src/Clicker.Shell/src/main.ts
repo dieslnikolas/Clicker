@@ -1,7 +1,7 @@
 import { app, BrowserWindow } from 'electron';
 import { Logger } from './common/logger';
-import { WindowBuilder } from './window';
-import { MenuBarBuilder } from './menubar';
+import { WindowBuilder } from '../window';
+import { MenuBarBuilder } from '../menubar';
 
 
 // Initialize remote module

@@ -8,11 +8,8 @@
         "**/Thumbs.db": true,
         "**/node_modules": true,
         "**/dist": true,
-        "electron/**/*.js": true,
-        "electron/**/*.js.map": true,
-        // hide test, since I dont know how to use it yet
-        "e2e": true,
-        ".eslintrc.json": true,
+        "**/*.js": true,
+        "**/*.js.map": true,
     },
     "editor.tabSize": 4
 }

@@ -1,0 +1,90 @@
+{
+    "name": "clicker",
+    "productName": "Clicker",
+    "version": "1.0.0",
+    "description": "Application which can run scripts via UI",
+    "homepage": "https://dev.azure.com/dieslnikolas/Clicker",
+    "author": {
+        "name": "Nikolas Diesl",
+        "email": "dieslnikolas@gmail.com"
+    },
+    "keywords": [
+        "angular",
+        "nodejs",
+        "typescript",
+        "sass",
+        "windows",
+        "mac",
+        "linux"
+    ],
+    "main": "src/main.js",
+    "private": true,
+    "scripts": {
+        "ng": "ng",
+        "ng:serve": "ng serve -c web",
+        "start": "npm-run-all -p electron:serve ng:serve",
+        "build": "npm run electron:serve-tsc && ng build --base-href ./",
+        "build:dev": "npm run build -- -c dev",
+        "build:prod": "npm run build -- -c production",
+        "electron:serve-tsc": "tsc -p electron/tsconfig.serve.json",
+        "electron:serve": "wait-on tcp:4200 && npm run electron:serve-tsc && npx electron . --serve",
+        "electron:local": "npm run build:prod && npx electron .",
+        "electron:build": "npm run build:prod && electron-builder build --publish=never",
+        "postinstall": "electron-builder install-app-deps",
+        "test": "ng test --watch=false",
+        "test:watch": "ng test"
+    },
+    "dependencies": {
+        "@angular/animations": "13.3.0",
+        "@angular/cdk": "13.3.0",
+        "@angular/common": "13.3.0",
+        "@angular/compiler": "13.3.0",
+        "@angular/core": "13.3.0",
+        "@angular/flex-layout": "13.0.0-beta.38",
+        "@angular/forms": "13.3.0",
+        "@angular/language-service": "13.3.0",
+        "@angular/material": "13.3.0",
+        "@angular/platform-browser": "13.3.0",
+        "@angular/platform-browser-dynamic": "13.3.0",
+        "@angular/router": "13.3.0",
+        "@electron/remote": "1.2.0",
+        "rxjs": "~6.6.0",
+        "tslib": "^2.1.0",
+        "zone.js": "~0.11.4"
+    },
+    "devDependencies": {
+        "@angular-builders/custom-webpack": "13.1.0",
+        "@angular-devkit/build-angular": "13.3.0",
+        "@angular-eslint/builder": "13.1.0",
+        "@angular-eslint/eslint-plugin": "13.1.0",
+        "@angular-eslint/eslint-plugin-template": "13.1.0",
+        "@angular-eslint/schematics": "13.1.0",
+        "@angular-eslint/template-parser": "13.1.0",
+        "@angular/cli": "13.3.0",
+        "@angular/compiler-cli": "13.3.0",
+        "@ngx-translate/core": "13.0.0",
+        "@ngx-translate/http-loader": "6.0.0",
+        "@types/jasmine": "3.8.1",
+        "@types/jasminewd2": "2.0.10",
+        "@types/mocha": "8.2.3",
+        "@types/node": "16.3.3",
+        "@typescript-eslint/eslint-plugin": "5.3.0",
+        "@typescript-eslint/parser": "5.3.0",
+        "chai": "4.3.4",
+        "conventional-changelog-cli": "2.1.1",
+        "cross-env": "7.0.3",
+        "electron": "13.1.7",
+        "electron-reload": "1.5.0",
+        "npm-run-all": "4.1.5",
+        "ts-node": "10.1.0",
+        "typescript": "~4.6.2",
+        "wait-on": "6.0.1",
+        "webdriver-manager": "12.1.8"
+    },
+    "engines": {
+        "node": ">=14.0.0"
+    },
+    "browserslist": [
+        "chrome 91"
+    ]
+}
