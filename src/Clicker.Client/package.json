@@ -20,19 +20,10 @@
     "main": "src/main.js",
     "private": true,
     "scripts": {
-        "ng": "ng",
-        "ng:serve": "ng serve -c web",
-        "start": "npm-run-all -p electron:serve ng:serve",
-        "build": "npm run electron:serve-tsc && ng build --base-href ./",
-        "build:dev": "npm run build -- -c dev",
-        "build:prod": "npm run build -- -c production",
-        "electron:serve-tsc": "tsc -p electron/tsconfig.serve.json",
-        "electron:serve": "wait-on tcp:4200 && npm run electron:serve-tsc && npx electron . --serve",
-        "electron:local": "npm run build:prod && npx electron .",
-        "electron:build": "npm run build:prod && electron-builder build --publish=never",
-        "postinstall": "electron-builder install-app-deps",
-        "test": "ng test --watch=false",
-        "test:watch": "ng test"
+        "installdeps": "npm ci && cp package.json ../../dist/client && cd ../../dist/client && npm install --only=production",
+        "build": "ng build",
+        "start": "ng serve -c web",
+        "development": "ng serve"
     },
     "dependencies": {
         "@angular/animations": "13.3.0",
@@ -50,7 +41,7 @@
         "@electron/remote": "1.2.0",
         "rxjs": "~6.6.0",
         "tslib": "^2.1.0",
-        "zone.js": "~0.11.4"
+        "zone.js": "^0.11.5"
     },
     "devDependencies": {
         "@angular-builders/custom-webpack": "13.1.0",

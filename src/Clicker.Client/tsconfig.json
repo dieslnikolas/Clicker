@@ -1,7 +1,7 @@
 {
     "compileOnSave": false,
     "compilerOptions": {
-        "outDir": "../dist/out-tsc",
+        "outDir": "../../dist/client",
         "module": "es2015",
         "sourceMap": true,
         "declaration": false,
@@ -23,8 +23,7 @@
         "types": []
     },
     "files": [
-        "main.ts",
-        "polyfills.ts"
+        "src/main.ts"
     ],
     "include": [
         "**/*.d.ts"
