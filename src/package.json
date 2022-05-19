@@ -22,33 +22,24 @@
         "linux"
     ],
     "scripts": {
-        "installdeps": "api:installdeps && shell:installdeps && client:installdeps",
-        "build": "api:build && shell:build && client:build",
-        "start": "api:start && client:start && wait-on tcp:4200 && shell:start",
-        "development": "api:development && shell:development && client:development",
-        
+        "installdeps": "concurrently \"npm run api:installdeps\" \"npm run shell:installdeps\" \"npm run client:installdeps\"",
+        "build": "concurrently \"npm run api:build\" \"npm run shell:build\" \"npm run client:build\"",
+        "start": "concurrently \"npm run api:start\" \"npm run client:start\" \"npm run shell:start\"",
+        "development": "concurrently \"npm run api:development\" \"npm run client:development\" \"npm run shell:development\"",
         "api:installdeps": "cd Clicker.API && npm run installdeps",
         "api:build": "cd Clicker.API && npm run build",
         "api:start": "cd Clicker.API && npm run start",
         "api:development": "cd Clicker.API && npm run development",
-
-        "shell:installdeps": "cd Clicker.Shell && npm run installdeps",
-        "shell:build": "cd Clicker.Shell && npm run build",
-        "shell:start": "cd Clicker.Shell && npm run start",
-        "shell:development": "cd Clicker.Shell && npm run development",
-
         "client:installdeps": "cd Clicker.Client && npm run installdeps",
         "client:build": "cd Clicker.Client && npm run build",
         "client:start": "cd Clicker.Client && npm start",
         "client:development": "cd Clicker.Client && npm run development",
-     
-        "build:dev": "cd Clicker.Client && build:dev",
-        "build:prod": "cd Clicker.Client && build:prod",
-        "electron:local": "cd Clicker.Client && electron:local",
-        "electron:build": "cd Clicker.Client && electron:build",
-
-        "package": "todo",
-        "postinstall": "cd Clicker.Client && postinstall",
-        "version": "cd Clicker.Client && version"
+        "shell:installdeps": "cd Clicker.Shell && npm run installdeps",
+        "shell:build": "cd Clicker.Shell && npm run build",
+        "shell:start": "cd Clicker.Shell && npm run start",
+        "shell:development": "cd Clicker.Shell && npm run development",
+        "other:package": "todo: INSTALACE BALICKU",
+        "other:postinstall": "UPRAVY POST INSTALL - PUSTI SE VZDY",
+        "other:version": "cd Clicker.Client && version"
     }
 }

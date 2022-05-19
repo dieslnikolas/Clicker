@@ -1,4 +1,6 @@
+
 {
+    // DEBUGGING RECIPEES https://github.com/Microsoft/vscode-recipes/
     // Use IntelliSense to learn about possible attributes.
     // Hover to view descriptions of existing attributes.
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
@@ -6,7 +8,11 @@
     "compounds": [
         {
             "name": "Debug ALL (F5)",
-            "configurations": [ "Client Angular", "API", "Shell" ]
+            "configurations": [
+                "Client Angular",
+                "API",
+                "Shell"
+            ]
         }
     ],
     "configurations": [
@@ -25,15 +31,14 @@
         },
         {
             "name": "Client Angular",
-            "type": "chrome",
+            "type": "msedge",
             "request": "attach",
-            "port": 9786,
             "url": "http://localhost:4200",
-            "sourceMaps": true,  
-            "timeout": 10000,
+            "sourceMaps": true,
             "trace": true,
+            "webRoot": "${workspaceFolder}/Clicker.Client/src",
             "sourceMapPathOverrides": {
-                "webpack:///./*": "${workspaceFolder}/Clicker.Client/*"
+                "webpack:///./src/*": "${workspaceFolder}/Clicker.Client/src/*"
             },
             "preLaunchTask": "Build.Renderer"
         },
