@@ -20,10 +20,11 @@
     "main": "src/main.js",
     "private": true,
     "scripts": {
-        "installdeps": "npm ci && cp package.json ../../dist/client && cd ../../dist/client && npm install --only=production",
+        "installdeps": "npm install && npm run copy && cd ../../dist/client && npm install --only=production",
+        "copy": "copyfiles package.json ../../dist/client",
         "build": "ng build",
-        "start": "ng serve -c web",
-        "development": "ng serve"
+        "start": "ng serve",
+        "development": "ng serve -c web -o"
     },
     "dependencies": {
         "@angular/animations": "13.3.0",
@@ -52,6 +53,7 @@
         "@ngx-translate/http-loader": "6.0.0",
         "chai": "4.3.4",
         "conventional-changelog-cli": "2.1.1",
+        "copyfiles": "^2.4.1",
         "cross-env": "7.0.3",
         "npm-run-all": "4.1.5",
         "ts-node": "10.1.0",

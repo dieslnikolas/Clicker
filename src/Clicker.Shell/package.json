@@ -5,7 +5,8 @@
     "main": "main.js",
     "private": true,
     "scripts": {
-        "installdeps": "npm ci && cp package.json ../../dist/shell && cd ../../dist/shell && npm install --only=production",
+        "installdeps": "npm install && npm run copy && cd ../../dist/shell && npm install --only=production",
+        "copy": "copyfiles package.json ../../dist/shell",
         "build": "tsc -p tsconfig.json",
         "start": "cd ../../dist/shell && npx electron ./main.js --serve",
         "development": "wait-on tcp:4200 && npm run build && npm run start"
@@ -18,7 +19,9 @@
         "log4js": "^6.4.4"
     },
     "devDependencies": {
+        "copyfiles": "^2.4.1",
         "electron-builder": "^23.0.3",
-        "typescript": "^4.6.4"
+        "typescript": "^4.6.4",
+        "wait-on": "^6.0.1"
     }
 }

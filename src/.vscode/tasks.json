@@ -25,24 +25,11 @@
       },
       {
         "label": "Build.Renderer",
-        "type": "shell",
-        "command": "npm run client:development",
-        "isBackground": true,
+        "type": "npm",
+        "script": "client:development",
         "group": {
           "kind": "build",
           "isDefault": true
-        },
-        "problemMatcher": {
-          "owner": "typescript",
-          "source": "ts",
-          "applyTo": "closedDocuments",
-          "fileLocation": ["relative", "${cwd}"],
-          "pattern": "$tsc",
-          "background": {
-            "activeOnStart": true,
-            "beginsPattern": "^.*",
-            "endsPattern": "^.*Compiled successfully.*"
-          }
         }
       }
     ]

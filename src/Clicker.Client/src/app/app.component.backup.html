@@ -1,0 +1,54 @@
+<!-- CURRENTLY LOADING OVERLAY WHEN LOADING 
+<div class="overlay" *ngIf="isLoading">
+    <div fxLayout="column" fxLayoutAlign="center center">
+        <mat-spinner color="accent"></mat-spinner>
+        <span class="spinner-message" [innerHtml]="loadingMessage"></span>
+    </div>
+</div>
+
+<!-- CONTENT FRAME -->
+<div id="main" [ngClass]="{'move-from-windows-title': isWindows, 'hidden': !isProject}">
+
+    <!-- LOADED -->
+    <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="3px">
+
+        <!-- Global commands -->
+        <shared-global-command fxLayout="row" fxLayoutAlign="space-evently strech" fxFill fxLayoutGap="5px" #globalCommands></shared-global-command>
+
+        <!-- Modules -->
+        <shared-module fxLayout="row" fxLayoutAlign="space-evently strech" fxFill #modules></shared-module>
+
+        <!-- Search -->
+        <shared-search fxLayout="row" fxLayoutAlign="fill"></shared-search>
+
+        <!-- Content -->
+        <router-outlet fxLayout="row" fxLayoutAlign="fill"></router-outlet>
+
+        <!-- Terminal -->
+        <shared-terminal></shared-terminal>
+        
+        <!-- Footer -->
+        <shared-footer></shared-footer>
+    </div>
+
+</div>
+
+<!-- INIT WINDOW -->
+<div id="main" *ngIf="!isProject">
+    <div fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="3px" class="load-new-screen">
+        <mat-card class="card-with-options">
+            <mat-card-title color="primary">Clicker</mat-card-title>
+            <mat-card-subtitle>
+                You'll need: <a href="#" (click)="openExternal('https://www.python.org/downloads/'); $event.preventDefault()" target="_blank">Python 3+</a> or 
+                <a href="#" (click)="openExternal('https://github.com/PowerShell/PowerShell'); $event.preventDefault()" target="_blank">PowershellCore 7+</a>
+            </mat-card-subtitle>
+            <mat-card-content>Choose what to do next:</mat-card-content>
+            <mat-card-actions fxLayout="row" fxLayoutGap="5px" fxLayoutAlign="center center">
+                <button mat-flat-button color="accent" (click)="loadProject()">Open</button>
+                <button mat-flat-button color="basic" (click)="createProject()">New</button>
+            </mat-card-actions>
+            <mat-card-footer>
+            </mat-card-footer>
+        </mat-card>
+    </div>
+</div> -->

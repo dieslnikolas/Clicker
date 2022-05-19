@@ -10,7 +10,7 @@
         "**/dist": true,
         "**/Clicker.Client/src/*.js": true,
         "**/Clicker.API/src/*.js": true,
-        "**/Clicker.Shell/src/*.js": true,
+        "**/Clicker.Shell/**/*.js": true,
         "**/*.js.map": true,
         "**/*.d.ts.map": true,
         "**/*.webpack.js": false

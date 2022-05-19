@@ -1,15 +1,16 @@
+# 1) Image dependencies
 FROM node:14
 
+# 2) Prepare NodeJS Dependencies
 ADD package.json /tmp/package.json
-ADD yarn.lock /tmp/yarn.lock
+ADD package-lock.json /tmp/package-lock.json
+RUN rm -rf ../../dist/api/
+RUN cd /tmp && npm ci
 
-RUN rm -rf build
-RUN cd /tmp && yarn install
-
-ADD ./ /src
+# 3) Build application
+ADD ./ /src 
 RUN rm -rf src/node_modules && cp -a /tmp/node_modules /src/
 
+# 4) Run Application
 WORKDIR /src
-RUN yarn build
-
-CMD ["node", "build/src/app.js"]
+RUN ts-node-dev --respawn --transpile-only src/app.ts
