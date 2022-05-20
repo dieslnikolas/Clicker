@@ -1,12 +1,10 @@
 FROM node:14
 
-# Move node-modules
 ADD package.json /tmp/package.json
-ADD package-lock.json /tmp/package-lock.json
+ADD yarn.lock /tmp/yarn.lock
 
-# Clean build folder and instal modules
-RUN rm -rf ../../dist/api
-RUN cd /tmp && npm ci
+RUN rm -rf build
+RUN cd /tmp && yarn install
 
 ADD ./ /src
 RUN rm -rf src/node_modules && cp -a /tmp/node_modules /src/
