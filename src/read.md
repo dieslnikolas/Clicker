@@ -48,6 +48,3 @@ npm list -g --depth=0
 
 ## 5) .app .exe?
 1) Hell yeah
-
-## 6) Taury
-https://tauri.studio/
