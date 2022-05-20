@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # Clicker
 ## 1) About
 
@@ -52,3 +51,6 @@ npm list -g --depth=0
 
 ## 6) Taury
 https://tauri.studio/
+
+## 7) WIKI
+[Clicker's wiki](https://github.com/dieslnikolas/Clicker/wiki)
