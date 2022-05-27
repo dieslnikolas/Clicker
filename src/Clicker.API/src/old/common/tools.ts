@@ -1,6 +1,6 @@
-/**
- * Helper for converting ScriptType to Array
- */
-export type EnumDictionary<T extends string | symbol | number, U> = {
-    [K in T]: U;
-};
+// /**
+//  * Helper for converting ScriptType to Array
+//  */
+// export type EnumDictionary<T extends string | symbol | number, U> = {
+//     [K in T]: U;
+// };

@@ -22,10 +22,10 @@
         "linux"
     ],
     "scripts": {
-        "installdeps": "api:installdeps && shell:installdeps && client:installdeps",
-        "build": "api:build && shell:build && client:build",
-        "start": "api:start && client:start && wait-on tcp:4200 && shell:start",
-        "development": "api:development && shell:development && client:development",
+        "installdeps": "npm run api:installdeps && npm run shell:installdeps && npm run client:installdeps",
+        "BROKEN:build": "npm run api:build && npm run shell:build && npm run client:build",
+        "start": "npm run api:start && npm run client:start && wait-on tcp:4200 && npm run shell:start",
+        "development": "npm run api:development && npm run shell:development && npm run client:development",
         
         "api:installdeps": "cd Clicker.API && npm run installdeps",
         "api:build": "cd Clicker.API && npm run build",

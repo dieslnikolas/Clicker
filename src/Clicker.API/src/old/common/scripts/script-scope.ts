@@ -1,6 +1,6 @@
-export enum ScriptScope {
-    Global,
-    Item,
-    Import,
-    Module
-}
+// export enum ScriptScope {
+//     Global,
+//     Item,
+//     Import,
+//     Module
+// }
