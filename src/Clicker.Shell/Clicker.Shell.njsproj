@@ -30,23 +30,35 @@
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
-    <None Include="app.ts" />
-    <None Include="routes\index.ts" />
-    <None Include="routes\user.ts" />
-    <Content Include="tsconfig.json" />
+    <Content Include="electron-builder.json" />
+    <Content Include="installdeps.js" />
+    <Content Include="package-lock.json" />
     <Content Include="package.json" />
     <Content Include="public\stylesheets\main.css" />
     <Content Include="README.md" />
+    <Content Include="src\common\logger.js" />
+    <Content Include="tsconfig.json" />
+    <Content Include="views\error.pug" />
     <Content Include="views\index.pug" />
     <Content Include="views\layout.pug" />
-    <Content Include="views\error.pug" />
+  </ItemGroup>
+  <ItemGroup>
+    <TypeScriptCompile Include="app.ts" />
+    <TypeScriptCompile Include="routes\index.ts" />
+    <TypeScriptCompile Include="routes\user.ts" />
+    <TypeScriptCompile Include="src\common\logger.ts" />
+    <TypeScriptCompile Include="src\main.ts" />
+    <TypeScriptCompile Include="src\menubar.ts" />
+    <TypeScriptCompile Include="src\window.ts" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="public\" />
-    <Folder Include="public\images\" />
-    <Folder Include="public\javascripts\" />
     <Folder Include="public\stylesheets\" />
     <Folder Include="routes\" />
+    <Folder Include="src\" />
+    <Folder Include="src\" />
+    <Folder Include="src\common\" />
+    <Folder Include="src\common\" />
     <Folder Include="views\" />
   </ItemGroup>
   <Import Project="$(VSToolsPath)\Node.js Tools\Microsoft.NodejsToolsV2.targets" />

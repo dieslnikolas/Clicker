@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Clicker.Infrastructure", "C
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Clicker.Core", "Clicker.Core\Clicker.Core.csproj", "{3F4E78B5-6A64-4297-895B-A1DEB734BD6C}"
 EndProject
-Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "Clicker.Client", "Clicker\Clicker.Client.esproj", "{87560154-A1D4-45F7-B687-8D6C8F556FD4}"
+Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "Clicker.Client", "Clicker.Client\Clicker.Client.esproj", "{87560154-A1D4-45F7-B687-8D6C8F556FD4}"
 EndProject
 Project("{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}") = "Clicker.Shell", "Clicker.Shell\Clicker.Shell.njsproj", "{4A5780D8-CEF9-4EC8-BD79-56B54ECD4864}"
 EndProject
