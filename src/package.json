@@ -27,10 +27,10 @@
         "start": "npm run api:start && npm run client:start && wait-on tcp:4200 && npm run shell:start",
         "development": "npm run api:development && npm run shell:development && npm run client:development",
         
-        "api:installdeps": "cd Clicker.API && npm run installdeps",
-        "api:build": "cd Clicker.API && npm run build",
-        "api:start": "cd Clicker.API && npm run start",
-        "api:development": "cd Clicker.API && npm run development",
+        "api:installdeps": "cd Clicker.ApiExpress && npm run installdeps",
+        "api:build": "cd Clicker.ApiExpress && npm run build",
+        "api:start": "cd Clicker.ApiExpress && npm run start",
+        "api:development": "cd Clicker.ApiExpress && npm run development",
 
         "shell:installdeps": "cd Clicker.Shell && npm run installdeps",
         "shell:build": "cd Clicker.Shell && npm run build",
