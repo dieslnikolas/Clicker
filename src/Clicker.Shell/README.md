@@ -1,3 +1,0 @@
-# Clicker.Shell
-
-
