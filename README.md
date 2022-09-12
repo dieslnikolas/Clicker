@@ -4,7 +4,7 @@
 - [Maximegris - angular + electron template](/wiki/readme/angular-template.md)
 
 ## Powergene
-- [Original project](/wiki/readme/powergene.md)
+- [Original project](https://github.com/elpablos/PowerGene)
 
 ## HowTo's
 - [Item commands](/wiki/readme/how-to-item-commands.md)
