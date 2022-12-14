@@ -17,12 +17,12 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "dotnet-build": "shx rm -rf dotnet/bin && dotnet publish dotnet/api.csproj -c release -r win10-x64 -o ../dotnet-win && dotnet publish dotnet/api.csproj -c release -r osx.10.11-x64 -o ../dotnet-osx && dotnet publish dotnet/api.csproj -c release -r ubuntu.16.10-x64 -o ../dotnet-ubuntu",
-    "dotnet-start": "dotnet run -p dotnet/api.csproj",
-    "main-lint": "tslint -c tslint.json -p tsconfig.electron.json",
-    "main-start": "tsc -p tsconfig.electron.json && wait-on http://localhost:3000/ && cross-env NODE_ENV=development electron .",
-    "main-watch": "tsc -w -p tsconfig.electron.json",
-    "main-build": "tsc -p tsconfig.electron.json && electron-builder",
+    "backend-build": "shx rm -rf backend/Clicker.Api/bin && dotnet publish backend/Clicker.Api/Clicker.Backend.csproj --self-contained -c release -r win10-x64 -o ../dotnet-win && dotnet publish backend/Clicker.Api/Clicker.Backend.csproj --self-contained -c release -r osx.10.11-x64 -o ../dotnet-osx && dotnet publish backend/Clicker.Api/Clicker.Backend.csproj --self-contained -c release -r ubuntu.16.10-x64 -o ../dotnet-ubuntu",
+    "backend-start": "dotnet run --project backend/Clicker.Api/Clicker.Backend.csproj",
+    "electron-lint": "tslint -c tslint.json -p tsconfig.electron.json",
+    "electron-start": "tsc -p tsconfig.electron.json && wait-on http://localhost:3000/ && cross-env NODE_ENV=development electron .",
+    "electron-watch": "tsc -w -p tsconfig.electron.json",
+    "electron-build": "tsc -p tsconfig.electron.json && electron-builder",
     "react-start": "react-scripts start",
     "react-build": "react-scripts build",
     "react-test": "react-scripts test",
@@ -45,5 +45,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "shx": "^0.3.4"
   }
 }
