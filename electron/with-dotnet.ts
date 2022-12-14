@@ -1,16 +1,18 @@
-import childProcess from "child_process";
-import crossSpawn from "cross-spawn";
-import Electron, { app, dialog, ipcMain } from "electron"; // tslint:disable-line
-import fs from "fs";
-import getPort from "get-port";
+import * as childProcess from "child_process";
+import { app, dialog, ipcMain } from "electron"; // tslint:disable-line
+import * as fs from "fs";
+import * as getPort from "get-port";
 import * as path from "path";
-import superagent from "superagent";
+import * as superagent from "superagent";
+// @ts-ignore
 import uuid from "uuid";
+// @ts-ignore
+import crossSpawn from "cross-spawn";
 
 const DOTNET_SUFFIX = (process.platform === "win32") ? "win" : (process.platform === "darwin") ? "osx" : (process.platform === "linux") ? "ubuntu" : "unknown";
-const DOTNET_DIST_FOLDER = "dotnet-" + DOTNET_SUFFIX;
-const DOTNET_FOLDER = "dotnet";
-const DOTNET_BASENAME = "api";
+const DOTNET_DIST_FOLDER = "backend-" + DOTNET_SUFFIX;
+const DOTNET_FOLDER = "backend";
+const DOTNET_BASENAME = "Clicker.Backend";
 
 const isDev = (process.env.NODE_ENV === "development");
 
@@ -23,7 +25,7 @@ const apiDetails = {
 
 const initializeApi = async () => {
     // dialog.showErrorBox("success", "initializeApi");
-    const availablePort = await getPort();
+    const availablePort = 4444; // await getPort();
     apiDetails.port = isDev ? 5000 : availablePort;
     const key = isDev ? "devkey" : uuid.v4();
     apiDetails.signingKey = key;
@@ -71,17 +73,17 @@ const initializeApi = async () => {
 };
 
 ipcMain.on("getApiDetails", (event:Electron.Event) => {
-    if (apiDetails.signingKey !== "") {
-        event.sender.send("apiDetails", JSON.stringify(apiDetails));
-    } else {
-        initializeApi()
-            .then(() => {
-                event.sender.send("apiDetails", JSON.stringify(apiDetails));
-            })
-            .catch(() => {
-                event.sender.send("apiDetailsError", "Error initializing API");
-            });
-    }
+    // if (apiDetails.signingKey !== "") {
+    //     event.sender.send("apiDetails", JSON.stringify(apiDetails));
+    // } else {
+    //     initializeApi()
+    //         .then(() => {
+    //             event.sender.send("apiDetails", JSON.stringify(apiDetails));
+    //         })
+    //         .catch(() => {
+    //             event.sender.send("apiDetailsError", "Error initializing API");
+    //         });
+    // }
 });
 
 const exitDotnetProc = () => {

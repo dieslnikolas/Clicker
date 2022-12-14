@@ -11,6 +11,7 @@ release/# See https://help.github.com/articles/ignoring-files/ for more about ig
 
 # production
 /build
+/buildMain
 
 # misc
 .DS_Store
