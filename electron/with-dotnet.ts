@@ -73,17 +73,17 @@ const initializeApi = async () => {
 };
 
 ipcMain.on("getApiDetails", (event:Electron.Event) => {
-    // if (apiDetails.signingKey !== "") {
-    //     event.sender.send("apiDetails", JSON.stringify(apiDetails));
-    // } else {
-    //     initializeApi()
-    //         .then(() => {
-    //             event.sender.send("apiDetails", JSON.stringify(apiDetails));
-    //         })
-    //         .catch(() => {
-    //             event.sender.send("apiDetailsError", "Error initializing API");
-    //         });
-    // }
+    if (apiDetails.signingKey !== "") {
+        // event.sender.send("apiDetails", JSON.stringify(apiDetails));
+    } else {
+        initializeApi()
+            .then(() => {
+                // event.sender.send("apiDetails", JSON.stringify(apiDetails));
+            })
+            .catch(() => {
+                // event.sender.send("apiDetailsError", "Error initializing API");
+            });
+    }
 });
 
 const exitDotnetProc = () => {
