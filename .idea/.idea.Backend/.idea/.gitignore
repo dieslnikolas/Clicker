@@ -2,9 +2,9 @@
 /shelf/
 /workspace.xml
 # Rider ignored files
-/.idea.Clicker.iml
-/modules.xml
 /projectSettingsUpdater.xml
+/modules.xml
+/.idea.Backend.iml
 /contentModel.xml
 # Editor-based HTTP Client requests
 /httpRequests/
