@@ -1,0 +1,48 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Clicker.Backend", "backend\Clicker.Api\Clicker.Backend.csproj", "{A62DDB80-BF36-42E8-8A20-51BDCD48EBA7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Clicker.Tests", "backend\Clicker.Tests\Clicker.Tests.csproj", "{53DDDD22-8C1C-4FA7-B120-BFFC916194F2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Clicker.Core.Logic", "backend\Clicker.Core.Logic\Clicker.Core.Logic.csproj", "{9718BAFF-656B-4F22-8411-532E4DD9C53E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Clicker.Core.Contracts", "backend\Clicker.Core.Contracts\Clicker.Core.Contracts.csproj", "{433F0994-A416-4034-BA69-3C71E7C172C2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{A32ABA22-3974-491F-B72B-8CDC534F228D}"
+	ProjectSection(SolutionItems) = preProject
+		.env = .env
+		.gitignore = .gitignore
+		package.json = package.json
+		package-lock.json = package-lock.json
+		README.md = README.md
+		tsconfig.electron.json = tsconfig.electron.json
+		tsconfig.json = tsconfig.json
+		tslint.json = tslint.json
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A62DDB80-BF36-42E8-8A20-51BDCD48EBA7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A62DDB80-BF36-42E8-8A20-51BDCD48EBA7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A62DDB80-BF36-42E8-8A20-51BDCD48EBA7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A62DDB80-BF36-42E8-8A20-51BDCD48EBA7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{53DDDD22-8C1C-4FA7-B120-BFFC916194F2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{53DDDD22-8C1C-4FA7-B120-BFFC916194F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{53DDDD22-8C1C-4FA7-B120-BFFC916194F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{53DDDD22-8C1C-4FA7-B120-BFFC916194F2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9718BAFF-656B-4F22-8411-532E4DD9C53E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9718BAFF-656B-4F22-8411-532E4DD9C53E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9718BAFF-656B-4F22-8411-532E4DD9C53E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9718BAFF-656B-4F22-8411-532E4DD9C53E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{433F0994-A416-4034-BA69-3C71E7C172C2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{433F0994-A416-4034-BA69-3C71E7C172C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{433F0994-A416-4034-BA69-3C71E7C172C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{433F0994-A416-4034-BA69-3C71E7C172C2}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+	EndGlobalSection
+EndGlobal
