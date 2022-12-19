@@ -19,8 +19,8 @@
     "target": "es5",
 
     "baseUrl": ".",
-    "module": "commonjs",
-    "outDir": "buildMain",
+    "module": "CommonJS",
+    "outDir": "build/electron",
     "paths": {
       "*": ["node_modules/*"]
     },

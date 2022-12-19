@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "homepage": "./",
-  "main": "buildMain/index.js",
+  "main": "build/electron/index.js",
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
@@ -16,7 +16,7 @@
     "@types/superagent": "^4.1.16",
     "@types/uuid": "^9.0.0",
     "cross-spawn": "^7.0.3",
-    "get-port": "^6.1.2",
+    "get-port-electron": "^5.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-scripts": "5.0.1",
@@ -43,16 +43,16 @@
     "start": "concurrently \"npm run react-start\" \"npm run electron-start\"",
     "watch": "concurrently \"npm run electron-watch\" \"npm run react-watch\"",
     "build": "npm run backend-build && npm run react-build && npm run electron-build",
-    "backend-build": "shx rm -rf backend/Clicker.Api/bin && dotnet publish backend/Clicker.Api/Clicker.Backend.csproj --self-contained -c release -r win10-x64 -o ../backend-win && dotnet publish backend/Clicker.Api/Clicker.Backend.csproj --self-contained -c release -r osx.10.11-x64 -o ../backend-osx && dotnet publish backend/Clicker.Api/Clicker.Backend.csproj --self-contained -c release -r ubuntu.16.10-x64 -o ../backend-ubuntu",
+    "backend-build": "shx rm -rf backend/Clicker.Backend/bin && dotnet publish backend/Clicker.Backend/Clicker.Backend.csproj --self-contained -c release -r win10-x64 -o build/backend/backend-win && dotnet publish backend/Clicker.Backend/Clicker.Backend.csproj --self-contained -c release -r osx.10.11-x64 -o build/backend/backend-osx && dotnet publish backend/Clicker.Backend/Clicker.Backend.csproj --self-contained -c release -r ubuntu.16.10-x64 -o build/backend/backend-ubuntu",
     "backend-start": "dotnet run --project backend/Clicker.Api/Clicker.Backend.csproj",
     "electron-lint": "tslint -c tslint.json -p tsconfig.electron.json",
     "electron-start": "tsc -p tsconfig.electron.json && wait-on http://localhost:3000/ && cross-env NODE_ENV=development electron .",
     "electron-watch": "tsc -w -p tsconfig.electron.json",
     "electron-build": "tsc -p tsconfig.electron.json && electron-builder",
-    "react-start": "react-scripts start",
-    "react-build": "react-scripts build",
-    "react-test": "react-scripts test",
-    "react-eject": "react-scripts eject"
+    "react-start": "BUILD_PATH='./build/src' react-scripts start",
+    "react-build": "BUILD_PATH='./build/src' react-scripts build",
+    "react-test": "BUILD_PATH='./build/src' react-scripts test",
+    "react-eject": "BUILD_PATH='./build/src' react-scripts eject"
   },
   "eslintConfig": {
     "extends": [
@@ -73,15 +73,15 @@
     ]
   },
   "build": {
-    "appId": "com.example.electron-dotnet",
-    "productName": "My Electron DotNet App",
+    "appId": "com.clicker.electron-dotnet",
+    "productName": "Clicker",
     "forceCodeSigning": false,
     "directories": {
       "buildResources": "build",
       "output": "dist"
     },
     "extraMetadata": {
-      "main": "buildMain/index.js"
+      "main": "build/electron/index.js"
     },
     "files": [],
     "extraResources": [],
@@ -90,8 +90,8 @@
       "asarUnpack": "backend-osx",
       "files": [
         "node_modules/**",
-        "buildMain/**",
-        "backend-osx/**"
+        "build/electron/**",
+        "build/backend/backend-osx/**"
       ],
       "target": "dmg"
     },
@@ -102,8 +102,8 @@
       "asarUnpack": "backend-win",
       "files": [
         "node_modules/**",
-        "buildMain/**",
-        "backend-win/**"
+        "build/electron/Main/**",
+        "build/backend/backend-win/**"
       ],
       "target": "nsis"
     },

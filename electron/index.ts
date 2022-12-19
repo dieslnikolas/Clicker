@@ -19,7 +19,12 @@ app.on("ready", () => {
 });
 
 function createWindow() {
-    const win = new BrowserWindow();
+    const win = new BrowserWindow({
+        webPreferences: {
+            nodeIntegration: true,
+            contextIsolation: false
+        }
+    });
     win.webContents.openDevTools();
     if (isDev) {
         win.loadURL("http://localhost:3000/index.html");

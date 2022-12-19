@@ -11,7 +11,7 @@ release/# See https://help.github.com/articles/ignoring-files/ for more about ig
 
 # production
 /build
-/buildMain
+/build/electron
 
 # misc
 .DS_Store

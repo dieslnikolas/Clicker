@@ -1,36 +1,50 @@
-import * as childProcess from "child_process";
-import { app, dialog, ipcMain } from "electron"; // tslint:disable-line
+import {app, dialog, ipcMain} from "electron"; // tslint:disable-line
+
 import * as fs from "fs";
-import * as getPort from "get-port";
 import * as path from "path";
+
 import * as superagent from "superagent";
-// @ts-ignore
-import uuid from "uuid";
+
 // @ts-ignore
 import crossSpawn from "cross-spawn";
+import * as childProcess from "child_process";
+
+// @ts-ignore
+import crypto from "crypto";
 
 const DOTNET_SUFFIX = (process.platform === "win32") ? "win" : (process.platform === "darwin") ? "osx" : (process.platform === "linux") ? "ubuntu" : "unknown";
 const DOTNET_DIST_FOLDER = "backend-" + DOTNET_SUFFIX;
 const DOTNET_FOLDER = "backend";
 const DOTNET_BASENAME = "Clicker.Backend";
 
-const isDev = (process.env.NODE_ENV === "development");
+const isDev = !(process.env.NODE_ENV === "development");
 
 let dotnetProc = null as any;
 
 const apiDetails = {
-    port:0,
-    signingKey:"",
+    port: 0,
+    signingKey: "",
 };
+
+async function getPortFree() : Promise<number>  {
+    return new Promise( res => {
+        // const srv = net.createServer();
+        // srv.listen(0, () => {
+        //     const port = srv.address().port
+        //     srv.close((err) => res(port))
+        // });
+        res(5001);
+    })
+}
 
 const initializeApi = async () => {
     // dialog.showErrorBox("success", "initializeApi");
-    const availablePort = 4444; // await getPort();
+    const availablePort = await getPortFree();
     apiDetails.port = isDev ? 5000 : availablePort;
-    const key = isDev ? "devkey" : uuid.v4();
+    const key = isDev ? "devkey" : crypto.randomUUID();
     apiDetails.signingKey = key;
 
-    const srcPath = path.join(__dirname, "..", DOTNET_FOLDER, DOTNET_BASENAME + ".csproj");
+    const srcPath = path.join(__dirname, "..", DOTNET_FOLDER, DOTNET_BASENAME, DOTNET_BASENAME + ".csproj");
     const exePath = (process.platform === "win32") ? path.join(__dirname.replace("app.asar", "app.asar.unpacked"), "..", DOTNET_DIST_FOLDER, DOTNET_BASENAME + ".exe") : path.join(__dirname, DOTNET_DIST_FOLDER, DOTNET_BASENAME);
 
     if (__dirname.indexOf("app.asar") > 0) {
@@ -72,17 +86,13 @@ const initializeApi = async () => {
     console.log("leaving initializeApi()");
 };
 
-ipcMain.on("getApiDetails", (event:Electron.Event) => {
+ipcMain.handle("getApiDetails", async (event: Electron.Event, ...args: any) => {
     if (apiDetails.signingKey !== "") {
-        // event.sender.send("apiDetails", JSON.stringify(apiDetails));
-    } else {
-        initializeApi()
-            .then(() => {
-                // event.sender.send("apiDetails", JSON.stringify(apiDetails));
-            })
-            .catch(() => {
-                // event.sender.send("apiDetailsError", "Error initializing API");
-            });
+        return JSON.stringify(apiDetails);
+    } 
+    else {
+        const result = await initializeApi()
+        return JSON.stringify(apiDetails);
     }
 });
 
