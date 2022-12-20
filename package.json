@@ -49,10 +49,10 @@
     "electron-start": "tsc -p tsconfig.electron.json && wait-on http://localhost:3000/ && cross-env NODE_ENV=development electron .",
     "electron-watch": "tsc -w -p tsconfig.electron.json",
     "electron-build": "tsc -p tsconfig.electron.json && electron-builder",
-    "react-start": "BUILD_PATH='./build/src' react-scripts start",
-    "react-build": "BUILD_PATH='./build/src' react-scripts build",
-    "react-test": "BUILD_PATH='./build/src' react-scripts test",
-    "react-eject": "BUILD_PATH='./build/src' react-scripts eject"
+    "react-start": "react-scripts start",
+    "react-build": "react-scripts build",
+    "react-test": "react-scripts test",
+    "react-eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": [
@@ -78,7 +78,7 @@
     "forceCodeSigning": false,
     "directories": {
       "buildResources": "build",
-      "output": "dist"
+      "output": "build/dist"
     },
     "extraMetadata": {
       "main": "build/electron/index.js"
