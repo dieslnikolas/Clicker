@@ -7,8 +7,28 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="12.0.0" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.0" />
+    <PackageReference Include="Config.Net" Version="5.1.5" />
+    <PackageReference Include="FluentValidation" Version="11.4.0" />
+    <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.4.0" />
+    <PackageReference Include="MediatR" Version="11.1.0" />
+    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.1" />
+    <PackageReference Include="Serilog" Version="2.12.0" />
+    <PackageReference Include="Serilog.AspNetCore" Version="6.1.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Services\Configuration" />
+    <Folder Include="Services\Command" />
+    <Folder Include="Services\Module" />
+    <Folder Include="Services\Project" />
+    <Folder Include="UseCases\Configuration" />
+    <Folder Include="UseCases\Command" />
+    <Folder Include="UseCases\Module" />
+    <Folder Include="UseCases\Project" />
   </ItemGroup>
 
 </Project>
