@@ -1,3 +1,5 @@
+using Clicker.Backend.Common;
+
 namespace Clicker.Backend.Models;
 
 public record CommandRequest
@@ -5,7 +7,7 @@ public record CommandRequest
     public string Displayname { get; set; }
 }
 
-public record CommandResponse
+public record CommandResponse : IApiResponse
 {
     
 }

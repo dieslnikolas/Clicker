@@ -26,7 +26,6 @@
     <Folder Include="Services\Module" />
     <Folder Include="Services\Project" />
     <Folder Include="UseCases\Configuration" />
-    <Folder Include="UseCases\Command" />
     <Folder Include="UseCases\Module" />
     <Folder Include="UseCases\Project" />
   </ItemGroup>
