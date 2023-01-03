@@ -13,7 +13,7 @@ import * as childProcess from "child_process";
 import crypto from "crypto";
 
 const DOTNET_SUFFIX = (process.platform === "win32") ? "win" : (process.platform === "darwin") ? "osx" : (process.platform === "linux") ? "ubuntu" : "unknown";
-const DOTNET_DIST_FOLDER = "backend-" + DOTNET_SUFFIX;
+const DOTNET_DIST_FOLDER = "build/backend/backend-" + DOTNET_SUFFIX;
 const DOTNET_FOLDER = "backend";
 const DOTNET_BASENAME = "Clicker.Backend";
 
@@ -44,8 +44,15 @@ const initializeApi = async () => {
     const key = isDev ? "devkey" : crypto.randomUUID();
     apiDetails.signingKey = key;
 
-    const srcPath = path.join(__dirname, "..", DOTNET_FOLDER, DOTNET_BASENAME, DOTNET_BASENAME + ".csproj");
-    const exePath = (process.platform === "win32") ? path.join(__dirname.replace("app.asar", "app.asar.unpacked"), "..", DOTNET_DIST_FOLDER, DOTNET_BASENAME + ".exe") : path.join(__dirname, DOTNET_DIST_FOLDER, DOTNET_BASENAME);
+    // dialog.showErrorBox("info", "unpackaged");
+    var apiURL = `http://localhost:${String(apiDetails.port)}/`;
+
+    const srcPath = path.join(__dirname, "../..", DOTNET_FOLDER, DOTNET_BASENAME, DOTNET_BASENAME + ".csproj");
+    const exePath = (process.platform === "win32") ?
+        // Win    
+        path.join(__dirname.replace("app.asar", "app.asar.unpacked"), "../..", DOTNET_DIST_FOLDER, DOTNET_BASENAME + ".exe") 
+        // Linux-based
+        : path.join(__dirname, DOTNET_DIST_FOLDER, DOTNET_BASENAME);
 
     if (__dirname.indexOf("app.asar") > 0) {
         // dialog.showErrorBox("info", "packaged");
@@ -65,13 +72,13 @@ const initializeApi = async () => {
             dialog.showErrorBox("Error", "Packaged dotnet app not found");
         }
     } else {
-        // dialog.showErrorBox("info", "unpackaged");
+  
         if (fs.existsSync(srcPath)) {
             dotnetProc = crossSpawn("dotnet", [
                 "run",
                 "-p", srcPath,
                 "--",
-                "--apiport", String(apiDetails.port),
+                "--urls", apiURL,
                 "--signingkey", apiDetails.signingKey,
             ]);
         } else {
@@ -81,7 +88,7 @@ const initializeApi = async () => {
     if (dotnetProc === null || dotnetProc === undefined) {
         dialog.showErrorBox("Error", "unable to start dotnet server");
     } else {
-        console.log("Server running at http://127.0.0.1:" + apiDetails.port);
+        console.log("Server running at " + apiURL);
     }
     console.log("leaving initializeApi()");
 };

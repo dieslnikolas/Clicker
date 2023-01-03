@@ -20,6 +20,10 @@ app.on("ready", () => {
 
 function createWindow() {
     const win = new BrowserWindow({
+        width: 1024,
+        height: 768,
+        title: "Clicker",
+        center: true,
         webPreferences: {
             nodeIntegration: true,
             contextIsolation: false
