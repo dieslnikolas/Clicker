@@ -1,0 +1,37 @@
+{
+  "Id": "ProjectName",
+  "Author": "",
+  "Version": "1.0",
+  "Settings": [
+    {
+      "Key": "Key",
+      "Value": "Value"
+    }
+  ],
+  "Paths": {
+    "Data": ".clicker",
+    "Temp": "temp",
+    "Modules": "modules",
+    "Scripts": "scripts"
+  },
+  "Commands": [
+    {
+      "Name": "Name",
+      "Id": "Key"
+    }
+  ],
+  "Modules": [
+    {
+      "Name": "Name",
+      "Key": "Key",
+      "Commands": [
+        {
+          "Name": "Name",
+          "Id": "Key",
+          "IsDefault": false,
+          "IsImport": false
+        }
+      ]
+    }
+  ]
+}

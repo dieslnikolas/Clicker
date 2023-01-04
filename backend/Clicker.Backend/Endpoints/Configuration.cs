@@ -1,5 +1,4 @@
 using Clicker.Backend.Common;
-using Clicker.Backend.Models;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
