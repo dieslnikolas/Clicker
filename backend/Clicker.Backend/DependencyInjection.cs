@@ -1,41 +1,26 @@
 using System.Reflection;
-using MediatR;
 using Clicker.Backend.Common;
+using MediatR;
 using Clicker.Backend.Common.UseCases;
 using Clicker.Backend.PipelineBehaviours;
-using Clicker.Backend.Repositories.Module;
-using Clicker.Backend.Repositories.Project;
-using Clicker.Backend.Repositories.User;
+using Clicker.Backend.Settings;
 
 namespace Clicker.Backend;
 
 public static class DependencyInjection
 {
     /// <summary>
-    /// Register endpoints
+    /// Endpoint context (contains everything you need inside http request)
     /// </summary>
     /// <param name="services"></param>
     /// <returns></returns>
-    public static IServiceCollection AddEndpoints(this IServiceCollection services)
+    public static IServiceCollection AddApi(this IServiceCollection services)
     {
-        services.AddTransient<IEndpoint, Endpoints.Script>();
-        services.AddTransient<IEndpoint, Endpoints.Configuration>();
-        services.AddTransient<IEndpoint, Endpoints.Module>();
-        services.AddTransient<IEndpoint, Endpoints.Project>();
-
-        return services;
-    }
-    
-    /// <summary>
-    /// Register endpoints
-    /// </summary>
-    /// <param name="services"></param>
-    /// <returns></returns>
-    public static IServiceCollection AddRepositories(this IServiceCollection services)
-    {
-        services.AddScoped<IModuleRepository, ModuleRepository>();
-        services.AddScoped<IProjectRepository, ProjectRepository>();
-        services.AddScoped<IUserRepository, UserRepository>();
+        // API EACH HTTP request context
+        services.AddScoped<Context>();
+        
+        // Settings wrapper - it must keep filepath (project path) 4EVER
+        services.AddSingleton<IDbContext, ConfigNetWrapper>();
 
         return services;
     }
@@ -54,8 +39,7 @@ public static class DependencyInjection
         // Add Pipeline behaviours
         // Pipelines will be executed in order in which they were registered
         services.AddTransient(typeof(IPipelineBehavior<,>), typeof(LoggingBehaviour<,>));
-        services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehaviour<,>));
-
+        // services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehaviour<,>));
 
         return services;
     }
@@ -67,7 +51,7 @@ public static class DependencyInjection
     public static IServiceCollection AddValidators(this IServiceCollection services)
     {
         // 1) Find all validators of the type except base/abstract
-        var abstractValidatorType = typeof(Common.Validations.ValidatorBase<>);
+        var abstractValidatorType = typeof(Common.Validations.Validator<>);
 
         var validatorTypes = abstractValidatorType
             .Assembly

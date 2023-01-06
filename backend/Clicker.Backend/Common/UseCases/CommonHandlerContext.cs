@@ -9,7 +9,7 @@ namespace Clicker.Backend.Common.UseCases
     public class CommonHandlerContext<T> : ICommonHandlerContext<T>
     {
         public IMapper Mapper { get; set; }
-        public IClickerValidator<T>? Validator { get; set; }
+        public IClickerValidator<T> Validator { get; set; }
         public ILogger<T> Logger { get; set; }
         
         // ReSharper disable once ContextualLoggerProblem

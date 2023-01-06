@@ -1,4 +1,3 @@
-using System.Windows.Input;
 using AutoMapper;
 using Clicker.Backend.Common;
 using Clicker.Backend.Common.UseCases;

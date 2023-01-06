@@ -3,7 +3,7 @@ using FluentValidation.Results;
 
 namespace Clicker.Backend.Common.Validations
 {
-    public abstract class ValidatorBase<T> : FluentValidation.AbstractValidator<T>, IClickerValidator<T>
+    public abstract class Validator<T> : FluentValidation.AbstractValidator<T>, IClickerValidator<T>
     {
         private ValidationResult _result = new ValidationResult();
 
@@ -11,22 +11,24 @@ namespace Clicker.Backend.Common.Validations
         /// Vrací komand/query
         /// </summary>
         public T Command { get; set; }
-
+        
         /// <inheritdoc cref="IValidator.ValidateAsync" />
         async Task<IList<ValidationMessage>> IClickerValidator<T>.ValidateAsync(T instance, CancellationToken cancellation = default)
         {
-            Command ??= instance;
-
+            if (Command == null)
+                Command = instance;
+            
             _result = await this.ValidateAsync(instance, cancellation);
             return CollectValidations(_result);
         }
+        
 
-        /// <inheritdoc cref="IClickerValidator{T}.IsValid" />
+        /// <inheritdoc cref="IValidator{T}.IsValid" />
         public bool IsValid()
         {
             return _result.IsValid;
         }
-
+        
         private static IList<ValidationMessage> CollectValidations(ValidationResult result)
         {
             IList<ValidationMessage> validations = new List<ValidationMessage>();

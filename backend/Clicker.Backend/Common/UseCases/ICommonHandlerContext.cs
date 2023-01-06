@@ -13,7 +13,7 @@ namespace Clicker.Backend.Common.UseCases
         /// <summary>
         /// Validace
         /// </summary>
-        IClickerValidator<T>? Validator { get; }
+        IClickerValidator<T> Validator { get; }
 
         /// <summary>
         /// Logování
