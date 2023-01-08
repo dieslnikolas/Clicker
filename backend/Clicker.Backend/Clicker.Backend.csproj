@@ -20,14 +20,4 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Services\Configuration" />
-    <Folder Include="Services\Command" />
-    <Folder Include="Services\Module" />
-    <Folder Include="Services\Project" />
-    <Folder Include="UseCases\Configuration" />
-    <Folder Include="UseCases\Module" />
-    <Folder Include="UseCases\Project" />
-  </ItemGroup>
-
 </Project>

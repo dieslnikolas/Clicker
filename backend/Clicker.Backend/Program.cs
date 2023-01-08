@@ -1,7 +1,7 @@
 using System.Reflection;
 using Clicker.Backend;
 using Clicker.Backend.Common;
-using FluentValidation;
+using Clicker.Backend.Endpoints;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,23 +10,21 @@ var builder = WebApplication.CreateBuilder(args);
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
-// Register Endpoints
-builder.Services.AddEndpoints();
 // Register MediatR
-builder.Services.AddMediatR();
+builder.Services.AddMediator();
 // Register Automapper
 builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 // Register FluentValidations
-builder.Services.AddValidatorsFromAssembly(Assembly.GetCallingAssembly());
+builder.Services.AddValidators();
+// API HTTP Request context
+builder.Services.AddApi();
 // Register Nlog
 builder.Logging.ClearProviders().AddSerilog();
 
 var app = builder.Build();
 
-// Register routes
-app.Services.GetServices<IEndpoint>().ToList()
-    .ForEach(endpoint => endpoint.RegisterRoutes(app));
+// Register endpoints
+app.RegisterEndpoints();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -36,5 +34,4 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
 app.Run();
