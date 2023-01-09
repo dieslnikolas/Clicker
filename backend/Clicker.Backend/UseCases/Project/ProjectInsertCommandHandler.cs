@@ -30,7 +30,7 @@ public class ProjectInsertCommandHandler : CommonHandler<ProjectInsertCommand, P
         var jwtToken = Jwt.GetToken(request.Path, request.Id, request.Author, request.Key, _cfg);
         
         // Setup "DB" context
-        await _ctx.SetConnectionString(request.Path);
+        _ctx.SetConnectionString(request.Path);
         
         // Create project
         _ctx.Project.Id = request.Id;

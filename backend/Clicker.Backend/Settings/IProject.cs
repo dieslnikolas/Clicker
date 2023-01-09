@@ -30,12 +30,12 @@ public interface IProject
     /// <summary>
     /// Global scripts
     /// </summary>
-    IEnumerable<IScripts> Scripts { get; }
+    IList<IScripts> Scripts { get; }
 
     /// <summary>
     /// Modules
     /// </summary>
-    IEnumerable<IModules> Modules { get; }
+    IList<IModules> Modules { get; }
 }
 
 /// <summary>
@@ -49,9 +49,17 @@ public interface IModules
 {
     string Name { get; set; }
     string Key { get; set; }
-    IEnumerable<IScripts> Scripts { get; }
-    IEnumerable<Dictionary<string, object>> Data { get; set; }
+    IList<IScripts> Scripts { get; }
+    IList<Dictionary<string, object>> Data { get; set; }
 }
+
+public class Module : IModules
+{
+    public string Name { get; set; }
+    public string Key { get; set; }
+    public IList<IScripts> Scripts { get; }
+    public IList<Dictionary<string, object>> Data { get; set; }
+};
 
 ///; <summary>
 /// Scripts for modules and global scripts
@@ -90,4 +98,13 @@ public interface IScripts
     /// </summary>
     [DefaultValue(false)]
     bool IsImport { get; set; }
+}
+
+public class Scripts : IScripts
+{
+    public string Name { get; set; }
+    public string Id { get; set; }
+    public bool IsDefault { get; set; }
+    public bool IsContext { get; set; }
+    public bool IsImport { get; set; }
 }

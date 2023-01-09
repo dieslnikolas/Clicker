@@ -1,5 +1,6 @@
 using Clicker.Backend.Common;
 using Clicker.Backend.Common.UseCases;
+using Clicker.Backend.Settings;
 
 namespace Clicker.Backend.UseCases.Project;
 
@@ -22,7 +23,8 @@ public class ProjectDetailQueryHandler : CommonHandler<ProjectDetailQuery, Proje
         {
             Author = _ctx.Project.Author,
             Id = _ctx.Project.Id,
-            Version = _ctx.Project.Version
+            Version = _ctx.Project.Version,
+            Scripts = new List<Settings.Scripts>()
         };
         
         // Return

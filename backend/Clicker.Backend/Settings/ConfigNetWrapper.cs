@@ -14,9 +14,9 @@ public class ConfigNetWrapper : IDbContext
     
     private bool isInitialized = false;
 
-    private IProject _project;
+    private IProject? _project;
 
-    public IProject Project
+    public IProject? Project
     {
         get
         {
@@ -29,15 +29,15 @@ public class ConfigNetWrapper : IDbContext
     private void CheckSetup()
     {
         if (!isInitialized)
-            throw new ConfigurationException("Project file not set");
+            throw new ApplicationException("Project file not set");
 
         if (string.IsNullOrEmpty(ProjectFile))
             throw new ConfigurationErrorsException("Config.NET path is not set");
     }
 
-    private IUser _user;
+    private IUser? _user;
 
-    public IUser User
+    public IUser? User
     {
         get
         {
@@ -49,14 +49,12 @@ public class ConfigNetWrapper : IDbContext
 
     public ConfigNetWrapper(IHttpContextAccessor httpContextAccessor)
     {
-        var conStr = httpContextAccessor.HttpContext.User.Claims
-            .Where(x => x.Type == "ConnectionString").FirstOrDefault();
-        if (conStr != null)
-            SetConnectionString(conStr.Value);
+        if (TryGetconnectionStringFromClaim(httpContextAccessor, out var conStr))
+            SetConnectionString(conStr);
     }
 
     /// <inheritdoc />
-    public async Task SetConnectionString(string? filePath)
+    public void SetConnectionString(string? filePath)
     {
         if (string.IsNullOrEmpty(filePath))
             throw new ArgumentException("Filepath must not be empty");
@@ -67,7 +65,7 @@ public class ConfigNetWrapper : IDbContext
             ".clicker/user_settings.json");
 
         // set settings path
-        await Task.FromResult(() => ProjectFile = filePath);
+        ProjectFile = filePath;
 
         // project settings
         Project = new ConfigurationBuilder<IProject>()
@@ -82,5 +80,25 @@ public class ConfigNetWrapper : IDbContext
         // After succesfull initialisation 
         isInitialized = true;
         ProjectFile = filePath;
+    }
+    
+    /// <summary>
+    /// Tryies read connection string from claims (path to project realy)
+    /// </summary>
+    /// <param name="httpContextAccessor"></param>
+    /// <param name="s"></param>
+    /// <returns></returns>
+    private bool TryGetconnectionStringFromClaim(IHttpContextAccessor httpContextAccessor, out string s)
+    {
+        try
+        {
+            s = httpContextAccessor.HttpContext.User.Claims.Where(x => x.Type == "ConnectionString").FirstOrDefault().Value;
+            return true;
+        }
+        catch (Exception ex)
+        {
+            s = null;
+            return false;
+        }
     }
 }
