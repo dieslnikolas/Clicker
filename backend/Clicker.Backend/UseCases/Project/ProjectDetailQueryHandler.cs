@@ -18,8 +18,15 @@ public class ProjectDetailQueryHandler : CommonHandler<ProjectDetailQuery, Proje
     {
         request = request ?? throw new ArgumentNullException(nameof(request));
 
+        var result = new ProjectDetailQueryModel()
+        {
+            Author = _ctx.Project.Author,
+            Id = _ctx.Project.Id,
+            Version = _ctx.Project.Version
+        };
+        
         // Return
-        return _mapper.Map<ProjectDetailQueryModel>(_ctx.Project);
+        return result;
     }
 
 }

@@ -1,4 +1,5 @@
 ﻿using System.Configuration;
+using System.Security.Claims;
 using Clicker.Backend.Common;
 using Config.Net;
 
@@ -48,9 +49,10 @@ public class ConfigNetWrapper : IDbContext
 
     public ConfigNetWrapper(IHttpContextAccessor httpContextAccessor)
     {
-        var cstrinf = httpContextAccessor.HttpContext?.User?.FindFirst("ConnectionString");
-        if (cstrinf != null)
-            SetConnectionString(cstrinf.Value);
+        var conStr = httpContextAccessor.HttpContext.User.Claims
+            .Where(x => x.Type == "ConnectionString").FirstOrDefault();
+        if (conStr != null)
+            SetConnectionString(conStr.Value);
     }
 
     /// <inheritdoc />

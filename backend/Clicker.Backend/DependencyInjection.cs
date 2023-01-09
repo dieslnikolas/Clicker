@@ -10,6 +10,7 @@ using Clicker.Backend.Settings;
 using FluentValidation;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 
 namespace Clicker.Backend;
 
@@ -80,13 +81,73 @@ public static class DependencyInjection
     public static IServiceCollection AddSwagger(this IServiceCollection services)
     {
         services.AddEndpointsApiExplorer();
-        services.AddSwaggerGen(o =>
+        services.AddSwaggerGen(c =>
         {
-            o.SwaggerDoc("v1", OpenApiSecurityHelpers.GetInfo());
-            o.AddSecurityDefinition("Bearer", OpenApiSecurityHelpers.GetScheme());
-            o.AddSecurityRequirement(OpenApiSecurityHelpers.GetSchemeRequirement());
+            c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
+            {
+                Name = "Authorization",
+                Type = SecuritySchemeType.ApiKey,
+                Scheme = "Bearer",
+                BearerFormat = "JWT",
+                In = ParameterLocation.Header,
+            });
+            c.AddSecurityRequirement(new OpenApiSecurityRequirement
+            {
+                {
+                    new OpenApiSecurityScheme
+                    {
+                        Reference = new OpenApiReference
+                        {
+                            Type = ReferenceType.SecurityScheme,
+                            Id = "Bearer"
+                        }
+                    },
+                    new string[] { }
+                }
+            });
         });
 
+        return services;
+    }
+
+    public static IServiceCollection AddJWTSupport(this IServiceCollection services, IConfiguration cfg)
+    {
+        // You dont need to be that specific in net 7, but who cares for now
+        // Authentication
+        services.AddAuthentication(config =>
+            {
+                config.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                config.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                config.DefaultSignInScheme = JwtBearerDefaults.AuthenticationScheme;
+                config.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+
+            // JWT
+            .AddJwtBearer(config =>
+            {
+                // Allow HTTPS token (bad and ugly)
+                config.RequireHttpsMetadata = false;
+                config.SaveToken = true;
+                config.TokenValidationParameters = new TokenValidationParameters
+                {
+                    // Key
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(Jwt.GetSecret(cfg)),
+                    
+                    // Isuer
+                    ValidateIssuer = true,
+                    ValidIssuer = Jwt.GetIssuer(cfg),
+                    
+                    // Audience
+                    ValidateAudience = true,
+                    ValidAudience = Jwt.GetAudience(cfg)
+                };
+            });
+
+        // Authorization support
+        services.AddAuthorization();
+
+        // Return
         return services;
     }
 

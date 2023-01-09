@@ -20,7 +20,7 @@ public class ProjectOpenQueryHandler : CommonHandler<ProjectOpenQuery, ProjectOp
         request = request ?? throw new ArgumentNullException(nameof(request));
 
         // Setup "DB" context
-        _ctx.SetConnectionString(request.Path);
+        await _ctx.SetConnectionString(request.Path);
         
         // Get JWT
         var jwtToken = Jwt.GetToken(request.Path, _ctx.Project.Id, _ctx.Project.Author, request.Key, _cfg);
