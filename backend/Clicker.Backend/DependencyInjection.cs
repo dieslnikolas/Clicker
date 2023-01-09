@@ -21,7 +21,7 @@ public static class DependencyInjection
         services.AddScoped<Context>();
 
         // Settings wrapper - it must keep filepath (project path) 4EVER
-        services.AddSingleton<IDbContext, ConfigNetWrapper>();
+        services.AddScoped<IDbContext, ConfigNetWrapper>();
 
         return services;
     }

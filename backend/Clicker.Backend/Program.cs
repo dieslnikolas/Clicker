@@ -11,6 +11,7 @@ builder.Services.AddSwagger();
 builder.Services.AddMediator();
 // Authorization and Authentication
 builder.Services.AddAuthorization(builder.Configuration);
+builder.Services.AddHttpContextAccessor();
 // Register Automapper
 builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 // Register FluentValidations

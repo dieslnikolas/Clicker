@@ -9,9 +9,9 @@ public class ConfigNetWrapper : IDbContext
     /// <summary>
     /// Path to config file
     /// </summary>
-    private static string? ProjectFile { get; set; }
-    private static bool isInitialized = false;
-
+    public string? ProjectFile { get; set; }
+    
+    private bool isInitialized = false;
 
     private IProject _project;
 
@@ -25,7 +25,7 @@ public class ConfigNetWrapper : IDbContext
         set { _project = value; }
     }
 
-    private static void CheckSetup()
+    private void CheckSetup()
     {
         if (!isInitialized)
             throw new ConfigurationException("Project file not set");
@@ -46,8 +46,11 @@ public class ConfigNetWrapper : IDbContext
         set { _user = value; }
     }
 
-    public ConfigNetWrapper()
+    public ConfigNetWrapper(IHttpContextAccessor httpContextAccessor)
     {
+        var cstrinf = httpContextAccessor.HttpContext?.User?.FindFirst("ConnectionString");
+        if (cstrinf != null)
+            SetConnectionString(cstrinf.Value);
     }
 
     /// <inheritdoc />
