@@ -10,7 +10,7 @@ namespace Clicker.Backend.Common.Validations
         /// <summary>
         /// Vrací komand/query
         /// </summary>
-        public T Command { get; set; }
+        private T Command { get; set; }
         
         /// <inheritdoc cref="IValidator.ValidateAsync" />
         async Task<IList<ValidationMessage>> IClickerValidator<T>.ValidateAsync(T instance, CancellationToken cancellation = default)

@@ -7,10 +7,10 @@ public static class ModuleEndpoint
 {
     public static void RegisterRoutes(WebApplication app)
     {
-        app.MapGet("/Module", (string? id) => new ModuleResponse());
-        app.MapPost("/Module", (ModuleRequest request) => new ModuleResponse());
-        app.MapPatch("/Module", (ModuleRequest request) => Results.Ok());
-        app.MapDelete("/Module", (string? id) => Results.Ok());
+        // app.MapGet("/Module", (string? id) => new ModuleResponse());
+        // app.MapPost("/Module", (ModuleRequest request) => new ModuleResponse());
+        // app.MapPatch("/Module", (ModuleRequest request) => Results.Ok());
+        // app.MapDelete("/Module", (string? id) => Results.Ok());
     }
 }
 
@@ -28,6 +28,4 @@ public record ModuleRequest(
 
 public record ModuleResponse : IApiResponse
 {
-    public Exception Exception { get; set; }
-    public IList<ValidationMessage> Validation { get; set; }
 }

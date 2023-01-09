@@ -1,24 +1,35 @@
 using Clicker.Backend.Common;
-using Clicker.Backend.Common.Validations;
+using Clicker.Backend.UseCases.Project;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Clicker.Backend.Endpoints;
 
-public static class ProjectEndpoint 
+public static class ProjectEndpoint
 {
     public static void RegisterRoutes(WebApplication app)
     {
-        app.MapGet("/Project", () => new ProjectResponse());
-        // app.MapPost("/Project", async (ProjectRequest request, Context ctx) => await ctx.SendCommand<commnd, ProjectResponse>(request));
-        app.MapPatch("/Project", (ProjectRequest request) => Results.Ok());
-        app.MapDelete("/Project", () => Results.Ok());
+        app.MapPost("/Project", 
+                async (ProjectRequest request, Context ctx) =>
+                await ctx.SendCommand<ProjectInsertCommand, ProjectResponse>(request))
+            .AllowAnonymous()
+            .Produces<ProjectResponse>();
+        
     }
 }
 
+/// <summary>
+/// Project 
+/// </summary>
+/// <param name="Id"></param>
+/// <param name="Author"></param>
+/// <param name="Path"></param>
+/// <param name="Key"></param>
+public record ProjectRequest(string Id, string? Author, string Path, string Key);
 
-public record ProjectRequest(string DisplayName);
-public record ProjectResponse : IApiResponse
+/// <summary>
+/// Project response is empty if everything is OK, otherwise Error or Valdation message
+/// </summary>
+/// <param name="JWT">Token</param>
+public record ProjectResponse(string JWT) : IApiResponse
 {
-    public Exception Exception { get; set; }
-    public IList<ValidationMessage> Validation { get; set; }
 }
-

@@ -1,8 +1,4 @@
-﻿using AutoMapper;
-using Clicker.Backend.Common.UseCases;
-using Clicker.Backend.Endpoints;
-using Clicker.Backend.Extensions;
-using MediatR;
+﻿using Clicker.Backend.Endpoints;
 
 namespace Clicker.Backend.Common;
 

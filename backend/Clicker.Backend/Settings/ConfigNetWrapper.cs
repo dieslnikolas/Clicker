@@ -9,12 +9,8 @@ public class ConfigNetWrapper : IDbContext
     /// <summary>
     /// Path to config file
     /// </summary>
-    private static string filePathInternal { get; set; }
-
-    public string ConnectionString
-    {
-        get { return filePathInternal; }
-    }
+    private static string? ProjectFile { get; set; }
+    private static bool isInitialized = false;
 
 
     private IProject _project;
@@ -23,12 +19,19 @@ public class ConfigNetWrapper : IDbContext
     {
         get
         {
-            if (string.IsNullOrEmpty(ConnectionString))
-                throw new ConfigurationErrorsException("Config.NET path is not set");
-
+            CheckSetup();
             return _project;
         }
         set { _project = value; }
+    }
+
+    private static void CheckSetup()
+    {
+        if (!isInitialized)
+            throw new ConfigurationException("Project file not set");
+
+        if (string.IsNullOrEmpty(ProjectFile))
+            throw new ConfigurationErrorsException("Config.NET path is not set");
     }
 
     private IUser _user;
@@ -37,9 +40,7 @@ public class ConfigNetWrapper : IDbContext
     {
         get
         {
-            if (string.IsNullOrEmpty(ConnectionString))
-                throw new ConfigurationErrorsException("Config.NET path is not set");
-
+            CheckSetup();
             return _user;
         }
         set { _user = value; }
@@ -50,22 +51,31 @@ public class ConfigNetWrapper : IDbContext
     }
 
     /// <inheritdoc />
-    public async Task SetConnectionString(string filePath)
+    public async Task SetConnectionString(string? filePath)
     {
         if (string.IsNullOrEmpty(filePath))
             throw new ArgumentException("Filepath must not be empty");
 
+        // AppData
+        var appDataFolder = Path.Combine(
+            Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), 
+            ".clicker/user_settings.json");
+
         // set settings path
-        await Task.FromResult(() => filePathInternal = filePath);
+        await Task.FromResult(() => ProjectFile = filePath);
 
         // project settings
         Project = new ConfigurationBuilder<IProject>()
-            .UseJsonFile("C:\\project.json")
+            .UseJsonFile(filePath)
             .Build();
 
         // project settings
         User = new ConfigurationBuilder<IUser>()
-            .UseJsonFile("C:\\user.json")
+            .UseJsonFile(appDataFolder)
             .Build();
+
+        // After succesfull initialisation 
+        isInitialized = true;
+        ProjectFile = filePath;
     }
 }

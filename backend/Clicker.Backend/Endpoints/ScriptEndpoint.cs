@@ -1,7 +1,5 @@
 using Clicker.Backend.Common;
 using Clicker.Backend.Common.Validations;
-using Clicker.Backend.UseCases.Scripts;
-using Microsoft.AspNetCore.Mvc;
 
 namespace Clicker.Backend.Endpoints;
 
@@ -9,11 +7,11 @@ public static class ScriptEndpoint
 {
     public static void RegisterRoutes(WebApplication app)
     {
-        app.MapGet("/Script", async ([AsParameters] ScriptRequest request, Context ctx) => await ctx.SendQuery<ScriptGetQuery, ScriptResponse>(request));
-        app.MapPost("/Script", async (ScriptRequest request, Context ctx) => await ctx.SendCommand<ScriptInsertCommand, ScriptResponse>(request));
-        app.MapPost("/Script/Run", async (ScriptRequest request, Context ctx) => await ctx.SendCommand<ScriptRunCommand, ScriptResponse>(request));
-        app.MapPatch("/Script", async (ScriptRequest request, Context ctx) => await ctx.SendCommand<ScriptUpdateCommand, ScriptResponse>(request));
-        app.MapDelete("/Script", async ([AsParameters] ScriptRequest request, Context ctx) => await ctx.SendCommand<ScriptDeleteCommand, ScriptResponse>(request));
+        // app.MapGet("/Script", async ([AsParameters] ScriptRequest request, Context ctx) => await ctx.SendQuery<ScriptGetQuery, ScriptResponse>(request));
+        // app.MapPost("/Script", async (ScriptRequest request, Context ctx) => await ctx.SendCommand<ScriptInsertCommand, ScriptResponse>(request));
+        // app.MapPost("/Script/Run", async (ScriptRequest request, Context ctx) => await ctx.SendCommand<ScriptRunCommand, ScriptResponse>(request));
+        // app.MapPatch("/Script", async (ScriptRequest request, Context ctx) => await ctx.SendCommand<ScriptUpdateCommand, ScriptResponse>(request));
+        // app.MapDelete("/Script", async ([AsParameters] ScriptRequest request, Context ctx) => await ctx.SendCommand<ScriptDeleteCommand, ScriptResponse>(request));
     }
 }
 
@@ -35,6 +33,4 @@ public record ScriptRequest(
 
 public record ScriptResponse : IApiResponse
 {
-    public Exception Exception { get; set; }
-    public IList<ValidationMessage> Validation { get; set; }
 }

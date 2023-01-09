@@ -1,24 +1,25 @@
+using System.Globalization;
 using System.Reflection;
+using System.Text;
 using Clicker.Backend.Common;
+using Clicker.Backend.Common.Authorization;
 using MediatR;
 using Clicker.Backend.Common.UseCases;
 using Clicker.Backend.PipelineBehaviours;
 using Clicker.Backend.Settings;
+using FluentValidation;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 
 namespace Clicker.Backend;
 
 public static class DependencyInjection
 {
-    /// <summary>
-    /// Endpoint context (contains everything you need inside http request)
-    /// </summary>
-    /// <param name="services"></param>
-    /// <returns></returns>
     public static IServiceCollection AddApi(this IServiceCollection services)
     {
         // API EACH HTTP request context
         services.AddScoped<Context>();
-        
+
         // Settings wrapper - it must keep filepath (project path) 4EVER
         services.AddSingleton<IDbContext, ConfigNetWrapper>();
 
@@ -39,7 +40,7 @@ public static class DependencyInjection
         // Add Pipeline behaviours
         // Pipelines will be executed in order in which they were registered
         services.AddTransient(typeof(IPipelineBehavior<,>), typeof(LoggingBehaviour<,>));
-        // services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehaviour<,>));
+        services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehaviour<,>));
 
         return services;
     }
@@ -64,6 +65,62 @@ public static class DependencyInjection
             var commandOrQueryType = GetCommandOrQueryType(validator, typeof(Common.Validations.IClickerValidator<>));
             services.AddScoped(commandOrQueryType, validator);
         }
+
+        // Default language
+        ValidatorOptions.Global.LanguageManager.Culture = new CultureInfo("en");
+
+        return services;
+    }
+
+    /// <summary>
+    /// Helper metod for adding swagger desc
+    /// </summary>
+    /// <param name="services"></param>
+    /// <returns></returns>
+    public static IServiceCollection AddSwagger(this IServiceCollection services)
+    {
+        services.AddEndpointsApiExplorer();
+        services.AddSwaggerGen(o =>
+        {
+            o.SwaggerDoc("v1", OpenApiSecurityHelpers.GetInfo());
+            o.AddSecurityDefinition("Bearer", OpenApiSecurityHelpers.GetScheme());
+            o.AddSecurityRequirement(OpenApiSecurityHelpers.GetSchemeRequirement());
+        });
+
+        return services;
+    }
+
+    /// <summary>
+    /// Helper method to setup authorization
+    /// </summary>
+    /// <param name="services"></param>
+    /// <param name="configuration"></param>
+    /// <returns></returns>
+    public static IServiceCollection AddAuthorization(this IServiceCollection services, IConfiguration configuration)
+    {
+        // Specify authentication - check if user exists
+        services.AddAuthentication(o =>
+            {
+                o.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                o.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                o.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+            .AddJwtBearer(o =>
+            {
+                o.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidIssuer = configuration["Jwt:Issuer"],
+                    ValidAudience = configuration["Jwt:Audience"],
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Jwt:Key"])),
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidateLifetime = false,
+                    ValidateIssuerSigningKey = true
+                };
+            });
+
+        // Default authorization - check what can user do
+        services.AddAuthorization();
 
         return services;
     }

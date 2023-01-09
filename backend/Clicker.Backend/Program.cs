@@ -1,17 +1,16 @@
 using System.Reflection;
 using Clicker.Backend;
 using Clicker.Backend.Common;
-using Clicker.Backend.Endpoints;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+// Swagger
+builder.Services.AddSwagger();
 // Register MediatR
 builder.Services.AddMediator();
+// Authorization and Authentication
+builder.Services.AddAuthorization(builder.Configuration);
 // Register Automapper
 builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 // Register FluentValidations
@@ -33,5 +32,15 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+// Exception handler
+app.UseExceptionHandler(handler => handler.Run(async ctx => await ErrorHandler.Handle(ctx)));
+
+// Add authorization/Authentication
+app.UseAuthentication();
+app.UseAuthorization();
+
+// HTTPS
 app.UseHttpsRedirection();
+
+// RUN API
 app.Run();

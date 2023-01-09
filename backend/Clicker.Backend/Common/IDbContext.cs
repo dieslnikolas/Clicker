@@ -10,12 +10,7 @@ public interface IDbContext
     /// </summary>
     /// <param name="filePath"></param>
     /// <returns></returns>
-    Task SetConnectionString(string filePath);
-
-    /// <summary>
-    /// Returns settings file path
-    /// </summary>
-    public string ConnectionString { get; }
+    Task SetConnectionString(string? filePath);
 
     /// <summary>
     /// Current project settings

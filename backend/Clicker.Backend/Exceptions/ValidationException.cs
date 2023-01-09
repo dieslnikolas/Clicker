@@ -7,11 +7,11 @@ namespace Clicker.Backend.Exceptions
     /// </summary>
     public class ValidationException : Exception
     {
-        public IList<ValidationMessage> ToList { get; }
+        public IList<ValidationMessage> Messages { get; }
 
-        public ValidationException(IList<ValidationMessage> toList) : base("Validation message")
+        public ValidationException(IList<ValidationMessage> messages) : base("Validation message")
         {
-            ToList = toList;
+            Messages = messages;
         }
     }
 }
