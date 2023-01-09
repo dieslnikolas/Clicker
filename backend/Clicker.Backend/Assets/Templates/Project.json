@@ -2,22 +2,20 @@
   "Id": "ProjectName",
   "Author": "",
   "Version": "1.0",
+  "DataFolder": ".clicker",
   "Settings": [
     {
-      "Key": "Key",
-      "Value": "Value"
+      "Key": "Value",
+      "Key2": "Value2"
     }
   ],
-  "Paths": {
-    "Data": ".clicker",
-    "Temp": "temp",
-    "Modules": "modules",
-    "Scripts": "scripts"
-  },
   "Commands": [
     {
       "Name": "Name",
-      "Id": "Key"
+      "Id": "Key",
+      "Path": "/scrpti.ps1",
+      "IsDefault": false,
+      "IsImport": false
     }
   ],
   "Modules": [
@@ -28,6 +26,7 @@
         {
           "Name": "Name",
           "Id": "Key",
+          "Path": "/scrpti.ps1",
           "IsDefault": false,
           "IsImport": false
         }
