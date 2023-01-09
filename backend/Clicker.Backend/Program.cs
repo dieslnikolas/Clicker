@@ -10,7 +10,9 @@ builder.Services.AddSwagger();
 // Register MediatR
 builder.Services.AddMediator();
 // Authorization and Authentication
-builder.Services.AddAuthorization(builder.Configuration);
+// Allow only HTTP
+builder.Services.AddAuthentication().AddJwtBearer(opt => opt.RequireHttpsMetadata = false); 
+builder.Services.AddAuthorization();
 builder.Services.AddHttpContextAccessor();
 // Register Automapper
 builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
