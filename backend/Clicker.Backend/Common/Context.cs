@@ -8,7 +8,7 @@ namespace Clicker.Backend.Common;
 /// <summary>
 /// This class represnets endpoint 
 /// </summary>
-public class Context
+public class RequestContext
 {
     /// <summary>
     /// Mediator
