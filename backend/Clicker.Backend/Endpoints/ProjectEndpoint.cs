@@ -1,26 +1,29 @@
+using Clicker.Backend.Commands.Projects;
 using Clicker.Backend.Common;
+using Clicker.Backend.Common.Endpoints;
+using Clicker.Backend.Common.Requests;
+using Clicker.Backend.Common.Responses;
 using Clicker.Backend.Settings;
-using Clicker.Backend.UseCases.Project;
 
 namespace Clicker.Backend.Endpoints;
 
-public static class ProjectEndpoint
+public class ProjectEndpoint : IEndpoint
 {
     private const string GroupName = "Project";
     
-    public static void RegisterRoutes(WebApplication app)
+    public void RegisterRoutes(WebApplication app)
     {
-        // New project
+        // New
         app.MapPost("/Project", 
-                async (ProjectPostRequest request, Context ctx) =>
+                async (ProjectPostRequest request, RequestContext ctx) =>
                 await ctx.SendCommand<ProjectInsertCommand, ProjectPostResponse>(request))
             .AllowAnonymous()
             .WithTags(GroupName)
             .Produces<ProjectPostResponse>();
         
-        // Open project
+        // Open
         app.MapGet("/Project/Open", 
-                async ([AsParameters] ProjectOpenRequest request, Context ctx) =>
+                async ([AsParameters] ProjectOpenRequest request, RequestContext ctx) =>
                     await ctx.SendQuery<ProjectOpenQuery, ProjectOpenResponse>(request))
             .AllowAnonymous()
             .WithTags(GroupName)
@@ -28,7 +31,7 @@ public static class ProjectEndpoint
         
         // Detail
         app.MapGet("/Project", 
-                async ([AsParameters] ProjectDetailRequest request, Context ctx) =>
+                async ([AsParameters] ProjectDetailRequest request, RequestContext ctx) =>
                     await ctx.SendQuery<ProjectDetailQuery, ProjectDetailResponse>(request))
             .WithTags(GroupName)
             .RequireAuthorization()
@@ -36,7 +39,7 @@ public static class ProjectEndpoint
         
         // Edit
         app.MapPatch("/Project", 
-                async (ProjectEditRequest request, Context ctx) =>
+                async (ProjectEditRequest request, RequestContext ctx) =>
                     await ctx.SendCommand<ProjectEditCommand, ProjectEditResponse>(request))
             .WithTags(GroupName)
             .RequireAuthorization()
@@ -44,7 +47,7 @@ public static class ProjectEndpoint
         
         // Delete
         app.MapDelete( "/Project", 
-                async ([AsParameters] ProjectDeleteRequest request, Context ctx) =>
+                async ([AsParameters] ProjectDeleteRequest request, RequestContext ctx) =>
                     await ctx.SendCommand<ProjectDeleteCommand, ProjectDeleteResponse>(request))
             .WithTags(GroupName)
             .RequireAuthorization()
@@ -59,7 +62,7 @@ public record ProjectOpenRequest(string Path, string Key);
 public record ProjectOpenResponse(string Jwt) : IApiResponse;
 
 public record ProjectDetailRequest();
-public record ProjectDetailResponse(string Id, string Author, string Version, IList<IScripts> Scripts) : IApiResponse;
+public record ProjectDetailResponse(string Id, string Author, string Version, IList<IScript> Scripts) : IApiResponse;
 
 public record ProjectEditRequest(string Id, string Author, string Version);
 public record ProjectEditResponse : IApiResponse;

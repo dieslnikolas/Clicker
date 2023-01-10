@@ -1,6 +1,8 @@
 using System.Reflection;
 using Clicker.Backend;
 using Clicker.Backend.Common;
+using Clicker.Backend.Common.ExceptionHandlers;
+using Clicker.Backend.Common.Extensions;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,7 +12,6 @@ builder.Services.AddSwagger();
 // Register MediatR
 builder.Services.AddMediator();
 // Authorization and Authentication
-// Allow only HTTP
 builder.Services.AddJWTSupport(builder.Configuration);
 builder.Services.AddHttpContextAccessor();
 // Register Automapper
@@ -18,7 +19,9 @@ builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 // Register FluentValidations
 builder.Services.AddValidators();
 // API HTTP Request context
-builder.Services.AddApi();
+builder.Services.AddWebApi();
+// Database
+builder.Services.AddDb();
 // Register Nlog
 builder.Logging.ClearProviders().AddSerilog();
 
@@ -35,7 +38,7 @@ if (app.Environment.IsDevelopment())
 }
 
 // Exception handler
-app.UseExceptionHandler(handler => handler.Run(async ctx => await ErrorHandler.Handle(ctx)));
+app.UseExceptionHandler(handler => handler.Run(async ctx => await ExceptionHandler.Handle(ctx)));
 
 // Add authorization/Authentication
 app.UseAuthentication();

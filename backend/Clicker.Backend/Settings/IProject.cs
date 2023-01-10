@@ -22,89 +22,19 @@ public interface IProject
 
     [DefaultValue(".clicker")] string DataFolder { get; set; }
 
-    // /// <summary>
-    // /// Custom settings
-    // /// </summary>
-    // Dictionary<string, object> Settings { get; set; }
+    /// <summary>
+    /// Custom settings
+    /// </summary>
+    Dictionary<string, object> Settings { get; set; }
 
     /// <summary>
     /// Global scripts
     /// </summary>
-    IList<IScripts> Scripts { get; }
+    IList<IScript> Scripts { get; }
 
     /// <summary>
     /// Modules
     /// </summary>
-    IList<IModules> Modules { get; }
-}
-
-/// <summary>
-/// Module
-/// </summary>
-/// <param name="Name">Name how person would call it</param>
-/// <param name="Key">Key how system would describe it</param>
-/// <param name="Scripts">list of module scripts</param>
-/// <param name="Data">Data - basically JSON array</param>
-public interface IModules
-{
-    string Name { get; set; }
-    string Key { get; set; }
-    IList<IScripts> Scripts { get; }
-    IList<Dictionary<string, object>> Data { get; set; }
-}
-
-public class Module : IModules
-{
-    public string Name { get; set; }
-    public string Key { get; set; }
-    public IList<IScripts> Scripts { get; }
-    public IList<Dictionary<string, object>> Data { get; set; }
-};
-
-///; <summary>
-/// Scripts for modules and global scripts
-/// </summary>
-/// <param name="Name">Command name - Displayname</param>
-/// <param name="Id">System ID</param>
-/// <param name="IsDefault">Double click default value - works only for module commands</param>
-/// <param name="IsContext">If its context or global script</param>
-/// <param name="IsImport">Is command for importing data</param>
-public interface IScripts
-{
-    /// <summary>
-    /// Script name
-    /// </summary>
-    string Name { get; set; }
-
-    /// <summary>
-    /// Script system key
-    /// </summary>
-    string Id { get; set; }
-
-    /// <summary>
-    /// Double click default action
-    /// </summary>
-    [DefaultValue(false)]
-    bool IsDefault { get; set; }
-
-    /// <summary>
-    /// If its module or global
-    /// </summary>
-    [DefaultValue(true)]
-    bool IsContext { get; set; }
-
-    /// <summary>
-    /// If its for import data to table
-    /// </summary>
-    [DefaultValue(false)]
-    bool IsImport { get; set; }
-}
-
-public class Scripts : IScripts
-{
-    public string Name { get; set; }
-    public string Id { get; set; }
-    public bool IsDefault { get; set; }
-    public bool IsContext { get; set; }
-    public bool IsImport { get; set; }
+    IList<IModule> Modules { get; }
+    
 }

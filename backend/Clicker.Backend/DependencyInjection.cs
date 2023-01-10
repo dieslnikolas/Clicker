@@ -2,27 +2,36 @@ using System.Globalization;
 using System.Reflection;
 using System.Text;
 using Clicker.Backend.Common;
-using Clicker.Backend.Common.Authorization;
+using Clicker.Backend.Common.Authorizations;
+using Clicker.Backend.Common.Commands;
+using Clicker.Backend.Common.Databases;
+using Clicker.Backend.Common.Extensions;
+using Clicker.Backend.Common.PipelineBehaviours;
+using Clicker.Backend.Common.Requests;
 using MediatR;
-using Clicker.Backend.Common.UseCases;
-using Clicker.Backend.PipelineBehaviours;
 using Clicker.Backend.Settings;
 using FluentValidation;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using TypeExtensions = Clicker.Backend.Common.Extensions.TypeExtensions;
 
 namespace Clicker.Backend;
 
 public static class DependencyInjection
 {
-    public static IServiceCollection AddApi(this IServiceCollection services)
+    public static IServiceCollection AddWebApi(this IServiceCollection services)
     {
         // API EACH HTTP request context
-        services.AddScoped<Context>();
+        services.AddScoped<RequestContext>();
 
+        return services;
+    }
+
+    public static IServiceCollection AddDb(this IServiceCollection services)
+    {
         // Settings wrapper - it must keep filepath (project path) 4EVER
-        services.AddScoped<IDbContext, ConfigNetWrapper>();
+        services.AddScoped<IDbContext, DbContext>();
 
         return services;
     }
@@ -53,18 +62,12 @@ public static class DependencyInjection
     public static IServiceCollection AddValidators(this IServiceCollection services)
     {
         // 1) Find all validators of the type except base/abstract
-        var abstractValidatorType = typeof(Common.Validations.Validator<>);
-
-        var validatorTypes = abstractValidatorType
-            .Assembly
-            .GetTypes()
-            .Where(oneClass => oneClass.IsSubclassOfRawGeneric(abstractValidatorType) && !oneClass.IsAbstract);
+        var validatorTypes = TypeExtensions.GetValidators();
 
         // 2) Register specific validators to specific command/query
         foreach (var validator in validatorTypes)
         {
-            var commandOrQueryType = GetCommandOrQueryType(validator, typeof(Common.Validations.IClickerValidator<>));
-            services.AddScoped(commandOrQueryType, validator);
+            services.AddScoped(validator.GetValidatorInterface()!, validator);
         }
 
         // Default language
@@ -112,37 +115,14 @@ public static class DependencyInjection
 
     public static IServiceCollection AddJWTSupport(this IServiceCollection services, IConfiguration cfg)
     {
-        // You dont need to be that specific in net 7, but who cares for now
-        // Authentication
-        services.AddAuthentication(config =>
-            {
-                config.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                config.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-                config.DefaultSignInScheme = JwtBearerDefaults.AuthenticationScheme;
-                config.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
-            })
+        services
+
+            // Authentication
+            // You dont need to be that specific in net 7, but who cares for now
+            .AddAuthentication(options => JwtAuthorization.SetupDefaultSchemes(options))
 
             // JWT
-            .AddJwtBearer(config =>
-            {
-                // Allow HTTPS token (bad and ugly)
-                config.RequireHttpsMetadata = false;
-                config.SaveToken = true;
-                config.TokenValidationParameters = new TokenValidationParameters
-                {
-                    // Key
-                    ValidateIssuerSigningKey = true,
-                    IssuerSigningKey = new SymmetricSecurityKey(Jwt.GetSecret(cfg)),
-                    
-                    // Isuer
-                    ValidateIssuer = true,
-                    ValidIssuer = Jwt.GetIssuer(cfg),
-                    
-                    // Audience
-                    ValidateAudience = true,
-                    ValidAudience = Jwt.GetAudience(cfg)
-                };
-            });
+            .AddJwtBearer(options => JwtAuthorization.SetupJwtRequirements(options, cfg));
 
         // Authorization support
         services.AddAuthorization();
@@ -151,54 +131,4 @@ public static class DependencyInjection
         return services;
     }
 
-    #region Private methods
-
-    /// <summary>
-    /// Returns command or query (T generic validator type)
-    /// </summary>
-    /// <param name="implementation"></param>
-    /// <param name="validatorType"></param>
-    /// <returns></returns>
-    private static Type GetCommandOrQueryType(Type implementation, Type validatorType)
-    {
-        // Find all impelentations of type
-        Type resolvedType = null;
-        if (implementation.BaseType != null)
-        {
-            var cmdType = implementation.BaseType.GenericTypeArguments[0];
-            resolvedType = validatorType.MakeGenericType(cmdType);
-        }
-
-        // Check
-        if (resolvedType == null)
-        {
-            throw new Exception(string.Format("Cant resolve interface type {validatorType} for {implementation}", validatorType, implementation));
-        }
-
-        return resolvedType;
-    }
-
-    /// <summary>
-    /// Alternative version of <see cref="Type.IsSubclassOf"/> that supports raw generic types (generic types without
-    /// any type parameters).
-    /// </summary>
-    /// <param name="parentClass">The base type class for which the check is made.</param>
-    /// <param name="derivedClass">To type to determine for whether it derives from <paramref name="parentClass"/>.</param>
-    private static bool IsSubclassOfRawGeneric(this Type derivedClass, Type parentClass)
-    {
-        while (derivedClass != typeof(object) && derivedClass != null)
-        {
-            var cur = derivedClass.IsGenericType ? derivedClass.GetGenericTypeDefinition() : derivedClass;
-            if (parentClass == cur)
-            {
-                return true;
-            }
-
-            derivedClass = derivedClass.BaseType;
-        }
-
-        return false;
-    }
-
-    #endregion
 }

@@ -1,36 +1,70 @@
-using Clicker.Backend.Common;
-using Clicker.Backend.Common.Validations;
+using Clicker.Backend.Commands.Scripts;
+using Clicker.Backend.Common.Endpoints;
+using Clicker.Backend.Common.Requests;
+using Clicker.Backend.Common.Responses;
+using Clicker.Backend.Settings;
 
 namespace Clicker.Backend.Endpoints;
 
-public static class ScriptEndpoint
+public class ScriptEndpoint : IEndpoint
 {
-    public static void RegisterRoutes(WebApplication app)
+    private const string GroupName = "Script";
+    
+    public void RegisterRoutes(WebApplication app)
     {
-        // app.MapGet("/Script", async ([AsParameters] ScriptRequest request, Context ctx) => await ctx.SendQuery<ScriptGetQuery, ScriptResponse>(request));
-        // app.MapPost("/Script", async (ScriptRequest request, Context ctx) => await ctx.SendCommand<ScriptInsertCommand, ScriptResponse>(request));
-        // app.MapPost("/Script/Run", async (ScriptRequest request, Context ctx) => await ctx.SendCommand<ScriptRunCommand, ScriptResponse>(request));
-        // app.MapPatch("/Script", async (ScriptRequest request, Context ctx) => await ctx.SendCommand<ScriptUpdateCommand, ScriptResponse>(request));
-        // app.MapDelete("/Script", async ([AsParameters] ScriptRequest request, Context ctx) => await ctx.SendCommand<ScriptDeleteCommand, ScriptResponse>(request));
+        // New
+        app.MapPost("/Script", 
+                async (ScriptPostRequest request, RequestContext ctx) =>
+                await ctx.SendCommand<ScriptInsertCommand, ScriptPostResponse>(request))
+            .RequireAuthorization()
+            .WithTags(GroupName)
+            .Produces<ScriptPostResponse>();
+        
+        // Detail
+        app.MapGet("/Script", 
+                async ([AsParameters] ScriptDetailRequest request, RequestContext ctx) =>
+                    await ctx.SendQuery<ScriptDetailQuery, ScriptDetailResponse>(request))
+            .WithTags(GroupName)
+            .RequireAuthorization()
+            .Produces<ScriptDetailResponse>();
+        
+        // Run
+        app.MapGet("/Script/Run", 
+                async ([AsParameters] ScriptRunRequest request, RequestContext ctx) =>
+                    await ctx.SendQuery<ScriptRunQuery, ScriptRunResponse>(request))
+            .WithTags(GroupName)
+            .RequireAuthorization()
+            .Produces<ScriptRunResponse>();
+        
+        // Edit
+        app.MapPatch("/Script", 
+                async (ScriptEditRequest request, RequestContext ctx) =>
+                    await ctx.SendCommand<ScriptEditCommand, ScriptEditResponse>(request))
+            .WithTags(GroupName)
+            .RequireAuthorization()
+            .Produces<ScriptEditResponse>();
+        
+        // Delete
+        app.MapDelete( "/Script", 
+                async ([AsParameters] ScriptDeleteRequest request, RequestContext ctx) =>
+                    await ctx.SendCommand<ScriptDeleteCommand, ScriptDeleteResponse>(request))
+            .WithTags(GroupName)
+            .RequireAuthorization()
+            .Produces<ScriptDeleteResponse>();
     }
 }
 
-/// <summary>
-/// Scripts for modules and global scripts
-/// </summary>
-/// <param name="Name">Command name - Displayname</param>
-/// <param name="Id">System ID</param>
-/// <param name="IsDefault">Double click default value - works only for module commands</param>
-/// <param name="IsContext">If its context or global script</param>
-/// <param name="IsImport">Is command for importing data</param>
-public record ScriptRequest(
-    string Name,
-    string? Id,
-    bool? IsDefault,
-    bool? IsContext,
-    bool? IsImport
-);
+public record ScriptPostRequest(string Key, string? Name);
+public record ScriptPostResponse() : IApiResponse;
 
-public record ScriptResponse : IApiResponse
-{
-}
+public record ScriptDetailRequest(string Key);
+public record ScriptDetailResponse(string Key, string Name) : IApiResponse;
+
+public record ScriptRunRequest(string Key);
+public record ScriptRunResponse(string Key, string Name) : IApiResponse;
+
+public record ScriptEditRequest(string Name, string Key);
+public record ScriptEditResponse : IApiResponse;
+
+public record ScriptDeleteRequest(string Key);
+public record ScriptDeleteResponse : IApiResponse;
