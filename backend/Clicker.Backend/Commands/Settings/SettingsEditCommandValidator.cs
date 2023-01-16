@@ -3,7 +3,7 @@ using FluentValidation;
 
 namespace Clicker.Backend.Commands.Settings;
 
-public class SettingsEditCommandValidator : Validator<SettingsEditCommand>
+public class SettingsEditCommandValidator : ValidatorBase<SettingsEditCommand>
 {
     public SettingsEditCommandValidator()
     {

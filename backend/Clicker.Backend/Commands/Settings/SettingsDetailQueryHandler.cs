@@ -1,31 +1,29 @@
 using Clicker.Backend.Common.Commands;
-using Clicker.Backend.Common.Databases;
+using Clicker.Backend.Settings;
 
 namespace Clicker.Backend.Commands.Settings;
 
 public class SettingsDetailQueryHandler : CommonHandler<SettingsDetailQuery, SettingsDetailQueryModel>
 {
-    private readonly IDbContext _ctx;
-    private readonly IConfiguration _cfg;
-
-    public SettingsDetailQueryHandler(ICommonHandlerContext<SettingsDetailQuery> context, IDbContext ctx, IConfiguration cfg) : base(context)
+    public SettingsDetailQueryHandler(ICommonHandlerContext<SettingsDetailQuery> context) : base(context)
     {
-        _ctx = ctx;
-        _cfg = cfg;
     }
 
     public override async Task<SettingsDetailQueryModel> Handle(SettingsDetailQuery request, CancellationToken cancellationToken)
     {
         request = request ?? throw new ArgumentNullException(nameof(request));
 
-        var Settings = _ctx.Project.Settings;
+        // get project
+        var project = await Context.DbContext.Get<Project>();
 
+        // Find module
         var result = new SettingsDetailQueryModel()
         {
+            Value = request.Key,
+            Name = project.Settings[request.Key].ToString()!
         };
-        
+
         // Return
         return result;
     }
-
 }

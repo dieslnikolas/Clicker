@@ -3,7 +3,7 @@ using FluentValidation;
 
 namespace Clicker.Backend.Commands.Projects;
 
-public class ProjectEditCommandValidator : Validator<ProjectEditCommand>
+public class ProjectEditCommandValidator : ValidatorBase<ProjectEditCommand>
 {
     public ProjectEditCommandValidator()
     {

@@ -3,7 +3,7 @@ using FluentValidation;
 
 namespace Clicker.Backend.Commands.Scripts;
 
-public class ScriptInsertCommandValidator : Validator<ScriptInsertCommand>
+public class ScriptInsertCommandValidator : ValidatorBase<ScriptInsertCommand>
 {
     public ScriptInsertCommandValidator()
     {

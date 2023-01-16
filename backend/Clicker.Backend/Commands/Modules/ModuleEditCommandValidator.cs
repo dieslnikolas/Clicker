@@ -3,7 +3,7 @@ using FluentValidation;
 
 namespace Clicker.Backend.Commands.Modules;
 
-public class ModuleEditCommandValidator : Validator<ModuleEditCommand>
+public class ModuleEditCommandValidator : ValidatorBase<ModuleEditCommand>
 {
     public ModuleEditCommandValidator()
     {

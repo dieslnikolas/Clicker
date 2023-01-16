@@ -1,27 +1,29 @@
 using Clicker.Backend.Common.Commands;
-using Clicker.Backend.Common.Databases;
+using Clicker.Backend.Settings;
 
 namespace Clicker.Backend.Commands.Modules;
 
 public class ModuleDeleteCommandHandler : CommonHandler<ModuleDeleteCommand, ModuleDeleteCommandModel>
 {
-    private readonly IDbContext _ctx;
-    private readonly IConfiguration _cfg;
-    private readonly IHttpContextAccessor _contextAccessor;
 
-    public ModuleDeleteCommandHandler(ICommonHandlerContext<ModuleDeleteCommand> context, IDbContext ctx, IConfiguration cfg, IHttpContextAccessor contextAccessor) : base(context)
+    public ModuleDeleteCommandHandler(ICommonHandlerContext<ModuleDeleteCommand> context) : base(context)
     {
-        _ctx = ctx;
-        _cfg = cfg;
     }
 
     public override async Task<ModuleDeleteCommandModel> Handle(ModuleDeleteCommand request, CancellationToken cancellationToken)
     {
         request = request ?? throw new ArgumentNullException(nameof(request));
 
-        var filter = _ctx.Project.Modules.FirstOrDefault(x => x.Key == request.Key);
-        _ctx.Project.Modules.Remove(filter);
+        // Get project
+        var project = await Context.DbContext.Get<Project>();
 
+        // Find moudle and remove
+        var filter = project.Modules.FirstOrDefault(x => x.Key == request.Key);
+        if (filter != null) project.Modules.Remove(filter);
+
+        // Save changes
+        await Context.DbContext.SaveChanges(project);
+        
         // Return JWT
         return new ModuleDeleteCommandModel() { };
     }

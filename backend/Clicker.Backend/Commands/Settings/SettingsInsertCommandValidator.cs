@@ -3,7 +3,7 @@ using FluentValidation;
 
 namespace Clicker.Backend.Commands.Settings;
 
-public class SettingsInsertCommandValidator : Validator<SettingsInsertCommand>
+public class SettingsInsertCommandValidator : ValidatorBase<SettingsInsertCommand>
 {
     public SettingsInsertCommandValidator()
     {
@@ -12,7 +12,7 @@ public class SettingsInsertCommandValidator : Validator<SettingsInsertCommand>
             .MinimumLength(1)
             .MaximumLength(16);
         
-        RuleFor(x => x.Name)
+        RuleFor(x => x.Value)
             .NotEmpty()
             .MinimumLength(1)
             .MaximumLength(16);

@@ -1,26 +1,30 @@
 using Clicker.Backend.Common.Commands;
-using Clicker.Backend.Common.Databases;
+using Clicker.Backend.Settings;
 
 namespace Clicker.Backend.Commands.Modules;
 
 public class ModuleEditCommandHandler : CommonHandler<ModuleEditCommand, ModuleEditCommandModel>
 {
-    private readonly IDbContext _ctx;
-    private readonly IConfiguration _cfg;
 
-    public ModuleEditCommandHandler(ICommonHandlerContext<ModuleEditCommand> context, IDbContext ctx, IConfiguration cfg) : base(context)
+    public ModuleEditCommandHandler(ICommonHandlerContext<ModuleEditCommand> context) : base(context)
     {
-        _ctx = ctx;
-        _cfg = cfg;
     }
 
     public override async Task<ModuleEditCommandModel> Handle(ModuleEditCommand request, CancellationToken cancellationToken)
     {
         request = request ?? throw new ArgumentNullException(nameof(request));
         
-        // Create Module
-        _ctx.Project.Modules.FirstOrDefault(x => x.Key == request.Key).Name = request.Name;
+        // Get Project
+        var project = await Context.DbContext.Get<Project>();
+        
+        // Edit Module
+        var module = project.Modules.FirstOrDefault(x => x.Key == request.Key);
+        if (module != null)
+            module.Name = request.Name;
 
+        // SaveChanges
+        await Context.DbContext.SaveChanges(project);
+        
         // Return JWT
         return new ModuleEditCommandModel() { };
     }

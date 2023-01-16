@@ -3,7 +3,7 @@ using FluentValidation;
 
 namespace Clicker.Backend.Commands.Projects;
 
-public class ProjectInsertCommandValidator : Validator<ProjectInsertCommand>
+public class ProjectInsertCommandValidator : ValidatorBase<ProjectInsertCommand>
 {
     public ProjectInsertCommandValidator()
     {
@@ -14,6 +14,8 @@ public class ProjectInsertCommandValidator : Validator<ProjectInsertCommand>
         
         RuleFor(x => x.Path)
             .NotEmpty()
+            .MustAsync(async (command, prop, result) => { return !command.Path.Contains("\\"); })
+            .WithMessage(@"Path to project can't use backslash")
             .MustAsync(async (command, prop, result) => { return Path.IsPathFullyQualified(command.Path); })
             .WithMessage("Path to project MUST be absolute")
             .MustAsync(async (command, prop, result) => { return command.Path.ToLowerInvariant().EndsWith(".json"); })

@@ -8,7 +8,7 @@ public class SettingsInsertCommand : IRequest<SettingsInsertCommandModel>, IComm
     /// <summary>
     /// Path to file
     /// </summary>
-    public string Name { get; set; }
+    public string Value { get; set; }
 
     /// <summary>
     /// Api key, private

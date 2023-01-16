@@ -1,5 +1,4 @@
 using Clicker.Backend.Commands.Projects;
-using Clicker.Backend.Common;
 using Clicker.Backend.Common.Endpoints;
 using Clicker.Backend.Common.Requests;
 using Clicker.Backend.Common.Responses;
@@ -62,7 +61,7 @@ public record ProjectOpenRequest(string Path, string Key);
 public record ProjectOpenResponse(string Jwt) : IApiResponse;
 
 public record ProjectDetailRequest();
-public record ProjectDetailResponse(string Id, string Author, string Version, IList<IScript> Scripts) : IApiResponse;
+public record ProjectDetailResponse(string Id, string Author, string Version, IList<Script> Scripts) : IApiResponse;
 
 public record ProjectEditRequest(string Id, string Author, string Version);
 public record ProjectEditResponse : IApiResponse;

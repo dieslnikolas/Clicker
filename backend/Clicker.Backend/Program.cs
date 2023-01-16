@@ -1,6 +1,5 @@
 using System.Reflection;
 using Clicker.Backend;
-using Clicker.Backend.Common;
 using Clicker.Backend.Common.ExceptionHandlers;
 using Clicker.Backend.Common.Extensions;
 using Serilog;

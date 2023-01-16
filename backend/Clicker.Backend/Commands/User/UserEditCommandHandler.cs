@@ -1,17 +1,14 @@
 using Clicker.Backend.Common.Commands;
 using Clicker.Backend.Common.Databases;
+using Clicker.Backend.Settings;
 
 namespace Clicker.Backend.Commands.User;
 
 public class UserEditCommandHandler : CommonHandler<UserEditCommand, UserEditCommandModel>
 {
-    private readonly IDbContext _ctx;
-    private readonly IConfiguration _cfg;
 
-    public UserEditCommandHandler(ICommonHandlerContext<UserEditCommand> context, IDbContext ctx, IConfiguration cfg) : base(context)
+    public UserEditCommandHandler(ICommonHandlerContext<UserEditCommand> context) : base(context)
     {
-        _ctx = ctx;
-        _cfg = cfg;
     }
 
     public override async Task<UserEditCommandModel> Handle(UserEditCommand request, CancellationToken cancellationToken)
@@ -19,7 +16,11 @@ public class UserEditCommandHandler : CommonHandler<UserEditCommand, UserEditCom
         request = request ?? throw new ArgumentNullException(nameof(request));
         
         // Create User
-        // _ctx.Project.User.FirstOrDefault(x => x.Key == request.Key).Name = request.Name;
+        var user = await Context.DbContext.Get<Backend.Settings.User>();
+            
+        // edit
+        user.IsFirstTimeUser = request.IsFirstTimeUser;
+        user.LastProject = request.LastProject;
 
         // Return JWT
         return new UserEditCommandModel() { };

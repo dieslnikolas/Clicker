@@ -1,25 +1,38 @@
-﻿using Clicker.Backend.Settings;
-
-namespace Clicker.Backend.Common.Databases;
+﻿namespace Clicker.Backend.Common.Databases;
 
 public interface IDbContext
 {
+    /// <summary>
+    /// Gets settings file path (project)
+    /// </summary>
+    /// <returns></returns>
+    Task<string> GetProjectJsonFilePath();
+    
+    /// <summary>
+    /// Gets settings file path (user/global settings )
+    /// </summary>
+    /// <returns></returns>
+    Task<string> GetUserJsonFilePath();
 
     /// <summary>
     /// Sets settings file path
     /// </summary>
     /// <param name="filePath"></param>
     /// <returns></returns>
-    void SetConnectionString(string? filePath);
+    Task SetProjectJsonFilePath(string? filePath);
 
     /// <summary>
-    /// Current project settings
+    /// Get entity 
     /// </summary>
-    IProject Project { get; set; }
-    
+    /// <typeparam name="T"></typeparam>
+    /// <returns></returns>
+    Task<T> Get<T>();
+
     /// <summary>
-    /// User config its global between projects
+    /// Set entity
     /// </summary>
-    IUser User { get; set; }
+    /// <param name="model"></param>
+    /// <typeparam name="T"></typeparam>
+    Task SaveChanges<T>(T model);
 
 }

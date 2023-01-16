@@ -1,4 +1,7 @@
-﻿namespace Clicker.Backend.Common.Extensions;
+﻿using System.Reflection;
+using Clicker.Backend.Common.Validations;
+
+namespace Clicker.Backend.Common.Extensions;
 
 public static class TypeExtensions
 {
@@ -8,14 +11,15 @@ public static class TypeExtensions
     /// <returns></returns>
     public static IEnumerable<Type> GetValidators()
     {
-        var abstractValidatorType = typeof(Common.Validations.Validator<>);
+        var abstractValidatorType = typeof(Common.Validations.ValidatorBase<>);
+        var validatorInterface = typeof(IClickerValidator<>);
         var validatorTypes = abstractValidatorType
             .Assembly
             .GetTypes()
-            .Where(oneClass => oneClass.IsSubclassOf(abstractValidatorType) && !oneClass.IsAbstract);
+            .Where(childClass => IsClickerValidator(childClass, validatorInterface));
         return validatorTypes;
     }
-    
+
     /// <summary>
     /// Returns command or query (T generic validator type)
     /// </summary>
@@ -63,5 +67,16 @@ public static class TypeExtensions
         }
 
         return false;
+    }
+    
+    /// <summary>
+    /// Check if class is clicker validator
+    /// </summary>
+    /// <param name="childClass"></param>
+    /// <param name="validatorInterface"></param>
+    /// <returns></returns>
+    private static bool IsClickerValidator(Type childClass, MemberInfo validatorInterface)
+    {
+        return childClass.GetInterface(validatorInterface.Name) != null && !childClass.IsAbstract;
     }
 }

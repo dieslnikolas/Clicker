@@ -11,14 +11,6 @@ public class UserEndpoint : IEndpoint
     
     public void RegisterRoutes(WebApplication app)
     {
-        // New
-        app.MapPost("/User", 
-                async (UserPostRequest request, RequestContext ctx) =>
-                await ctx.SendCommand<UserInsertCommand, UserPostResponse>(request))
-            .RequireAuthorization()
-            .WithTags(GroupName)
-            .Produces<UserPostResponse>();
-        
         // Detail
         app.MapGet("/User", 
                 async ([AsParameters] UserDetailRequest request, RequestContext ctx) =>
@@ -44,9 +36,6 @@ public class UserEndpoint : IEndpoint
             .Produces<UserDeleteResponse>();
     }
 }
-
-public record UserPostRequest(string Key, string? Name);
-public record UserPostResponse() : IApiResponse;
 
 public record UserDetailRequest(string Key);
 public record UserDetailResponse(string Key, string Name) : IApiResponse;

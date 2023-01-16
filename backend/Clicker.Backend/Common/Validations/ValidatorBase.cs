@@ -3,7 +3,7 @@ using FluentValidation.Results;
 
 namespace Clicker.Backend.Common.Validations
 {
-    public abstract class Validator<T> : FluentValidation.AbstractValidator<T>, IClickerValidator<T>
+    public abstract class ValidatorBase<T> : FluentValidation.AbstractValidator<T>, IClickerValidator<T>
     {
         private ValidationResult _result = new ValidationResult();
 

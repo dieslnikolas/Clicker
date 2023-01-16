@@ -3,11 +3,11 @@ using FluentValidation;
 
 namespace Clicker.Backend.Commands.User;
 
-public class UserEditCommandValidator : Validator<UserEditCommand>
+public class UserEditCommandValidator : ValidatorBase<UserEditCommand>
 {
     public UserEditCommandValidator()
     {
-        RuleFor(x => x.Key)
+        RuleFor(x => x.LastProject)
             .NotEmpty();
     }
 }

@@ -5,11 +5,10 @@ namespace Clicker.Backend.Commands.User;
 
 public class UserDetailQuery : IRequest<UserDetailQueryModel>, IQuery
 {
-    public string Key { get; set; }
 }
 
 public class UserDetailQueryModel
 {
-    public string Name { get; set; }
-    public string Key { get; set; }
+    public bool IsFirstTimeUser { get; set; }
+    public string LastProject { get; set; }
 }

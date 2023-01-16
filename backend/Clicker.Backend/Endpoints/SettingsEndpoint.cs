@@ -50,7 +50,7 @@ public record SettingsPostRequest(string Key, string? Name);
 public record SettingsPostResponse() : IApiResponse;
 
 public record SettingsDetailRequest(string Key);
-public record SettingsDetailResponse(string Key, string Name, IList<IScript> Scripts, IList<Dictionary<string, object>> Data) : IApiResponse;
+public record SettingsDetailResponse(string Key, string Name, IList<Script> Scripts, IList<Dictionary<string, object>> Data) : IApiResponse;
 
 public record SettingsEditRequest(string Name, string Key);
 public record SettingsEditResponse : IApiResponse;

@@ -1,7 +1,5 @@
 using System.Globalization;
 using System.Reflection;
-using System.Text;
-using Clicker.Backend.Common;
 using Clicker.Backend.Common.Authorizations;
 using Clicker.Backend.Common.Commands;
 using Clicker.Backend.Common.Databases;
@@ -11,8 +9,6 @@ using Clicker.Backend.Common.Requests;
 using MediatR;
 using Clicker.Backend.Settings;
 using FluentValidation;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using TypeExtensions = Clicker.Backend.Common.Extensions.TypeExtensions;
 

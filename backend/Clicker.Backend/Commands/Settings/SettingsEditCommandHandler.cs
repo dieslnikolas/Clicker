@@ -1,25 +1,28 @@
 using Clicker.Backend.Common.Commands;
-using Clicker.Backend.Common.Databases;
+using Clicker.Backend.Settings;
 
 namespace Clicker.Backend.Commands.Settings;
 
 public class SettingsEditCommandHandler : CommonHandler<SettingsEditCommand, SettingsEditCommandModel>
 {
-    private readonly IDbContext _ctx;
-    private readonly IConfiguration _cfg;
 
-    public SettingsEditCommandHandler(ICommonHandlerContext<SettingsEditCommand> context, IDbContext ctx, IConfiguration cfg) : base(context)
+    public SettingsEditCommandHandler(ICommonHandlerContext<SettingsEditCommand> context) : base(context)
     {
-        _ctx = ctx;
-        _cfg = cfg;
     }
 
     public override async Task<SettingsEditCommandModel> Handle(SettingsEditCommand request, CancellationToken cancellationToken)
     {
         request = request ?? throw new ArgumentNullException(nameof(request));
         
-        // Create Settings
-        // _ctx.Project.Settings.FirstOrDefault(x => x.Key == request.Key).Name = request.Name;
+        // Get project
+        var project = await Context.DbContext.Get<Project>();
+            
+        // Edit Settings
+        if (project.Settings.ContainsKey(request.Key))
+            project.Settings[request.Key] = request.Value;
+        
+        // Save changes
+        await Context.DbContext.SaveChanges(project);
 
         // Return JWT
         return new SettingsEditCommandModel() { };

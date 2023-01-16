@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Clicker.Backend.Common.Databases;
 using Clicker.Backend.Common.Validations;
 
 namespace Clicker.Backend.Common.Commands
@@ -11,13 +12,19 @@ namespace Clicker.Backend.Common.Commands
         IMapper Mapper { get; }
 
         /// <summary>
-        /// Validace
+        /// Validations
         /// </summary>
         IClickerValidator<T> Validator { get; }
 
         /// <summary>
-        /// Logování
+        /// Logging
         /// </summary>
         ILogger<T> Logger { get; }
+        
+        /// <summary>
+        /// DB context
+        /// </summary>
+        IDbContext DbContext { get; }
+        
     }
 }

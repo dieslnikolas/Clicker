@@ -2,7 +2,6 @@ using Clicker.Backend.Commands.Modules;
 using Clicker.Backend.Common.Endpoints;
 using Clicker.Backend.Common.Requests;
 using Clicker.Backend.Common.Responses;
-using Clicker.Backend.Settings;
 
 namespace Clicker.Backend.Endpoints;
 

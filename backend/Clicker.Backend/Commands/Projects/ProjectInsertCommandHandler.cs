@@ -1,17 +1,15 @@
 using Clicker.Backend.Common.Authorizations;
 using Clicker.Backend.Common.Commands;
-using Clicker.Backend.Common.Databases;
+using Clicker.Backend.Settings;
 
 namespace Clicker.Backend.Commands.Projects;
 
 public class ProjectInsertCommandHandler : CommonHandler<ProjectInsertCommand, ProjectInsertCommandModel>
 {
-    private readonly IDbContext _ctx;
     private readonly IConfiguration _cfg;
 
-    public ProjectInsertCommandHandler(ICommonHandlerContext<ProjectInsertCommand> context, IDbContext ctx, IConfiguration cfg) : base(context)
+    public ProjectInsertCommandHandler(ICommonHandlerContext<ProjectInsertCommand> context, IConfiguration cfg) : base(context)
     {
-        _ctx = ctx;
         _cfg = cfg;
     }
 
@@ -23,14 +21,19 @@ public class ProjectInsertCommandHandler : CommonHandler<ProjectInsertCommand, P
         request.Author ??= Environment.UserName;
         
         // Get JWT
-        var jwtToken = JwtProvider.GetToken(request.Path, request.Id, request.Author, request.Key, _cfg);
+        var jwtToken = JwtProvider.GetToken(request.Path!, request.Id, request.Author, request.Key, _cfg);
         
         // Setup "DB" context
-        _ctx.SetConnectionString(request.Path);
+        await Context.DbContext.SetProjectJsonFilePath(request.Path);
         
         // Create project
-        _ctx.Project.Id = request.Id;
-        _ctx.Project.Author = request.Author;
+        var project = new Project
+        {
+            Id = request.Id,
+            Author = request.Author
+        };
+
+        await Context.DbContext.SaveChanges(project);
 
         // Return JWT
         return new ProjectInsertCommandModel() { JWT = jwtToken };

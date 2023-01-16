@@ -13,5 +13,5 @@ public class ProjectDetailQueryModel
     public string Id { get; set; }
     public string Author { get; set; }
     public string Version { get; set; }
-    public IEnumerable<IScript> Scripts { get; set; }
+    public IEnumerable<Script> Scripts { get; set; }
 }

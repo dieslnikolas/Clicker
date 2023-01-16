@@ -1,17 +1,15 @@
 using Clicker.Backend.Common.Authorizations;
 using Clicker.Backend.Common.Commands;
-using Clicker.Backend.Common.Databases;
+using Clicker.Backend.Settings;
 
 namespace Clicker.Backend.Commands.Projects;
 
 public class ProjectOpenQueryHandler : CommonHandler<ProjectOpenQuery, ProjectOpenQueryModel>
 {
-    private readonly IDbContext _ctx;
     private readonly IConfiguration _cfg;
 
-    public ProjectOpenQueryHandler(ICommonHandlerContext<ProjectOpenQuery> context, IDbContext ctx, IConfiguration cfg) : base(context)
+    public ProjectOpenQueryHandler(ICommonHandlerContext<ProjectOpenQuery> context, IConfiguration cfg) : base(context)
     {
-        _ctx = ctx;
         _cfg = cfg;
     }
 
@@ -20,13 +18,14 @@ public class ProjectOpenQueryHandler : CommonHandler<ProjectOpenQuery, ProjectOp
         request = request ?? throw new ArgumentNullException(nameof(request));
 
         // Setup "DB" context
-        _ctx.SetConnectionString(request.Path);
-        
+        await Context.DbContext.SetProjectJsonFilePath(request.Path);
+
+        var project = await this.Context.DbContext.Get<Project>();
+
         // Get JWT
-        var jwtToken = JwtProvider.GetToken(request.Path, _ctx.Project.Id, _ctx.Project.Author, request.Key, _cfg);
+        var jwtToken = JwtProvider.GetToken(request.Path, project.Id, project.Author, request.Key, _cfg);
 
         // Return JWT
         return new ProjectOpenQueryModel() { Jwt = jwtToken };
     }
-
 }

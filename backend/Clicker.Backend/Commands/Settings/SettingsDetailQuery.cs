@@ -11,5 +11,5 @@ public class SettingsDetailQuery : IRequest<SettingsDetailQueryModel>, IQuery
 public class SettingsDetailQueryModel
 {
     public string Name { get; set; }
-    public string Key { get; set; }
+    public string Value { get; set; }
 }

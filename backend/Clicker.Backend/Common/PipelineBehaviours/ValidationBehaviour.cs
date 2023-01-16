@@ -16,7 +16,7 @@ namespace Clicker.Backend.Common.PipelineBehaviours
         
         public ValidationBehaviour(IEnumerable<IClickerValidator<TRequest>> validators)
         {
-            _validators = validators;
+            _validators = validators;   
         }
         
         public async Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken cancellationToken)
