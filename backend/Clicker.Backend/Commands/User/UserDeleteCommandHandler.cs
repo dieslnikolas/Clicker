@@ -14,7 +14,7 @@ public class UserDeleteCommandHandler : CommonHandler<UserDeleteCommand, UserDel
         request = request ?? throw new ArgumentNullException(nameof(request));
 
         // Get User settings settings
-        var user = Context.DbContext.Get<Backend.Settings.User>();
+        var user = Context.DbContext.Get<Models.User>();
 
         // Delete user file
         File.Delete(await Context.DbContext.GetUserJsonFilePath());

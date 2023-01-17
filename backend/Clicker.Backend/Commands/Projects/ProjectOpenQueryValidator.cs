@@ -13,8 +13,8 @@ public class ProjectOpenQueryValidator : ValidatorBase<ProjectOpenQuery>
             .WithMessage(@"Path to project can't use backslash")
             .MustAsync(async (command, prop, result) => { return Path.IsPathFullyQualified(command.Path); })
             .WithMessage("Path to project MUST be absolute")
-            .MustAsync(async (command, prop, result) => { return command.Path.ToLowerInvariant().EndsWith(".json"); })
-            .WithMessage("Path to project MUST end with .json")
+            .MustAsync(async (command, prop, result) => { return command.Path.ToLowerInvariant().EndsWith(".clicker"); })
+            .WithMessage("Path to project MUST end with .clicker")
             .MustAsync(async (command, prop, result) => { return File.Exists(command.Path); })
             .WithMessage("Path dont exists");
 

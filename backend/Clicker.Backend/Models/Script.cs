@@ -1,6 +1,4 @@
-﻿using System.ComponentModel;
-
-namespace Clicker.Backend.Settings;
+﻿namespace Clicker.Backend.Models;
 
 public class Script
 {
@@ -17,18 +15,15 @@ public class Script
     /// <summary>
     /// Double click default action
     /// </summary>
-    [DefaultValue(false)]
-    public bool IsDefault { get; set; }
+    public bool IsDefault { get; set; } = false;
 
     /// <summary>
     /// If its module or global
     /// </summary>
-    [DefaultValue(true)]
-    public bool IsContext { get; set; }
+    public bool IsContext { get; set; } = true;
 
     /// <summary>
     /// If its for import data to table
     /// </summary>
-    [DefaultValue(false)]
-    public bool IsImport { get; set; }
+    public bool IsImport { get; set; } = false;
 }

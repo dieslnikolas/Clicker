@@ -17,6 +17,7 @@ public class UserEndpoint : IEndpoint
                     await ctx.SendQuery<UserDetailQuery, UserDetailResponse>(request))
             .WithTags(GroupName)
             .RequireAuthorization()
+            .WithDescription("User global settings")
             .Produces<UserDetailResponse>();
         
         // Edit
@@ -25,6 +26,7 @@ public class UserEndpoint : IEndpoint
                     await ctx.SendCommand<UserEditCommand, UserEditResponse>(request))
             .WithTags(GroupName)
             .RequireAuthorization()
+            .WithDescription("User global settings edit")
             .Produces<UserEditResponse>();
         
         // Delete
@@ -33,6 +35,7 @@ public class UserEndpoint : IEndpoint
                     await ctx.SendCommand<UserDeleteCommand, UserDeleteResponse>(request))
             .WithTags(GroupName)
             .RequireAuthorization()
+            .WithDescription("Delete global settings")
             .Produces<UserDeleteResponse>();
     }
 }

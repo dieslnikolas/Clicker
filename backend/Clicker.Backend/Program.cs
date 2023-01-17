@@ -23,6 +23,18 @@ builder.Services.AddWebApi();
 builder.Services.AddDb();
 // Register Nlog
 builder.Logging.ClearProviders().AddSerilog();
+// CORS
+var ClickerUI = "_ClickerUICorsName";
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: ClickerUI,
+        policy =>
+        {
+            policy.AllowAnyOrigin();
+            policy.AllowAnyMethod();
+            policy.AllowAnyHeader();
+        });
+});
 
 var app = builder.Build();
 
@@ -39,12 +51,16 @@ if (app.Environment.IsDevelopment())
 // Exception handler
 app.UseExceptionHandler(handler => handler.Run(async ctx => await ExceptionHandler.Handle(ctx)));
 
+// CORS
+app.UseCors(ClickerUI);
+
 // Add authorization/Authentication
 app.UseAuthentication();
 app.UseAuthorization();
 
 // HTTPS
 app.UseHttpsRedirection();
+
 
 // RUN API
 app.Run();

@@ -17,6 +17,7 @@ public class ModuleEndpoint : IEndpoint
                 await ctx.SendCommand<ModuleInsertCommand, ModulePostResponse>(request))
             .RequireAuthorization()
             .WithTags(GroupName)
+            .WithDescription("Create module")
             .Produces<ModulePostResponse>();
         
         // Detail
@@ -25,6 +26,7 @@ public class ModuleEndpoint : IEndpoint
                     await ctx.SendQuery<ModuleDetailQuery, ModuleDetailResponse>(request))
             .WithTags(GroupName)
             .RequireAuthorization()
+            .WithDescription("Module detail")
             .Produces<ModuleDetailResponse>();
         
         // Edit
@@ -33,6 +35,7 @@ public class ModuleEndpoint : IEndpoint
                     await ctx.SendCommand<ModuleEditCommand, ModuleEditResponse>(request))
             .WithTags(GroupName)
             .RequireAuthorization()
+            .WithDescription("Edit module")
             .Produces<ModuleEditResponse>();
         
         // Delete
@@ -41,6 +44,7 @@ public class ModuleEndpoint : IEndpoint
                     await ctx.SendCommand<ModuleDeleteCommand, ModuleDeleteResponse>(request))
             .WithTags(GroupName)
             .RequireAuthorization()
+            .WithDescription("Delete module")
             .Produces<ModuleDeleteResponse>();
     }
 }

@@ -2,7 +2,7 @@
 using Clicker.Backend.Common.Databases;
 using JsonSerializer = System.Text.Json.JsonSerializer;
 
-namespace Clicker.Backend.Settings;
+namespace Clicker.Backend.Models;
 
 public class DbContext : IDbContext
 {
@@ -44,23 +44,10 @@ public class DbContext : IDbContext
         // Trhrows error if it dont work
         await CheckSetup();
 
-        throw new NotImplementedException();
         // Read
-        // return JsonSerializer.Deserialize<T>(GetPath<T>()!);
-        
-        // kontrola parametru
-        // if (filePath == null) throw new ArgumentNullException(nameof(filePath));
-        //
-        // // přečtení dat
-        // var serializer = new JsonSerializer();
-        // var file = new JsonTextReader(new StreamReader(filePath));
-        // var jobs = serializer.Deserialize<IEnumerable<CronJob>>(file);
-        // return jobs;
-
-        // Return default
-        return default(T);
+        var bytes = await File.ReadAllBytesAsync(GetPath<T>());
+        return (File.Exists(GetPath<T>()) ? JsonSerializer.Deserialize<T>(bytes)! : default(T))!;
     }
-
 
     /// <inheritdoc />
     public async Task SaveChanges<T>(T model)
@@ -68,16 +55,13 @@ public class DbContext : IDbContext
         // Trhrows error if it dont work
         await CheckSetup();
 
-        throw new NotImplementedException();
-        
-        // // Writer
-        // var resultBytes = JsonSerializer.SerializeToUtf8Bytes(model, new JsonSerializerOptions { WriteIndented = false });
-        // using var jsonWriter = new FileStream(resultBytes);
-        //
-        // // Write
-        // await JsonSerializer.SerializeAsync(jsonWriter, model);
-        // await jsonWriter.WriteAsync();
-        // jsonWriter.Flush();
+        // Writer
+        var bytes = JsonSerializer.SerializeToUtf8Bytes(model, options: new JsonSerializerOptions()
+        {
+            WriteIndented = true,
+            AllowTrailingCommas = true,
+        });
+        await File.WriteAllBytesAsync(GetPath<T>(), bytes);
     }
     
     /// <inheritdoc />

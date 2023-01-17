@@ -18,8 +18,8 @@ public class ProjectInsertCommandValidator : ValidatorBase<ProjectInsertCommand>
             .WithMessage(@"Path to project can't use backslash")
             .MustAsync(async (command, prop, result) => { return Path.IsPathFullyQualified(command.Path); })
             .WithMessage("Path to project MUST be absolute")
-            .MustAsync(async (command, prop, result) => { return command.Path.ToLowerInvariant().EndsWith(".json"); })
-            .WithMessage("Path to project MUST end with .json");
+            .MustAsync(async (command, prop, result) => { return command.Path.ToLowerInvariant().EndsWith(".clicker"); })
+            .WithMessage("Path to project MUST end with .clicker");
 
         RuleFor(x => x.Key)
             .NotEmpty();

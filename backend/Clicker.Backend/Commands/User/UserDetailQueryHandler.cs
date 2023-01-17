@@ -1,6 +1,5 @@
 using Clicker.Backend.Common.Commands;
 using Clicker.Backend.Common.Databases;
-using Clicker.Backend.Settings;
 
 namespace Clicker.Backend.Commands.User;
 
@@ -15,7 +14,7 @@ public class UserDetailQueryHandler : CommonHandler<UserDetailQuery, UserDetailQ
         request = request ?? throw new ArgumentNullException(nameof(request));
 
         // Get user
-        var user = await Context.DbContext.Get<Backend.Settings.User>();
+        var user = await Context.DbContext.Get<Models.User>();
 
         // map 
         var result = new UserDetailQueryModel()

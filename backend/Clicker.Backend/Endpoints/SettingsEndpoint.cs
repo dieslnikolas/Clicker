@@ -2,7 +2,7 @@ using Clicker.Backend.Commands.Settings;
 using Clicker.Backend.Common.Endpoints;
 using Clicker.Backend.Common.Requests;
 using Clicker.Backend.Common.Responses;
-using Clicker.Backend.Settings;
+using Clicker.Backend.Models;
 
 namespace Clicker.Backend.Endpoints;
 
@@ -18,6 +18,7 @@ public class SettingsEndpoint : IEndpoint
                 await ctx.SendCommand<SettingsInsertCommand, SettingsPostResponse>(request))
             .RequireAuthorization()
             .WithTags(GroupName)
+            .WithDescription("New custom settings")
             .Produces<SettingsPostResponse>();
         
         // Detail
@@ -26,6 +27,7 @@ public class SettingsEndpoint : IEndpoint
                     await ctx.SendQuery<SettingsDetailQuery, SettingsDetailResponse>(request))
             .WithTags(GroupName)
             .RequireAuthorization()
+            .WithDescription("Settings value")
             .Produces<SettingsDetailResponse>();
         
         // Edit
@@ -34,6 +36,7 @@ public class SettingsEndpoint : IEndpoint
                     await ctx.SendCommand<SettingsEditCommand, SettingsEditResponse>(request))
             .WithTags(GroupName)
             .RequireAuthorization()
+            .WithDescription("Edit settings value")
             .Produces<SettingsEditResponse>();
         
         // Delete
@@ -42,6 +45,7 @@ public class SettingsEndpoint : IEndpoint
                     await ctx.SendCommand<SettingsDeleteCommand, SettingsDeleteResponse>(request))
             .WithTags(GroupName)
             .RequireAuthorization()
+            .WithDescription("Delete custom settings")
             .Produces<SettingsDeleteResponse>();
     }
 }

@@ -2,7 +2,7 @@ using Clicker.Backend.Commands.Projects;
 using Clicker.Backend.Common.Endpoints;
 using Clicker.Backend.Common.Requests;
 using Clicker.Backend.Common.Responses;
-using Clicker.Backend.Settings;
+using Clicker.Backend.Models;
 
 namespace Clicker.Backend.Endpoints;
 
@@ -18,6 +18,7 @@ public class ProjectEndpoint : IEndpoint
                 await ctx.SendCommand<ProjectInsertCommand, ProjectPostResponse>(request))
             .AllowAnonymous()
             .WithTags(GroupName)
+            .WithDescription("Create project file and login")
             .Produces<ProjectPostResponse>();
         
         // Open
@@ -26,6 +27,7 @@ public class ProjectEndpoint : IEndpoint
                     await ctx.SendQuery<ProjectOpenQuery, ProjectOpenResponse>(request))
             .AllowAnonymous()
             .WithTags(GroupName)
+            .WithDescription("Open existing project file and login")
             .Produces<ProjectOpenResponse>();
         
         // Detail
@@ -34,6 +36,7 @@ public class ProjectEndpoint : IEndpoint
                     await ctx.SendQuery<ProjectDetailQuery, ProjectDetailResponse>(request))
             .WithTags(GroupName)
             .RequireAuthorization()
+            .WithDescription("Project detail")
             .Produces<ProjectDetailResponse>();
         
         // Edit
@@ -42,6 +45,7 @@ public class ProjectEndpoint : IEndpoint
                     await ctx.SendCommand<ProjectEditCommand, ProjectEditResponse>(request))
             .WithTags(GroupName)
             .RequireAuthorization()
+            .WithDescription("Project edit")
             .Produces<ProjectEditResponse>();
         
         // Delete
@@ -50,6 +54,7 @@ public class ProjectEndpoint : IEndpoint
                     await ctx.SendCommand<ProjectDeleteCommand, ProjectDeleteResponse>(request))
             .WithTags(GroupName)
             .RequireAuthorization()
+            .WithDescription("Project delete")
             .Produces<ProjectDeleteResponse>();
     }
 }

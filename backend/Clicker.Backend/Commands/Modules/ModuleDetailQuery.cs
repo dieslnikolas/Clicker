@@ -1,5 +1,5 @@
 using Clicker.Backend.Common.Commands;
-using Clicker.Backend.Settings;
+using Clicker.Backend.Models;
 using MediatR;
 
 namespace Clicker.Backend.Commands.Modules;

@@ -17,6 +17,7 @@ public class ScriptEndpoint : IEndpoint
                 await ctx.SendCommand<ScriptInsertCommand, ScriptPostResponse>(request))
             .RequireAuthorization()
             .WithTags(GroupName)
+            .WithDescription("Create new script")
             .Produces<ScriptPostResponse>();
         
         // Detail
@@ -25,6 +26,7 @@ public class ScriptEndpoint : IEndpoint
                     await ctx.SendQuery<ScriptDetailQuery, ScriptDetailResponse>(request))
             .WithTags(GroupName)
             .RequireAuthorization()
+            .WithDescription("Script detail")
             .Produces<ScriptDetailResponse>();
         
         // Run
@@ -33,6 +35,7 @@ public class ScriptEndpoint : IEndpoint
                     await ctx.SendQuery<ScriptRunQuery, ScriptRunResponse>(request))
             .WithTags(GroupName)
             .RequireAuthorization()
+            .WithDescription("Run script")
             .Produces<ScriptRunResponse>();
         
         // Edit
@@ -41,6 +44,7 @@ public class ScriptEndpoint : IEndpoint
                     await ctx.SendCommand<ScriptEditCommand, ScriptEditResponse>(request))
             .WithTags(GroupName)
             .RequireAuthorization()
+            .WithDescription("Edit script")
             .Produces<ScriptEditResponse>();
         
         // Delete
@@ -49,6 +53,7 @@ public class ScriptEndpoint : IEndpoint
                     await ctx.SendCommand<ScriptDeleteCommand, ScriptDeleteResponse>(request))
             .WithTags(GroupName)
             .RequireAuthorization()
+            .WithDescription("Delete script")
             .Produces<ScriptDeleteResponse>();
     }
 }

@@ -1,6 +1,5 @@
 using Clicker.Backend.Common.Commands;
 using Clicker.Backend.Common.Databases;
-using Clicker.Backend.Settings;
 
 namespace Clicker.Backend.Commands.User;
 
@@ -16,7 +15,7 @@ public class UserEditCommandHandler : CommonHandler<UserEditCommand, UserEditCom
         request = request ?? throw new ArgumentNullException(nameof(request));
         
         // Create User
-        var user = await Context.DbContext.Get<Backend.Settings.User>();
+        var user = await Context.DbContext.Get<Models.User>();
             
         // edit
         user.IsFirstTimeUser = request.IsFirstTimeUser;
