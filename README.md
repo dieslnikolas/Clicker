@@ -19,3 +19,9 @@
 - backend - contains the backend code createt in NET 7.0
 - electron - contains the electron code. It is the main entry point for the app
 - public/src - contains the React code
+
+# How to run the app
+- Install the dependencies: `npm install`
+- Run the app: `npm run start`
+- Build the app: `npm run build`
+- It should open electron, start dotnet cli restapi and start react app. You can of course run them separately. Or even without electron.
