@@ -24,30 +24,29 @@ export class DotnetInjector {
         this.addListeners();
     }
 
-
     // Initialize the .NET API
     public async initializeApi() {
 
         // Get the API details
         // Set port and signing key
         this.apiDetails.port = Settings.IS_DEV ? 5000 : await this.getPortFree();
-        this.apiDetails.signingKey = Settings.IS_DEV ? "devkey" : crypto.randomUUID();
+        this.apiDetails.signingKey = Settings.IS_DEV ? "devkey" : "sds"; // crypto.randomUUID();
         ;
 
         var apiURL = `http://localhost:${String(this.apiDetails.port)}/`;
 
         // path to source code
-        const srcPath = path.join(__dirname, "../..", Settings.DOTNET_FOLDER, Settings.DOTNET_BASENAME, Settings.DOTNET_BASENAME + ".csproj");
+        const srcPath = path.join(Settings.DIRECTORY, "../..", Settings.DOTNET_FOLDER, Settings.DOTNET_BASENAME, Settings.DOTNET_BASENAME + ".csproj");
 
         // path to executable
         const exePath = (process.platform === "win32") ?
             // Win    
-            path.join(__dirname.replace("app.asar", "app.asar.unpacked"), "../..", Settings.DOTNET_DIST_FOLDER, Settings.DOTNET_BASENAME + ".exe")
+            path.join(Settings.DIRECTORY.replace("app.asar", "app.asar.unpacked"), "../..", Settings.DOTNET_DIST_FOLDER, Settings.DOTNET_BASENAME + ".exe")
             // Linux-based
-            : path.join(__dirname, Settings.DOTNET_DIST_FOLDER, Settings.DOTNET_BASENAME);
+            : path.join(Settings.DIRECTORY, Settings.DOTNET_DIST_FOLDER, Settings.DOTNET_BASENAME);
 
         // If Electron is packaged
-        if (__dirname.indexOf("app.asar") > 0) {
+        if (Settings.DIRECTORY.indexOf("app.asar") > 0) {
 
             // Tries to find executable
             if (fs.existsSync(exePath)) {

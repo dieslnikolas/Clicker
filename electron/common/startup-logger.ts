@@ -4,7 +4,12 @@ import { Settings } from './settings';
 export class StartupLogger {
     // It just logs the current directory and environment
     public static logStartup(): void {
-        console.log(`Directory: ${__dirname}`);
-        console.log(`Environment: ${Settings.IS_DEV ? "Development" : "Production"}`);
+        console.warn(`Directory: ${Settings.DIRECTORY}`);
+        console.warn(`Environment: ${Settings.IS_DEV ? "Development" : "Production"}`);
+        console.info(`DotnetBaseName: ${Settings.DOTNET_BASENAME}`);
+        console.info(`DotnetFolder: ${Settings.DOTNET_FOLDER}`);
+        console.info(`DotnetDistFolder: ${Settings.DOTNET_DIST_FOLDER}`);
+        console.info(`DotnetSuffix: ${Settings.DOTNET_SUFFIX}`);
+        console.info(``);
     }
 }
