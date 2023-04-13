@@ -36,39 +36,39 @@ export class ProjectService extends BaseService {
 
 
 export class ProjectPostRequest {
-    id: string;
-    author: string;
-    path: string;
-    key: string
+    id: string | undefined;
+    author: string | undefined;
+    path: string | undefined;
+    key: string | undefined
 }
 
 export class ProjectPostResponse {
-    jwt: string
+    jwt: string | undefined
 }
 
 export class ProjectOpenRequest {
-    path: string;
-    key: string
+    path: string | undefined;
+    key: string | undefined
 }
 
 export class ProjectOpenResponse {
-    jwt: string
+    jwt: string | undefined
 }
 
 export class ProjectDetailRequest {
 }
 
 export class ProjectDetailResponse {
-    id: string;
-    author: string;
-    version: string;
+    id: string | undefined;
+    author: string | undefined;
+    version: string | undefined;
     scripts: any
 }
 
 export class ProjectEditRequest {
-    id: string;
-    author: string;
-    version: string
+    id: string | undefined;
+    author: string | undefined;
+    version: string | undefined
 }
 
 export class ProjectEditResponse {

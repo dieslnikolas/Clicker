@@ -14,16 +14,12 @@ export class DotnetCLI {
     private get isElectronPacked() {
         return Settings.DIRECTORY.indexOf("app.asar") > 0
     }
-    
-    // Add listeners
-    private get apiURL() {
-        return `${String(Settings.API_URL_WITHOUTPORT)}${String(this.apiDetails.port)}/swagger/index.html`;
-    }
 
     // The .NET API process
     private apiDetails = {
         port: 0,
         signingKey: "",
+        url: undefined as string | undefined,
     };
 
     // The .NET API process
@@ -62,10 +58,11 @@ export class DotnetCLI {
 
         // Server is running
         else {
-            console.log("Server running at " + this.apiURL);
+            console.log("Server running at " + this.apiDetails.url + "/swagger/index.html");
             console.log("Process ID: " + this.dotnetProc.pid);
             console.info("Signing key: " + this.apiDetails.signingKey);
             console.info("Port: " + this.apiDetails.port);
+            console.info("URL: " + this.apiDetails.url);
         }
     }
 
@@ -76,7 +73,7 @@ export class DotnetCLI {
             this.dotnetProc = crossSpawn.spawn("dotnet", [
                 "run",
                 "-p", Settings.API_SOURCE_PATH,
-                "--urls", this.apiURL,
+                "--urls", this.apiDetails.url,
                 "--signingkey", this.apiDetails.signingKey,
             ]);
         }
@@ -115,6 +112,11 @@ export class DotnetCLI {
         }
     }
 
+    // Add listeners
+    private apiURL() {
+        return `${String(Settings.API_URL_WITHOUTPORT)}${String(this.apiDetails.port)}`;
+    }
+
     // Get a free port
     private async getPortFree() : Promise<number> {
         var net = require('net');
@@ -134,6 +136,7 @@ export class DotnetCLI {
         // Set port and signing key
         this.apiDetails.port = Settings.IS_DEV ? 5000 : await this.getPortFree();
         this.apiDetails.signingKey = crypto.randomUUID()
+        this.apiDetails.url = this.apiURL();
     }
 
     // Get API Details
@@ -172,7 +175,8 @@ export class DotnetCLI {
         //             pyProc.kill() totally isn't enough. Instead send a message to
         //             the pyProc web server telling it to exit
         //
-        superagent.get("http://127.0.0.1:" + this.apiDetails.port + "/graphql/?query=%7Bexit(signingkey:\"" + this.apiDetails.signingKey + "\")%7D").then().catch();
+        superagent.get("" + this.apiDetails.url + "/graphql/?query=%7Bexit(signingkey:\"" + this.apiDetails.signingKey + "\")%7D").then().catch();
+        this.dotnetProc.kill();
         this.dotnetProc = null;
     };
 }

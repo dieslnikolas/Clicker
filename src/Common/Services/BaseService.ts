@@ -3,7 +3,7 @@
 export class BaseService {
 
     // Token
-    protected token: string;
+    protected token: string | undefined;
     
     // Client instance for HTTP requests
     protected client: AxiosInstance;
@@ -12,7 +12,7 @@ export class BaseService {
 
         // Create instance
         this.client = axios.create({
-            baseURL: `http://localhost:5128`
+            baseURL: `http://localhost:5000`
         })
 
         // Request interceptor

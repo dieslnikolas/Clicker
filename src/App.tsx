@@ -18,17 +18,21 @@ function App() {
     const TestButtonCreateClick = async (event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
 
-        var service = new ProjectService()
+        // GET API DETAILS
+        const { ipcRenderer } = window.require('electron');
+        const apidetails = JSON.parse(await ipcRenderer.invoke("getApiDetails"));
+        console.info("API DETAILS", apidetails);
 
         // CREATE
+        var service = new ProjectService()
         var input2 = new ProjectPostRequest();
         input2.id = "My little project"
         input2.key = "KEY"
-        input2.path = "C:/data/test.clicker"
+        input2.path = "/Users/nikolasdiesl/Projects/Clicker/test.clicker"  //"C:/data/test.clicker"
 
         var result = await service.create(input2)
         
-        jwt = result.data.jwt;
+        // jwt = result.data.jwt;
         console.log("CREATE", result);
     }
 
@@ -45,7 +49,7 @@ function App() {
         // OPEN
         var result = await service.open(input);
 
-        jwt = result.data.jwt;
+        // jwt = result.data.jwt;
         console.log("OPEN", result);
     }
 
@@ -61,7 +65,7 @@ function App() {
         input.author = "Nikolas Diesl"
         input.version = "a0.64"
 
-        service.token = jwt;
+        // service.token = jwt;
         var result = await service.edit(input);
         console.log('EDIT', result);
 
@@ -74,7 +78,7 @@ function App() {
         var service = new ProjectService()
         var input = new ProjectDeleteRequest();
 
-        service.token = jwt;
+        // service.token = jwt;
         await service.delete(input);
     }
 
