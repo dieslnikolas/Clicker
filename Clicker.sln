@@ -1,19 +1,5 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Clicker.Tests", "backend\Clicker.Tests\Clicker.Tests.csproj", "{53DDDD22-8C1C-4FA7-B120-BFFC916194F2}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{A32ABA22-3974-491F-B72B-8CDC534F228D}"
-	ProjectSection(SolutionItems) = preProject
-		.env = .env
-		.gitignore = .gitignore
-		package.json = package.json
-		package-lock.json = package-lock.json
-		README.md = README.md
-		tsconfig.electron.json = tsconfig.electron.json
-		tsconfig.json = tsconfig.json
-		tslint.json = tslint.json
-	EndProjectSection
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Clicker.Backend", "backend\Clicker.Backend\Clicker.Backend.csproj", "{6A7873AF-4F12-4EFA-AE97-D67B13FCE95C}"
 EndProject
 Global
@@ -22,10 +8,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{53DDDD22-8C1C-4FA7-B120-BFFC916194F2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{53DDDD22-8C1C-4FA7-B120-BFFC916194F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{53DDDD22-8C1C-4FA7-B120-BFFC916194F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{53DDDD22-8C1C-4FA7-B120-BFFC916194F2}.Release|Any CPU.Build.0 = Release|Any CPU
 		{6A7873AF-4F12-4EFA-AE97-D67B13FCE95C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{6A7873AF-4F12-4EFA-AE97-D67B13FCE95C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6A7873AF-4F12-4EFA-AE97-D67B13FCE95C}.Release|Any CPU.ActiveCfg = Release|Any CPU
