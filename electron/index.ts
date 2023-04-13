@@ -3,7 +3,7 @@ import { app, BrowserWindow } from "electron";
 import { Shell } from "./windows/shell";
 import { Settings } from "./common/settings";
 import { StartupLogger } from "./common/startup-logger";
-import { DotnetInjector } from "./common/dotnet-injector";
+import { DotnetCLI } from "./common/dotnet-cli";
 
 // 1) Logs the startup information
 StartupLogger.logStartup();
@@ -31,6 +31,6 @@ app.on("ready", () => {
     win.createWindow();
     
     // Inject the .NET API
-    var dotnetInjector = new DotnetInjector()
-    dotnetInjector.initializeApi();
+    var dotnetCLI = new DotnetCLI()
+    dotnetCLI.initializeApi();
 });
