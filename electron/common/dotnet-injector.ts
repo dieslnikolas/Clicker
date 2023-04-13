@@ -2,10 +2,10 @@ import {app, dialog, ipcMain} from "electron"; // tslint:disable-line
 import * as fs from "fs";
 import * as path from "path";
 import * as superagent from "superagent";
-import "cross-spawn";
 import * as childProcess from "child_process";
-import "crypto";
 import {Settings} from "./settings";
+import * as crossSpawn from "cross-spawn";
+import * as crypto from "crypto";
 
 // Inject the .NET API
 export class DotnetInjector {
@@ -30,29 +30,18 @@ export class DotnetInjector {
         // Get the API details
         // Set port and signing key
         this.apiDetails.port = Settings.IS_DEV ? 5000 : await this.getPortFree();
-        this.apiDetails.signingKey = Settings.IS_DEV ? "devkey" : "sds"; // crypto.randomUUID();
-        ;
+        this.apiDetails.signingKey = crypto.randomUUID()
 
-        var apiURL = `http://localhost:${String(this.apiDetails.port)}/`;
-
-        // path to source code
-        const srcPath = path.join(Settings.DIRECTORY, "../..", Settings.DOTNET_FOLDER, Settings.DOTNET_BASENAME, Settings.DOTNET_BASENAME + ".csproj");
-
-        // path to executable
-        const exePath = (process.platform === "win32") ?
-            // Win    
-            path.join(Settings.DIRECTORY.replace("app.asar", "app.asar.unpacked"), "../..", Settings.DOTNET_DIST_FOLDER, Settings.DOTNET_BASENAME + ".exe")
-            // Linux-based
-            : path.join(Settings.DIRECTORY, Settings.DOTNET_DIST_FOLDER, Settings.DOTNET_BASENAME);
-
+        var apiURL = `${String(Settings.API_URL_WITHOUTPORT)}${String(this.apiDetails.port)}/`;
+       
         // If Electron is packaged
         if (Settings.DIRECTORY.indexOf("app.asar") > 0) {
 
             // Tries to find executable
-            if (fs.existsSync(exePath)) {
+            if (fs.existsSync(Settings.API_EXE_PATH)) {
 
                 // Run API with port and signing key
-                this.dotnetProc = childProcess.execFile(exePath, ["--apiport", String(this.apiDetails.port), "--signingkey", this.apiDetails.signingKey], {}, (error, stdout, stderr) => {
+                this.dotnetProc = childProcess.execFile(Settings.API_EXE_PATH, ["--apiport", String(this.apiDetails.port), "--signingkey", this.apiDetails.signingKey], {}, (error, stdout, stderr) => {
                     if (error) {
                         console.log(error);
                         console.log(stderr);
@@ -78,19 +67,18 @@ export class DotnetInjector {
         else {
 
             // Tries to find source code
-            if (fs.existsSync(srcPath)) {
-                // this.dotnetProc = crossSpawn("dotnet", [
-                //     "run",
-                //     "-p", srcPath,
-                //     "--",
-                //     "--urls", apiURL,
-                //     "--signingkey", this.apiDetails.signingKey,
-                // ]);
+            if (fs.existsSync(Settings.API_SOURCE_PATH)) {
+                this.dotnetProc = crossSpawn.spawn("dotnet", [
+                    "run",
+                    "-p", Settings.API_SOURCE_PATH,
+                    "--urls", apiURL,
+                    "--signingkey", this.apiDetails.signingKey,
+                ]);
             } 
 
             // Source code not found
             else {
-                dialog.showErrorBox("Error", "Unpackaged dotnet source not found");
+                dialog.showErrorBox("Error", "Unpackaged REST API source code not found on " + Settings.API_SOURCE_PATH + "");
             }
         }
 
@@ -102,6 +90,9 @@ export class DotnetInjector {
         // Server is running
         else {
             console.log("Server running at " + apiURL);
+            console.log("Process ID: " + this.dotnetProc.pid);
+            console.info("Signing key: " + this.apiDetails.signingKey);
+            console.info("Port: " + this.apiDetails.port);
         }
     }
 
