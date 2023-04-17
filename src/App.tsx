@@ -1,17 +1,9 @@
-import React, {MouseEvent, useEffect, useState} from 'react';
-import './App.css';
-import {
-    ProjectDeleteRequest,
-    ProjectEditRequest,
-    ProjectOpenRequest,
-    ProjectPostRequest,
-    ProjectPostResponse,
-    ProjectService
-} from "./common/services/ProjectService";
-import LoadingSpinner from './components/LoadingSpinner';
-import TestButtons from './components/TestButtons';
+import * as React from 'react';
+import {useEffect, useState} from 'react';
+import Core from './components/Core';
+import { LoadingSpinner } from './components/shared/LoadingSpinner';
 
-function App() {
+export default function App() {
 
     const [isLoading, setIsLoading] = useState(true);
 
@@ -27,22 +19,14 @@ function App() {
             console.info("API DETAILS", apidetails);
 
             await new Promise(resolve => setTimeout(resolve, 1000));
-            
+
             setIsLoading(false);
         }
-        
+
         loadApiDetails();
-        
+
     }, []);
 
 
-    return (
-        <div className="App">
-            <header className="App-header">
-                {isLoading ? <LoadingSpinner/> : <TestButtons/>}
-            </header>
-        </div>
-    );
+    return (isLoading ? <LoadingSpinner/> : <Core/>);
 }
-
-export default App;

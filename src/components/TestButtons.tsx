@@ -1,10 +1,10 @@
+import Button from "@mui/material/Button";
 import React from "react";
 import {ProjectDeleteRequest, ProjectEditRequest, ProjectOpenRequest, ProjectPostRequest, ProjectService } from "../common/services/ProjectService";
-import "./LoadingSpinner.css";
 
 export default function LoadingSpinner() {
 
-       // Testo button click
+       // Testo Button click
        const TestButtonCreateClick = async (event: React.MouseEvent<HTMLButtonElement>) => {
               event.preventDefault();
 
@@ -21,7 +21,7 @@ export default function LoadingSpinner() {
               console.log("CREATE", result);
        }
 
-       // Testo button click
+       // Testo Button click
        const TestButtonOpenClick = async (event: React.MouseEvent<HTMLButtonElement>) => {
               event.preventDefault();
 
@@ -38,7 +38,7 @@ export default function LoadingSpinner() {
               console.log("OPEN", result);
        }
 
-       // Testo button click
+       // Testo Button click
        const TestButtonEditClick = async (event: React.MouseEvent<HTMLButtonElement>) => {
               event.preventDefault();
 
@@ -56,7 +56,7 @@ export default function LoadingSpinner() {
 
        }
 
-       // Testo button click
+       // Testo Button click
        const TestButtonDeleteClick = async (event: React.MouseEvent<HTMLButtonElement>) => {
               event.preventDefault();
 
@@ -70,34 +70,34 @@ export default function LoadingSpinner() {
     return (
        <>
            <h1>Project</h1>
-           <button onClick={TestButtonCreateClick}>Test Create</button>
-           <button onClick={TestButtonOpenClick}>Test Open</button>
-           <button onClick={TestButtonEditClick}>Test Edit</button>
-           <button onClick={TestButtonDeleteClick}>Test Delete</button>
+           <Button onClick={TestButtonCreateClick}>Test Create</Button>
+           <Button onClick={TestButtonOpenClick}>Test Open</Button>
+           <Button onClick={TestButtonEditClick}>Test Edit</Button>
+           <Button onClick={TestButtonDeleteClick}>Test Delete</Button>
 
            <h1>Module</h1>
-           <button onClick={TestButtonCreateClick}>Test Create</button>
-           <button onClick={TestButtonOpenClick}>Test Detail</button>
-           <button onClick={TestButtonEditClick}>Test Edit</button>
-           <button onClick={TestButtonDeleteClick}>Test Delete</button>
+           <Button onClick={TestButtonCreateClick}>Test Create</Button>
+           <Button onClick={TestButtonOpenClick}>Test Detail</Button>
+           <Button onClick={TestButtonEditClick}>Test Edit</Button>
+           <Button onClick={TestButtonDeleteClick}>Test Delete</Button>
 
            <h1>Script</h1>
-           <button onClick={TestButtonCreateClick}>Test Create</button>
-           <button onClick={TestButtonOpenClick}>Test Detail</button>
-           <button onClick={TestButtonEditClick}>Test Edit</button>
-           <button onClick={TestButtonDeleteClick}>Test Delete</button>
+           <Button onClick={TestButtonCreateClick}>Test Create</Button>
+           <Button onClick={TestButtonOpenClick}>Test Detail</Button>
+           <Button onClick={TestButtonEditClick}>Test Edit</Button>
+           <Button onClick={TestButtonDeleteClick}>Test Delete</Button>
 
            <h1>Settings</h1>
-           <button onClick={TestButtonCreateClick}>Test Create</button>
-           <button onClick={TestButtonOpenClick}>Test Detail</button>
-           <button onClick={TestButtonEditClick}>Test Edit</button>
-           <button onClick={TestButtonDeleteClick}>Test Delete</button>
+           <Button onClick={TestButtonCreateClick}>Test Create</Button>
+           <Button onClick={TestButtonOpenClick}>Test Detail</Button>
+           <Button onClick={TestButtonEditClick}>Test Edit</Button>
+           <Button onClick={TestButtonDeleteClick}>Test Delete</Button>
 
            <h1>Global Settings</h1>
-           <button onClick={TestButtonCreateClick}>Test Create</button>
-           <button onClick={TestButtonOpenClick}>Test Detail</button>
-           <button onClick={TestButtonEditClick}>Test Edit</button>
-           <button onClick={TestButtonDeleteClick}>Test Delete</button>
+           <Button onClick={TestButtonCreateClick}>Test Create</Button>
+           <Button onClick={TestButtonOpenClick}>Test Detail</Button>
+           <Button onClick={TestButtonEditClick}>Test Edit</Button>
+           <Button onClick={TestButtonDeleteClick}>Test Delete</Button>
        </>
     );
 }
