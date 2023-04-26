@@ -1,0 +1,12 @@
+appId: com.clicker
+productName: Clicler
+copyright: Copyright © 2023 Nikolas Diesl
+directories:
+  output: dist
+  buildResources: resources
+files:
+  - from: .
+    filter:
+      - package.json
+      - app
+publish: null

@@ -1,0 +1,7 @@
+{
+    "files.exclude": {
+        "app": true,
+        "node_modules": true,
+        "renderer/.next": true
+    }
+}

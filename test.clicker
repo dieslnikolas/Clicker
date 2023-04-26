@@ -1,9 +1,0 @@
-{
-  "Id": "My little project",
-  "Author": "nikolasdiesl",
-  "Version": "1.0",
-  "DataFolder": ".clicker",
-  "Settings": {},
-  "Scripts": [],
-  "Modules": []
-}

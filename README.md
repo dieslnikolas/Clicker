@@ -1,27 +1,38 @@
-# Backend 
-- Minimal REST API NET 7.0
+<p align="center"><img src="https://i.imgur.com/kIDlAFT.png"></p>
 
-# Frontend
-- Electron 
-- React
-- Typescript 
+## Usage
 
-# Configuration files
-- **tsconfig.json** - is the configuration file for TS for the React app 
-- **tsconfig.electron.json** - is the configuration file for TS for Electron 
-- **package.json** - is the main configuration file for the node project. It contains the list of dependencies, scripts, and other metadata.
-- **tslint.json** - is the configuration file for the TSLint tool, which is used to enforce coding standards.
-- **.gitignore** - is the configuration file for the git tool, which is used to ignore files and folders from the git repository.
-- **backend/.gitignore** - is the configuration file for the .NET 7.0 project. It contains the list of files and folders to ignore from the git repository.
+### Create an App
 
-# Folder structure
-- .idea - is the folder for the Rider IDE
-- backend - contains the backend code createt in NET 7.0
-- electron - contains the electron code. It is the main entry point for the app
-- public/src - contains the React code
+```
+# with npx
+$ npx create-nextron-app my-app --example ipc-communication
 
-# How to run the app
-- Install the dependencies: `npm install`
-- Run the app: `npm run start`
-- Build the app: `npm run build`
-- It should open electron, start dotnet cli restapi and start react app. You can of course run them separately. Or even without electron.
+# with yarn
+$ yarn create nextron-app my-app --example ipc-communication
+
+# with pnpx
+$ pnpx create-nextron-app my-app --example ipc-communication
+```
+
+### Install Dependencies
+
+```
+$ cd my-app
+
+# using yarn or npm
+$ yarn (or `npm install`)
+
+# using pnpm
+$ pnpm install --shamefully-hoist
+```
+
+### Use it
+
+```
+# development mode
+$ yarn dev (or `npm run dev` or `pnpm run dev`)
+
+# production build
+$ yarn build (or `npm run build` or `pnpm run build`)
+```
