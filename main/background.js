@@ -20,8 +20,8 @@ if (isProd) {
 
     // Create main window
     const mainWindow = createWindow('main', {
-        width: 1000,
-        height: 600,
+        width: 1400,
+        height: 1000,
     });
 
     // Load main window
