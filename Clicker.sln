@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Clicker.Backend", "backend\Clicker.Backend\Clicker.Backend.csproj", "{6A7873AF-4F12-4EFA-AE97-D67B13FCE95C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "backend", "backend\backend.csproj", "{6A7873AF-4F12-4EFA-AE97-D67B13FCE95C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
