@@ -11,20 +11,22 @@
         "postinstall": "electron-builder install-app-deps"
     },
     "dependencies": {
-        "@headlessui/react": "^1.7.14",
-        "@heroicons/react": "^2.0.17",
+        "@emotion/react": "^11.10.6",
+        "@fontsource/roboto": "^4.5.8",
+        "@mui/icons-material": "^5.11.16",
+        "@mui/material": "^5.12.2",
+        "@mui/styled-engine-sc": "^5.12.0",
         "electron-serve": "^1.1.0",
-        "electron-store": "^8.1.0"
+        "electron-store": "^8.1.0",
+        "recharts": "^2.5.0",
+        "styled-components": "^5.3.10"
     },
     "devDependencies": {
-        "autoprefixer": "^10.4.14",
         "electron": "^21.3.3",
         "electron-builder": "^23.6.0",
         "next": "^12.3.4",
         "nextron": "^8.5.0",
-        "postcss": "^8.4.23",
         "react": "^18.2.0",
-        "react-dom": "^18.2.0",
-        "tailwindcss": "^3.3.2"
+        "react-dom": "^18.2.0"
     }
 }
