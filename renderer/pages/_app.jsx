@@ -14,7 +14,7 @@ import '../styles/global.css';
 function Clicker({ Component, pageProps }) {
     return (
         <>
-            {/* <Component {...pageProps} /> */}
+            <Component {...pageProps} />
         </>
     )
 }

@@ -1,65 +1,111 @@
-import electron from 'electron';
-import React from 'react';
-import Head from 'next/head';
-import Link from 'next/link';
+import * as React from 'react';
+import Avatar from '@mui/material/Avatar';
+import Button from '@mui/material/Button';
+import CssBaseline from '@mui/material/CssBaseline';
+import TextField from '@mui/material/TextField';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Checkbox from '@mui/material/Checkbox';
+import Link from '@mui/material/Link';
+import Grid from '@mui/material/Grid';
+import Box from '@mui/material/Box';
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import Typography from '@mui/material/Typography';
+import Container from '@mui/material/Container';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 
-const ipcRenderer = electron.ipcRenderer || false;
+function Copyright(props) {
+    return (
+        <Typography variant="body2" color="text.secondary" align="center" {...props}>
+            {'Copyright © '}
+            <Link color="inherit" href="https://mui.com/">
+                Your Website
+            </Link>{' '}
+            {new Date().getFullYear()}
+            {'.'}
+        </Typography>
+    );
+}
 
-function App() {
-    const [message, setMessage] = React.useState('no ipc message');
+const theme = createTheme();
 
-    const onClickWithIpc = () => {
-        // ipcRenderer.send('get-messages', 'some data from ipcRenderer');
+export default function index() {
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        const data = new FormData(event.currentTarget);
+        console.log({
+            email: data.get('email'),
+            password: data.get('password'),
+        });
     };
-
-    const onClickWithIpcSync = () => {
-        // const message = ipcRenderer.sendSync('add-message', 'Message text');
-        // setMessage(message);
-    };
-
-    // If we use ipcRenderer in this scope, we must check the instance exists
-    if (ipcRenderer) {
-        // In this scope, the webpack process is the client
-    }
-
-    React.useEffect(() => {
-        // like componentDidMount()
-
-        // register `ping-pong` event
-        // ipcRenderer.on('get-messages', (event, data) => {
-        //     setMessage(data);
-        // });
-
-        return () => {
-            // like componentWillUnmount()
-
-            // unregister it
-            // ipcRenderer.removeAllListeners('ping-pong');
-        };
-    }, []);
 
     return (
-        <React.Fragment>
-        <Head>
-          <title>Clicker</title>
-        </Head>
-        <div className='grid grid-col-1 text-2xl w-full text-center'>
-          <img className='ml-auto mr-auto' src='/images/logo.png' />
-          <span>⚡ Electron ⚡</span>
-          <span>+</span>
-          <span>Next.js</span>
-          <span>+</span>
-          <span>tailwindcss</span>
-          <span>=</span>
-          <span>💕 </span>
-        </div>
-        <div className='mt-1 w-full flex-wrap flex justify-center'>
-          <Link href='/next'>
-            <a className='btn-blue'>Go to next page</a>
-          </Link>
-        </div>
-      </React.Fragment>
+        <ThemeProvider theme={theme}>
+            <Container component="main" maxWidth="xs">
+                <CssBaseline />
+                <Box
+                    sx={{
+                        marginTop: 8,
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center',
+                    }}
+                >
+                    <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+                        <LockOutlinedIcon />
+                    </Avatar>
+                    <Typography component="h1" variant="h5">
+                        Sign in
+                    </Typography>
+                    <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+                        <TextField
+                            margin="normal"
+                            required
+                            fullWidth
+                            id="email"
+                            label="Email Address"
+                            name="email"
+                            autoComplete="email"
+                            autoFocus
+                        />
+                        <TextField
+                            margin="normal"
+                            required
+                            fullWidth
+                            name="password"
+                            label="Password"
+                            type="password"
+                            id="password"
+                            autoComplete="current-password"
+                        />
+                        <FormControlLabel
+                            control={<Checkbox value="remember" color="primary" />}
+                            label="Remember me"
+                        />
+                        <Button
+                            type="submit"
+                            fullWidth
+                            variant="contained"
+                            href='/dashboard'
+                            sx={{ mt: 3, mb: 2 }}
+                        >
+                            Sign In
+                        </Button>
+                        <Grid container>
+                            <Grid item xs>
+                                <Link href="#" variant="body2">
+                                    Forgot password?
+                                </Link>
+                            </Grid>
+                            <Grid item>
+                                <Link href="#" variant="body2">
+                                    {"Don't have an account? Sign Up"}
+                                </Link>
+                            </Grid>
+                        </Grid>
+                    </Box>
+                </Box>
+                <Copyright sx={{ mt: 8, mb: 4 }} />
+            </Container>
+        </ThemeProvider>
     );
-};
-
-export default App;
+}
